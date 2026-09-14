@@ -2,7 +2,7 @@
 # `you: true` marks a step a person does (filled node). Business facts only; the technical detail is on the résumé.
 client: Government of Canada
 kind: Policy chatbot · 2026
-story: A federal department runs on 220 policy directives. When someone needs the rule, they find the right directive and read it by hand. 17,000 staff work under those directives, and the people who look things up most were losing hours a week to it.
+story: "A federal department runs on 220 policy directives: old documents, some of them PDFs that barely open. When someone needs the rule, they find the right one and read it by hand. 17,000 staff work under those directives, and the people who look things up most were losing hours a week to it."
 now: They type the question and get the answer, with the passage it came from. The people who used to do the most looking up get 6 to 7 hours a week back. Still in use today.
 pipe_lead: Two human steps, ask and read. The search between them runs itself.
 steps:
