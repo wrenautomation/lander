@@ -107,6 +107,9 @@ thanks: I'll reply within one business day from william@wrenautomation.com. If i
 # Bottom of every page. `fine` is the privacy line; keep it true (see README, "What gets measured").
 footer_line: Thanks for reading this far.
 fine: What you send goes to my inbox and one table I keep. I use it to reply and for nothing else. Ask and I delete it. No cookies. Visits are counted, not people.
+# Appended only when Turnstile is on. Cloudflare requires the link for invisible mode.
+fine_turnstile: The form is checked for bots by Cloudflare Turnstile, under its
+fine_turnstile_link: privacy addendum
 
 # The 404 page.
 notfound_title: Not found
