@@ -1,5 +1,6 @@
 // Schemas for the content files. William edits the files, never this.
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 const one = (base: string) =>
