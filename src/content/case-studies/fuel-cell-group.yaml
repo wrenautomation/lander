@@ -1,0 +1,32 @@
+client: Fuel cell research group
+kind: Test data to report · 2025
+before: Instrument exports copied by hand into a weekly report. Plots rebuilt in Excel each time. Half a day, every week, by the most senior person.
+now: Tests run as they always did. The report is waiting on Monday morning with the plots already in the group's style. The only thing anyone reads closely is the short list of runs the checks flagged.
+pipe_lead: One human step at each end. Everything between the test and Monday morning runs itself.
+steps:
+  - name: Run the test
+    you: true
+    text: Exports land in the shared folder as before. Nothing changed for the people running tests.
+  - name: Watch
+    text: A watcher notices new exports within a minute of arrival.
+  - name: Check
+    text: Each run is validated. Partial or bad runs are flagged, never silently included.
+  - name: Plot
+    text: Per-run plots generated in the group's existing style.
+  - name: Compile
+    text: The weekly report assembled in the same format every time, archived by run.
+  - name: Read on Monday
+    you: true
+    text: Skim the flagged list. That is the whole job now.
+impact:
+  - fig: 0 hrs
+    count: 0
+    suffix: " hrs"
+    label: of manual reporting each week
+  - fig: ½ day
+    label: a week back to the most senior person in the group
+  - fig: 30+
+    count: 30
+    suffix: "+"
+    label: weekly reports produced without anyone touching a plot
+stack: Python, a shared drive, one watcher. The group owns the code and can add an instrument themselves.

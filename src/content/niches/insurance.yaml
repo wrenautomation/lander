@@ -1,0 +1,22 @@
+# wrenautomation.com/insurance
+hue: green
+title: Wren Automation for insurance agencies
+h1: Renewals, certificates and loss runs, without re-keying the same client data three times.
+lede: "I'm William. I build document and workflow automation for independent insurance agencies: certificates, renewals, proposals, the chasing in between. **Two builds below, with numbers.**"
+cases: [government-of-canada, fuel-cell-group]
+targets_h2: What usually gets automated first at an agency
+targets_intro: The service desk, mostly. The jobs that are urgent, repetitive, and interrupt everything else.
+targets:
+  - what: Certificate of insurance requests
+    how: issued from policy data in minutes, not hours
+  - what: Renewal summaries
+    how: carrier downloads turned into a client-ready comparison
+  - what: Loss run requests
+    how: sent, tracked and chased automatically
+  - what: Proposal packets
+    how: assembled from the quote, not retyped
+  - what: Policy change confirmations
+    how: drafted from the change, sent for a one-click check
+  - what: AMS data cleanup
+    how: duplicates and gaps found before renewal season
+form_value: insurance

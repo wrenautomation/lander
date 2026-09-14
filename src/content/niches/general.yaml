@@ -1,0 +1,22 @@
+# The root page, wrenautomation.com/
+hue: rust
+title: Wren Automation
+h1: Document and workflow automation for firms that still type the same figure five times.
+lede: "I'm William. I build the automations small firms never get around to: intake, document generation, the handoffs between people. **Two builds below, with numbers.**"
+cases: [government-of-canada, fuel-cell-group]
+targets_h2: What usually gets automated first
+targets_intro: The jobs that eat a week are rarely the interesting ones. These are the usual suspects.
+targets:
+  - what: Intake forms that feed everything else
+    how: one entry, no retyping downstream
+  - what: Documents generated from one source
+    how: letters, agreements, invoices, summaries
+  - what: Handoffs between people
+    how: the email that says "can you add this to the sheet"
+  - what: Weekly and monthly reports
+    how: built the same way every time, on time
+  - what: Chasing
+    how: reminders that go out without anyone remembering
+  - what: Spreadsheets only one person understands
+    how: made boring and shared
+form_value: general

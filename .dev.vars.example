@@ -1,0 +1,3 @@
+# copy to .dev.vars for `npm run preview`; never commit .dev.vars
+TURNSTILE_SECRET=
+RESEND_API_KEY=

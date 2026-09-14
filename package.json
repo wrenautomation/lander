@@ -1,0 +1,22 @@
+{
+  "name": "wren-lander",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro build && wrangler pages dev dist",
+    "deploy": "astro build && wrangler pages deploy dist --project-name wren-lander",
+    "db:create": "wrangler d1 create wren-leads",
+    "db:migrate": "wrangler d1 execute wren-leads --remote --file schema.sql",
+    "leads": "wrangler d1 execute wren-leads --remote --command \"select ts, niche, email, phone, note from leads order by ts desc limit 50\""
+  },
+  "dependencies": {
+    "astro": "^7.3.2",
+    "gsap": "^3.15.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250101.0",
+    "wrangler": "^4.131.2"
+  }
+}

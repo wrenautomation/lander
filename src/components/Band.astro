@@ -1,0 +1,9 @@
+---
+import { makeBand, BAND } from '../lib/band';
+const { seed } = Astro.props as { seed: number };
+const { paths, nodes } = makeBand(seed);
+---
+<svg class="band" data-band viewBox={`0 0 ${BAND.W} ${BAND.H}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  {paths.map((d) => <path d={d} />)}
+  {nodes.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y} r={BAND.R} />)}
+</svg>

@@ -1,0 +1,70 @@
+# Copy shared by every page. Edit freely. Keep the keys.
+# **bold** works in: lede (niche files), ask_intro.
+
+name: William Jin
+email: william@wrenautomation.com
+city: Toronto
+
+cta: Request a free audit
+from_note: If you got an email from me, this page is here so you can check the work before replying.
+
+# Three numbers under the hero. `count` makes the figure count up to that number on scroll; leave it out for text figures.
+proof:
+  - fig: "6"
+    count: 6
+    label: hours a week returned to one four-person team
+  - fig: "5"
+    count: 5
+    label: documents generated from a single source of truth
+  - fig: "2"
+    count: 2
+    label: builds shipped and in daily use
+
+work_intro: "Two builds, both in daily use. For each: where the hours went, how the system runs now, and what it gave back."
+
+how_intro: Three steps. Fixed scope. You keep everything.
+how:
+  - name: Audit
+    text: A 30-minute call. I map where the hours go and tell you what is worth automating and what is not. Free, and useful even if you stop here.
+  - name: Build
+    text: Fixed scope, fixed price, agreed up front. I build inside the tools you already use where possible. You see it working before you pay the balance.
+  - name: Handover
+    text: Documentation, a walkthrough for whoever runs it, and the code. It keeps running without a retainer, and I'm reachable if something changes.
+
+questions_intro: Short answers. Ask me the long ones on the call.
+questions:
+  - q: Where does our client data go?
+    a: It stays in your accounts. I build inside them, copy nothing to my own systems, and my access is removed at handover.
+  - q: What does it cost?
+    a: A fixed price per build, quoted after the audit, which is free. I don't bill hourly or by retainer.
+  - q: What if it breaks after you leave?
+    a: You have the code and the documentation, so anyone technical can fix it. If it's my mistake, I fix it at no charge.
+  - q: Do we need new software?
+    a: Usually not. Most builds run on what you already pay for. If something new is genuinely better, I'll say so and you decide.
+
+# photo: /william.jpg   <- drop the file in public/ and uncomment
+about:
+  - William Jin. Wren Automation is a one-person practice. I build document and workflow automation for small firms, and I write the emails myself.
+  - If you got one from me, it was because I read your filing first. The two builds above are the whole portfolio. I'd rather show you two that worked than a logo wall.
+facts:
+  - fact: One business day
+    note: reply time
+  - fact: Fixed price
+    note: per build, no retainer
+  - fact: Your tools
+    note: new software only when it earns its place
+  - fact: You keep the code
+    note: documented at handover
+
+ask_intro: Tell me what eats your week. I reply within one business day with a few times for a 30-minute call. **I send times directly rather than a calendar link, and the call commits you to nothing.**
+ask_fields:
+  email: Work email
+  phone: Phone
+  note: What eats your week?
+  note_placeholder: The report that takes a day. The form nobody fills in. The spreadsheet only one person understands.
+ask_small: Goes straight to William. Nothing else happens to your details.
+thanks_h: Got it.
+thanks: I'll reply within one business day from william@wrenautomation.com. If it hasn't arrived by then, check spam, then email me directly.
+
+footer_line: Thanks for reading this far.
+fine: Your details are used only to reply to you.

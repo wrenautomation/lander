@@ -1,0 +1,22 @@
+# wrenautomation.com/agencies. SAMPLE COPY. Rewrite before sending anyone here.
+hue: red
+title: Wren Automation for agencies
+h1: Proposals, monthly reports and onboarding, without rebuilding last month's deck by hand.
+lede: "I'm William. I build document and workflow automation for small agencies: proposals, client reporting, onboarding, the handoffs between account and delivery. **Two builds below, with numbers.**"
+cases: [government-of-canada, fuel-cell-group]
+targets_h2: What usually gets automated first at an agency
+targets_intro: The account side, mostly. The jobs that repeat every month and interrupt billable work.
+targets:
+  - what: Proposals and SOWs
+    how: assembled from the scoping call, not from last month's deck
+  - what: Monthly client reports
+    how: pulled from the platforms, in your format, on the first
+  - what: Client onboarding
+    how: one intake feeds the contract, the brief and the kickoff
+  - what: Hours to invoice
+    how: without the spreadsheet in between
+  - what: Chasing approvals
+    how: reminders that go out without an account manager remembering
+  - what: Account to delivery handoffs
+    how: the message that says "can you add this to the sheet"
+form_value: agencies

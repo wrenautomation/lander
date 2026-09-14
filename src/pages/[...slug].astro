@@ -1,0 +1,15 @@
+---
+// / renders niches/general.yaml; /ria, /insurance, /agencies render their own file.
+import { getCollection } from 'astro:content';
+import Lander from '../layouts/Lander.astro';
+
+export async function getStaticPaths() {
+  const niches = await getCollection('niches');
+  return niches.map((niche) => ({
+    params: { slug: niche.id === 'general' ? undefined : niche.id },
+    props: { niche },
+  }));
+}
+const { niche } = Astro.props;
+---
+<Lander niche={niche} />

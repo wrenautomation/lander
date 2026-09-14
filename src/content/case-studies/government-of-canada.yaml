@@ -1,0 +1,31 @@
+# One case study. `you: true` marks a step a person does (filled node).
+client: Government of Canada
+kind: Document pipeline · 2025
+before: Four people, one shared spreadsheet, and a template that broke whenever a column was renamed. Six to seven hours a week of retyping.
+now: Someone fills one form. Six minutes later five documents are in the shared drive, named and formatted. If a detail changes, they edit the sheet and only the affected documents re-render. Nobody opens a template.
+pipe_lead: Two human steps, submit and send. Everything between them runs itself.
+steps:
+  - name: Fill one form
+    you: true
+    text: Required fields are enforced at entry. The shared spreadsheet is gone.
+  - name: Store
+    text: One source-of-truth sheet, version history on every edit.
+  - name: Render
+    text: Five templates fill from the sheet on submit, in the department's own format.
+  - name: Catch edits
+    text: A scheduled job spots later changes and re-renders only what changed.
+  - name: Send
+    you: true
+    text: Five documents, named and filed in the shared drive, ready to go.
+# fig is what is shown. count makes it count up to that number on scroll (suffix is appended); leave count out for text figures.
+impact:
+  - fig: 6–7 hrs
+    label: a week returned to a four-person team
+  - fig: 6 min
+    count: 6
+    suffix: " min"
+    label: per document set, down from about two hours
+  - fig: "0"
+    count: 0
+    label: retyping. Every document comes from the one sheet
+stack: Python, Google Workspace, one scheduled job. Handed over with documentation and a walkthrough.

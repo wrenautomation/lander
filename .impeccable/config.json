@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "designs/playground/index.html"
+        ],
+        "createdAt": "2026-09-14T15:24:03.425Z",
+        "reason": "assistant: zero side padding is the grid-aligned rule-divider pattern (proof strip, target list); text sits against hairline rules, not inside a boxed container"
+      }
+    ]
+  }
+}

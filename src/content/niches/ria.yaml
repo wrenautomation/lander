@@ -1,0 +1,22 @@
+# wrenautomation.com/ria
+hue: rust
+title: Wren Automation for RIAs
+h1: The same AUM figure lives in your ADV, your agreements, your letters and your invoices. Someone types it four times.
+lede: "I'm William. I build document and workflow automation for independent RIAs: onboarding, client documents, quarterly letters, the handoffs in between. **Two builds below, with numbers.**"
+cases: [government-of-canada, fuel-cell-group]
+targets_h2: What usually gets automated first at an RIA
+targets_intro: Read from Form ADV filings and from the firms I've talked to. Yours will differ. That is what the audit is for.
+targets:
+  - what: Client onboarding packets
+    how: agreement, IPS and custodian forms from one intake
+  - what: Quarterly letters
+    how: performance figures pulled in, not pasted
+  - what: Fee invoices
+    how: from custodian data, checked against the agreement
+  - what: ADV annual amendment prep
+    how: the numbers gathered before the deadline week
+  - what: Meeting notes into the CRM
+    how: and the follow-up tasks that come out of them
+  - what: Compliance calendar
+    how: reminders and evidence collected as you go
+form_value: ria
