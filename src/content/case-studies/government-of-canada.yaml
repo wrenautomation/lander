@@ -1,34 +1,31 @@
-# One case study. `story` is what the team does and where the hours went; `now` is the same week today.
-# `you: true` marks a step a person does (filled node).
-# Facts from personal_portfolio (CSC, Jan to May 2026). Open questions in designs/opus_to_be_reviewed/2026-09-14-case-studies.md.
+# One case study. `story` is what the team did by hand; `now` is the same week today.
+# `you: true` marks a step a person does (filled node). Business facts only; the technical detail is on the résumé.
 client: Government of Canada
 kind: Policy chatbot · 2026
-story: A federal agency runs on 220+ policy directives, published as PDFs. When someone needs the rule, they find the right directive and read it by hand. 17,000+ officers and staff work under those directives.
-now: They type the question. The chatbot searches the directives, answers, and shows the passage it took the answer from with a link to the source. Each answer can be rated, and the ratings are logged so the agency can see where it is wrong.
+story: A federal department runs on 220+ policy directives. When someone needs the rule, they find the right directive and read it by hand. 17,000+ staff work under those directives, and the people who look things up most were losing hours a week to it.
+now: They type the question and get the answer, with the passage it came from. The people who used to do the most looking up get 6 to 7 hours a week back. Still in use today.
 pipe_lead: Two human steps, ask and read. The search between them runs itself.
 steps:
   - name: Ask
     you: true
     text: A question in plain words.
   - name: Search
-    text: Azure AI Search finds the passages across 220+ directives. The PDFs were re-parsed to HTML first, which raised search accuracy 15% on 300 test prompts.
+    text: The right passages are found across all 220+ directives.
   - name: Answer
-    text: Azure OpenAI writes the answer from the passages found. Grounding to the source went up 10% on the same 300 prompts.
-  - name: Read the source
+    text: An answer in plain words, with the passage it came from.
+  - name: Read
     you: true
-    text: A citation panel links the answer to the directive it came from. Rate it, and the rating is logged.
+    text: Check the source if you want to. Rate the answer if it's wrong.
 # fig is what is shown. count makes it count up to that number on scroll (suffix is appended); leave count out for text figures.
 impact:
   - fig: 17,000+
     count: 17000
     suffix: "+"
-    label: officers and staff who can ask instead of reading
+    label: staff who ask instead of reading
+  - fig: 6 to 7 hrs
+    label: a week back for the people who used to do the looking up
   - fig: 220+
     count: 220
     suffix: "+"
-    label: policy directives searched in one place
-  - fig: 15%
-    count: 15
-    suffix: "%"
-    label: better search accuracy on 300 test prompts, from re-parsing the PDFs
-stack: Azure OpenAI, Azure AI Search, TypeScript for the citation panel. Built in the agency's own Azure.
+    label: directives searched in one go
+stack: Runs in the department's own accounts. Still in use today.

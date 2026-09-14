@@ -1,33 +1,33 @@
-# Facts from personal_portfolio (UAlberta Energy Mechatronics Lab, Jul to Sep 2025). Open questions in designs/opus_to_be_reviewed/2026-09-14-case-studies.md.
+# Business facts only; the technical detail is on the résumé.
 client: University of Alberta
-kind: Research data · 2025
-story: A fuel cell lab wanted citation data on 7,000+ papers, who cites what and where. The only way was by hand, a Google Scholar search per paper, then each author looked up in turn. About two minutes a paper, so 200+ hours. The lab's own experiment files, 5,000+ of them, were found by searching folders by hand.
-now: A scraper does the lookups and writes them to a database. The result is a map, shaded by how much each region cites, that the lab uses in its talks. The experiment files are in a SQL Server database too, queried instead of browsed.
+kind: Research lab · 2025
+story: A research lab needed to know who was citing 7,000+ papers, and where. Each one was a search by hand, about two minutes a paper, so 200+ hours of someone's time. The lab's own experiment files, 5,000+ of them, were found by clicking through folders.
+now: The lookups run on their own. What comes out is a map of who cites what, by region, that the lab uses in its talks. The experiment files are searchable in one place. Still in use today.
 pipe_lead: One human step at each end. Everything between the list of papers and the map runs itself.
 steps:
   - name: Hand over the list
     you: true
     text: 7,000+ papers. That is the only input.
-  - name: Scrape
-    text: Selenium works through Google Scholar and 2,000+ journal sites, paper by paper, and pulls the citing authors.
+  - name: Look up
+    text: Every paper is looked up and every citing author pulled, the way a person would, without the person.
   - name: Store
-    text: Results land in SQL Server. The lab's 5,000+ experiment files went into a database as well, so a query replaces a folder search.
+    text: Results and the lab's 5,000+ experiment files in one searchable place.
   - name: Map
-    text: A Folium choropleth shades each region by citation density.
+    text: Who cites what, drawn by region.
   - name: Present
     you: true
-    text: The map goes in the lab talk. The lookups are done.
+    text: The map goes in the talk. The lookups are done.
 impact:
   - fig: 200+ hrs
     count: 200
     suffix: "+ hrs"
-    label: of manual author lookups removed
+    label: of lookups by hand, gone
   - fig: 7,000+
     count: 7000
     suffix: "+"
-    label: papers tracked, across 2,000+ journal sites
+    label: papers tracked without anyone searching
   - fig: 5,000+
     count: 5000
     suffix: "+"
-    label: experiment files in one database instead of folders
-stack: Python, Selenium, SQL Server, Folium. Built at the lab, left with the lab.
+    label: experiment files in one place instead of folders
+stack: Built at the lab, left with the lab. Still in use today.

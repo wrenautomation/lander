@@ -10,10 +10,10 @@ proves_intro: "Neither client is an insurance agency. What carries over:"
 proves:
   - point: The shape of the problem is the same
     detail: A client's details keyed from the policy into the certificate and the renewal summary, and a carrier guideline nobody can find. Same shape as 17,000 people reading 220 directives to find one rule.
-  - point: The build finishes
-    detail: Both were built inside an internship with an end date, and both were in use before I left. Nothing was left half done.
+  - point: Still in use
+    detail: Both are running today, without me. Nothing was left half done.
   - point: Nobody had to learn a system
-    detail: Officers type a question. Researchers ask a database instead of opening folders. The work they were already doing got shorter.
+    detail: Staff type a question. Researchers search one place instead of clicking through folders. The work they were already doing got shorter.
 targets_h2: What usually gets automated first at an agency
 targets_intro: The service desk, mostly. The urgent, repetitive jobs that interrupt everything else.
 targets:

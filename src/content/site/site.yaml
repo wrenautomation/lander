@@ -29,7 +29,7 @@ offer:
 
 # Case studies.
 work_h2: Who I've helped
-work_intro: "Two builds from two internships, the same two in the email. For each: what the team did by hand, how it runs now, what I built, and the numbers."
+work_intro: "Two builds, the same two in the email, both still in use. For each: what the team did by hand, how it runs now, what I built, and the numbers."
 case_labels:
   story: The story
   now: What they do now
@@ -78,7 +78,7 @@ about:
   - I want to get good at this work. The fastest way is to do it for firms that have the problem.
 why_h3: Why me
 why:
-  - The two builds above are the ones in my email, with the same numbers, and the numbers are counts I can show you. This page is here so you can read them at length.
+  - The two builds above are still in use, and the numbers are the same ones in my email. This page is here so you can read them at length.
   - I'm building a business on this kind of work, so each build has to be good enough that you'd mention it to someone. That's why the audit is free and you pay by milestone.
 
 # The form. Fields render in this order. `required: true` adds the * and the check; `error` shows under the field when the check fails.

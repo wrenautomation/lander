@@ -20,32 +20,23 @@ fuel cell experiment files into a database, replacing folder search.
 
 `motion.ts`: counters now format thousands (17,000+ instead of 17000+).
 
-## Assumed, not in the portfolio (confirm or cut)
+## Revised the same day (William)
 
-1. "in use before I left" (both). CSC: 17,000+ is the deployment scope,
-   but the résumé does not say it launched to them. UAlberta: the map
-   was used in talks; the database "deployed" in an earlier bullet.
-2. "Built in the agency's own Azure" and "left with the lab".
-3. `kind` years: CSC Jan to May 2026, UAlberta Jul to Sep 2025.
+Business facts only. Azure, AI Search, accuracy percentages, Selenium,
+SQL Server, Folium all out; they were résumé lines for software hiring,
+not for an RIA. 6 to 7 hrs a week (heaviest users) confirmed real and
+now leads. Both say "still in use today". Paper lookups and the file
+consolidation folded into one story; no time claim on the files.
+"Government of Canada" stays; "a federal department" in the story.
 
 ## Where to attack
 
-1. The email says "saving about 6 to 7 hours a week each" for the CSC
-   chatbot. Nothing in the portfolio supports it. It is the strongest
-   number in the email and it is not on the page. Either it has a
-   source (then it leads the impact row) or it comes out of the email.
-2. The email's UAlberta line mixes the two jobs: "200+ hours of manual
-   lookups across 7,000+ records of messy fuel cell data". The 200 hrs
-   were author lookups on papers; the fuel cell files were 5,000+ and a
-   separate database job. The template in emails_gen should say what
-   the page says.
-3. Client name. Email and page say "Government of Canada"; the résumé
-   says Correctional Service of Canada. Naming the agency is more
-   checkable. His call.
-4. The offer is document and workflow automation; the proof is a RAG
-   chatbot and a scraper. The bridge is honest ("same shape") but a
-   reader in an RIA may not feel it. A third, closer build (even the
-   emails_gen pipeline itself) would do more than any copy.
-5. `why` used to say "still running, handed over with documentation".
-   It no longer claims either. If both are true, put them back; they
-   were the stronger line.
+1. The email's UAlberta line still mixes the two jobs ("200+ hours of
+   lookups across 7,000+ records of fuel cell data"). The page now
+   says lookups on papers plus files in one place. Align the template.
+2. The offer is document and workflow automation; the proof is a Q&A
+   tool and a lookup pipeline. The bridge ("same shape") is honest but
+   a third, closer build would do more than any copy.
+3. "6 to 7 hrs a week back for the people who used to do the looking
+   up": the email says "each". If asked on a call, the answer should
+   be the same sentence as the page.
