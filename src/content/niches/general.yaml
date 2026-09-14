@@ -15,16 +15,16 @@ proves:
   - point: Nothing changed for the people using it
     detail: They fill the same form and read the same report. The retyping in between is gone.
 targets_h2: What usually gets automated first
-targets_intro: The jobs that eat a week are rarely the interesting ones. These are the usual suspects.
+targets_intro: The jobs that eat a week are rarely the interesting ones. These come up most.
 targets:
   - what: Intake forms that feed everything else
-    how: one entry, no retyping downstream
+    how: filled once, and everything after reads from it
   - what: Documents generated from one source
     how: letters, agreements, invoices, summaries
   - what: Handoffs between people
     how: the email that says "can you add this to the sheet"
   - what: Weekly and monthly reports
-    how: built the same way every time, on time
+    how: built the same way each time, and ready when they're due
   - what: Chasing
     how: reminders that go out without anyone remembering
   - what: Spreadsheets only one person understands

@@ -18,10 +18,10 @@ steps:
     text: A scheduled job spots later changes and re-renders only what changed.
   - name: Send
     you: true
-    text: Five documents, named and filed in the shared drive, ready to go.
+    text: Five documents, named and filed in the shared drive.
 # fig is what is shown. count makes it count up to that number on scroll (suffix is appended); leave count out for text figures.
 impact:
-  - fig: 6–7 hrs
+  - fig: 6 to 7 hrs
     label: a week returned to a four-person team
   - fig: 6 min
     count: 6

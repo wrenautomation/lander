@@ -53,9 +53,9 @@ pillars:
   - name: You pay by milestone
     text: The build is split into pieces you can see working. You pay for each one after it runs in your accounts, with no deposit and no retainer.
   - name: Built like software, and guaranteed
-    text: I'm a software engineer, so it's built the way software is built. Version history, checks on the inputs, and documentation for whoever runs it. If something I built breaks, I fix it at no charge.
+    text: "Built the way software is built: version history, checks on the inputs, and documentation for whoever runs it. If something I built breaks, I fix it at no charge."
   - name: Nothing to unwind
-    text: It runs in your accounts, on tools you already pay for, and you keep the code. If you stop working with me, nothing stops working.
+    text: It runs in your accounts, on tools you already pay for, and you keep the code. If you stop working with me, it keeps running.
 
 questions_h2: Questions you probably have
 questions_intro: Short answers. Ask me the long ones on the call.
@@ -67,7 +67,7 @@ questions:
   - q: What if it breaks after you leave?
     a: You have the code and the documentation, so anyone technical can fix it. If it's my mistake, I fix it at no charge.
   - q: Do we need new software?
-    a: Usually not. Most builds run on what you already pay for. If something new is genuinely better, I'll say so and you decide.
+    a: Usually not. Most builds run on what you already pay for. If something new is better, I'll say so and you decide.
 
 about_h2: About
 # photo: /william.jpg   <- drop the file in public/ and uncomment
@@ -75,11 +75,11 @@ photo_placeholder: photo
 about:
   - I'm William. I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
   - "My work so far has been internships: data cleaning, pipelines that connect systems, and CRMs. The two builds above came out of that work."
-  - I'm doing this because I want to build in this space, and the fastest way to get good at it is to fix real problems for real firms.
+  - I want to get good at this work. The fastest way is to do it for firms that have the problem.
 why_h3: Why me
 why:
   - The two builds above are still running, and both were handed over with documentation. The record is on this page so you can check it.
-  - I'm building a business on this kind of work, so each build has to be good enough that you'd mention it to someone. It is why the audit is free and you pay by milestone.
+  - I'm building a business on this kind of work, so each build has to be good enough that you'd mention it to someone. That's why the audit is free and you pay by milestone.
 
 # The form. Fields render in this order. `required: true` adds the * and the check; `error` shows under the field when the check fails.
 ask_intro: Tell me what eats your week. I reply within one business day with a few times for a 30-minute call. **I send the times myself, and the call commits you to nothing.**
@@ -94,7 +94,7 @@ ask_fields:
     placeholder: "+1"
   - key: note
     label: What eats your week?
-    placeholder: The report that takes a day. The form nobody fills in. The spreadsheet only one person understands.
+    placeholder: The report that takes a day, or the spreadsheet only one person understands.
     required: true
     error: One line is enough.
 ask_required: "* required"
@@ -106,7 +106,7 @@ thanks: I'll reply within one business day from william@wrenautomation.com. If i
 
 # Bottom of every page. `fine` is the privacy line; keep it true (see README, "What gets measured").
 footer_line: Thanks for reading this far.
-fine: What you send goes to my inbox and one table I keep. I use it to reply and for nothing else. Ask and I delete it. No cookies. Visits are counted, not people.
+fine: What you send goes to my inbox and one table I keep. I use it to reply and for nothing else. Ask and I delete it. No cookies. The site counts visits and can't tell who you are.
 # Appended only when Turnstile is on. Cloudflare requires the link for invisible mode.
 fine_turnstile: The form is checked for bots by Cloudflare Turnstile, under its
 fine_turnstile_link: privacy addendum

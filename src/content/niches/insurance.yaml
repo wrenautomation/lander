@@ -15,16 +15,16 @@ proves:
   - point: Nothing changed for the people using it
     detail: They fill the same form and read the same report. The retyping in between is gone.
 targets_h2: What usually gets automated first at an agency
-targets_intro: The service desk, mostly. The jobs that are urgent, repetitive, and interrupt everything else.
+targets_intro: The service desk, mostly. The urgent, repetitive jobs that interrupt everything else.
 targets:
   - what: Certificate of insurance requests
-    how: issued from policy data in minutes, not hours
+    how: issued from the policy data in minutes
   - what: Renewal summaries
     how: carrier downloads turned into a client-ready comparison
   - what: Loss run requests
-    how: sent, tracked and chased automatically
+    how: sent, tracked and chased on a schedule
   - what: Proposal packets
-    how: assembled from the quote, not retyped
+    how: assembled from the quote
   - what: Policy change confirmations
     how: drafted from the change, sent for a one-click check
   - what: AMS data cleanup

@@ -18,7 +18,7 @@ targets_h2: What usually gets automated first at an agency
 targets_intro: The account side, mostly. The jobs that repeat every month and interrupt billable work.
 targets:
   - what: Proposals and SOWs
-    how: assembled from the scoping call, not from last month's deck
+    how: assembled from the scoping call
   - what: Monthly client reports
     how: pulled from the platforms, in your format, on the first
   - what: Client onboarding

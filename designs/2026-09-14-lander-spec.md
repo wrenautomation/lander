@@ -135,3 +135,8 @@ prose without touching code.
 - 2026-09-14 — utm is first touch per tab (sessionStorage), so a hop
   from `/` to `/ria` keeps the campaign. Not cross-tab, not cross-day;
   the emails link straight to the niche page anyway.
+- 2026-09-14 — Site copy follows the opener-email voice
+  (`emails_gen/sops/cold-email-copy.md`, `templates/*/opener.email`):
+  short declarative sentences, commas for lists, a colon before an
+  example, no dashes, no hedges, exact numbers, student stated plainly.
+  "X, not Y" tails removed; they are not in the emails.

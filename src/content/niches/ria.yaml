@@ -15,12 +15,12 @@ proves:
   - point: Nothing changed for the people using it
     detail: They fill the same form and read the same report. The retyping in between is gone.
 targets_h2: What usually gets automated first at an RIA
-targets_intro: Read from Form ADV filings and from the firms I've talked to. Yours will differ. That is what the audit is for.
+targets_intro: Taken from Form ADV filings and from the RIAs I've talked to. Yours will differ, which is what the audit is for.
 targets:
   - what: Client onboarding packets
     how: agreement, IPS and custodian forms from one intake
   - what: Quarterly letters
-    how: performance figures pulled in, not pasted
+    how: with the performance figures already in it
   - what: Fee invoices
     how: from custodian data, checked against the agreement
   - what: ADV annual amendment prep
