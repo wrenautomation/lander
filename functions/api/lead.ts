@@ -25,6 +25,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const row = {
     email, phone: clip(form.get('phone'), 40), note: clip(form.get('note'), 4000),
     niche: clip(form.get('niche'), 40) || 'general', page: clip(form.get('page'), 200),
+    utm_source: clip(form.get('utm_source'), 100), utm_medium: clip(form.get('utm_medium'), 100),
+    utm_campaign: clip(form.get('utm_campaign'), 100), utm_content: clip(form.get('utm_content'), 100),
+    ref: clip(form.get('ref'), 200), country: request.headers.get('cf-ipcountry') || '',
     ip: request.headers.get('cf-connecting-ip') || '', ua: clip(request.headers.get('user-agent'), 300),
   };
 
@@ -38,8 +41,12 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   }
 
   await env.DB.prepare(
-    'insert into leads (ts, email, phone, note, niche, page, ip, ua) values (?, ?, ?, ?, ?, ?, ?, ?)',
-  ).bind(new Date().toISOString(), row.email, row.phone, row.note, row.niche, row.page, row.ip, row.ua).run();
+    `insert into leads (ts, email, phone, note, niche, page, utm_source, utm_medium, utm_campaign, utm_content, ref, country, ip, ua)
+     values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+  ).bind(
+    new Date().toISOString(), row.email, row.phone, row.note, row.niche, row.page,
+    row.utm_source, row.utm_medium, row.utm_campaign, row.utm_content, row.ref, row.country, row.ip, row.ua,
+  ).run();
 
   if (env.RESEND_API_KEY && env.LEAD_TO && env.LEAD_FROM) {
     await fetch('https://api.resend.com/emails', {
@@ -48,7 +55,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       body: JSON.stringify({
         from: env.LEAD_FROM, to: env.LEAD_TO, reply_to: row.email,
         subject: `Lead (${row.niche}): ${row.email}`,
-        text: `${row.email}\n${row.phone || 'no phone'}\n${row.page}\n\n${row.note || '(no note)'}`,
+        text: `${row.email}\n${row.phone || 'no phone'}\n${row.page}${row.utm_campaign ? ` · ${row.utm_campaign}` : ''}${row.country ? ` · ${row.country}` : ''}\n\n${row.note || '(no note)'}`,
       }),
     }).catch(() => {}); // the row is saved; the email is a courtesy
   }

@@ -1,14 +1,13 @@
 ---
-// Footer for every page. Copy is in site.yaml. The analytics clause only prints when analytics is on.
+// Footer for every page. Copy is in site.yaml.
 import Mark from './Mark.astro';
 const { site } = Astro.props;
-const analytics = import.meta.env.PUBLIC_CF_ANALYTICS;
 const year = new Date().getFullYear();
 ---
 <div class="wrap">
   <footer>
     <div><Mark /></div>
     <div>{site.footer_line} <a href={`mailto:${site.email}`}>{site.email}</a></div>
-    <div class="fine">© {year} Wren Automation · {site.city} · {site.fine}{analytics && ` ${site.fine_analytics}`}</div>
+    <div class="fine">© {year} Wren Automation · {site.city} · {site.fine}</div>
   </footer>
 </div>

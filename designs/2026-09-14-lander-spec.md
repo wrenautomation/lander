@@ -127,3 +127,11 @@ prose without touching code.
   arrive.
 - 2026-09-14 — Sitemap is a 12-line endpoint, not `@astrojs/sitemap`.
   Four URLs; no dependency.
+- 2026-09-14 — Measurement is server side and ours. A `hits` row per
+  page view (depth, seconds, CTA, form touch, utm) beats a pixel: no
+  cookies, no banner, no ad blocker loss, and the funnel joins to
+  `leads` on utm. Pixels wait for paid ads. Cloudflare Web Analytics
+  stays as the free second opinion.
+- 2026-09-14 — utm is first touch per tab (sessionStorage), so a hop
+  from `/` to `/ria` keeps the campaign. Not cross-tab, not cross-day;
+  the emails link straight to the niche page anyway.

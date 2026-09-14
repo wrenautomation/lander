@@ -104,10 +104,9 @@ ask_error: "That didn't send. Email me instead:"
 thanks_h: Got it.
 thanks: I'll reply within one business day from william@wrenautomation.com. If it hasn't arrived by then, check spam, then email me directly.
 
-# Bottom of every page. `fine` is the privacy line. `fine_analytics` is appended only when PUBLIC_CF_ANALYTICS is set.
+# Bottom of every page. `fine` is the privacy line; keep it true (see README, "What gets measured").
 footer_line: Thanks for reading this far.
-fine: What you send goes to my inbox and one table I keep. I use it to reply and for nothing else. Ask and I delete it. No cookies.
-fine_analytics: Cloudflare counts visits without cookies.
+fine: What you send goes to my inbox and one table I keep. I use it to reply and for nothing else. Ask and I delete it. No cookies. Visits are counted, not people.
 
 # The 404 page.
 notfound_title: Not found

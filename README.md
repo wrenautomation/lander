@@ -51,12 +51,47 @@ npx wrangler pages secret put RESEND_API_KEY   --project-name wren-lander   # op
 npm run deploy
 ```
 
-- Turnstile: create a widget at dash.cloudflare.com → Turnstile. Put the site key in `.env` as `PUBLIC_TURNSTILE_SITE_KEY`, the secret above. Without it the form still works; the honeypot field catches the dumb bots.
-- Lead email: Resend, domain verified, sender in `wrangler.toml` `LEAD_FROM`. Without it leads still land in D1.
-- Analytics: Cloudflare Web Analytics token in `.env` as `PUBLIC_CF_ANALYTICS`.
-- Custom domain: Pages project → Custom domains.
+Custom domain: Pages project → Custom domains → wrenautomation.com.
+Every later deploy: `npm run deploy`.
 
-Every later deploy: `npm run deploy`. Read leads: `npm run leads`.
+## Every key the site can take
+
+| Key | Where it goes | Get it from | Without it |
+|---|---|---|---|
+| `database_id` | `wrangler.toml` | `npm run db:create` prints it | form 500s; nothing else changes |
+| `PUBLIC_CF_ANALYTICS` | `.env` | dash.cloudflare.com → Web Analytics → add site → token | no Cloudflare visit counts; our own beacon still works |
+| `PUBLIC_TURNSTILE_SITE_KEY` | `.env` | dash.cloudflare.com → Turnstile → add widget (hostname wrenautomation.com, invisible) → site key | form still works; honeypot alone catches the dumb bots |
+| `TURNSTILE_SECRET` | `wrangler pages secret put` | same widget → secret key | same as above (both or neither) |
+| `RESEND_API_KEY` | `wrangler pages secret put` | resend.com → API keys; first verify `wrenautomation.com` under Domains (3 DNS records) | leads land in D1 only, no email ping |
+| `LEAD_TO` / `LEAD_FROM` | `wrangler.toml` `[vars]` | already set; `LEAD_FROM` must be on the verified domain | — |
+
+`.env` and secrets are read at build/deploy time: change one → `npm run deploy` again. `.env` and `.dev.vars` are never committed.
+
+## What gets measured
+
+No cookies, no ids. The footer line promises that; keep it true.
+
+- **Cloudflare Web Analytics** (if the token is set): visits, referrers, per page. Cookieless.
+- **Our own beacon** (`src/scripts/hit.ts` → `/api/hit` → `hits` table): one row per page view when the tab closes or hides. Page, % scrolled, seconds visible, clicked the CTA, touched the form, viewport width, utm, referrer, country. Sent with `sendBeacon`, so it survives the tab closing. Skipped with `?static` / `?probe`.
+- **Leads** (`leads` table): the form fields plus the utm and referrer the visitor arrived with, country, ip, user agent.
+
+```
+npm run hits            # per page: views, mobile share, avg depth, avg secs, CTA clicks, form touches
+npm run hits:campaign   # the same per utm_campaign
+npm run leads           # last 50 leads
+EMAIL=x@y.com npm run forget   # delete a lead on request
+```
+
+Views under 2 seconds are dropped from the summaries (bots, misclicks). Under ~100 views the numbers are noise.
+
+### Links you send
+
+Put a utm on every link in an email: `https://wrenautomation.com/ria?utm_source=email&utm_campaign=ria-sep`.
+`utm_campaign` is the one you will group by. The first utm a visitor lands with stays with them if they click from `/` to `/ria` in the same tab, and it is saved on the lead if they submit.
+
+### Pixels
+
+None. A Meta / LinkedIn / Google pixel sets cookies, which breaks the footer promise and needs a consent banner (Quebec Law 25, PIPEDA). Add one only when running paid ads, together with a `/privacy` page and a consent gate. There is no `/thanks` page; the thank-you is `?sent=1` on the same URL, so count conversions from the `leads` table, not from a page view.
 
 ## Layout
 
@@ -72,6 +107,8 @@ public/_headers            security headers and cache rules
 src/layouts/Lander.astro   the page
 src/styles/global.css      mobile first, one breakpoint
 src/scripts/motion.ts      theme, traces, counters, form
+src/scripts/hit.ts         the page-view beacon, utm into the form
 functions/api/lead.ts      POST handler: D1 row, optional Turnstile + email
-schema.sql                 the leads table
+functions/api/hit.ts       POST handler for the beacon
+schema.sql                 the leads and hits tables
 ```

@@ -37,6 +37,7 @@ const analytics = import.meta.env.PUBLIC_CF_ANALYTICS;
 <body>
   <slot />
   <script src="../scripts/motion.ts"></script>
+  <script src="../scripts/hit.ts"></script>
   {analytics && <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token": "${analytics}"}`}></script>}
 </body>
 </html>
