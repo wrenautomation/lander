@@ -4,6 +4,16 @@ title: Wren Automation for RIAs
 h1: The same AUM figure lives in your ADV, your agreements, your letters and your invoices. Someone types it four times.
 lede: "I'm William. I build document and workflow automation for independent RIAs: onboarding, client documents, quarterly letters, the handoffs in between. **Two builds below, with numbers.**"
 cases: [government-of-canada, fuel-cell-group]
+# Why two builds outside your industry still count. Sits between the case studies and the list below.
+proves_h2: What this proves to you
+proves_intro: "Neither client is an RIA. What carries over:"
+proves:
+  - point: The shape of the problem is the same
+    detail: One figure typed into the ADV, the agreement, the letter and the invoice is the same problem as one figure typed into five government documents.
+  - point: The build finishes
+    detail: Both went live and both are in daily use. The handover is part of the build, so they run without me.
+  - point: Nothing changed for the people using it
+    detail: They fill the same form and read the same report. The retyping in between is gone.
 targets_h2: What usually gets automated first at an RIA
 targets_intro: Read from Form ADV filings and from the firms I've talked to. Yours will differ. That is what the audit is for.
 targets:

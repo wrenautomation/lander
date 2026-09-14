@@ -15,6 +15,8 @@ const cases = (await Promise.all(n.cases.map((id) => getEntry('cases', id)))).ma
   return c.data;
 });
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+// Input attributes follow from the column, not the copy file.
+const input = { email: { type: 'email', autocomplete: 'email' }, phone: { type: 'tel', autocomplete: 'tel' }, note: {} } as const;
 ---
 <Base title={n.title} description={plain(n.lede)} hue={n.hue}>
 
@@ -22,9 +24,9 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   <nav class="nav" aria-label="Page">
     <a href="#top" aria-label="Wren Automation, top of page"><Mark /></a>
     <div class="right">
-      <div class="links"><a href="#work">Work</a><a href="#how">How it works</a><a href="#about">About</a><a href="#ask">Contact</a></div>
-      <a class="contact" href="#ask">Contact</a>
-      <button class="theme" type="button" data-theme-toggle aria-label="Switch between light and dark">Dark</button>
+      <div class="links"><a href="#work">{site.nav.work}</a><a href="#offer">{site.nav.offer}</a><a href="#about">{site.nav.about}</a><a href="#ask">{site.nav.contact}</a></div>
+      <a class="contact" href="#ask">{site.nav.contact}</a>
+      <button class="theme" type="button" data-theme-toggle data-to-dark={site.theme.to_dark} data-to-light={site.theme.to_light} aria-label="Switch between light and dark">{site.theme.to_dark}</button>
     </div>
   </nav>
 </div>
@@ -39,30 +41,32 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 </section>
 
 <div class="wrap">
-  <div class="proof">
-    {site.proof.map((p) => (
-      <div><div class="fig" data-count={p.count} data-suffix={p.suffix}>{p.fig}</div><div class="lbl">{p.label}</div></div>
-    ))}
-  </div>
+  <aside class="teaser" aria-label={site.offer.eyebrow}>
+    <h4>{site.offer.eyebrow}</h4>
+    <p class="promise" set:html={inline(site.offer.promise)} />
+    <p class="safe">{site.offer.safe}</p>
+    <a href="#offer">{site.offer.more} &rarr;</a>
+  </aside>
 </div>
 
 <Band seed={3} />
 
 <section class="s" id="work">
   <div class="wrap">
-    <h2>Work</h2>
+    <h2>{site.work_h2}</h2>
     <p class="intro">{site.work_intro}</p>
     {cases.map((c) => (
       <article class="case">
         <div class="head"><h3>{c.client}</h3><span>{c.kind}</span></div>
         <div class="top">
-          <div><h4>Before</h4><p>{c.before}</p></div>
-          <div><h4>Day to day now</h4><p>{c.now}</p></div>
+          <div><h4>{site.case_labels.story}</h4><p>{c.story}</p></div>
+          <div><h4>{site.case_labels.now}</h4><p>{c.now}</p></div>
         </div>
         <div class="pipe">
+          <h4>{site.case_labels.built}</h4>
           <div class="lead">
             <p>{c.pipe_lead}</p>
-            <div class="legend"><span><i class="f"></i>a person does this</span><span><i></i>runs on its own</span></div>
+            <div class="legend"><span><i class="f"></i>{site.case_labels.person}</span><span><i></i>{site.case_labels.auto}</span></div>
           </div>
           <ol>
             {c.steps.map((s) => (
@@ -81,20 +85,30 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   </div>
 </section>
 
+<section class="s" id="proves" style="padding-top:0">
+  <div class="wrap">
+    <h2>{n.proves_h2}</h2>
+    <p class="intro">{n.proves_intro}</p>
+    <div class="rows">
+      {n.proves.map((r) => <div><b>{r.point}</b><span>{r.detail}</span></div>)}
+    </div>
+  </div>
+</section>
+
 <section class="s" id="targets" style="padding-top:0">
   <div class="wrap">
     <h2>{n.targets_h2}</h2>
     <p class="intro">{n.targets_intro}</p>
-    <div class="targets">
+    <div class="rows">
       {n.targets.map((t) => <div><b>{t.what}</b><span>{t.how}</span></div>)}
     </div>
   </div>
 </section>
 
-<section class="s" id="how" style="padding-top:0">
+<section class="s" id="offer" style="padding-top:0">
   <div class="wrap steps">
-    <h2>How it works</h2>
-    <p class="intro">{site.how_intro}</p>
+    <h2>{site.offer_h2}</h2>
+    <p class="intro">{site.offer_intro}</p>
     <svg viewBox="0 0 1120 70" aria-hidden="true" data-steps>
       <path d="M8 35 H180 L195 20 H240 L255 35 H394"/>
       <path d="M394 35 H560 L575 50 H620 L635 35 H781"/>
@@ -113,12 +127,18 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
         <div><div class="n">{String(i + 1).padStart(2, '0')}</div><h3>{h.name}</h3><p>{h.text}</p></div>
       ))}
     </div>
+    <div class="pillars">
+      <h3>{site.pillars_h3}</h3>
+      <div class="cols">
+        {site.pillars.map((p) => <div><h4>{p.name}</h4><p>{p.text}</p></div>)}
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="s" id="questions" style="padding-top:0">
   <div class="wrap">
-    <h2>Questions you probably have</h2>
+    <h2>{site.questions_h2}</h2>
     <p class="intro">{site.questions_intro}</p>
     <div class="qa">
       {site.questions.map((x) => <div><h3>{x.q}</h3><p>{x.a}</p></div>)}
@@ -130,13 +150,12 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 
 <section class="s" id="about">
   <div class="wrap about">
-    <div class="photo">{site.photo ? <img src={site.photo} alt={site.name} loading="lazy"> : 'photo'}</div>
+    <div class="photo">{site.photo ? <img src={site.photo} alt={site.name} loading="lazy"> : site.photo_placeholder}</div>
     <div>
-      <h2>About</h2>
+      <h2>{site.about_h2}</h2>
       {site.about.map((p, i) => <p style={i === 0 ? 'margin-top:.6rem' : undefined}>{p}</p>)}
-      <div class="facts">
-        {site.facts.map((f) => <div>{f.fact}<span>{f.note}</span></div>)}
-      </div>
+      <h3>{site.why_h3}</h3>
+      {site.why.map((p) => <p>{p}</p>)}
     </div>
   </div>
 </section>
@@ -149,16 +168,22 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     </div>
     <div data-ask>
       <form method="post" action="/api/lead" data-lead>
-        <label>{site.ask_fields.email}<input type="email" name="email" autocomplete="email" placeholder="you@firm.com" required></label>
-        <label>{site.ask_fields.phone} <span>(optional)</span><input type="tel" name="phone" autocomplete="tel" placeholder="+1"></label>
-        <label>{site.ask_fields.note}<textarea name="note" placeholder={site.ask_fields.note_placeholder}></textarea></label>
+        {site.ask_fields.map((f) => (
+          <div class="field">
+            <label for={`f-${f.key}`}>{f.label}{f.required && <span class="req" aria-hidden="true"> *</span>}</label>
+            {f.key === 'note'
+              ? <textarea id={`f-${f.key}`} name={f.key} placeholder={f.placeholder} required={f.required} aria-describedby={f.error ? `e-${f.key}` : undefined}></textarea>
+              : <input id={`f-${f.key}`} name={f.key} placeholder={f.placeholder} required={f.required} aria-describedby={f.error ? `e-${f.key}` : undefined} {...input[f.key]}>}
+            {f.error && <p class="fe" id={`e-${f.key}`} data-error>{f.error}</p>}
+          </div>
+        ))}
         <input type="hidden" name="niche" value={n.form_value}>
         <input type="hidden" name="page" value={Astro.url.pathname}>
         <label class="hp" aria-hidden="true" tabindex="-1">Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
         {turnstile && <div class="cf-turnstile" data-sitekey={turnstile} data-size="flexible"></div>}
-        <button class="btn" type="submit">Send</button>
-        <small>{site.ask_small}</small>
-        <p class="err">That didn't send. Email me instead: <a href={`mailto:${site.email}`}>{site.email}</a></p>
+        <button class="btn" type="submit">{site.ask_submit}</button>
+        <small>{site.ask_required}<br>{site.ask_small}</small>
+        <p class="err" role="alert">{site.ask_error} <a href={`mailto:${site.email}`}>{site.email}</a></p>
       </form>
       <div class="sent" role="status"><h3>{site.thanks_h}</h3><p>{site.thanks}</p></div>
     </div>

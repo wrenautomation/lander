@@ -7,7 +7,7 @@ interface Env {
   LEAD_FROM?: string;          // a sender on a domain verified in Resend
 }
 
-const clip = (v: FormDataEntryValue | null, n: number) => (typeof v === 'string' ? v.trim().slice(0, n) : '');
+const clip = (v: ReturnType<FormData['get']>, n: number) => (typeof v === 'string' ? v.trim().slice(0, n) : '');
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const wantsJson = (request.headers.get('accept') || '').includes('application/json');

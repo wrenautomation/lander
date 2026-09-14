@@ -1,70 +1,114 @@
 # Copy shared by every page. Edit freely. Keep the keys.
-# **bold** works in: lede (niche files), ask_intro.
+# **bold** works in: lede (niche files), ask_intro, offer.promise.
+# A value with a colon or a * needs quotes.
 
 name: William Jin
 email: william@wrenautomation.com
 city: Toronto
 
-cta: Request a free audit
+# Top bar. Order is fixed; words are yours.
+nav:
+  work: Who I've helped
+  offer: The offer
+  about: About
+  contact: Contact
+theme:
+  to_dark: Dark
+  to_light: Light
+
+# Hero button and the heading of the form section.
+cta: Request an audit
 from_note: If you got an email from me, this page is here so you can check the work before replying.
 
-# Three numbers under the hero. `count` makes the figure count up to that number on scroll; leave it out for text figures.
-proof:
-  - fig: "6"
-    count: 6
-    label: hours a week returned to one four-person team
-  - fig: "5"
-    count: 5
-    label: documents generated from a single source of truth
-  - fig: "2"
-    count: 2
-    label: builds shipped and in daily use
+# The offer in one breath, right under the hero. `more` links to the offer section below.
+offer:
+  eyebrow: The offer
+  promise: "**A full workday a week back** for every person in the pipeline."
+  safe: The audit is free. After that you pay by milestone, once you've seen each one run in your own accounts. If a piece doesn't do what we agreed, you don't pay for it.
+  more: How that works
 
-work_intro: "Two builds, both in daily use. For each: where the hours went, how the system runs now, and what it gave back."
+# Case studies.
+work_h2: Who I've helped
+work_intro: "Two builds, both in daily use. For each: what the team does, how it runs now, what I built, and what it gave back."
+case_labels:
+  story: The story
+  now: What they do now
+  built: What I built
+  person: a person does this
+  auto: runs on its own
 
-how_intro: Three steps. Fixed scope. You keep everything.
+# The offer section. Steps first, then the three things you're protected by.
+offer_h2: The offer
+offer_intro: Three steps. You see each piece working before you pay for it, and you keep everything at the end.
 how:
   - name: Audit
     text: A 30-minute call. I map where the hours go and tell you what is worth automating and what is not. Free, and useful even if you stop here.
   - name: Build
-    text: Fixed scope, fixed price, agreed up front. I build inside the tools you already use where possible. You see it working before you pay the balance.
+    text: Scope and milestones agreed up front. I build inside the tools you already use where possible, and you see each milestone running before you pay for it.
   - name: Handover
     text: Documentation, a walkthrough for whoever runs it, and the code. It keeps running without a retainer, and I'm reachable if something changes.
+pillars_h3: What you're protected by
+# DRAFT. Pillar 1 is decided (pay by milestone). 2 and 3 are first drafts to brainstorm.
+pillars:
+  - name: You pay by milestone
+    text: The build is split into pieces you can see working. You pay for each one after it runs in your accounts, with no deposit and no retainer.
+  - name: Built like software, and guaranteed
+    text: I'm a software engineer, so it's built the way software is built. Version history, checks on the inputs, and documentation for whoever runs it. If something I built breaks, I fix it at no charge.
+  - name: Nothing to unwind
+    text: It runs in your accounts, on tools you already pay for, and you keep the code. If you stop working with me, nothing stops working.
 
+questions_h2: Questions you probably have
 questions_intro: Short answers. Ask me the long ones on the call.
 questions:
   - q: Where does our client data go?
     a: It stays in your accounts. I build inside them, copy nothing to my own systems, and my access is removed at handover.
   - q: What does it cost?
-    a: A fixed price per build, quoted after the audit, which is free. I don't bill hourly or by retainer.
+    a: Quoted after the audit, which is free. You pay per milestone, after each one runs, with nothing hourly and no retainer.
   - q: What if it breaks after you leave?
     a: You have the code and the documentation, so anyone technical can fix it. If it's my mistake, I fix it at no charge.
   - q: Do we need new software?
     a: Usually not. Most builds run on what you already pay for. If something new is genuinely better, I'll say so and you decide.
 
+about_h2: About
 # photo: /william.jpg   <- drop the file in public/ and uncomment
+photo_placeholder: photo
 about:
-  - William Jin. Wren Automation is a one-person practice. I build document and workflow automation for small firms, and I write the emails myself.
-  - If you got one from me, it was because I read your filing first. The two builds above are the whole portfolio. I'd rather show you two that worked than a logo wall.
-facts:
-  - fact: One business day
-    note: reply time
-  - fact: Fixed price
-    note: per build, no retainer
-  - fact: Your tools
-    note: new software only when it earns its place
-  - fact: You keep the code
-    note: documented at handover
+  - I'm William. I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
+  - "My work so far has been internships: data cleaning, pipelines that connect systems, and CRMs. The two builds above came out of that work."
+  - I'm doing this because I want to build in this space, and the fastest way to get good at it is to fix real problems for real firms.
+why_h3: Why me
+why:
+  - The two builds above are still running, and both were handed over with documentation. The record is on this page so you can check it.
+  - I'm building a business on this kind of work, so each build has to be good enough that you'd mention it to someone. It is why the audit is free and you pay by milestone.
 
-ask_intro: Tell me what eats your week. I reply within one business day with a few times for a 30-minute call. **I send times directly rather than a calendar link, and the call commits you to nothing.**
+# The form. Fields render in this order. `required: true` adds the * and the check; `error` shows under the field when the check fails.
+ask_intro: Tell me what eats your week. I reply within one business day with a few times for a 30-minute call. **I send the times myself, and the call commits you to nothing.**
 ask_fields:
-  email: Work email
-  phone: Phone
-  note: What eats your week?
-  note_placeholder: The report that takes a day. The form nobody fills in. The spreadsheet only one person understands.
-ask_small: Goes straight to William. Nothing else happens to your details.
+  - key: email
+    label: Work email
+    placeholder: you@firm.com
+    required: true
+    error: Enter a work email so I can reply.
+  - key: phone
+    label: Phone
+    placeholder: "+1"
+  - key: note
+    label: What eats your week?
+    placeholder: The report that takes a day. The form nobody fills in. The spreadsheet only one person understands.
+    required: true
+    error: One line is enough.
+ask_required: "* required"
+ask_submit: Send
+ask_small: Lands in my inbox and one table I keep so nothing gets lost. Nobody else sees it, and I delete it if you ask.
+ask_error: "That didn't send. Email me instead:"
 thanks_h: Got it.
 thanks: I'll reply within one business day from william@wrenautomation.com. If it hasn't arrived by then, check spam, then email me directly.
 
 footer_line: Thanks for reading this far.
-fine: Your details are used only to reply to you.
+fine: I use what you send to reply to you, and for nothing else.
+
+# The 404 page.
+notfound_title: Not found
+notfound_h: Nothing here.
+notfound: That link doesn't go anywhere. The front page does.
+notfound_link: Go to the front page

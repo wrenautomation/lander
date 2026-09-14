@@ -9,13 +9,14 @@ All words live in `src/content/`. Nothing in `src/` outside that folder is prose
 
 | Want to change | File |
 |---|---|
-| Headline, intro, "what gets automated" list for one page | `niches/<page>.yaml` (`general.yaml` is `/`) |
-| A case study (before, now, steps, numbers, stack) | `case-studies/<name>.yaml` |
-| Everything else: proof numbers, how it works, questions, about, form, footer | `site/site.yaml` |
+| Headline, intro, "what this proves", "what gets automated" list for one page | `niches/<page>.yaml` (`general.yaml` is `/`) |
+| A case study (story, now, steps, numbers, stack) | `case-studies/<name>.yaml` |
+| Everything else: nav, offer teaser, section headings and labels, how it works, pillars, questions, about, form fields, footer, 404 | `site/site.yaml` |
 
 Rules:
-- `**bold**` works in `lede` and `ask_intro` only.
-- A value with a colon needs quotes: `h1: "Renewals: the short version"`.
+- `**bold**` works in `lede`, `ask_intro` and `offer.promise` only.
+- A value with a colon or a `*` needs quotes: `h1: "Renewals: the short version"`.
+- Form fields are the `ask_fields` list. `required: true` adds the `*` and the check; `error` is the line shown under the field when the check fails. The email is always checked on the server.
 - Keep the indentation. A stray key or missing field fails the build with the file and line.
 - Case-study `count:` makes a figure count up on scroll. Leave it out for text figures like `½ day`.
 - A step with `you: true` gets the filled node (a person does it).
@@ -63,6 +64,8 @@ Every later deploy: `npm run deploy`. Read leads: `npm run leads`.
 src/content/         copy (yaml)
 src/content.config.ts  what each yaml must contain
 src/pages/[...slug].astro  one route per niche file
+src/pages/404.astro        the not-found page (copy in site.yaml)
+public/robots.txt          allows everything except /api/
 src/layouts/Lander.astro   the page
 src/styles/global.css      mobile first, one breakpoint
 src/scripts/motion.ts      theme, traces, counters, form

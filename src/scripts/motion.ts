@@ -13,28 +13,43 @@ const BP = '(max-width:839px)'; // same number as global.css
 /* ---------- theme ---------- */
 const tb = document.querySelector<HTMLButtonElement>('[data-theme-toggle]')!;
 const setTheme = (t: string, save = true) => {
-  root.dataset.theme = t; tb.textContent = t === 'dark' ? 'Light' : 'Dark';
+  root.dataset.theme = t; tb.textContent = t === 'dark' ? tb.dataset.toLight! : tb.dataset.toDark!;
   if (save) try { localStorage.setItem('wren-theme', t); } catch {}
 };
 setTheme(q.get('theme') || root.dataset.theme || 'light', false);
 tb.onclick = () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
 
 /* ---------- form: fetch when JS is on, plain POST + redirect when it is off ---------- */
-const ask = document.querySelector<HTMLElement>('[data-ask]')!;
-const form = ask.querySelector<HTMLFormElement>('form[data-lead]')!;
-if (q.get('sent') === '1') ask.classList.add('done');
-form.onsubmit = async (e) => {
-  e.preventDefault();
-  const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
-  btn.disabled = true; ask.classList.remove('error');
-  try {
-    const r = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-    if (!r.ok) throw new Error(String(r.status));
-    ask.classList.add('done');
-  } catch {
-    ask.classList.add('error'); btn.disabled = false;
-  }
-};
+const ask = document.querySelector<HTMLElement>('[data-ask]');
+if (ask) {
+  const form = ask.querySelector<HTMLFormElement>('form[data-lead]')!;
+  if (q.get('sent') === '1') ask.classList.add('done');
+  if (q.get('sent') === '0') ask.classList.add('error');
+  // Required and email checks with the messages from site.yaml. The browser's own checks still run when JS is off.
+  form.noValidate = true;
+  const fields = [...form.querySelectorAll<HTMLElement>('.field')];
+  const check = (f: HTMLElement) => {
+    const el = f.querySelector<HTMLInputElement | HTMLTextAreaElement>('input,textarea')!;
+    const bad = !el.checkValidity();
+    f.classList.toggle('bad', bad); el.setAttribute('aria-invalid', String(bad));
+    return !bad;
+  };
+  fields.forEach((f) => { const el = f.querySelector('input,textarea')!; el.addEventListener('input', () => { if (f.classList.contains('bad')) check(f); }); });
+  form.onsubmit = async (e) => {
+    e.preventDefault();
+    const ok = fields.map(check).every(Boolean);
+    if (!ok) { fields.find((f) => f.classList.contains('bad'))?.querySelector<HTMLElement>('input,textarea')?.focus(); return; }
+    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    btn.disabled = true; ask.classList.remove('error');
+    try {
+      const r = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+      if (!r.ok) throw new Error(String(r.status));
+      ask.classList.add('done');
+    } catch {
+      ask.classList.add('error'); btn.disabled = false;
+    }
+  };
+}
 
 /* ---------- draw once ---------- */
 function drawOnEnter(svg: SVGSVGElement, stagger: number) {

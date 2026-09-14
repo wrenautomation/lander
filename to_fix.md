@@ -1,0 +1,18 @@
+- replace with request an audit
+- remove the 3 claims there
+- after the relatability hook add the offer with the metrics --> ill save you a full workday worth of time per person involved in the pipeline. risk reversal here and nobrainer offer here (details later in the lander)
+- replace work with who i've helped 
+- have the actual thing i made slightly bigger, more focus but not the main focus
+- start with a story (replace before with the context) --> what they do now
+- the steps and pipeline line is good, ill reword it
+- key metrics is good
+- new section below what this proves to you
+- tiny tech stack is good
+- industry rundown is good, expanding into offer now 
+- preobjection hadnlign with questions i sgood
+- somehwere add 3 pillars into the offer details (well brainstorm these later, one is accountability [pay by milestone], other tow not usre, one needs ot be a quality gauarantee leveraging that im a soft eng, other can be appeal to emotion or something else)
+- about page is good, maybe write why me
+- not a one person thing, descrbining if im' getting this blah blha blah is bad. fix priced doesn't make sense, those 4 details at the botom are not necessary. need ot leverage that i'm a software engineering student, past internshipe xperinece under my belt, etc. and who i am why im doing this (looking into breaking into the space, help businesses, provide more value)
+- replace optional wording and what not with use of * for required, as well as error handlnig in case
+- detail protection is good, but reowrd it.
+- robots.txt, compliance, whatever else website need to ACTAULLY have. discuss this with me. 

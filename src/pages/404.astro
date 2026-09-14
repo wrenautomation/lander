@@ -1,0 +1,31 @@
+---
+// Cloudflare Pages serves 404.html for any path that does not exist. Copy is in site.yaml.
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+const site = (await getEntry('site', 'site'))!.data;
+---
+<Base title={site.notfound_title} description={site.notfound} hue="rust">
+<div class="wrap">
+  <nav class="nav" aria-label="Page">
+    <a href="/" aria-label="Wren Automation, front page"><Mark /></a>
+    <div class="right">
+      <button class="theme" type="button" data-theme-toggle data-to-dark={site.theme.to_dark} data-to-light={site.theme.to_light} aria-label="Switch between light and dark">{site.theme.to_dark}</button>
+    </div>
+  </nav>
+</div>
+<section class="hero">
+  <div class="wrap">
+    <h1>{site.notfound_h}</h1>
+    <p class="lede">{site.notfound}</p>
+    <a class="btn" href="/">{site.notfound_link}</a>
+  </div>
+</section>
+<div class="wrap">
+  <footer>
+    <div><Mark /></div>
+    <div>{site.footer_line} <a href={`mailto:${site.email}`}>{site.email}</a></div>
+    <div class="fine">Wren Automation · {site.city} · {site.fine}</div>
+  </footer>
+</div>
+</Base>

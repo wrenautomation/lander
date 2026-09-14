@@ -1,6 +1,7 @@
+# PLACEHOLDER FIGURES. Replace with the real numbers and steps before this goes live.
 client: Fuel cell research group
 kind: Test data to report · 2025
-before: Instrument exports copied by hand into a weekly report. Plots rebuilt in Excel each time. Half a day, every week, by the most senior person.
+story: A university research group runs fuel cell tests all week and reports on them every Monday. The instrument exports were copied by hand into the report and the plots rebuilt in Excel each time, in the group's own style. That took half a day a week, and it fell to the most senior person because nobody else knew the format.
 now: Tests run as they always did. The report is waiting on Monday morning with the plots already in the group's style. The only thing anyone reads closely is the short list of runs the checks flagged.
 pipe_lead: One human step at each end. Everything between the test and Monday morning runs itself.
 steps:
@@ -10,7 +11,7 @@ steps:
   - name: Watch
     text: A watcher notices new exports within a minute of arrival.
   - name: Check
-    text: Each run is validated. Partial or bad runs are flagged, never silently included.
+    text: Each run is validated. Partial or bad runs are flagged before they reach the report.
   - name: Plot
     text: Per-run plots generated in the group's existing style.
   - name: Compile

@@ -1,7 +1,9 @@
-# One case study. `you: true` marks a step a person does (filled node).
+# One case study. `story` is what the team does and where the hours went; `now` is the same week today.
+# `you: true` marks a step a person does (filled node).
+# PLACEHOLDER FIGURES. Replace with the real client, numbers and steps before this goes live.
 client: Government of Canada
 kind: Document pipeline · 2025
-before: Four people, one shared spreadsheet, and a template that broke whenever a column was renamed. Six to seven hours a week of retyping.
+story: A four-person team in a federal department produces the same set of five documents for every request that comes in. Each one carried the same names, dates and reference numbers, typed by hand from a shared spreadsheet into a template that broke whenever someone renamed a column. Six to seven hours a week went to retyping and to the emails asking which copy was right.
 now: Someone fills one form. Six minutes later five documents are in the shared drive, named and formatted. If a detail changes, they edit the sheet and only the affected documents re-render. Nobody opens a template.
 pipe_lead: Two human steps, submit and send. Everything between them runs itself.
 steps:
