@@ -1,7 +1,8 @@
-// POST /api/lead. Stores the row in D1, emails William, answers JSON or redirects back to the page.
+// POST /api/lead. Stores the row in D1, pings William (Discord and/or email), answers JSON or redirects back to the page.
 interface Env {
   DB: D1Database;
   TURNSTILE_SECRET?: string;   // wrangler pages secret put TURNSTILE_SECRET
+  DISCORD_WEBHOOK?: string;    // wrangler pages secret put DISCORD_WEBHOOK (channel → Integrations → Webhooks)
   RESEND_API_KEY?: string;     // wrangler pages secret put RESEND_API_KEY
   LEAD_TO?: string;            // where the notification goes
   LEAD_FROM?: string;          // a sender on a domain verified in Resend
@@ -48,6 +49,13 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     row.utm_source, row.utm_medium, row.utm_campaign, row.utm_content, row.ref, row.country, row.ip, row.ua,
   ).run();
 
+  const where = `${row.page}${row.utm_campaign ? ` · ${row.utm_campaign}` : ''}${row.country ? ` · ${row.country}` : ''}`;
+  if (env.DISCORD_WEBHOOK) {
+    await fetch(env.DISCORD_WEBHOOK, {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ content: `**Lead · ${row.niche}** · ${where}\n${row.email}${row.phone ? ` · ${row.phone}` : ''}\n> ${(row.note || '(no note)').slice(0, 1500).replace(/\n/g, '\n> ')}` }),
+    }).catch(() => {}); // the row is saved; the ping is a courtesy
+  }
   if (env.RESEND_API_KEY && env.LEAD_TO && env.LEAD_FROM) {
     await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -55,9 +63,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       body: JSON.stringify({
         from: env.LEAD_FROM, to: env.LEAD_TO, reply_to: row.email,
         subject: `Lead (${row.niche}): ${row.email}`,
-        text: `${row.email}\n${row.phone || 'no phone'}\n${row.page}${row.utm_campaign ? ` · ${row.utm_campaign}` : ''}${row.country ? ` · ${row.country}` : ''}\n\n${row.note || '(no note)'}`,
+        text: `${row.email}\n${row.phone || 'no phone'}\n${where}\n\n${row.note || '(no note)'}`,
       }),
-    }).catch(() => {}); // the row is saved; the email is a courtesy
+    }).catch(() => {});
   }
   return reply(200, true);
 };

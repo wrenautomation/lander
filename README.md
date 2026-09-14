@@ -47,6 +47,7 @@ npx wrangler pages project create wren-lander
 npm run db:create                      # paste the id into wrangler.toml
 npm run db:migrate
 npx wrangler pages secret put TURNSTILE_SECRET --project-name wren-lander   # optional, blocks bots
+npx wrangler pages secret put DISCORD_WEBHOOK  --project-name wren-lander   # optional, pings a Discord channel per lead
 npx wrangler pages secret put RESEND_API_KEY   --project-name wren-lander   # optional, emails you each lead
 npm run deploy
 ```
@@ -62,6 +63,7 @@ Every later deploy: `npm run deploy`.
 | `PUBLIC_CF_ANALYTICS` | `.env` | dash.cloudflare.com → Web Analytics → add site → token | no Cloudflare visit counts; our own beacon still works |
 | `PUBLIC_TURNSTILE_SITE_KEY` | `.env` | dash.cloudflare.com → Turnstile → add widget (hostname wrenautomation.com, invisible) → site key | form still works; honeypot alone catches the dumb bots |
 | `TURNSTILE_SECRET` | `wrangler pages secret put` | same widget → secret key | same as above (both or neither) |
+| `DISCORD_WEBHOOK` | `wrangler pages secret put` | Discord channel → Edit → Integrations → Webhooks → New → copy URL | no Discord ping |
 | `RESEND_API_KEY` | `wrangler pages secret put` | resend.com → API keys; first verify `wrenautomation.com` under Domains (3 DNS records) | leads land in D1 only, no email ping |
 | `LEAD_TO` / `LEAD_FROM` | `wrangler.toml` `[vars]` | already set; `LEAD_FROM` must be on the verified domain | — |
 
