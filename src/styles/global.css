@@ -8,9 +8,11 @@
   color-scheme:light;
 }
 [data-theme=dark]{
-  --paper:#161311; --ink:#f2ede6; --mute:#a59d92; --rule:#2d2823; --soft:#1d1915; --trace:#8f8679;
+  --paper:#161311; --ink:#f2ede6; --mute:#a59d92; --rule:#2d2823; --soft:#1d1915; --trace:#c4baab;
   color-scheme:dark;
 }
+/* hairlines on black read thinner than on paper, so the dark trace is lighter than the text is dark, and the bands sit less faded */
+[data-theme=dark] .band{opacity:.8}
 /* one accent per niche. It marks where a person acts (filled nodes, buttons, the mailto) and where a result lands (figures, eyebrow labels). Traces stay grey. */
 [data-hue=rust]{ --acc:#a83b12; --on-acc:#fff; --lbl:#a83b12 }
 [data-hue=rust][data-theme=dark]{ --acc:#e8875a; --on-acc:#161311; --lbl:#e8875a }
