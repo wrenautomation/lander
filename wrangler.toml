@@ -2,11 +2,10 @@ name = "wren-lander"
 pages_build_output_dir = "dist"
 compatibility_date = "2026-09-01"
 
-# After `npm run db:create`, paste the database_id it prints here.
 [[d1_databases]]
 binding = "DB"
 database_name = "wren-leads"
-database_id = "REPLACE_ME"
+database_id = "a7a1773b-eb74-4b25-a930-bdb2e737c556"
 
 [vars]
 LEAD_TO = "william@wrenautomation.com"
