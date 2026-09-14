@@ -2,7 +2,7 @@
 # `you: true` marks a step a person does (filled node). Business facts only; the technical detail is on the résumé.
 client: Government of Canada
 kind: Policy chatbot · 2026
-story: A federal department runs on 220+ policy directives. When someone needs the rule, they find the right directive and read it by hand. 17,000+ staff work under those directives, and the people who look things up most were losing hours a week to it.
+story: A federal department runs on 220 policy directives. When someone needs the rule, they find the right directive and read it by hand. 17,000 staff work under those directives, and the people who look things up most were losing hours a week to it.
 now: They type the question and get the answer, with the passage it came from. The people who used to do the most looking up get 6 to 7 hours a week back. Still in use today.
 pipe_lead: Two human steps, ask and read. The search between them runs itself.
 steps:
@@ -10,7 +10,7 @@ steps:
     you: true
     text: A question in plain words.
   - name: Search
-    text: The right passages are found across all 220+ directives.
+    text: The right passages are found across all 220 directives.
   - name: Answer
     text: An answer in plain words, with the passage it came from.
   - name: Read
@@ -18,14 +18,12 @@ steps:
     text: Check the source if you want to. Rate the answer if it's wrong.
 # fig is what is shown. count makes it count up to that number on scroll (suffix is appended); leave count out for text figures.
 impact:
-  - fig: 17,000+
+  - fig: 17,000
     count: 17000
-    suffix: "+"
     label: staff who ask instead of reading
   - fig: 6 to 7 hrs
     label: a week back for the people who used to do the looking up
-  - fig: 220+
+  - fig: "220"
     count: 220
-    suffix: "+"
     label: directives searched in one go
 stack: Runs in the department's own accounts. Still in use today.

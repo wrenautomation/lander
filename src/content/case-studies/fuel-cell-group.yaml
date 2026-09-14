@@ -1,33 +1,31 @@
 # Business facts only; the technical detail is on the résumé.
 client: University of Alberta
 kind: Research lab · 2025
-story: A research lab needed to know who was citing 7,000+ papers, and where. Each one was a search by hand, about two minutes a paper, so 200+ hours of someone's time. The lab's own experiment files, 5,000+ of them, were found by clicking through folders.
+story: A research lab needed to know who was citing 7,000 papers, and where. Each one was a search by hand, about two minutes a paper, so 200 hours of someone's time. The lab's own experiment files, 5,000 of them, were found by clicking through folders.
 now: The lookups run on their own. What comes out is a map of who cites what, by region, that the lab uses in its talks. The experiment files are searchable in one place. Still in use today.
 pipe_lead: One human step at each end. Everything between the list of papers and the map runs itself.
 steps:
   - name: Hand over the list
     you: true
-    text: 7,000+ papers. That is the only input.
+    text: 7,000 papers. That is the only input.
   - name: Look up
     text: Every paper is looked up and every citing author pulled, the way a person would, without the person.
   - name: Store
-    text: Results and the lab's 5,000+ experiment files in one searchable place.
+    text: Results and the lab's 5,000 experiment files in one searchable place.
   - name: Map
     text: Who cites what, drawn by region.
   - name: Present
     you: true
     text: The map goes in the talk. The lookups are done.
 impact:
-  - fig: 200+ hrs
+  - fig: 200 hrs
     count: 200
-    suffix: "+ hrs"
+    suffix: " hrs"
     label: of lookups by hand, gone
-  - fig: 7,000+
+  - fig: 7,000
     count: 7000
-    suffix: "+"
     label: papers tracked without anyone searching
-  - fig: 5,000+
+  - fig: 5,000
     count: 5000
-    suffix: "+"
     label: experiment files in one place instead of folders
 stack: Built at the lab, left with the lab. Still in use today.
