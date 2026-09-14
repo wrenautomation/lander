@@ -125,5 +125,5 @@ document.querySelectorAll<HTMLElement>('[data-count]').forEach((f) => {
   if (reduce || f.dataset.count === '' || f.dataset.count == null) return;
   const end = +f.dataset.count, suf = f.dataset.suffix || '', o = { v: 0 };
   f.textContent = '0' + suf;
-  ScrollTrigger.create({ trigger: f, start: 'top 88%', once: true, onEnter: () => gsap.to(o, { v: end, duration: 1, ease: 'power2.out', onUpdate: () => { f.textContent = Math.round(o.v) + suf; } }) });
+  ScrollTrigger.create({ trigger: f, start: 'top 88%', once: true, onEnter: () => gsap.to(o, { v: end, duration: 1, ease: 'power2.out', onUpdate: () => { f.textContent = Math.round(o.v).toLocaleString('en') + suf; } }) });
 });

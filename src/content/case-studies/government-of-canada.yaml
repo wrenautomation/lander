@@ -1,33 +1,34 @@
 # One case study. `story` is what the team does and where the hours went; `now` is the same week today.
 # `you: true` marks a step a person does (filled node).
-# PLACEHOLDER FIGURES. Replace with the real client, numbers and steps before this goes live.
+# Facts from personal_portfolio (CSC, Jan to May 2026). Open questions in designs/opus_to_be_reviewed/2026-09-14-case-studies.md.
 client: Government of Canada
-kind: Document pipeline · 2025
-story: A four-person team in a federal department produces the same set of five documents for every request that comes in. Each one carried the same names, dates and reference numbers, typed by hand from a shared spreadsheet into a template that broke whenever someone renamed a column. Six to seven hours a week went to retyping and to the emails asking which copy was right.
-now: Someone fills one form. Six minutes later five documents are in the shared drive, named and formatted. If a detail changes, they edit the sheet and only the affected documents re-render. Nobody opens a template.
-pipe_lead: Two human steps, submit and send. Everything between them runs itself.
+kind: Policy chatbot · 2026
+story: A federal agency runs on 220+ policy directives, published as PDFs. When someone needs the rule, they find the right directive and read it by hand. 17,000+ officers and staff work under those directives.
+now: They type the question. The chatbot searches the directives, answers, and shows the passage it took the answer from with a link to the source. Each answer can be rated, and the ratings are logged so the agency can see where it is wrong.
+pipe_lead: Two human steps, ask and read. The search between them runs itself.
 steps:
-  - name: Fill one form
+  - name: Ask
     you: true
-    text: Required fields are enforced at entry. The shared spreadsheet is gone.
-  - name: Store
-    text: One source-of-truth sheet, version history on every edit.
-  - name: Render
-    text: Five templates fill from the sheet on submit, in the department's own format.
-  - name: Catch edits
-    text: A scheduled job spots later changes and re-renders only what changed.
-  - name: Send
+    text: A question in plain words.
+  - name: Search
+    text: Azure AI Search finds the passages across 220+ directives. The PDFs were re-parsed to HTML first, which raised search accuracy 15% on 300 test prompts.
+  - name: Answer
+    text: Azure OpenAI writes the answer from the passages found. Grounding to the source went up 10% on the same 300 prompts.
+  - name: Read the source
     you: true
-    text: Five documents, named and filed in the shared drive.
+    text: A citation panel links the answer to the directive it came from. Rate it, and the rating is logged.
 # fig is what is shown. count makes it count up to that number on scroll (suffix is appended); leave count out for text figures.
 impact:
-  - fig: 6 to 7 hrs
-    label: a week returned to a four-person team
-  - fig: 6 min
-    count: 6
-    suffix: " min"
-    label: per document set, down from about two hours
-  - fig: "0"
-    count: 0
-    label: retyping. Every document comes from the one sheet
-stack: Python, Google Workspace, one scheduled job. Handed over with documentation and a walkthrough.
+  - fig: 17,000+
+    count: 17000
+    suffix: "+"
+    label: officers and staff who can ask instead of reading
+  - fig: 220+
+    count: 220
+    suffix: "+"
+    label: policy directives searched in one place
+  - fig: 15%
+    count: 15
+    suffix: "%"
+    label: better search accuracy on 300 test prompts, from re-parsing the PDFs
+stack: Azure OpenAI, Azure AI Search, TypeScript for the citation panel. Built in the agency's own Azure.

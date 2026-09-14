@@ -1,33 +1,33 @@
-# PLACEHOLDER FIGURES. Replace with the real numbers and steps before this goes live.
-client: Fuel cell research group
-kind: Test data to report · 2025
-story: A university research group runs fuel cell tests all week and reports on them every Monday. The instrument exports were copied by hand into the report and the plots rebuilt in Excel each time, in the group's own style. That took half a day a week, and it fell to the most senior person because nobody else knew the format.
-now: Tests run as they always did. The report is waiting on Monday morning with the plots already in the group's style. The only thing anyone reads closely is the short list of runs the checks flagged.
-pipe_lead: One human step at each end. Everything between the test and Monday morning runs itself.
+# Facts from personal_portfolio (UAlberta Energy Mechatronics Lab, Jul to Sep 2025). Open questions in designs/opus_to_be_reviewed/2026-09-14-case-studies.md.
+client: University of Alberta
+kind: Research data · 2025
+story: A fuel cell lab wanted citation data on 7,000+ papers, who cites what and where. The only way was by hand, a Google Scholar search per paper, then each author looked up in turn. About two minutes a paper, so 200+ hours. The lab's own experiment files, 5,000+ of them, were found by searching folders by hand.
+now: A scraper does the lookups and writes them to a database. The result is a map, shaded by how much each region cites, that the lab uses in its talks. The experiment files are in a SQL Server database too, queried instead of browsed.
+pipe_lead: One human step at each end. Everything between the list of papers and the map runs itself.
 steps:
-  - name: Run the test
+  - name: Hand over the list
     you: true
-    text: Exports land in the shared folder as before. Nothing changed for the people running tests.
-  - name: Watch
-    text: A watcher notices new exports within a minute of arrival.
-  - name: Check
-    text: Each run is validated. Partial or bad runs are flagged before they reach the report.
-  - name: Plot
-    text: Per-run plots generated in the group's existing style.
-  - name: Compile
-    text: The weekly report assembled in the same format every time, archived by run.
-  - name: Read on Monday
+    text: 7,000+ papers. That is the only input.
+  - name: Scrape
+    text: Selenium works through Google Scholar and 2,000+ journal sites, paper by paper, and pulls the citing authors.
+  - name: Store
+    text: Results land in SQL Server. The lab's 5,000+ experiment files went into a database as well, so a query replaces a folder search.
+  - name: Map
+    text: A Folium choropleth shades each region by citation density.
+  - name: Present
     you: true
-    text: Skim the flagged list. That is the whole job now.
+    text: The map goes in the lab talk. The lookups are done.
 impact:
-  - fig: 0 hrs
-    count: 0
-    suffix: " hrs"
-    label: of manual reporting each week
-  - fig: ½ day
-    label: a week back to the most senior person in the group
-  - fig: 30+
-    count: 30
+  - fig: 200+ hrs
+    count: 200
+    suffix: "+ hrs"
+    label: of manual author lookups removed
+  - fig: 7,000+
+    count: 7000
     suffix: "+"
-    label: weekly reports produced without anyone touching a plot
-stack: Python, a shared drive, one watcher. The group owns the code and can add an instrument themselves.
+    label: papers tracked, across 2,000+ journal sites
+  - fig: 5,000+
+    count: 5000
+    suffix: "+"
+    label: experiment files in one database instead of folders
+stack: Python, Selenium, SQL Server, Folium. Built at the lab, left with the lab.

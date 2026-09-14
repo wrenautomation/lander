@@ -9,11 +9,11 @@ proves_h2: What this proves to you
 proves_intro: "Neither client is in your industry. What carries over:"
 proves:
   - point: The shape of the problem is the same
-    detail: One fact typed by hand into five places, and a template that breaks. Your version has different names on it.
+    detail: Somebody doing the same lookup by hand, thousands of times, because the answer is buried in documents. Your version has different names on it.
   - point: The build finishes
-    detail: Both went live and both are in daily use. The handover is part of the build, so they run without me.
-  - point: Nothing changed for the people using it
-    detail: They fill the same form and read the same report. The retyping in between is gone.
+    detail: Both were built inside an internship with an end date, and both were in use before I left. Nothing was left half done.
+  - point: Nobody had to learn a system
+    detail: Officers type a question. Researchers ask a database instead of opening folders. The work they were already doing got shorter.
 targets_h2: What usually gets automated first
 targets_intro: The jobs that eat a week are rarely the interesting ones. These come up most.
 targets:

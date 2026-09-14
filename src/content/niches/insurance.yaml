@@ -9,11 +9,11 @@ proves_h2: What this proves to you
 proves_intro: "Neither client is an insurance agency. What carries over:"
 proves:
   - point: The shape of the problem is the same
-    detail: One client's details keyed into the AMS, the certificate and the renewal summary is the same problem as one figure typed into five government documents.
+    detail: A client's details keyed from the policy into the certificate and the renewal summary, and a carrier guideline nobody can find. Same shape as 17,000 people reading 220 directives to find one rule.
   - point: The build finishes
-    detail: Both went live and both are in daily use. The handover is part of the build, so they run without me.
-  - point: Nothing changed for the people using it
-    detail: They fill the same form and read the same report. The retyping in between is gone.
+    detail: Both were built inside an internship with an end date, and both were in use before I left. Nothing was left half done.
+  - point: Nobody had to learn a system
+    detail: Officers type a question. Researchers ask a database instead of opening folders. The work they were already doing got shorter.
 targets_h2: What usually gets automated first at an agency
 targets_intro: The service desk, mostly. The urgent, repetitive jobs that interrupt everything else.
 targets:
