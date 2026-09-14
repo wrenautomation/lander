@@ -41,7 +41,9 @@ p{margin:0}
 
 /* nav */
 .nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--rule)}
-.nav .mark{height:34px;width:auto}
+.brand{display:inline-flex;align-items:center;gap:.55rem;text-decoration:none;color:var(--ink)}
+.brand .mark{height:26px;width:auto}
+.brand .name{font-weight:600;font-size:15px;letter-spacing:-.01em;white-space:nowrap}
 .nav .right{display:flex;align-items:center;gap:1rem;font-size:15px;font-weight:500}
 .nav .links{display:none;gap:1.4rem}
 .nav .links a{text-decoration:none}
@@ -159,7 +161,7 @@ form small{color:var(--mute);font-size:13px}
 
 /* footer */
 footer{padding:2rem 0 2.5rem;display:grid;gap:1rem;font-size:15px;color:var(--mute)}
-footer .mark{height:28px;width:auto}
+footer .brand .mark{height:22px}
 footer a{text-decoration:none;color:var(--acc);overflow-wrap:anywhere}
 footer .fine{font-size:13px;border-top:1px solid var(--rule);padding-top:1rem}
 
@@ -172,7 +174,8 @@ footer .fine{font-size:13px;border-top:1px solid var(--rule);padding-top:1rem}
   .wrap{padding:0 40px}
   .band{height:64px}
   .nav{padding:1.1rem 0}
-  .nav .mark{height:44px}
+  .brand .mark{height:30px}
+  .brand .name{font-size:16px}
   .nav .links{display:flex}
   .nav .contact{display:none}
   .hero{padding:5rem 0 4.5rem}
@@ -217,6 +220,6 @@ footer .fine{font-size:13px;border-top:1px solid var(--rule);padding-top:1rem}
   .ask .grid{grid-template-columns:1fr 1fr;gap:3rem}
   .sent{padding:1.5rem}
   footer{padding:2.5rem 0 3rem;grid-template-columns:1fr auto;gap:1rem 2rem;align-items:center}
-  footer .mark{height:30px}
+  footer .brand .mark{height:24px}
   footer .fine{grid-column:1/-1}
 }
