@@ -120,3 +120,10 @@ prose without touching code.
   missing key never blocks a lead.
 - 2026-09-14 — Resend for the notification email. D1 is the record; the
   email is a courtesy and can fail silently.
+- 2026-09-14 — Compliance is a footer line, not a page. The site sets no
+  cookies (theme lives in localStorage), collects three fields, and
+  stores them in D1 + inbox. PIPEDA wants purpose, storage, and a way to
+  delete; one sentence covers it. A `/privacy` page is for when pixels
+  arrive.
+- 2026-09-14 — Sitemap is a 12-line endpoint, not `@astrojs/sitemap`.
+  Four URLs; no dependency.

@@ -65,7 +65,10 @@ src/content/         copy (yaml)
 src/content.config.ts  what each yaml must contain
 src/pages/[...slug].astro  one route per niche file
 src/pages/404.astro        the not-found page (copy in site.yaml)
-public/robots.txt          allows everything except /api/
+src/pages/sitemap.xml.ts   one URL per niche page
+src/components/Foot.astro  footer: privacy line, © year, analytics clause
+public/robots.txt          allows everything except /api/, points at the sitemap
+public/_headers            security headers and cache rules
 src/layouts/Lander.astro   the page
 src/styles/global.css      mobile first, one breakpoint
 src/scripts/motion.ts      theme, traces, counters, form

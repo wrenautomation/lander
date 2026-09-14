@@ -3,9 +3,10 @@
 import { getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Mark from '../components/Mark.astro';
+import Foot from '../components/Foot.astro';
 const site = (await getEntry('site', 'site'))!.data;
 ---
-<Base title={site.notfound_title} description={site.notfound} hue="rust">
+<Base title={site.notfound_title} description={site.notfound} hue="rust" noindex>
 <div class="wrap">
   <nav class="nav" aria-label="Page">
     <a href="/" aria-label="Wren Automation, front page"><Mark /></a>
@@ -21,11 +22,5 @@ const site = (await getEntry('site', 'site'))!.data;
     <a class="btn" href="/">{site.notfound_link}</a>
   </div>
 </section>
-<div class="wrap">
-  <footer>
-    <div><Mark /></div>
-    <div>{site.footer_line} <a href={`mailto:${site.email}`}>{site.email}</a></div>
-    <div class="fine">Wren Automation · {site.city} · {site.fine}</div>
-  </footer>
-</div>
+<Foot site={site} />
 </Base>

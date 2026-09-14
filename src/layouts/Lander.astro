@@ -5,6 +5,7 @@ import { getEntry } from 'astro:content';
 import Base from './Base.astro';
 import Band from '../components/Band.astro';
 import Mark from '../components/Mark.astro';
+import Foot from '../components/Foot.astro';
 import { inline, plain } from '../lib/text';
 
 const { niche } = Astro.props as { niche: CollectionEntry<'niches'> };
@@ -190,13 +191,7 @@ const input = { email: { type: 'email', autocomplete: 'email' }, phone: { type: 
   </div>
 </section>
 
-<div class="wrap">
-  <footer>
-    <div><Mark /></div>
-    <div>{site.footer_line} <a href={`mailto:${site.email}`}>{site.email}</a></div>
-    <div class="fine">Wren Automation · {site.city} · {site.fine}</div>
-  </footer>
-</div>
+<Foot site={site} />
 
 {turnstile && <script is:inline async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>}
 </Base>

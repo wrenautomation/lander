@@ -15,4 +15,4 @@
 - not a one person thing, descrbining if im' getting this blah blha blah is bad. fix priced doesn't make sense, those 4 details at the botom are not necessary. need ot leverage that i'm a software engineering student, past internshipe xperinece under my belt, etc. and who i am why im doing this (looking into breaking into the space, help businesses, provide more value)
 - replace optional wording and what not with use of * for required, as well as error handlnig in case
 - detail protection is good, but reowrd it.
-- robots.txt, compliance, whatever else website need to ACTAULLY have. discuss this with me. 
+- ~~robots.txt, compliance, whatever else website need to ACTAULLY have.~~ done: privacy line in footer, sitemap, meta, headers. Pixels/analytics next.
