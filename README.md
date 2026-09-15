@@ -37,7 +37,7 @@ npm run preview    # full build + Cloudflare emulation, form works against a loc
 
 Before the first `preview`: `npx wrangler d1 execute wren-leads --local --file schema.sql`.
 
-Theme: light by default, follows the system, the button remembers. Add `?theme=dark` to force it.
+Theme: light by default, the button remembers. Add `?theme=dark` to force it.
 Motion off: `?static`, or the OS reduced-motion setting.
 
 ## Deploy (once)

@@ -28,7 +28,7 @@ const analytics = import.meta.env.PUBLIC_CF_ANALYTICS;
   <meta name="twitter:card" content="summary_large_image">
   <script is:inline>
     /* theme before first paint: saved choice, else the system's */
-    try{var t=localStorage.getItem('wren-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}
+    try{var t=localStorage.getItem('wren-theme')||'light';document.documentElement.dataset.theme=t}catch(e){}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
