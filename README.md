@@ -54,7 +54,8 @@ npm run deploy
 ```
 
 Custom domain (done 2026-09-15): Pages project → Custom domains → add `wrenautomation.com` and `www`, then DNS → Records → `CNAME @ wren-lander.pages.dev` and `CNAME www wren-lander.pages.dev`, both proxied. Pages goes active a few minutes after the records exist.
-Every later deploy: `npm run deploy`.
+Every later deploy: push to `main`. GitHub Actions (`.github/workflows/deploy.yml`) runs check, build and deploy; watch it with `gh run watch`. `npm run deploy` still works from your machine.
+The workflow needs four repo secrets: `CLOUDFLARE_API_TOKEN` (dash → My Profile → API Tokens → Create, Account · Cloudflare Pages · Edit), `CLOUDFLARE_ACCOUNT_ID`, `PUBLIC_CF_ANALYTICS`, `PUBLIC_TURNSTILE_SITE_KEY`. Set one with `gh secret set NAME -R wrenautomation/lander`.
 
 ## Every key the site can take
 
@@ -68,7 +69,7 @@ Every later deploy: `npm run deploy`.
 | `RESEND_API_KEY` | `wrangler pages secret put` | resend.com → API keys; first verify `wrenautomation.com` under Domains (3 DNS records) | leads land in D1 only, no email ping |
 | `LEAD_TO` / `LEAD_FROM` | `wrangler.toml` `[vars]` | already set; `LEAD_FROM` must be on the verified domain | — |
 
-`.env` and secrets are read at build/deploy time: change one → `npm run deploy` again. `.env` and `.dev.vars` are never committed.
+`.env` and secrets are read at build/deploy time: change one → push again (or `npm run deploy`). The two `PUBLIC_` values also live as GitHub secrets; change both places. `.env` and `.dev.vars` are never committed.
 
 ## What gets measured
 
