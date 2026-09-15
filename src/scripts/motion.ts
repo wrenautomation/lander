@@ -57,8 +57,8 @@ const el = (tag: string, attrs: Record<string, string | number>) => { const e = 
 (() => {
   const v = root.dataset.intro, target = document.querySelector<HTMLElement>('[data-intro-target]');
   if (!v || !target || reduce) { delete root.dataset.intro; return; }
-  const parts = [...target.children] as Element[];
-  const finish = () => { delete root.dataset.intro; gsap.set(parts, { clearProps: 'opacity,transform' }); ScrollTrigger.refresh(); };
+  const itr = target.querySelector<SVGSVGElement>('svg.itr'), parts = [...target.children].filter((c) => c !== itr);
+  const finish = () => { if (v === '2') itr?.classList.add('on'); delete root.dataset.intro; gsap.set(parts, { clearProps: 'opacity,transform' }); ScrollTrigger.refresh(); };
   const prep = (svg: SVGSVGElement) => {
     const paths = [...svg.querySelectorAll('path')], nodes = [...svg.querySelectorAll('circle')];
     paths.forEach((p) => { const L = p.getTotalLength(); p.style.strokeDasharray = String(L); p.style.strokeDashoffset = String(L); });
@@ -88,9 +88,9 @@ const el = (tag: string, attrs: Record<string, string | number>) => { const e = 
       .fromTo(parts, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .55, stagger: .07, ease: 'power2.out' }, 1.5)
       .set(box, { display: 'none' });
   } else {
-    // In place: a trace draws across the top of the hero, and the lines under it come up as it goes.
-    const svg = el('svg', { class: 'itr', 'aria-hidden': 'true' }) as SVGSVGElement;
-    target.prepend(svg);
+    // In place: the trace already in the hero (svg.itr, shown by CSS for data-intro=2) draws across the top, and the lines under it come up as it goes.
+    const svg = itr;
+    if (!svg) { finish(); return; }
     const W = target.clientWidth, y = 20;
     svg.setAttribute('viewBox', `0 0 ${W} 40`);
     svg.append(
@@ -102,7 +102,7 @@ const el = (tag: string, attrs: Record<string, string | number>) => { const e = 
       .to(paths[0], { strokeDashoffset: 0, duration: .4, ease: 'power1.inOut' }, .15)
       .to(nodes[0], { scale: 1, duration: .25, ease: 'back.out(2)' }, .5)
       .to(nodes[1], { scale: 1, duration: .3, ease: 'back.out(2)' }, .75)
-      .fromTo(parts.filter((p) => p !== (svg as Element)), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5, stagger: .08, ease: 'power2.out' }, .2);
+      .fromTo(parts, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5, stagger: .08, ease: 'power2.out' }, .2);
   }
 })();
 

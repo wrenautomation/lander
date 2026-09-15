@@ -81,7 +81,7 @@ p{margin:0}
 .other a:hover{text-decoration:underline;text-underline-offset:4px}
 
 /* the landing intro (see Base.astro). Until it runs, what it reveals is hidden; if the script never comes, a keyframe shows it after 2.5s. */
-[data-intro] [data-intro-target]>*{opacity:0;animation:intro-safe .01s 2.5s forwards}
+[data-intro] [data-intro-target]>:not(.itr){opacity:0;animation:intro-safe .01s 2.5s forwards}
 @keyframes intro-safe{to{opacity:1}}
 .intro{display:none;position:fixed;inset:0;z-index:50;background:var(--paper);place-items:center}
 [data-intro="1"] .intro{display:grid}
@@ -91,7 +91,8 @@ p{margin:0}
 .intro .a{stroke:var(--acc);stroke-width:1.25;opacity:1} .intro circle.a{fill:var(--acc)}
 .intro-mark{position:relative;display:block;padding:0 18px;background:var(--paper)}
 .intro-mark .mark{height:64px;width:auto}
-.itr{display:block;width:100%;height:40px;margin-bottom:1.4rem;overflow:visible}
+.itr{display:none;width:100%;height:40px;margin-bottom:1.4rem;overflow:visible}
+[data-intro="2"] .itr,.itr.on{display:block}
 .itr path{fill:none;stroke:var(--trace);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;opacity:.75}
 .itr circle{fill:var(--paper);stroke:var(--trace);stroke-width:1;opacity:.75}
 .itr .a{stroke:var(--acc);stroke-width:1.25;opacity:1} .itr circle.a{fill:var(--acc)}
