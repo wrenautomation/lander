@@ -3,7 +3,7 @@
 client: Government of Canada
 kind: Policy chatbot · 2026
 result: 6 to 7 hours a week back for the people who did the looking up
-story: "A federal department runs on 220 policy directives: old documents, some of them PDFs that barely open. When someone needs the rule, they find the right one and read it by hand. 17,000 staff work under those directives, and the people who look things up most were losing hours a week to it."
+story: "A federal department runs on 220 policy directives. Some are a page, some run to hundreds of pages, and a few are old PDFs that barely open. When someone needs the rule, they find the right directive and read through it by hand. 17,000 staff work under those directives, and the people who look things up most were losing hours a week to it."
 now: They type the question and get the answer, with the passage it came from. The people who used to do the most looking up get 6 to 7 hours a week back. Still in use today.
 pipe_lead: Two human steps, ask and read. The search between them runs itself.
 steps:
@@ -26,5 +26,5 @@ impact:
     label: a week back for the people who used to do the looking up
   - fig: "220"
     count: 220
-    label: directives searched in one go
+    label: policy documents searched in one go, some of them hundreds of pages
 stack: Runs in the department's own accounts. Still in use today.
