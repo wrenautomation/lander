@@ -8,7 +8,7 @@ const year = new Date().getFullYear();
 <div class="wrap">
   <footer>
     <div><Mark /></div>
-    <div>{site.footer_line} <a href={`mailto:${site.email}`}>{site.email}</a></div>
+    <div><a href={`mailto:${site.email}`}>{site.email}</a></div>
     <div class="fine">© {year} Wren Automation · {site.city} · {site.fine}{turnstile && <> {site.fine_turnstile} <a href="https://www.cloudflare.com/turnstile-privacy-policy/">{site.fine_turnstile_link}</a>.</>}</div>
   </footer>
 </div>

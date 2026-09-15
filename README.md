@@ -24,7 +24,7 @@ Rules:
 
 New page: copy `niches/ria.yaml` to `niches/<slug>.yaml`. The file name is the URL. Set `hue` (rust, green or red) and `form_value`.
 New case study: add `case-studies/<name>.yaml`, then list `<name>` under `cases:` in each niche that should show it.
-Photo: drop `public/william.jpg`, then uncomment `photo: /william.jpg` in `site.yaml`.
+Photo: drop `public/william.jpg`, then uncomment `photo: /william.jpg` in `site.yaml`. Until then the slot is empty and invisible.
 Colours, spacing, breakpoint: `src/styles/global.css`. One breakpoint, 840px.
 
 ## Run it

@@ -2,8 +2,8 @@
 hue: rust
 title: Wren Automation
 kicker: Workflow automation for small firms
-h1: Document and workflow automation for firms that still type the same figure five times.
-lede: "I'm William. I build the automations small firms never get around to, so each person on the team gets a workday a week back: intake, document generation, the handoffs between people. **Two builds below, with numbers.**"
+h1: A full workday a week back for each person on your team.
+lede: "Most small firms still type the same figure five times and rebuild last month's report by hand. I'm William. I build the automations nobody at the firm has time to build: intake, document generation, the handoffs between people. **Two builds below, with numbers.**"
 cases: [government-of-canada, fuel-cell-group]
 # Pick a side. Sits under the hero, before the case studies. Left is by hand, right is the same job once built.
 sides_h2: Which column is your week?

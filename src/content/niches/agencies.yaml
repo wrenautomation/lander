@@ -2,8 +2,8 @@
 hue: red
 title: Wren Automation for agencies
 kicker: Workflow automation for small agencies
-h1: Proposals, monthly reports and onboarding, without rebuilding last month's deck by hand.
-lede: "I'm William. I build the automations that give each person at an agency a workday a week back: proposals, client reporting, onboarding, the handoffs between account and delivery. **Two builds below, with numbers.**"
+h1: A full workday a week back for each person on your team.
+lede: "Proposals, monthly reports and onboarding, with last month's deck rebuilt by hand each time. I'm William. I build the automations nobody at the agency has time to build: proposals, client reporting, onboarding, the handoffs between account and delivery. **Two builds below, with numbers.**"
 cases: [government-of-canada, fuel-cell-group]
 # Pick a side. Sits under the hero, before the case studies. Left is by hand, right is the same job once built.
 sides_h2: Which column is your week?

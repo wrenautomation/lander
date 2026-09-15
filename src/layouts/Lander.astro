@@ -174,7 +174,7 @@ const multi = new Set(['note', 'questions']);
 
 <section class="s" id="about">
   <div class="wrap about">
-    <div class="photo">{site.photo ? <img src={site.photo} alt={site.name} loading="lazy"> : site.photo_placeholder}</div>
+    <div class:list={["photo", { empty: !site.photo }]}>{site.photo && <img src={site.photo} alt={site.name} loading="lazy">}</div>
     <div>
     <h2>{site.about_h2}</h2>
       {site.about.map((p, i) => <p style={i === 0 ? 'margin-top:.6rem' : undefined}>{p}</p>)}
@@ -187,6 +187,7 @@ const multi = new Set(['note', 'questions']);
 <section class="s ask" id="ask">
   <div class="wrap grid">
     <div>
+      <p class="pre">{site.ask_pre}</p>
       <h2>{site.cta}</h2>
       <p set:html={inline(site.ask_intro)} />
     </div>
@@ -207,7 +208,7 @@ const multi = new Set(['note', 'questions']);
         <label class="hp" aria-hidden="true" tabindex="-1">Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
         {turnstile && <div class="cf-turnstile" data-sitekey={turnstile} data-size="flexible"></div>}
         <button class="btn" type="submit">{site.ask_submit}</button>
-        <small>{site.ask_required}<br>{site.ask_small}</small>
+        <small>{site.ask_required}</small>
         <p class="err" role="alert">{site.ask_error} <a href={`mailto:${site.email}`}>{site.email}</a></p>
       </form>
       <div class="sent" role="status"><h3>{site.thanks_h}</h3><p>{site.thanks}</p></div>

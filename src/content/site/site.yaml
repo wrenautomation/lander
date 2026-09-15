@@ -23,7 +23,7 @@ from_note: If you got an email from me, this page is here so you can check the w
 # The offer in one breath, right under the hero. `more` links to the offer section below.
 offer:
   eyebrow: The offer
-  promise: "**A full workday a week back for each person on the team.** Onboarding, client emails, reports and invoices, built once and running in your own accounts."
+  promise: "**The workday comes back from onboarding, client emails, reports and invoices**, built once and running in your own accounts."
   safe: "Out of respect for your time, the audit is free. I find the automations with the highest return, the ones that take the repetitive work off your team and give you back your time and your sanity. After that you pay by milestone, and you can walk away at any point if the work isn't up to standard."
   more: How that works
 
@@ -85,8 +85,7 @@ questions:
     a: You have the code and the documentation, so anyone technical can fix it. If it's my mistake, I fix it at no charge.
 
 about_h2: About
-# photo: /william.jpg   <- drop the file in public/ and uncomment
-photo_placeholder: photo
+# photo: /william.jpg   <- drop the file in public/ and uncomment. Until then the slot is there and empty.
 about:
   - I'm William. I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
   - "My work so far has been internships: data cleaning, pipelines that connect systems, and CRMs. The two builds above came out of that work."
@@ -96,7 +95,8 @@ why:
   - I have the genuine software engineering qualifications and the technical knowledge to build a reliable system for you. Most agencies can give you something beautifully packaged at demo time, but with hidden bugs and inefficiencies that show up over time.
   - I'm building a business on this kind of work, and I want each build to be so good that you're not just satisfied, but you want to refer me to every business owner you know. I'm willing to relax the financial terms to get this kind of result.
 
-# The form. Fields render in this order. `required: true` adds the * and the check; `error` shows under the field when the check fails.
+# The form. `ask_pre` sits above the heading. Fields render in this order. `required: true` adds the * and the check; `error` shows under the field when the check fails.
+ask_pre: Thanks for taking the time to read this far.
 ask_intro: Tell me what eats away at your weekly hours. I'll reply in a business day with a few times for a quick call. 
 ask_fields:
   - key: name
@@ -120,13 +120,11 @@ ask_fields:
     placeholder: Price, timing, whether this fits your setup.
 ask_required: "* required"
 ask_submit: Send
-ask_small: Lands in my inbox and one table I keep so nothing gets lost. Nobody else sees it, and I delete it if you ask.
 ask_error: "That didn't send. Email me instead:"
 thanks_h: Got it.
 thanks: Look for an email from william@wrenautomation.com. Check spam or email me directly if you don't find it. Talk to you soon!
 
 # Bottom of every page. `fine` is the privacy line; keep it true (see README, "What gets measured").
-footer_line: Thanks for reading this far.
 fine: Your emails are not used for any unwanted subscription services or marketing. 
 # Appended only when Turnstile is on. Cloudflare requires the link for invisible mode.
 fine_turnstile: The form is checked for bots by Cloudflare Turnstile, under its

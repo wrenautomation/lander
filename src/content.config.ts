@@ -79,10 +79,10 @@ const site = defineCollection({
     questions: z.array(z.strictObject({ q: z.string(), a: z.string() })),
     about_h2: z.string(),
     photo: z.string().optional(), // path under public/, e.g. /william.jpg
-    photo_placeholder: z.string(),
     about: z.array(z.string()),
     why_h3: z.string(),
     why: z.array(z.string()),
+    ask_pre: z.string(),          // one line above the form heading
     ask_intro: z.string(),        // **bold** allowed
     ask_fields: z.array(z.strictObject({
       key: z.enum(['name', 'email', 'phone', 'note', 'questions']), // the column it lands in; email is always checked server side
@@ -93,11 +93,9 @@ const site = defineCollection({
     })),
     ask_required: z.string(),
     ask_submit: z.string(),
-    ask_small: z.string(),
     ask_error: z.string(),        // the mailto follows it
     thanks_h: z.string(),
     thanks: z.string(),
-    footer_line: z.string(),
     fine: z.string(),
     fine_turnstile: z.string(),
     fine_turnstile_link: z.string(),
