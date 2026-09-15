@@ -40,7 +40,8 @@ Before the first `preview`: `npx wrangler d1 execute wren-leads --local --file s
 
 Theme: light by default, the button remembers. Add `?theme=dark` to force it.
 Motion off: `?static`, or the OS reduced-motion setting.
-Landing intro: `?intro=1` (overlay: mark and trace, then the sheet lifts) or `?intro=2` (the hero draws itself). Off by default until one is chosen (`Base.astro`, the inline script).
+Landing intro: the hero draws itself on the first page of a tab. `?intro=2` replays it, `?intro=1` shows the overlay version (mark and trace, then the sheet lifts), `?intro=0` turns it off. Gate in `Base.astro`, the inline script.
+Theme toggle: `src/components/Theme.astro`, sun and moon icons; the `theme:` words in `site.yaml` are the button's accessible name.
 
 ## Deploy (once)
 

@@ -3,6 +3,7 @@
 import { getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Mark from '../components/Mark.astro';
+import Theme from '../components/Theme.astro';
 import Trace from '../components/Trace.astro';
 import Foot from '../components/Foot.astro';
 
@@ -21,7 +22,7 @@ const picks = await Promise.all(c.niches.map(async (x) => {
     <a href="/" aria-label="Wren Automation"><Mark /></a>
     <div class="right">
       <a class="contact" href={`mailto:${site.email}`}>{site.nav.contact}</a>
-      <button class="theme" type="button" data-theme-toggle data-to-dark={site.theme.to_dark} data-to-light={site.theme.to_light} aria-label="Switch between light and dark">{site.theme.to_dark}</button>
+      <Theme to_dark={site.theme.to_dark} to_light={site.theme.to_light} />
     </div>
   </nav>
 </div>

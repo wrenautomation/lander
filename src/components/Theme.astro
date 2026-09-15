@@ -1,0 +1,8 @@
+---
+// The light/dark toggle: a sun in light mode, a moon in dark. CSS shows one; the words are the accessible name.
+const { to_dark, to_light } = Astro.props as { to_dark: string; to_light: string };
+---
+<button class="theme" type="button" data-theme-toggle data-to-dark={to_dark} data-to-light={to_light} aria-label={to_dark} title={to_dark}>
+  <svg class="sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.5v2.5M10 16v2.5M1.5 10H4M16 10h2.5M4 4l1.8 1.8M14.2 14.2 16 16M4 16l1.8-1.8M14.2 5.8 16 4"/></svg>
+  <svg class="moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.4A7 7 0 0 1 7.6 3.5a7 7 0 1 0 8.9 8.9z"/></svg>
+</button>

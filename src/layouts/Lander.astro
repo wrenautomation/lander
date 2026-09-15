@@ -6,6 +6,7 @@ import Base from './Base.astro';
 import Band from '../components/Band.astro';
 import Mark from '../components/Mark.astro';
 import Trace from '../components/Trace.astro';
+import Theme from '../components/Theme.astro';
 import Foot from '../components/Foot.astro';
 import { inline, plain } from '../lib/text';
 
@@ -29,7 +30,7 @@ const multi = new Set(['note', 'questions']);
     <div class="right">
       <div class="links"><a href="#work">{site.nav.work}</a><a href="#offer">{site.nav.offer}</a><a href="#about">{site.nav.about}</a><a href="#ask">{site.nav.contact}</a></div>
       <a class="contact" href="#ask">{site.nav.contact}</a>
-      <button class="theme" type="button" data-theme-toggle data-to-dark={site.theme.to_dark} data-to-light={site.theme.to_light} aria-label="Switch between light and dark">{site.theme.to_dark}</button>
+      <Theme to_dark={site.theme.to_dark} to_light={site.theme.to_light} />
     </div>
   </nav>
 </div>

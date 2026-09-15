@@ -13,7 +13,7 @@ const BP = '(max-width:839px)'; // same number as global.css
 /* ---------- theme ---------- */
 const tb = document.querySelector<HTMLButtonElement>('[data-theme-toggle]')!;
 const setTheme = (t: string, save = true) => {
-  root.dataset.theme = t; tb.textContent = t === 'dark' ? tb.dataset.toLight! : tb.dataset.toDark!;
+  root.dataset.theme = t; const l = t === 'dark' ? tb.dataset.toLight! : tb.dataset.toDark!; tb.setAttribute('aria-label', l); tb.title = l;
   if (save) try { localStorage.setItem('wren-theme', t); } catch {}
 };
 setTheme(q.get('theme') || root.dataset.theme || 'light', false);
