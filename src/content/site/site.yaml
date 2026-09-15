@@ -103,7 +103,7 @@ about:
   - I want to get good at this work. The fastest way is to do it for firms that have the problem.
 why_h3: Why me
 why:
-  - I'm trained as a software engineer and I write the code myself, so it holds up after the demo. Most agencies can give you something beautifully packaged at demo time, with hidden bugs and inefficiencies that show up over time.
+  - I'm trained as a software engineer and I write the code myself, so it holds up after the demo. Most agencies can give you something beautifully packaged at first, with hidden bugs and inefficiencies that show up over time.
   - I'm building a business on this kind of work, and I want each build to be so good that you're not just satisfied, but you want to refer me to every business owner you know. I'm willing to relax the financial terms to get this kind of result.
 
 # The form. `ask_pre` sits above the heading. Fields render in this order. `required: true` adds the * and the check; `error` shows under the field when the check fails.
