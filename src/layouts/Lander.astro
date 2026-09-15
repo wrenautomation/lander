@@ -39,7 +39,7 @@ const multi = new Set(['note', 'questions']);
   <div class="wrap" data-intro-target>
     <svg class="itr" aria-hidden="true"></svg>
     <p class="kicker">{n.kicker}</p>
-    <h1>{n.h1}</h1>
+    <h1 set:html={inline(n.h1)} />
     <p class="lede" set:html={inline(n.lede)} />
     <a class="btn" href="#ask">{site.cta}</a>
   </div>

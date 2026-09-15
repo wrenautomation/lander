@@ -4,6 +4,7 @@ import { getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Mark from '../components/Mark.astro';
 import Theme from '../components/Theme.astro';
+import { inline } from '../lib/text';
 import Trace from '../components/Trace.astro';
 import Foot from '../components/Foot.astro';
 
@@ -31,7 +32,7 @@ const picks = await Promise.all(c.niches.map(async (x) => {
   <div class="wrap" data-intro-target>
     <svg class="itr" aria-hidden="true"></svg>
     <p class="kicker">{c.kicker}</p>
-    <h1>{c.h1}</h1>
+    <h1 set:html={inline(c.h1)} />
     <p class="lede">{c.lede}</p>
     <p class="pick-h">{c.pick}</p>
     <div class="pick">

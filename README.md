@@ -16,7 +16,7 @@ All words live in `src/content/`. Nothing in `src/` outside that folder is prose
 | Everything else: nav, offer teaser, section headings and labels, how it works, principles, why not an agency, questions, about, form fields, footer, 404 | `site/site.yaml` |
 
 Rules:
-- `**bold**` works in `lede`, `ask_intro` and `offer.promise` only.
+- `**bold**` works in `h1`, `lede`, `ask_intro` and `offer.promise` only. In the h1 it turns the words the accent colour; in the lede it turns them ink. Use it for the words a reader in that industry sees every day (AUM, ADV, renewals), a few per page.
 - A value with a colon or a `*` needs quotes: `h1: "Renewals: the short version"`.
 - Form fields are the `ask_fields` list. Keys: `name`, `email`, `phone`, `note`, `questions`. `required: true` adds the `*` and the check; `error` is the line shown under the field when the check fails. The email is always checked on the server. A database made before 2026-09-15 needs `npm run db:alter` once for the `name` and `questions` columns.
 - Keep the indentation. A stray key or missing field fails the build with the file and line.

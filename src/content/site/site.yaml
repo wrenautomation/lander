@@ -1,5 +1,5 @@
 # Copy shared by every page. Edit freely. Keep the keys.
-# **bold** works in: lede (niche files), ask_intro, offer.promise.
+# **bold** works in: h1 and lede (niche files and chooser), ask_intro, offer.promise. In the h1 it is the accent colour; in the lede it is ink on grey. Keep it to the words a reader in that industry sees every day.
 # A value with a colon or a * needs quotes.
 
 name: William Jin
@@ -24,7 +24,7 @@ mid_cta: Start with the free audit
 chooser:
   title: Wren Automation
   kicker: Custom automation and software for small businesses
-  h1: A full workday a week back for each person on your team.
+  h1: A **full workday** a week back for each person on your team.
   lede: "I'm William. I build the automations nobody at the firm has time to build. Each page below has the work I automate in that industry, two builds still in use, and the offer."
   pick: Pick your industry
   niches:
