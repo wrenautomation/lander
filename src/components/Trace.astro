@@ -1,0 +1,16 @@
+---
+// One small band, full width: grey hairlines with hollow nodes, one accent trace ending in a filled node, and on two of the three a second accent run on the right so the colour carries across. Rows at 6, 13, 20; nothing shares a row. `i` picks the drawing.
+const { i = 0 } = Astro.props as { i?: number };
+const TRACES = [
+  { acc: 'M0 6 H62 L70 13 H150', node: [154, 13], grey: ['M0 20 H96', 'M180 20 H226 L234 13 H272'], acc2: 'M210 6 H320', hollow: [[276, 13]] },
+  { acc: 'M0 20 H118 L126 13 H206 L214 6 H288', node: [292, 6], grey: ['M0 6 H58 L66 13 H98', 'M160 6 H190', 'M244 20 H320'], hollow: [[102, 13], [194, 6]] },
+  { acc: 'M0 13 H40 L48 6 H176', node: [180, 6], grey: ['M0 20 H140 L148 13 H230', 'M262 20 H320'], acc2: 'M210 6 H320', hollow: [[234, 13]] },
+];
+const t = TRACES[i % TRACES.length];
+---
+<svg class="tr" viewBox="0 0 320 26" preserveAspectRatio="xMidYMid slice" data-band aria-hidden="true">
+  {t.grey.map((d) => <path d={d}/>)}
+  {t.hollow.map(([x, y]) => <circle cx={x} cy={y} r="3.5"/>)}
+  <path class="a" d={t.acc}/><circle class="a" cx={t.node[0]} cy={t.node[1]} r="3.5"/>
+  {'acc2' in t && <path class="a" d={t.acc2}/>}
+</svg>

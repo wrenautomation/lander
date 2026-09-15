@@ -29,12 +29,16 @@ const analytics = import.meta.env.PUBLIC_CF_ANALYTICS;
   <script is:inline>
     /* theme before first paint: saved choice, else the system's */
     try{var t=localStorage.getItem('wren-theme')||'light';document.documentElement.dataset.theme=t}catch(e){}
+    /* the landing intro: ?intro=1 is the overlay, ?intro=2 the hero drawing itself. Off for ?static, reduced motion and deep links. Set here so the first paint already hides what the intro reveals. */
+    try{var p=new URLSearchParams(location.search),i=p.get('intro');
+    if(i&&!p.has('static')&&!p.has('sent')&&!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.dataset.intro=i}catch(e){}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="intro" aria-hidden="true"><svg data-intro-svg></svg><span class="intro-mark"><img class="mark l" src="/brand/wren-mark.png" alt="" width="1048" height="957"><img class="mark d" src="/brand/wren-mark-white.png" alt="" width="1048" height="957"></span></div>
   <slot />
   <script src="../scripts/motion.ts"></script>
   <script src="../scripts/hit.ts"></script>

@@ -1,14 +1,11 @@
 ---
-// / renders niches/general.yaml; /ria, /insurance, /agencies render their own file.
+// /ria, /insurance, /agencies: one page per file in src/content/niches. / is index.astro.
 import { getCollection } from 'astro:content';
 import Lander from '../layouts/Lander.astro';
 
 export async function getStaticPaths() {
   const niches = await getCollection('niches');
-  return niches.map((niche) => ({
-    params: { slug: niche.id === 'general' ? undefined : niche.id },
-    props: { niche },
-  }));
+  return niches.map((niche) => ({ params: { slug: niche.id }, props: { niche } }));
 }
 const { niche } = Astro.props;
 ---

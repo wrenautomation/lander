@@ -20,15 +20,26 @@ theme:
 cta: Get in touch
 # The link to the form after the case studies and again after the offer.
 mid_cta: Start with the free audit
-# Links to the niche pages. Shown on / only; a lead sent to /ria never sees the others.
-niches_pre: Who I work with
-niches:
-  - name: RIAs
-    href: /ria
-  - name: Insurance agencies
-    href: /insurance
-  - name: Agencies
-    href: /agencies
+# wrenautomation.com/: the chooser. One click into an industry page; no pitch here. `slug` is the niche file name, the card's colour comes from that file.
+chooser:
+  title: Wren Automation
+  kicker: Workflow automation for small firms
+  h1: A full workday a week back for each person on your team.
+  lede: "I'm William. I build the automations nobody at the firm has time to build. Each page below has the work I automate in that industry, two builds still in use, and the offer."
+  pick: Pick your industry
+  niches:
+    - slug: ria
+      name: RIAs
+      text: Onboarding, client documents, quarterly letters, the handoffs in between.
+    - slug: insurance
+      name: Insurance agencies
+      text: Certificates, renewals, proposals, the chasing in between.
+    - slug: agencies
+      name: Agencies
+      text: Proposals, client reporting, onboarding, the handoffs between account and delivery.
+  go: See the page
+  other_pre: Not one of these?
+  other: Email me
 
 # The offer in one breath, right under the hero. `more` links to the offer section below.
 offer:

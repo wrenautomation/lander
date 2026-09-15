@@ -5,6 +5,7 @@ import { getEntry } from 'astro:content';
 import Base from './Base.astro';
 import Band from '../components/Band.astro';
 import Mark from '../components/Mark.astro';
+import Trace from '../components/Trace.astro';
 import Foot from '../components/Foot.astro';
 import { inline, plain } from '../lib/text';
 
@@ -19,12 +20,6 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 // Input attributes follow from the column, not the copy file.
 const input = { name: { type: 'text', autocomplete: 'given-name' }, email: { type: 'email', autocomplete: 'email' }, phone: { type: 'tel', autocomplete: 'tel' }, note: {}, questions: {} } as const;
 const multi = new Set(['note', 'questions']);
-// One small band per principle card, full width: grey hairlines with hollow nodes, one accent trace ending in a filled node, and on the outer cards a second accent run on the right so the colour carries across. Rows at 6, 13, 20; nothing shares a row.
-const TRACES = [
-  { acc: 'M0 6 H62 L70 13 H150', node: [154, 13], grey: ['M0 20 H96', 'M180 20 H226 L234 13 H272'], acc2: 'M210 6 H320', hollow: [[276, 13]] },
-  { acc: 'M0 20 H118 L126 13 H206 L214 6 H288', node: [292, 6], grey: ['M0 6 H58 L66 13 H98', 'M160 6 H190', 'M244 20 H320'], hollow: [[102, 13], [194, 6]] },
-  { acc: 'M0 13 H40 L48 6 H176', node: [180, 6], grey: ['M0 20 H140 L148 13 H230', 'M262 20 H320'], acc2: 'M210 6 H320', hollow: [[234, 13]] },
-];
 ---
 <Base title={n.title} description={plain(n.lede)} hue={n.hue}>
 
@@ -40,12 +35,11 @@ const TRACES = [
 </div>
 
 <section class="hero" id="top">
-  <div class="wrap">
+  <div class="wrap" data-intro-target>
     <p class="kicker">{n.kicker}</p>
     <h1>{n.h1}</h1>
     <p class="lede" set:html={inline(n.lede)} />
     <a class="btn" href="#ask">{site.cta}</a>
-    {niche.id === 'general' && <p class="niches"><span>{site.niches_pre}</span>{site.niches.map((x) => <a href={x.href}>{x.name}</a>)}</p>}
   </div>
 </section>
 
@@ -157,14 +151,7 @@ const TRACES = [
       <div class="cols">
         {site.principles.map((p, i) => (
           <div>
-            {(() => { const t = TRACES[i % TRACES.length]; return (
-              <svg class="tr" viewBox="0 0 320 26" preserveAspectRatio="xMidYMid slice" data-band aria-hidden="true">
-                {t.grey.map((d) => <path d={d}/>)}
-                {t.hollow.map(([x, y]) => <circle cx={x} cy={y} r="3.5"/>)}
-                <path class="a" d={t.acc}/><circle class="a" cx={t.node[0]} cy={t.node[1]} r="3.5"/>
-                {'acc2' in t && <path class="a" d={t.acc2}/>}
-              </svg>
-            ); })()}
+            <Trace i={i} />
             <h3>{p.name}</h3><p>{p.text}</p>
           </div>
         ))}

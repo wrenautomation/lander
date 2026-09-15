@@ -1,0 +1,50 @@
+---
+// wrenautomation.com/: the chooser. No pitch here, one click into the industry page. Copy in site.yaml under `chooser`.
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+import Trace from '../components/Trace.astro';
+import Foot from '../components/Foot.astro';
+
+const site = (await getEntry('site', 'site'))!.data;
+const c = site.chooser;
+const picks = await Promise.all(c.niches.map(async (x) => {
+  const n = await getEntry('niches', x.slug);
+  if (!n) throw new Error(`site.yaml chooser lists a niche page that does not exist: ${x.slug}`);
+  return { ...x, hue: n.data.hue };
+}));
+---
+<Base title={c.title} description={c.lede} hue="rust">
+
+<div class="wrap">
+  <nav class="nav choose-nav" aria-label="Page">
+    <a href="/" aria-label="Wren Automation"><Mark /></a>
+    <div class="right">
+      <a class="contact" href={`mailto:${site.email}`}>{site.nav.contact}</a>
+      <button class="theme" type="button" data-theme-toggle data-to-dark={site.theme.to_dark} data-to-light={site.theme.to_light} aria-label="Switch between light and dark">{site.theme.to_dark}</button>
+    </div>
+  </nav>
+</div>
+
+<section class="hero choose" id="top">
+  <div class="wrap" data-intro-target>
+    <p class="kicker">{c.kicker}</p>
+    <h1>{c.h1}</h1>
+    <p class="lede">{c.lede}</p>
+    <p class="pick-h">{c.pick}</p>
+    <div class="pick">
+      {picks.map((p, i) => (
+        <a href={`/${p.slug}`} data-hue={p.hue}>
+          <Trace i={i} />
+          <h2>{p.name}</h2>
+          <p>{p.text}</p>
+          <span class="go">{c.go} &rarr;</span>
+        </a>
+      ))}
+    </div>
+    <p class="other">{c.other_pre} <a href={`mailto:${site.email}`}>{c.other}</a></p>
+  </div>
+</section>
+
+<Foot site={site} />
+</Base>

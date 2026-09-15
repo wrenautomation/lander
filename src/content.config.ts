@@ -62,8 +62,11 @@ const site = defineCollection({
     theme: z.strictObject({ to_dark: z.string(), to_light: z.string() }),
     cta: z.string(),
     mid_cta: z.string(), // the link to the form after the case studies and after the offer
-    niches_pre: z.string(), // the links to the niche pages, shown on / only
-    niches: z.array(z.strictObject({ name: z.string(), href: z.string() })),
+    chooser: z.strictObject({ // the front page: pick an industry
+      title: z.string(), kicker: z.string(), h1: z.string(), lede: z.string(), pick: z.string(),
+      niches: z.array(z.strictObject({ slug: z.string(), name: z.string(), text: z.string() })),
+      go: z.string(), other_pre: z.string(), other: z.string(),
+    }),
     offer: z.strictObject({ eyebrow: z.string(), promise: z.string(), safe: z.string(), more: z.string() }), // promise: **bold** allowed
     work_h2: z.string(),
     work_intro: z.string(),

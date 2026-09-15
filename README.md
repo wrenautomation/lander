@@ -1,6 +1,6 @@
 # Wren Automation lander
 
-Post-email credibility page. `/`, `/ria`, `/insurance`, `/agencies`.
+Post-email credibility page. `/` is a chooser (three cards, one per industry); `/ria`, `/insurance`, `/agencies` are the pages.
 Spec: `designs/2026-09-14-lander-spec.md`.
 
 ## Edit the copy
@@ -9,7 +9,8 @@ All words live in `src/content/`. Nothing in `src/` outside that folder is prose
 
 | Want to change | File |
 |---|---|
-| Headline, intro, "what this proves", "what gets automated" list for one page | `niches/<page>.yaml` (`general.yaml` is `/`) |
+| Headline, intro, "what this proves", "what gets automated" list for one page | `niches/<page>.yaml` |
+| The front page: headline, the three cards, the "not one of these" line | `site/site.yaml`, `chooser:` |
 | A case study (story, now, steps, numbers, stack) | `case-studies/<name>.yaml` |
 | "Which column is your week" rows for one page | `niches/<page>.yaml`, `sides:` |
 | Everything else: nav, offer teaser, section headings and labels, how it works, principles, why not an agency, questions, about, form fields, footer, 404 | `site/site.yaml` |
@@ -22,7 +23,7 @@ Rules:
 - Case-study `count:` makes a figure count up on scroll. Leave it out for text figures like `½ day`.
 - A step with `you: true` gets the filled node (a person does it).
 
-New page: copy `niches/ria.yaml` to `niches/<slug>.yaml`. The file name is the URL. Set `hue` (rust, green or red) and `form_value`.
+New page: copy `niches/ria.yaml` to `niches/<slug>.yaml`. The file name is the URL. Set `hue` (rust, green or red) and `form_value`. Add a card for it under `chooser.niches` in `site.yaml`.
 New case study: add `case-studies/<name>.yaml`, then list `<name>` under `cases:` in each niche that should show it.
 Photo: `public/headshot.png`, set by `photo:` in `site.yaml`. Remove that line and the slot goes invisible.
 Colours, spacing, breakpoint: `src/styles/global.css`. One breakpoint, 840px.
@@ -39,6 +40,7 @@ Before the first `preview`: `npx wrangler d1 execute wren-leads --local --file s
 
 Theme: light by default, the button remembers. Add `?theme=dark` to force it.
 Motion off: `?static`, or the OS reduced-motion setting.
+Landing intro: `?intro=1` (overlay: mark and trace, then the sheet lifts) or `?intro=2` (the hero draws itself). Off by default until one is chosen (`Base.astro`, the inline script).
 
 ## Deploy (once)
 

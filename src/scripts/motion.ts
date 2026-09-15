@@ -51,6 +51,61 @@ if (ask) {
   };
 }
 
+/* ---------- the landing intro. Base.astro decides whether it runs (html[data-intro]); CSS hides the target until then. 1 = overlay, 2 = the hero draws itself. ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag: string, attrs: Record<string, string | number>) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, String(attrs[k])); return e; };
+(() => {
+  const v = root.dataset.intro, target = document.querySelector<HTMLElement>('[data-intro-target]');
+  if (!v || !target || reduce) { delete root.dataset.intro; return; }
+  const parts = [...target.children] as Element[];
+  const finish = () => { delete root.dataset.intro; gsap.set(parts, { clearProps: 'opacity,transform' }); ScrollTrigger.refresh(); };
+  const prep = (svg: SVGSVGElement) => {
+    const paths = [...svg.querySelectorAll('path')], nodes = [...svg.querySelectorAll('circle')];
+    paths.forEach((p) => { const L = p.getTotalLength(); p.style.strokeDasharray = String(L); p.style.strokeDashoffset = String(L); });
+    gsap.set(nodes, { scale: 0, transformOrigin: 'center' });
+    return { paths, nodes };
+  };
+  const tl = gsap.timeline({ onComplete: finish });
+  if (v === '1') {
+    // Overlay: a trace runs in from the left to the mark, the mark appears, the trace runs on to a filled node, then the sheet lifts.
+    const box = document.querySelector<HTMLElement>('.intro')!, svg = box.querySelector<SVGSVGElement>('svg')!, mark = box.querySelector<HTMLElement>('.intro-mark')!;
+    const W = innerWidth, cx = W / 2, m = Math.min(72, W * .16), jog = W < 600 ? 60 : 110;
+    svg.setAttribute('viewBox', `0 0 ${W} 80`);
+    svg.append(
+      el('path', { d: `M0 52 H${cx - m - jog - 12} L${cx - m - jog} 40 H${cx - m}` }),
+      el('path', { d: `M0 28 H${Math.round(W * .18)}` }), el('circle', { cx: Math.round(W * .18) + 4, cy: 28, r: 3.5 }),
+      el('path', { class: 'a', d: `M${cx + m} 40 H${cx + m + jog} L${cx + m + jog + 12} 52 H${W - 48}` }), el('circle', { class: 'a', cx: W - 44, cy: 52, r: 4 }),
+    );
+    const { paths, nodes } = prep(svg);
+    gsap.set(mark, { opacity: 0, scale: .92 });
+    tl.to(paths[0], { strokeDashoffset: 0, duration: .45, ease: 'power1.inOut' }, 0)
+      .to(paths[1], { strokeDashoffset: 0, duration: .3, ease: 'power1.inOut' }, .1)
+      .to(nodes[0], { scale: 1, duration: .25, ease: 'back.out(2)' }, .38)
+      .to(mark, { opacity: 1, scale: 1, duration: .45, ease: 'power2.out' }, .3)
+      .to(paths[2], { strokeDashoffset: 0, duration: .45, ease: 'power1.inOut' }, .5)
+      .to(nodes[1], { scale: 1, duration: .3, ease: 'back.out(2)' }, .9)
+      .to(box, { yPercent: -100, duration: .7, ease: 'power3.inOut' }, 1.3)
+      .fromTo(parts, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .55, stagger: .07, ease: 'power2.out' }, 1.5)
+      .set(box, { display: 'none' });
+  } else {
+    // In place: a trace draws across the top of the hero, and the lines under it come up as it goes.
+    const svg = el('svg', { class: 'itr', 'aria-hidden': 'true' }) as SVGSVGElement;
+    target.prepend(svg);
+    const W = target.clientWidth, y = 20;
+    svg.setAttribute('viewBox', `0 0 ${W} 40`);
+    svg.append(
+      el('path', { d: `M0 32 H${Math.round(W * .22)}` }), el('circle', { cx: Math.round(W * .22) + 4, cy: 32, r: 3.5 }),
+      el('path', { class: 'a', d: `M0 ${y} H${Math.round(W * .34)} L${Math.round(W * .34) + 12} 8 H${Math.round(W * .68)} L${Math.round(W * .68) + 12} ${y} H${W - 44}` }), el('circle', { class: 'a', cx: W - 40, cy: y, r: 4 }),
+    );
+    const { paths, nodes } = prep(svg);
+    tl.to(paths[1], { strokeDashoffset: 0, duration: .8, ease: 'power1.inOut' }, 0)
+      .to(paths[0], { strokeDashoffset: 0, duration: .4, ease: 'power1.inOut' }, .15)
+      .to(nodes[0], { scale: 1, duration: .25, ease: 'back.out(2)' }, .5)
+      .to(nodes[1], { scale: 1, duration: .3, ease: 'back.out(2)' }, .75)
+      .fromTo(parts.filter((p) => p !== (svg as Element)), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5, stagger: .08, ease: 'power2.out' }, .2);
+  }
+})();
+
 /* ---------- draw once ---------- */
 function drawOnEnter(svg: SVGSVGElement, stagger: number) {
   const paths = [...svg.querySelectorAll('path')], nodes = [...svg.querySelectorAll('circle')];
@@ -67,8 +122,6 @@ const steps = document.querySelector<SVGSVGElement>('svg[data-steps]');
 if (steps && getComputedStyle(steps).display !== 'none') drawOnEnter(steps, .15);
 
 /* ---------- case pipelines: one trace through each case's nodes, a jog per step, stubs ending in hollow nodes ---------- */
-const NS = 'http://www.w3.org/2000/svg';
-const el = (tag: string, attrs: Record<string, string | number>) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, String(attrs[k])); return e; };
 type Pipe = HTMLElement & { _key?: string; _tl?: gsap.core.Timeline | null; _st?: ScrollTrigger | null; _done?: boolean };
 function tracePipe(pipe: Pipe, animate: boolean) {
   const ol = pipe.querySelector('ol')!;
