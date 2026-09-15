@@ -11,12 +11,13 @@ All words live in `src/content/`. Nothing in `src/` outside that folder is prose
 |---|---|
 | Headline, intro, "what this proves", "what gets automated" list for one page | `niches/<page>.yaml` (`general.yaml` is `/`) |
 | A case study (story, now, steps, numbers, stack) | `case-studies/<name>.yaml` |
-| Everything else: nav, offer teaser, section headings and labels, how it works, pillars, questions, about, form fields, footer, 404 | `site/site.yaml` |
+| "Which column is your week" rows for one page | `niches/<page>.yaml`, `sides:` |
+| Everything else: nav, offer teaser, section headings and labels, how it works, usually vs with me table, questions, about, form fields, footer, 404 | `site/site.yaml` |
 
 Rules:
 - `**bold**` works in `lede`, `ask_intro` and `offer.promise` only.
 - A value with a colon or a `*` needs quotes: `h1: "Renewals: the short version"`.
-- Form fields are the `ask_fields` list. `required: true` adds the `*` and the check; `error` is the line shown under the field when the check fails. The email is always checked on the server.
+- Form fields are the `ask_fields` list. Keys: `name`, `email`, `phone`, `note`, `questions`. `required: true` adds the `*` and the check; `error` is the line shown under the field when the check fails. The email is always checked on the server. A database made before 2026-09-15 needs `npm run db:alter` once for the `name` and `questions` columns.
 - Keep the indentation. A stray key or missing field fails the build with the file and line.
 - Case-study `count:` makes a figure count up on scroll. Leave it out for text figures like `½ day`.
 - A step with `you: true` gets the filled node (a person does it).
