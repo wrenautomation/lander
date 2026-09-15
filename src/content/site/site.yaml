@@ -51,11 +51,11 @@ how:
 principles_h3: 3 principles of Wren
 principles:
   - name: Accountability
-    text: Milestones agreed up front, paid after each one runs in your accounts. If it's my mistake, I fix it at no charge. If it breaks after handover, you have the code and the documentation.
+    text: Milestones agreed up front, paid after each one meets your needs. Frequent updates and checkins are done to ensure alignment, and actual ROI is personally guaranteed.
   - name: Scalability
-    text: Built so anyone on the team can use it, not only the person who asked for it. When the team grows or a tool changes, it keeps working, and the documentation says how.
+    text: Built to support a whole team of users. When the team grows or a tool changes, the automations maintain usability and are easy to extend.
   - name: Utility
-    text: I solve the real problem. If the piece we scoped won't pay for itself, I say so before building it and we pick one that will.
+    text: I solve the real problem. If the piece we scoped is not useful or we discover major blockers during development, I'll ensure you still get value from my work.
 
 # Why not the alternatives. Sits between the offer and the questions.
 alt_h2: Why not a bigger agency, a consultant, or one more hire?
@@ -97,7 +97,7 @@ why:
   - I'm building a business on this kind of work, and I want each build to be so good that you're not just satisfied, but you want to refer me to every business owner you know. I'm willing to relax the financial terms to get this kind of result.
 
 # The form. Fields render in this order. `required: true` adds the * and the check; `error` shows under the field when the check fails.
-ask_intro: Tell me what eats your week. I reply within one business day with a few times for a 30-minute call. **I send the times myself, and the call commits you to nothing.**
+ask_intro: Tell me what eats away at your weekly hours. I'll reply in a business day with a few times for a quick call. 
 ask_fields:
   - key: name
     label: Name
@@ -106,7 +106,7 @@ ask_fields:
     label: Work email
     placeholder: you@firm.com
     required: true
-    error: Enter a work email so I can reply.
+    error: Enter a work email.
   - key: phone
     label: Phone
     placeholder: "+1"
@@ -123,11 +123,11 @@ ask_submit: Send
 ask_small: Lands in my inbox and one table I keep so nothing gets lost. Nobody else sees it, and I delete it if you ask.
 ask_error: "That didn't send. Email me instead:"
 thanks_h: Got it.
-thanks: I'll reply within one business day from william@wrenautomation.com. If it hasn't arrived by then, check spam, then email me directly.
+thanks: Look for an email from william@wrenautomation.com. Check spam or email me directly if you don't find it. Talk to you soon!
 
 # Bottom of every page. `fine` is the privacy line; keep it true (see README, "What gets measured").
 footer_line: Thanks for reading this far.
-fine: What you send goes to my inbox and one table I keep. I use it to reply and for nothing else. Ask and I delete it. No cookies. The site counts visits and can't tell who you are.
+fine: Your emails are not used for any unwanted subscription services or marketing. 
 # Appended only when Turnstile is on. Cloudflare requires the link for invisible mode.
 fine_turnstile: The form is checked for bots by Cloudflare Turnstile, under its
 fine_turnstile_link: privacy addendum
