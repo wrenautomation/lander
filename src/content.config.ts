@@ -61,6 +61,7 @@ const site = defineCollection({
     nav: z.strictObject({ work: z.string(), offer: z.string(), about: z.string(), contact: z.string() }),
     theme: z.strictObject({ to_dark: z.string(), to_light: z.string() }),
     cta: z.string(),
+    mid_cta: z.string(), // the link to the form after the case studies and after the offer
     offer: z.strictObject({ eyebrow: z.string(), promise: z.string(), safe: z.string(), more: z.string() }), // promise: **bold** allowed
     work_h2: z.string(),
     work_intro: z.string(),

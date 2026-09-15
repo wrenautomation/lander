@@ -18,6 +18,8 @@ theme:
 
 # Hero button and the heading of the form section.
 cta: Get in touch
+# The link to the form after the case studies and again after the offer.
+mid_cta: Start with the free audit
 
 # The offer in one breath, right under the hero. `more` links to the offer section below.
 offer:

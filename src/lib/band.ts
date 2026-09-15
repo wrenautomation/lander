@@ -3,14 +3,14 @@ function rng(seed: number) {
   let s = seed >>> 0;
   return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
 }
-export const BAND = { W: 1200, H: 60, R: 3.6 };
-export function makeBand(seed: number) {
-  const { W, R } = BAND, r = rng(seed * 7919 + 17);
+export const BAND = { W: 1200, M: 420, H: 60, R: 3.6 }; // W desktop width, M phone width (the phone svg is cropped to the viewport, so it gets its own, denser band)
+export function makeBand(seed: number, W = BAND.W, tries = 26) {
+  const { R } = BAND, r = rng(seed * 7919 + 17);
   const rows = [15, 30, 45], J = 15, GAP = 28;
   const paths: string[] = [], nodes: [number, number][] = [], used: [number, number][][] = rows.map(() => []);
   const free = (ri: number, x0: number, x1: number) => used[ri].every(([a, b]) => x1 + GAP < a || x0 - GAP > b);
   const take = (ri: number, x0: number, x1: number) => used[ri].push([x0, x1]);
-  for (let t = 0; t < 26; t++) {
+  for (let t = 0; t < tries; t++) {
     let ri = Math.floor(r() * rows.length), x = r() * W, y = rows[ri];
     let d = `M${x.toFixed(1)} ${y}`, ok = true;
     const x0 = x, segs = 1 + Math.floor(r() * 3), taken: [number, number, number][] = [];

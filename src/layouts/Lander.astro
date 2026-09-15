@@ -64,13 +64,18 @@ const multi = new Set(['note', 'questions']);
   </div>
 </section>
 
-<section class="s" id="work" style="padding-top:0">
+<section class="s" id="work">
   <div class="wrap">
     <h2>{site.work_h2}</h2>
     <p class="intro">{site.work_intro}</p>
     {cases.map((c) => (
       <article class="case">
         <div class="head"><h3>{c.result}</h3><span>{c.client} · {c.kind}</span></div>
+        <div class="impact">
+          {c.impact.map((m) => (
+            <div><div class="fig" data-count={m.count} data-suffix={m.suffix}>{m.fig}</div><div class="lbl">{m.label}</div></div>
+          ))}
+        </div>
         <div class="top">
           <div><h4>{site.case_labels.story}</h4><p>{c.story}</p></div>
           <div><h4>{site.case_labels.now}</h4><p>{c.now}</p></div>
@@ -87,18 +92,16 @@ const multi = new Set(['note', 'questions']);
             ))}
           </ol>
         </div>
-        <div class="impact">
-          {c.impact.map((m) => (
-            <div><div class="fig" data-count={m.count} data-suffix={m.suffix}>{m.fig}</div><div class="lbl">{m.label}</div></div>
-          ))}
-        </div>
         <div class="foot">{c.stack}</div>
       </article>
     ))}
+    <a class="more" href="#ask">{site.mid_cta} &rarr;</a>
   </div>
 </section>
 
-<section class="s" id="proves" style="padding-top:0">
+<Band seed={7} />
+
+<section class="s" id="proves">
   <div class="wrap">
     <h2>{n.proves_h2}</h2>
     <p class="intro">{n.proves_intro}</p>
@@ -108,7 +111,7 @@ const multi = new Set(['note', 'questions']);
   </div>
 </section>
 
-<section class="s" id="targets" style="padding-top:0">
+<section class="s" id="targets">
   <div class="wrap">
     <h2>{n.targets_h2}</h2>
     <p class="intro">{n.targets_intro}</p>
@@ -118,7 +121,9 @@ const multi = new Set(['note', 'questions']);
   </div>
 </section>
 
-<section class="s" id="offer" style="padding-top:0">
+<Band seed={11} />
+
+<section class="s" id="offer">
   <div class="wrap steps">
     <h2>{site.offer_h2}</h2>
     <p class="intro">{site.offer_intro}</p>
@@ -146,10 +151,13 @@ const multi = new Set(['note', 'questions']);
         {site.principles.map((p) => <div><h3>{p.name}</h3><p>{p.text}</p></div>)}
       </div>
     </div>
+    <a class="more" href="#ask">{site.mid_cta} &rarr;</a>
   </div>
 </section>
 
-<section class="s" id="alt" style="padding-top:0">
+<Band seed={13} />
+
+<section class="s" id="alt">
   <div class="wrap">
     <h2>{site.alt_h2}</h2>
     <p class="intro">{site.alt_intro}</p>
@@ -159,7 +167,7 @@ const multi = new Set(['note', 'questions']);
   </div>
 </section>
 
-<section class="s" id="questions" style="padding-top:0">
+<section class="s" id="questions">
   <div class="wrap">
     <h2>{site.questions_h2}</h2>
     <p class="intro">{site.questions_intro}</p>

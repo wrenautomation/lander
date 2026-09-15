@@ -1,9 +1,14 @@
 ---
+// Two drawings of the same motif: the wide one is cropped to the viewport, so phones get their own, sized to the screen.
 import { makeBand, BAND } from '../lib/band';
 const { seed } = Astro.props as { seed: number };
-const { paths, nodes } = makeBand(seed);
+const wide = makeBand(seed), narrow = makeBand(seed, BAND.M, 40); // the narrow band is all on screen, so it needs more tries per width to fill
 ---
-<svg class="band" data-band viewBox={`0 0 ${BAND.W} ${BAND.H}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  {paths.map((d) => <path d={d} />)}
-  {nodes.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y} r={BAND.R} />)}
+<svg class="band d" data-band viewBox={`0 0 ${BAND.W} ${BAND.H}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  {wide.paths.map((d) => <path d={d} />)}
+  {wide.nodes.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y} r={BAND.R} />)}
+</svg>
+<svg class="band m" data-band viewBox={`0 0 ${BAND.M} ${BAND.H}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  {narrow.paths.map((d) => <path d={d} />)}
+  {narrow.nodes.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y} r={BAND.R} />)}
 </svg>

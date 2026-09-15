@@ -38,6 +38,8 @@ p{margin:0}
 
 /* hairline trace bands */
 .band{display:block;width:100%;height:56px;color:var(--trace);opacity:.65}
+.band.d{display:none} /* the phone gets its own drawing, see Band.astro */
+.band.m{opacity:.85} /* a hairline at phone pixel density reads fainter */
 .band path{fill:none;stroke:currentColor;stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
 .band circle{fill:var(--paper);stroke:currentColor;stroke-width:1}
 
@@ -60,7 +62,7 @@ p{margin:0}
 .hero .lede{font-size:1.1rem;color:var(--mute);max-width:54ch;margin:1.1rem 0 1.6rem}
 .hero .lede b{color:var(--ink);font-weight:600}
 
-.btn{display:inline-flex;justify-content:center;align-items:center;gap:.5rem;width:100%;min-height:48px;padding:.8rem 1.35rem;border-radius:2px;background:var(--acc);color:var(--on-acc);text-decoration:none;font-weight:600;font-size:15px;border:0;cursor:pointer;font-family:inherit}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:.5rem;min-height:44px;padding:.65rem 1.3rem;border-radius:2px;background:var(--acc);color:var(--on-acc);text-decoration:none;font-weight:600;font-size:15px;border:0;cursor:pointer;font-family:inherit}
 .btn:hover{opacity:.88}
 .btn:active{transform:translateY(1px)}
 .btn[disabled]{opacity:.6;cursor:default}
@@ -75,8 +77,13 @@ p{margin:0}
 .teaser a:hover{text-decoration:underline;text-underline-offset:4px}
 .fig{font-size:2rem;font-weight:600;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--acc);white-space:nowrap}
 
+/* the link to the form after the cases and after the offer */
+.more{display:inline-block;margin-top:1.75rem;font-weight:600;font-size:15px;text-decoration:none;color:var(--acc)}
+.more:hover{text-decoration:underline;text-underline-offset:4px}
+
 /* sections */
 section.s{padding:3rem 0}
+section.s+section.s:not(.ask){padding-top:0}
 .s h2{font-size:clamp(1.6rem,4.5vw,2.3rem);margin-bottom:.6rem}
 #work h2{font-size:clamp(1.9rem,5vw,2.8rem)}
 .s .intro{color:var(--mute);max-width:60ch;margin:0 0 1.8rem}
@@ -110,7 +117,7 @@ section.s{padding:3rem 0}
 .pt circle{fill:var(--pipe-bg);stroke:currentColor;stroke-width:1}
 .pipe b{display:block;color:var(--ink);font-weight:600;font-size:1.08rem;margin-bottom:.25rem}
 .pipe li p{font-size:15.5px;line-height:1.5}
-.impact{border-top:1px solid var(--rule)}
+.impact{border-bottom:1px solid var(--rule)}
 .impact>div{display:grid;grid-template-columns:minmax(6.5rem,auto) 1fr;gap:1rem;align-items:baseline;padding:.9rem var(--pad);border-bottom:1px solid var(--rule)}
 .impact>div:last-child{border-bottom:0}
 .impact .lbl{font-size:15px;color:var(--mute);line-height:1.4}
@@ -179,6 +186,7 @@ input,textarea{font:inherit;font-size:16px;padding:.75rem .8rem;border:1px solid
 input:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:1px;border-color:transparent}
 textarea{min-height:110px;resize:vertical}
 textarea.short{min-height:72px}
+form .btn{width:100%}
 form small{color:var(--mute);font-size:13px;line-height:1.5}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .sent{display:none;border:1px solid var(--rule);background:var(--paper);padding:1.25rem;border-radius:2px}
@@ -202,6 +210,7 @@ footer .fine{font-size:13px;border-top:1px solid var(--rule);padding-top:1rem}
   :root{--pad:1.75rem}
   .wrap{padding:0 40px}
   .band{height:64px}
+  .band.d{display:block} .band.m{display:none}
   .nav{padding:1.1rem 0}
   .brand .mark{height:30px}
   .brand .name{font-size:16px}
@@ -209,7 +218,7 @@ footer .fine{font-size:13px;border-top:1px solid var(--rule);padding-top:1rem}
   .nav .contact{display:none}
   .hero{padding:5rem 0 4.5rem}
   .hero .lede{font-size:1.2rem;margin:1.3rem 0 1.9rem}
-  .btn{width:auto}
+  form .btn{width:auto}
   .teaser{display:grid;grid-template-columns:1fr 1fr;gap:1rem 3rem;align-items:start;padding:2rem 0 2.1rem}
   .teaser h4{grid-column:1/-1;margin-bottom:.2rem}
   .teaser .promise{font-size:1.7rem}
@@ -220,6 +229,7 @@ footer .fine{font-size:13px;border-top:1px solid var(--rule);padding-top:1rem}
   #work .intro{font-size:1.15rem;margin-bottom:2.6rem}
   .s .intro{margin-bottom:2.2rem}
   .case{margin-bottom:2.5rem}
+  .more{margin-top:2.25rem}
   .case .head{padding:1.6rem var(--pad)}
   .case .head h3{font-size:1.6rem}
   .case .head span{font-size:15px}
