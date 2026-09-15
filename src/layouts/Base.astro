@@ -29,10 +29,10 @@ const analytics = import.meta.env.PUBLIC_CF_ANALYTICS;
   <script is:inline>
     /* theme before first paint: saved choice, else the system's */
     try{var t=localStorage.getItem('wren-theme')||'light';document.documentElement.dataset.theme=t}catch(e){}
-    /* the landing intro: the hero draws itself (2) once per tab. ?intro=1 is the overlay, ?intro=0 off; either flag always plays. Off for ?static, reduced motion and deep links. Set here so the first paint already hides what the intro reveals. */
-    try{var p=new URLSearchParams(location.search),i=p.get('intro'),ok=!p.has('static')&&!p.has('sent')&&!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(ok&&i===null&&!sessionStorage.getItem('wren-intro'))i='2';
-    if(ok&&i&&i!=='0'){document.documentElement.dataset.intro=i;sessionStorage.setItem('wren-intro','1')}}catch(e){}
+    /* the landing intro: the hero draws itself (2) the first time a tab opens each page. ?intro=1 is the overlay, ?intro=0 off; either flag always plays. Off for ?static, reduced motion and deep links. Set here so the first paint already hides what the intro reveals. */
+    try{var p=new URLSearchParams(location.search),i=p.get('intro'),k='wren-intro:'+location.pathname,ok=!p.has('static')&&!p.has('sent')&&!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(ok&&i===null&&!sessionStorage.getItem(k))i='2';
+    if(ok&&i&&i!=='0'){document.documentElement.dataset.intro=i;sessionStorage.setItem(k,'1')}}catch(e){}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
