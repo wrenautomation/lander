@@ -63,7 +63,7 @@ offer_h2: The offer
 offer_intro: Three steps. You see each piece working before you pay for it, and you keep everything at the end.
 how:
   - name: Audit
-    text: "A 30-minute call. I map where the hours go. You get one page back: what to automate first, the hours a week it saves, what it costs. Free, and yours to keep if you stop here."
+    text: "A 30-minute call. I map where the hours go. You get one page back: what to automate first, what it saves, what it costs. Free, and yours to keep if you stop here."
   - name: Build
     text: Scope and milestones agreed up front. I build inside the tools you already use where possible and ship in short cycles, so something useful is running for you early. Each milestone stands on its own, and you see it running before you pay for it.
   - name: Handover
