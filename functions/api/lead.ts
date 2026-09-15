@@ -24,7 +24,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const email = clip(form.get('email'), 200);
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return reply(400, false);
   const row = {
-    email, phone: clip(form.get('phone'), 40), note: clip(form.get('note'), 4000),
+    name: clip(form.get('name'), 120), email, phone: clip(form.get('phone'), 40), note: clip(form.get('note'), 4000), questions: clip(form.get('questions'), 4000),
     niche: clip(form.get('niche'), 40) || 'general', page: clip(form.get('page'), 200),
     utm_source: clip(form.get('utm_source'), 100), utm_medium: clip(form.get('utm_medium'), 100),
     utm_campaign: clip(form.get('utm_campaign'), 100), utm_content: clip(form.get('utm_content'), 100),
@@ -42,18 +42,20 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   }
 
   await env.DB.prepare(
-    `insert into leads (ts, email, phone, note, niche, page, utm_source, utm_medium, utm_campaign, utm_content, ref, country, ip, ua)
-     values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    `insert into leads (ts, name, email, phone, note, questions, niche, page, utm_source, utm_medium, utm_campaign, utm_content, ref, country, ip, ua)
+     values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   ).bind(
-    new Date().toISOString(), row.email, row.phone, row.note, row.niche, row.page,
+    new Date().toISOString(), row.name, row.email, row.phone, row.note, row.questions, row.niche, row.page,
     row.utm_source, row.utm_medium, row.utm_campaign, row.utm_content, row.ref, row.country, row.ip, row.ua,
   ).run();
 
+  const who = `${row.name ? `${row.name} · ` : ''}${row.email}${row.phone ? ` · ${row.phone}` : ''}`;
+  const body = `${row.note || '(no note)'}${row.questions ? `\n\nQuestions: ${row.questions}` : ''}`;
   const where = `${row.page}${row.utm_campaign ? ` · ${row.utm_campaign}` : ''}${row.country ? ` · ${row.country}` : ''}`;
   if (env.DISCORD_WEBHOOK) {
     await fetch(env.DISCORD_WEBHOOK, {
       method: 'POST', headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ content: `**Lead · ${row.niche}** · ${where}\n${row.email}${row.phone ? ` · ${row.phone}` : ''}\n> ${(row.note || '(no note)').slice(0, 1500).replace(/\n/g, '\n> ')}` }),
+      body: JSON.stringify({ content: `**Lead · ${row.niche}** · ${where}\n${who}\n> ${body.slice(0, 1500).replace(/\n/g, '\n> ')}` }),
     }).catch(() => {}); // the row is saved; the ping is a courtesy
   }
   if (env.RESEND_API_KEY && env.LEAD_TO && env.LEAD_FROM) {
@@ -63,7 +65,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       body: JSON.stringify({
         from: env.LEAD_FROM, to: env.LEAD_TO, reply_to: row.email,
         subject: `Lead (${row.niche}): ${row.email}`,
-        text: `${row.email}\n${row.phone || 'no phone'}\n${where}\n\n${row.note || '(no note)'}`,
+        text: `${who}\n${where}\n\n${body}`,
       }),
     }).catch(() => {});
   }

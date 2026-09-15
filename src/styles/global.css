@@ -86,9 +86,9 @@ section.s{padding:3rem 0}
 /* case studies */
 .case:last-child{margin-bottom:0}
 .case{border:1px solid var(--rule);border-radius:2px;margin-bottom:1.75rem}
-.case .head{padding:1.2rem var(--pad);border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.25rem 1.5rem}
+.case .head{padding:1.2rem var(--pad);border-bottom:1px solid var(--rule)}
 .case .head h3{font-size:1.4rem}
-.case .head span{font-size:14px;color:var(--mute)}
+.case .head span{display:block;margin-top:.35rem;font-size:14px;color:var(--mute)}
 .case h4{margin:0 0 .6rem;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lbl)}
 .case p{font-size:1.02rem}
 .case .top>div{padding:1.25rem var(--pad);border-bottom:1px solid var(--rule)}
@@ -112,10 +112,21 @@ section.s{padding:3rem 0}
 .pipe b{display:block;color:var(--ink);font-weight:600;font-size:1.08rem;margin-bottom:.25rem}
 .pipe li p{font-size:15.5px;line-height:1.5}
 .impact{border-top:1px solid var(--rule)}
-.impact>div{display:grid;grid-template-columns:6.5rem 1fr;gap:1rem;align-items:baseline;padding:.9rem var(--pad);border-bottom:1px solid var(--rule)}
+.impact>div{display:grid;grid-template-columns:minmax(6.5rem,auto) 1fr;gap:1rem;align-items:baseline;padding:.9rem var(--pad);border-bottom:1px solid var(--rule)}
 .impact>div:last-child{border-bottom:0}
 .impact .lbl{font-size:15px;color:var(--mute);line-height:1.4}
 .case .foot{padding:1rem var(--pad);border-top:1px solid var(--rule);font-size:14.5px;color:var(--mute)}
+
+/* section numbers, the eyebrow above each h2 */
+.num{display:block;font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--lbl);margin-bottom:.7rem;font-variant-numeric:tabular-nums}
+
+/* pick a side: by hand on the left, once built on the right */
+.sides{border-top:1px solid var(--rule)}
+.sides .hd{display:none}
+.sides>div{display:grid;gap:.35rem;padding:.9rem 0;border-bottom:1px solid var(--rule);font-size:15.5px}
+.sides>div span:first-child{color:var(--mute)}
+.sides .auto{color:var(--ink);font-weight:500}
+.sides .auto::before{content:'→ ';color:var(--acc)}
 
 /* rows with a bold lead and a grey note: what this proves, what gets automated */
 .rows div{padding:.9rem 0;border-top:1px solid var(--rule)}
@@ -131,10 +142,17 @@ section.s{padding:3rem 0}
 .steps h3{font-size:1.1rem;margin-bottom:.3rem}
 .steps p{color:var(--mute)}
 .steps .n{font-weight:600;font-size:13px;color:var(--lbl);margin-bottom:.3rem;letter-spacing:.06em}
-.pillars{margin-top:2.4rem;border:1px solid var(--rule);border-radius:2px;padding:1.25rem var(--pad) 1.4rem}
-.pillars>h3{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lbl);margin-bottom:1rem}
-.pillars h4{margin:0 0 .3rem;font-size:1.05rem;font-weight:600}
-.pillars p{color:var(--mute);font-size:15px}
+
+/* the usual arrangement vs working with me */
+.compare{margin-top:2.4rem;border:1px solid var(--rule);border-radius:2px;padding:1.25rem var(--pad) .4rem}
+.compare>h3{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lbl);margin-bottom:.6rem}
+.compare .tbl>.hd{display:none}
+.compare .tbl>div{padding:.9rem 0;border-top:1px solid var(--rule);display:grid;gap:.3rem;font-size:15px}
+.compare b{font-weight:600}
+.compare .them{color:var(--mute)}
+.compare .them::before,.compare .me::before{content:attr(data-h) ' · ';font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--lbl)}
+.compare .them::before{color:var(--mute)}
+.compare .me{color:var(--ink)}
 
 /* questions */
 .qa{display:grid;gap:1.4rem}
@@ -162,6 +180,7 @@ label{display:block;font-size:14px;font-weight:600}
 input,textarea{font:inherit;font-size:16px;padding:.75rem .8rem;border:1px solid var(--rule);border-radius:2px;background:var(--paper);color:var(--ink);width:100%;margin-top:.35rem}
 input:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:1px;border-color:transparent}
 textarea{min-height:110px;resize:vertical}
+textarea.short{min-height:72px}
 form small{color:var(--mute);font-size:13px;line-height:1.5}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .sent{display:none;border:1px solid var(--rule);background:var(--paper);padding:1.25rem;border-radius:2px}
@@ -198,7 +217,7 @@ footer .fine{font-size:13px;border-top:1px solid var(--rule);padding-top:1rem}
   .teaser .promise{font-size:1.7rem}
   .teaser .safe{margin:.15rem 0 .7rem}
   .fig{font-size:2.4rem}
-  section.s{padding:4.5rem 0}
+  section.s{padding:5rem 0}
   section.s#work{padding:5.5rem 0}
   #work .intro{font-size:1.15rem;margin-bottom:2.6rem}
   .s .intro{margin-bottom:2.2rem}
@@ -225,8 +244,15 @@ footer .fine{font-size:13px;border-top:1px solid var(--rule);padding-top:1rem}
   .rows div{padding:1rem 0}
   .steps svg{display:block}
   .steps .cols{grid-template-columns:repeat(3,1fr);gap:40px;margin-top:.6rem}
-  .pillars{margin-top:3rem;padding:1.6rem var(--pad) 1.8rem}
-  .pillars .cols{margin-top:0}
+  .num{font-size:13px}
+  .sides>div{grid-template-columns:1fr 1fr;gap:0 3rem;padding:1rem 0;font-size:16px}
+  .sides .hd{display:grid;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lbl);padding:.7rem 0}
+  .sides .hd span:first-child{color:var(--mute)}
+  .compare{margin-top:3rem;padding:1.6rem var(--pad) .5rem}
+  .compare .hd{display:grid;grid-template-columns:11rem 1fr 1fr;gap:0 2.5rem;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lbl);padding:.5rem 0 .9rem}
+  .compare .hd span:nth-child(2){color:var(--mute)}
+  .compare .tbl>div{grid-template-columns:11rem 1fr 1fr;gap:0 2.5rem;padding:1rem 0;font-size:16px}
+  .compare .them::before,.compare .me::before{content:none}
   .qa{grid-template-columns:1fr 1fr;gap:2rem 3rem}
   .about{grid-template-columns:220px 1fr;gap:2.5rem}
   .about .photo{width:auto}

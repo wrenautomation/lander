@@ -4,9 +4,11 @@
 create table if not exists leads (
   id integer primary key autoincrement,
   ts text not null,
+  name text,
   email text not null,
   phone text,
   note text,
+  questions text,
   niche text,
   page text,
   utm_source text,
@@ -39,3 +41,5 @@ create table if not exists hits (
   country text,
   ua text
 );
+
+-- name and questions were added 2026-09-15. A database created before then: npm run db:alter

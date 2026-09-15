@@ -4,6 +4,20 @@ title: Wren Automation for insurance agencies
 h1: Renewals, certificates and loss runs, without re-keying the same client data three times.
 lede: "I'm William. I build document and workflow automation for independent insurance agencies: certificates, renewals, proposals, the chasing in between. **Two builds below, with numbers.**"
 cases: [government-of-canada, fuel-cell-group]
+# Pick a side. Sits under the hero, before the case studies. Left is by hand, right is the same job once built.
+sides_h2: Which column is your week?
+sides_intro: A client's details end up in the policy, the certificate and the renewal summary because each one was set up on its own, in a different year. Nobody owns the gap between them, so nobody closes it.
+sides_hand: By hand
+sides_auto: Once built
+sides:
+  - hand: Client details keyed from the policy into the certificate.
+    auto: Issued from the policy data.
+  - hand: Renewal letters sent when someone remembers, chased by hand.
+    auto: Sent, tracked and chased on a schedule.
+  - hand: A carrier guideline found by asking whoever knows.
+    auto: Ask the question, get the passage.
+  - hand: The proposal assembled from the quote, by hand.
+    auto: Assembled from the quote.
 # Why two builds outside your industry still count. Sits between the case studies and the list below.
 proves_h2: What this proves to you
 proves_intro: "Neither client is an insurance agency. What carries over:"

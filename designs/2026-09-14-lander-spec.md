@@ -140,3 +140,4 @@ prose without touching code.
   short declarative sentences, commas for lists, a colon before an
   example, no dashes, no hedges, exact numbers, student stated plainly.
   "X, not Y" tails removed; they are not in the emails.
+- 2026-09-15, inspo pass (designs/2026-09-14-inspo-notes.md). Took 1, 2, 4 to 9; skipped 3 (prove-it links). CTA says free. Case title is the result, client and year under it. New section 01 "Which column is your week?" (by hand vs once built, per niche, with one line on why the gap exists). Pillars replaced by a three-column table, usually vs with me, same commitments. Audit output named (one page: what first, what it saves, what it costs). FAQ reordered to pre-call questions, two added. Sections numbered 01 to 08. Form: name and questions added, both optional; D1 columns added via `npm run db:alter`.

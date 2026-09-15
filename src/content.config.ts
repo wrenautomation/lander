@@ -16,6 +16,11 @@ const niches = defineCollection({
     h1: z.string(),
     lede: z.string(),             // **bold** allowed
     cases: z.array(z.string()),   // case-study file names, in order
+    sides_h2: z.string(),         // pick a side: by hand vs runs itself
+    sides_intro: z.string(),
+    sides_hand: z.string(),       // column headings
+    sides_auto: z.string(),
+    sides: z.array(z.strictObject({ hand: z.string(), auto: z.string() })),
     proves_h2: z.string(),
     proves_intro: z.string(),
     proves: z.array(z.strictObject({ point: z.string(), detail: z.string() })),
@@ -31,6 +36,7 @@ const cases = defineCollection({
   schema: z.strictObject({
     client: z.string(),
     kind: z.string(),             // "Document pipeline · 2025"
+    result: z.string(),           // the title: the number, in a sentence
     story: z.string(),            // what the team does and where the hours went
     now: z.string(),              // the same week today
     pipe_lead: z.string(),
@@ -62,8 +68,10 @@ const site = defineCollection({
     offer_h2: z.string(),
     offer_intro: z.string(),
     how: z.array(z.strictObject({ name: z.string(), text: z.string() })),
-    pillars_h3: z.string(),
-    pillars: z.array(z.strictObject({ name: z.string(), text: z.string() })),
+    compare_h3: z.string(),       // the usual arrangement vs working with me
+    compare_them: z.string(),
+    compare_me: z.string(),
+    compare: z.array(z.strictObject({ what: z.string(), them: z.string(), me: z.string() })),
     questions_h2: z.string(),
     questions_intro: z.string(),
     questions: z.array(z.strictObject({ q: z.string(), a: z.string() })),
@@ -75,7 +83,7 @@ const site = defineCollection({
     why: z.array(z.string()),
     ask_intro: z.string(),        // **bold** allowed
     ask_fields: z.array(z.strictObject({
-      key: z.enum(['email', 'phone', 'note']), // the column it lands in; email is always checked server side
+      key: z.enum(['name', 'email', 'phone', 'note', 'questions']), // the column it lands in; email is always checked server side
       label: z.string(),
       placeholder: z.string().default(''),
       required: z.boolean().default(false),

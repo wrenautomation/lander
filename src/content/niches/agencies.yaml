@@ -4,6 +4,20 @@ title: Wren Automation for agencies
 h1: Proposals, monthly reports and onboarding, without rebuilding last month's deck by hand.
 lede: "I'm William. I build document and workflow automation for small agencies: proposals, client reporting, onboarding, the handoffs between account and delivery. **Two builds below, with numbers.**"
 cases: [government-of-canada, fuel-cell-group]
+# Pick a side. Sits under the hero, before the case studies. Left is by hand, right is the same job once built.
+sides_h2: Which column is your week?
+sides_intro: One client ends up in the CRM, the project tool and the deck because each one was set up on its own, in a different year. Nobody owns the gap between them, so nobody closes it.
+sides_hand: By hand
+sides_auto: Once built
+sides:
+  - hand: One client typed into the CRM, the project tool and the deck.
+    auto: Typed once. The rest read from it.
+  - hand: The monthly report rebuilt from last month's.
+    auto: Built the same way each month, ready when it's due.
+  - hand: The proposal assembled from the last one, find and replace.
+    auto: Assembled from the scoping call.
+  - hand: A brief found by asking whoever wrote it.
+    auto: Ask the question, get the brief.
 # Why two builds outside your industry still count. Sits between the case studies and the list below.
 proves_h2: What this proves to you
 proves_intro: "Neither client is an agency. What carries over:"

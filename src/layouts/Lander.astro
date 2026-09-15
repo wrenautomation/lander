@@ -17,7 +17,10 @@ const cases = (await Promise.all(n.cases.map((id) => getEntry('cases', id)))).ma
 });
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 // Input attributes follow from the column, not the copy file.
-const input = { email: { type: 'email', autocomplete: 'email' }, phone: { type: 'tel', autocomplete: 'tel' }, note: {} } as const;
+const input = { name: { type: 'text', autocomplete: 'given-name' }, email: { type: 'email', autocomplete: 'email' }, phone: { type: 'tel', autocomplete: 'tel' }, note: {}, questions: {} } as const;
+const multi = new Set(['note', 'questions']);
+// Section numbers, in page order. Havu style: the number is the eyebrow.
+let sec = 0; const num = () => String(++sec).padStart(2, '0');
 ---
 <Base title={n.title} description={plain(n.lede)} hue={n.hue}>
 
@@ -52,13 +55,26 @@ const input = { email: { type: 'email', autocomplete: 'email' }, phone: { type: 
 
 <Band seed={3} />
 
-<section class="s" id="work">
+<section class="s" id="sides">
   <div class="wrap">
+    <span class="num">{num()}</span>
+    <h2>{n.sides_h2}</h2>
+    <p class="intro">{n.sides_intro}</p>
+    <div class="sides" role="table">
+      <div class="hd" role="row"><span role="columnheader">{n.sides_hand}</span><span role="columnheader">{n.sides_auto}</span></div>
+      {n.sides.map((r) => <div role="row"><span role="cell">{r.hand}</span><span role="cell" class="auto">{r.auto}</span></div>)}
+    </div>
+  </div>
+</section>
+
+<section class="s" id="work" style="padding-top:0">
+  <div class="wrap">
+    <span class="num">{num()}</span>
     <h2>{site.work_h2}</h2>
     <p class="intro">{site.work_intro}</p>
     {cases.map((c) => (
       <article class="case">
-        <div class="head"><h3>{c.client}</h3><span>{c.kind}</span></div>
+        <div class="head"><h3>{c.result}</h3><span>{c.client} · {c.kind}</span></div>
         <div class="top">
           <div><h4>{site.case_labels.story}</h4><p>{c.story}</p></div>
           <div><h4>{site.case_labels.now}</h4><p>{c.now}</p></div>
@@ -88,6 +104,7 @@ const input = { email: { type: 'email', autocomplete: 'email' }, phone: { type: 
 
 <section class="s" id="proves" style="padding-top:0">
   <div class="wrap">
+    <span class="num">{num()}</span>
     <h2>{n.proves_h2}</h2>
     <p class="intro">{n.proves_intro}</p>
     <div class="rows">
@@ -98,6 +115,7 @@ const input = { email: { type: 'email', autocomplete: 'email' }, phone: { type: 
 
 <section class="s" id="targets" style="padding-top:0">
   <div class="wrap">
+    <span class="num">{num()}</span>
     <h2>{n.targets_h2}</h2>
     <p class="intro">{n.targets_intro}</p>
     <div class="rows">
@@ -108,6 +126,7 @@ const input = { email: { type: 'email', autocomplete: 'email' }, phone: { type: 
 
 <section class="s" id="offer" style="padding-top:0">
   <div class="wrap steps">
+    <span class="num">{num()}</span>
     <h2>{site.offer_h2}</h2>
     <p class="intro">{site.offer_intro}</p>
     <svg viewBox="0 0 1120 70" aria-hidden="true" data-steps>
@@ -128,10 +147,11 @@ const input = { email: { type: 'email', autocomplete: 'email' }, phone: { type: 
         <div><div class="n">{String(i + 1).padStart(2, '0')}</div><h3>{h.name}</h3><p>{h.text}</p></div>
       ))}
     </div>
-    <div class="pillars">
-      <h3>{site.pillars_h3}</h3>
-      <div class="cols">
-        {site.pillars.map((p) => <div><h4>{p.name}</h4><p>{p.text}</p></div>)}
+    <div class="compare">
+      <h3>{site.compare_h3}</h3>
+      <div class="tbl" role="table">
+        <div class="hd" role="row"><span></span><span role="columnheader">{site.compare_them}</span><span role="columnheader">{site.compare_me}</span></div>
+        {site.compare.map((r) => <div role="row"><b role="rowheader">{r.what}</b><span role="cell" class="them" data-h={site.compare_them}>{r.them}</span><span role="cell" class="me" data-h={site.compare_me}>{r.me}</span></div>)}
       </div>
     </div>
   </div>
@@ -139,6 +159,7 @@ const input = { email: { type: 'email', autocomplete: 'email' }, phone: { type: 
 
 <section class="s" id="questions" style="padding-top:0">
   <div class="wrap">
+    <span class="num">{num()}</span>
     <h2>{site.questions_h2}</h2>
     <p class="intro">{site.questions_intro}</p>
     <div class="qa">
@@ -153,7 +174,8 @@ const input = { email: { type: 'email', autocomplete: 'email' }, phone: { type: 
   <div class="wrap about">
     <div class="photo">{site.photo ? <img src={site.photo} alt={site.name} loading="lazy"> : site.photo_placeholder}</div>
     <div>
-      <h2>{site.about_h2}</h2>
+      <span class="num">{num()}</span>
+    <h2>{site.about_h2}</h2>
       {site.about.map((p, i) => <p style={i === 0 ? 'margin-top:.6rem' : undefined}>{p}</p>)}
       <h3>{site.why_h3}</h3>
       {site.why.map((p) => <p>{p}</p>)}
@@ -164,6 +186,7 @@ const input = { email: { type: 'email', autocomplete: 'email' }, phone: { type: 
 <section class="s ask" id="ask">
   <div class="wrap grid">
     <div>
+      <span class="num">{num()}</span>
       <h2>{site.cta}</h2>
       <p set:html={inline(site.ask_intro)} />
     </div>
@@ -172,8 +195,8 @@ const input = { email: { type: 'email', autocomplete: 'email' }, phone: { type: 
         {site.ask_fields.map((f) => (
           <div class="field">
             <label for={`f-${f.key}`}>{f.label}{f.required && <span class="req" aria-hidden="true"> *</span>}</label>
-            {f.key === 'note'
-              ? <textarea id={`f-${f.key}`} name={f.key} placeholder={f.placeholder} required={f.required} aria-describedby={f.error ? `e-${f.key}` : undefined}></textarea>
+            {multi.has(f.key)
+              ? <textarea id={`f-${f.key}`} name={f.key} placeholder={f.placeholder} required={f.required} aria-describedby={f.error ? `e-${f.key}` : undefined} class:list={{ short: f.key === 'questions' }}></textarea>
               : <input id={`f-${f.key}`} name={f.key} placeholder={f.placeholder} required={f.required} aria-describedby={f.error ? `e-${f.key}` : undefined} {...input[f.key]}>}
             {f.error && <p class="fe" id={`e-${f.key}`} data-error>{f.error}</p>}
           </div>

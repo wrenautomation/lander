@@ -4,6 +4,20 @@ title: Wren Automation for RIAs
 h1: The same AUM figure lives in your ADV, your agreements, your letters and your invoices. Someone types it four times.
 lede: "I'm William. I build document and workflow automation for independent RIAs: onboarding, client documents, quarterly letters, the handoffs in between. **Two builds below, with numbers.**"
 cases: [government-of-canada, fuel-cell-group]
+# Pick a side. Sits under the hero, before the case studies. Left is by hand, right is the same job once built.
+sides_h2: Which column is your week?
+sides_intro: The AUM figure ends up in the ADV, the agreement, the letter and the invoice because each one was set up on its own, in a different year. Nobody owns the gap between them, so nobody closes it.
+sides_hand: By hand
+sides_auto: Once built
+sides:
+  - hand: The AUM figure typed into the ADV, the agreement, the letter and the invoice.
+    auto: Typed once. The other four read from it.
+  - hand: The onboarding packet made from the last client's, find and replace.
+    auto: Built from the intake form.
+  - hand: Performance numbers pasted into the quarterly letter.
+    auto: The numbers are already in it.
+  - hand: Fee invoices checked against the agreement one at a time.
+    auto: Checked for you. You see the exceptions.
 # Why two builds outside your industry still count. Sits between the case studies and the list below.
 proves_h2: What this proves to you
 proves_intro: "Neither client is an RIA. What carries over:"

@@ -1,6 +1,7 @@
 # Business facts only; the technical detail is on the résumé.
 client: University of Alberta
 kind: Research lab · 2025
+result: 200 hours of lookups by hand, gone
 story: A research lab needed to know who was citing 7,000 papers, and where. Each one was a search by hand, about two minutes a paper, so 200 hours of someone's time. The lab's own experiment files, 5,000 of them, sat on one computer and were found by clicking through folders.
 now: "The lookups run on their own, and what comes out is a map of who cites what, by region, that the lab uses in its talks. The experiment files are in one place, and a researcher can ask in plain words: what did this run show, how does today compare with last week. Still in use today."
 pipe_lead: A person at each end. Everything between the folder and the answer runs itself.

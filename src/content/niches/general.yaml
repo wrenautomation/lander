@@ -4,6 +4,20 @@ title: Wren Automation
 h1: Document and workflow automation for firms that still type the same figure five times.
 lede: "I'm William. I build the automations small firms never get around to: intake, document generation, the handoffs between people. **Two builds below, with numbers.**"
 cases: [government-of-canada, fuel-cell-group]
+# Pick a side. Sits under the hero, before the case studies. Left is by hand, right is the same job once built.
+sides_h2: Which column is your week?
+sides_intro: The same figure ends up in five places because each document was set up on its own, in a different year. Nobody owns the gap between them, so nobody closes it.
+sides_hand: By hand
+sides_auto: Once built
+sides:
+  - hand: The same client details typed into the intake, the agreement and the invoice.
+    auto: Typed once. The rest read from it.
+  - hand: The monthly report rebuilt from last month's, by hand.
+    auto: Built the same way each time, ready when it's due.
+  - hand: A rule looked up by opening the document and reading.
+    auto: Ask the question, get the passage.
+  - hand: Reminders that go out when someone remembers.
+    auto: Reminders that go out.
 # Why two builds outside your industry still count. Sits between the case studies and the list below.
 proves_h2: What this proves to you
 proves_intro: "Neither client is in your industry. What carries over:"
