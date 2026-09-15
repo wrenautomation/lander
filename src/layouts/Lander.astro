@@ -19,6 +19,12 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 // Input attributes follow from the column, not the copy file.
 const input = { name: { type: 'text', autocomplete: 'given-name' }, email: { type: 'email', autocomplete: 'email' }, phone: { type: 'tel', autocomplete: 'tel' }, note: {}, questions: {} } as const;
 const multi = new Set(['note', 'questions']);
+// One short trace per principle card, in the accent, ending in a filled node. Same motif as the bands and the pipelines.
+const TRACES = [
+  { d: 'M0 13 H118 L130 5 H196', x: 200, y: 5 },
+  { d: 'M0 5 H70 L82 13 H236', x: 240, y: 13 },
+  { d: 'M0 13 H40 L52 5 H176', x: 180, y: 5 },
+];
 ---
 <Base title={n.title} description={plain(n.lede)} hue={n.hue}>
 
@@ -148,7 +154,12 @@ const multi = new Set(['note', 'questions']);
     <div class="principles">
       <h3>{site.principles_h3}</h3>
       <div class="cols">
-        {site.principles.map((p) => <div><h3>{p.name}</h3><p>{p.text}</p></div>)}
+        {site.principles.map((p, i) => (
+          <div>
+            <svg class="tr" viewBox="0 0 320 18" preserveAspectRatio="xMinYMid meet" data-band aria-hidden="true"><path d={TRACES[i % TRACES.length].d}/><circle cx={TRACES[i % TRACES.length].x} cy={TRACES[i % TRACES.length].y} r="3.5"/></svg>
+            <h3>{p.name}</h3><p>{p.text}</p>
+          </div>
+        ))}
       </div>
     </div>
     <a class="more" href="#ask">{site.mid_cta} &rarr;</a>
