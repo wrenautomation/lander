@@ -2,7 +2,7 @@
 # `you: true` marks a step a person does (filled node). Business facts only; the technical detail is on the résumé.
 client: Government of Canada
 kind: Policy chatbot · 2026
-result: Automated policy search for federal staff. 6 to 7 hours a week back, each.
+result: Automated policy search for federal staff. 6 to 7 hours a week back per person.
 story: "A federal department runs on 220 policy directives. Some are a page, some run to hundreds of pages, and a few are old PDFs that barely open. When someone needs the rule, they find the right directive and read through it by hand. 17,000 staff work under those directives, and the people who look things up most were losing hours a week to it."
 now: They type the question and get the answer, with the passage it came from. The people who used to do the most looking up get 6 to 7 hours a week back. Still in use today.
 pipe_lead: Two human steps, ask and read. The search between them runs itself.
@@ -23,7 +23,7 @@ impact:
     count: 17000
     label: staff who ask instead of reading
   - fig: 6 to 7 hrs
-    label: a week, each, that used to go to reading directives
+    label: a week per person that used to go to reading directives
   - fig: "220"
     count: 220
     label: policy documents searched in one go, some of them hundreds of pages
