@@ -119,8 +119,12 @@ section.s{padding:3rem 0}
 
 /* section numbers, the eyebrow above each h2 */
 .kicker{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--lbl);margin-bottom:.9rem}
-.principles{margin-top:2.4rem;border-top:1px solid var(--rule);padding-top:1.4rem}
+.principles{margin-top:2.6rem}
 .principles>h3{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lbl);margin-bottom:1rem}
+.principles .cols{gap:1rem}
+.principles .cols>div{border:1px solid var(--rule);border-top:3px solid var(--acc);border-radius:2px;padding:1.4rem var(--pad) 1.5rem;background:color-mix(in srgb,var(--soft) 45%,var(--paper))}
+.principles .cols h3{font-size:1.45rem;letter-spacing:-.01em;margin-bottom:.6rem}
+.principles .cols p{font-size:16px;line-height:1.55}
 
 /* pick a side: by hand on the left, once built on the right */
 .sides{border-top:1px solid var(--rule)}
@@ -238,7 +242,10 @@ footer .fine{font-size:13px;border-top:1px solid var(--rule);padding-top:1rem}
   .steps svg{display:block}
   .steps .cols{grid-template-columns:repeat(3,1fr);gap:40px;margin-top:.6rem}
   .kicker{font-size:13px}
-  .principles{margin-top:3rem;padding-top:1.8rem}
+  .principles{margin-top:3.5rem}
+  .principles .cols{gap:1.25rem;margin-top:0}
+  .principles .cols>div{padding:1.8rem 1.6rem 2rem}
+  .principles .cols h3{font-size:1.7rem}
   .rows.three{grid-template-columns:1fr 1fr 1fr}
   .sides>div{grid-template-columns:1fr 1fr;gap:0 3rem;padding:1rem 0;font-size:16px}
   .sides .hd{display:grid;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lbl);padding:.7rem 0}

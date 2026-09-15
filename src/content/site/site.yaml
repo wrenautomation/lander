@@ -93,8 +93,8 @@ about:
   - I want to get good at this work. The fastest way is to do it for firms that have the problem.
 why_h3: Why me
 why:
-  - I have the genuine software engineering qualifications to build a reliable system for you. Most agencies can give you something beautifully packaged at demo time, 
-  - I'm building a business on this kind of work, so each build has to be good enough that you'd mention it to someone. That's why the audit is free and you pay by milestone.
+  - I have the genuine software engineering qualifications and the technical knowledge to build a reliable system for you. Most agencies can give you something beautifully packaged at demo time, but with hidden bugs and inefficiencies that show up over time.
+  - I'm building a business on this kind of work, and I want each build to be so good that you're not just satisfied, but you want to refer me to every business owner you know. I'm willing to relax the financial terms to get this kind of result.
 
 # The form. Fields render in this order. `required: true` adds the * and the check; `error` shows under the field when the check fails.
 ask_intro: Tell me what eats your week. I reply within one business day with a few times for a 30-minute call. **I send the times myself, and the call commits you to nothing.**
