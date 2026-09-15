@@ -12,7 +12,7 @@ All words live in `src/content/`. Nothing in `src/` outside that folder is prose
 | Headline, intro, "what this proves", "what gets automated" list for one page | `niches/<page>.yaml` (`general.yaml` is `/`) |
 | A case study (story, now, steps, numbers, stack) | `case-studies/<name>.yaml` |
 | "Which column is your week" rows for one page | `niches/<page>.yaml`, `sides:` |
-| Everything else: nav, offer teaser, section headings and labels, how it works, usually vs with me table, questions, about, form fields, footer, 404 | `site/site.yaml` |
+| Everything else: nav, offer teaser, section headings and labels, how it works, principles, why not an agency, questions, about, form fields, footer, 404 | `site/site.yaml` |
 
 Rules:
 - `**bold**` works in `lede`, `ask_intro` and `offer.promise` only.

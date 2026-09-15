@@ -19,3 +19,11 @@ Items 1, 2, 4 to 9 from the inspo notes, plus the form. Item 3 skipped on Willia
 3. Page is longer (8 sections). Sides + proves + targets are three list sections in a row on the phone. Consider merging proves into the case cards later.
 4. The two case titles differ in shape ("6 to 7 hours a week back for…" vs "200 hours of lookups by hand, gone"). Fine as headlines; a fragment may read as copy if both were fragments.
 5. `questions` field placeholder promises "I answer in the reply". Keep it true.
+
+## Same day, after William's pass
+
+Compare table gone, replaced by `principles` (three) and `alt` (why not an agency, consultant, hire). Kicker above the h1. No section numbers. Attack points 1 and 3 above are closed. New ones:
+
+1. The `alt` rows make claims about agencies and consultants again ("their smallest project is bigger than yours"). Softer than the table, still a claim.
+2. "Utility" says I will refuse a piece that won't pay for itself. Keep that true on the first audit.
+3. Hero now has kicker, h1, lede, button, from note. On a phone it fills the screen before the offer. Cut the from note if it feels long.

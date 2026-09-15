@@ -17,14 +17,14 @@ theme:
   to_light: Light
 
 # Hero button and the heading of the form section.
-cta: Get the free audit
+cta: Get in touch
 from_note: If you got an email from me, this page is here so you can check the work before replying.
 
 # The offer in one breath, right under the hero. `more` links to the offer section below.
 offer:
   eyebrow: The offer
-  promise: "**A full workday a week back** for every person in the pipeline."
-  safe: "The audit is free and you keep what it finds: one page, what to automate first, what it saves, what it costs. After that you pay by milestone, once you've seen each one run in your own accounts. If a piece doesn't do what we agreed, you don't pay for it."
+  promise: "**A full workday a week back for each person on the team.** Onboarding, client emails, reports and invoices, built once and running in your own accounts."
+  safe: "Out of respect for your time, the audit is free. I find the automations with the highest return, the ones that take the repetitive work off your team and give you back your time and your sanity. After that you pay by milestone, and you can walk away at any point if the work isn't up to standard."
   more: How that works
 
 # Case studies.
@@ -47,26 +47,26 @@ how:
     text: Scope and milestones agreed up front. I build inside the tools you already use where possible, and you see each milestone running before you pay for it.
   - name: Handover
     text: Documentation, a walkthrough for whoever runs it, and the code. It keeps running without a retainer, and I'm reachable if something changes.
-# The table under the steps. Left column is what firms usually get; right is the commitment. Row 1 (pay by milestone) is decided; the rest are the pillar drafts in table form.
-compare_h3: The usual arrangement, and this one
-compare_them: Usually
-compare_me: With me
-compare:
-  - what: How you pay
-    them: A deposit, then a retainer.
-    me: By milestone, after each one runs in your accounts. No deposit.
-  - what: Who does the work
-    them: A salesperson, a project manager, and whoever is free that week.
-    me: Me, from the call to the handover.
-  - what: What you have at the end
-    them: A login and a monthly fee.
-    me: The code, the documentation, and a walkthrough for whoever runs it.
-  - what: If it breaks
-    them: A ticket and an hourly rate.
-    me: If it's my mistake, I fix it at no charge.
-  - what: If you stop
-    them: It stops.
-    me: It keeps running. It's in your accounts, on tools you already pay for.
+# Three principles under the steps.
+principles_h3: How I work
+principles:
+  - name: Accountability
+    text: Milestones agreed up front, paid after each one runs in your accounts. If it's my mistake, I fix it at no charge. If it breaks after handover, you have the code and the documentation.
+  - name: Scalability
+    text: Built so anyone on the team can use it, not only the person who asked for it. When the team grows or a tool changes, it keeps working, and the documentation says how.
+  - name: Utility
+    text: I solve the real problem. If the piece we scoped won't pay for itself, I say so before building it and we pick one that will.
+
+# Why not the alternatives. Sits between the offer and the questions.
+alt_h2: Why not a bigger agency, a consultant, or one more hire?
+alt_intro: Each one is a fair option. Here is where they cost you.
+alt:
+  - who: A bigger agency
+    text: Their smallest project is bigger than yours, and the retainer runs whether or not anything ships. Here you pay per milestone, and the person on the call is the person who builds it.
+  - who: A consultant
+    text: You get a recommendation. You still need someone to build it. The audit is the recommendation, free, and the build is the next step.
+  - who: One more hire
+    text: A new hire does the typing faster. The typing is still there, and it grows with the client list. Once the job runs itself, the people you have get their week back, and the work they keep is the work that needs a person.
 
 questions_h2: Questions you probably have
 questions_intro: Short answers. Ask me the long ones on the call.
@@ -93,7 +93,7 @@ about:
   - I want to get good at this work. The fastest way is to do it for firms that have the problem.
 why_h3: Why me
 why:
-  - The two builds above are still in use, and the numbers are the same ones in my email. This page is here so you can read them at length.
+  - I have the genuine software engineering qualifications to build a reliable system for you. Most agencies can give you something beautifully packaged at demo time, 
   - I'm building a business on this kind of work, so each build has to be good enough that you'd mention it to someone. That's why the audit is free and you pay by milestone.
 
 # The form. Fields render in this order. `required: true` adds the * and the check; `error` shows under the field when the check fails.
@@ -116,8 +116,8 @@ ask_fields:
     required: true
     error: One line is enough.
   - key: questions
-    label: Anything you want answered before a call?
-    placeholder: Price, timing, who else has to be involved. I answer in the reply.
+    label: Any questions or concerns?
+    placeholder: Price, timing, whether this fits your setup.
 ask_required: "* required"
 ask_submit: Send
 ask_small: Lands in my inbox and one table I keep so nothing gets lost. Nobody else sees it, and I delete it if you ask.

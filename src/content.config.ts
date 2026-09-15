@@ -13,6 +13,7 @@ const niches = defineCollection({
   schema: z.strictObject({
     hue: z.enum(['rust', 'green', 'red']),
     title: z.string(),            // <title> and the email subject line
+    kicker: z.string(),         // one line above the h1: what this is and who it's for
     h1: z.string(),
     lede: z.string(),             // **bold** allowed
     cases: z.array(z.string()),   // case-study file names, in order
@@ -68,10 +69,11 @@ const site = defineCollection({
     offer_h2: z.string(),
     offer_intro: z.string(),
     how: z.array(z.strictObject({ name: z.string(), text: z.string() })),
-    compare_h3: z.string(),       // the usual arrangement vs working with me
-    compare_them: z.string(),
-    compare_me: z.string(),
-    compare: z.array(z.strictObject({ what: z.string(), them: z.string(), me: z.string() })),
+    principles_h3: z.string(),
+    principles: z.array(z.strictObject({ name: z.string(), text: z.string() })),
+    alt_h2: z.string(),           // why not an agency, a consultant, a hire
+    alt_intro: z.string(),
+    alt: z.array(z.strictObject({ who: z.string(), text: z.string() })),
     questions_h2: z.string(),
     questions_intro: z.string(),
     questions: z.array(z.strictObject({ q: z.string(), a: z.string() })),
