@@ -54,7 +54,7 @@ how:
   - name: Audit
     text: "A 30-minute call. I map where the hours go. You get one page back: what to automate first, what it saves, what it costs. Free, and yours to keep if you stop here."
   - name: Build
-    text: Scope and milestones agreed up front. I build inside the tools you already use where possible, and you see each milestone running before you pay for it.
+    text: Scope and milestones agreed up front. I build inside the tools you already use where possible and ship in short cycles, so something useful is running for you early. Each milestone stands on its own, and you see it running before you pay for it.
   - name: Handover
     text: Documentation, a walkthrough for whoever runs it, and the code. It keeps running without a retainer, and I'm reachable if something changes.
 # Three principles under the steps.
@@ -69,14 +69,14 @@ principles:
 
 # Why not the alternatives. Sits between the offer and the questions.
 alt_h2: Why not a bigger agency, a consultant, or one more hire?
-alt_intro: Each one is a fair option. Here is where they cost you.
+alt_intro: Each one is a fair option. Here is what each costs you in risk, effort and time.
 alt:
   - who: A bigger agency
-    text: Their smallest project is bigger than yours, and the retainer runs whether or not anything ships. Here you pay per milestone, and the person on the call is the person who builds it.
+    text: Their smallest project is bigger than yours, and the retainer runs whether or not anything ships. The person who sold it hands you to a project manager, who hands you to a developer you never meet, and the follow-ups go quiet. Here you pay per milestone, and the person on the call is the person who builds it, checks in and answers the email.
   - who: A consultant
-    text: You get a recommendation. You still need someone to build it. The audit is the recommendation, free, and the build is the next step.
+    text: You get a recommendation. You still need someone to build it, and then a second vendor to manage. The audit is the recommendation, free, and the build is the next step with the same person.
   - who: One more hire
-    text: A new hire does the typing faster. The typing is still there, and it grows with the client list. Once the job runs itself, the people you have get their week back, and the work they keep is the work that needs a person.
+    text: Onboarding first, then a person does the typing faster. The typing is still there, done by hand with the errors that come with it, and it grows with the client list. The core problem is untouched. Once the job runs itself, the people you have get their week back, and the work they keep is the work that needs a person.
 
 questions_h2: Questions you probably have
 questions_intro: Short answers. Ask me the long ones on the call.
@@ -102,7 +102,7 @@ about:
   - I want to get good at this work. The fastest way is to do it for firms that have the problem.
 why_h3: Why me
 why:
-  - I have the genuine software engineering qualifications and the technical knowledge to build a reliable system for you. Most agencies can give you something beautifully packaged at demo time, but with hidden bugs and inefficiencies that show up over time.
+  - I'm trained as a software engineer and I write the code myself, so it holds up after the demo. Most agencies can give you something beautifully packaged at demo time, with hidden bugs and inefficiencies that show up over time.
   - I'm building a business on this kind of work, and I want each build to be so good that you're not just satisfied, but you want to refer me to every business owner you know. I'm willing to relax the financial terms to get this kind of result.
 
 # The form. `ask_pre` sits above the heading. Fields render in this order. `required: true` adds the * and the check; `error` shows under the field when the check fails.
