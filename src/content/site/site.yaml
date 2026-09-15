@@ -32,7 +32,7 @@ chooser:
       name: RIAs
       text: Onboarding, client documents, quarterly letters, the handoffs in between.
     - slug: insurance
-      name: Insurance agencies
+      name: Insurance
       text: Certificates, renewals, proposals, the chasing in between.
     - slug: agencies
       name: Agencies
