@@ -44,7 +44,7 @@ chooser:
 # The offer in one breath, right under the hero. `more` links to the offer section below.
 offer:
   eyebrow: The offer
-  promise: "**The workday comes back from onboarding, client emails, reports and invoices**, built once and running in your own accounts."
+  promise: "**A full workday a week back for each person**, from onboarding, client emails, reports and invoices, built once and running in your own accounts. If a milestone doesn't give the hours back, you don't pay for it."
   safe: "Out of respect for your time, the audit is free. I find the automations with the highest return, the ones that take the repetitive work off your team and give you back your time and your sanity. After that you pay by milestone, and you can walk away at any point if the work isn't up to standard."
   more: How that works
 
@@ -63,7 +63,7 @@ offer_h2: The offer
 offer_intro: Three steps. You see each piece working before you pay for it, and you keep everything at the end.
 how:
   - name: Audit
-    text: "A 30-minute call. I map where the hours go. You get one page back: what to automate first, what it saves, what it costs. Free, and yours to keep if you stop here."
+    text: "A 30-minute call. I map where the hours go. You get one page back: what to automate first, the hours a week it saves, what it costs. Free, and yours to keep if you stop here."
   - name: Build
     text: Scope and milestones agreed up front. I build inside the tools you already use where possible and ship in short cycles, so something useful is running for you early. Each milestone stands on its own, and you see it running before you pay for it.
   - name: Handover
