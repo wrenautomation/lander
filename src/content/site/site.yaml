@@ -48,7 +48,7 @@ how:
   - name: Handover
     text: Documentation, a walkthrough for whoever runs it, and the code. It keeps running without a retainer, and I'm reachable if something changes.
 # Three principles under the steps.
-principles_h3: How I work
+principles_h3: 3 principles of Wren
 principles:
   - name: Accountability
     text: Milestones agreed up front, paid after each one runs in your accounts. If it's my mistake, I fix it at no charge. If it breaks after handover, you have the code and the documentation.
