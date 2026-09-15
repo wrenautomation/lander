@@ -3,20 +3,20 @@ hue: green
 title: Wren Automation for insurance agencies
 kicker: Workflow automation for independent insurance agencies
 h1: A full workday a week back for each person on your team.
-lede: "Renewals, certificates and loss runs, with the same client data re-keyed three times along the way. I'm William. I build the automations nobody at the agency has time to build: certificates, renewals, proposals, the chasing in between. **Two builds below, with numbers.**"
+lede: "Renewals, certificates and loss runs, with the same client data re-keyed three times along the way. I'm William. I build the automations nobody at the agency has time to build: certificates, renewals, proposals, the chasing in between."
 cases: [government-of-canada, fuel-cell-group]
 # Pick a side. Sits under the hero, before the case studies. Left is by hand, right is the same job once built.
-sides_h2: Which column is your week?
-sides_intro: A client's details end up in the policy, the certificate and the renewal summary because each one was set up on its own, in a different year. Nobody owns the gap between them, so nobody closes it.
-sides_hand: By hand
-sides_auto: Once built
+sides_h2: The same work, before and after
+sides_intro: A few situations that might apply to you.
+sides_hand: Manual work
+sides_auto: After we build it
 sides:
   - hand: Client details keyed from the policy into the certificate.
-    auto: Issued from the policy data.
+    auto: The certificate is issued from the policy data.
   - hand: Renewal letters sent when someone remembers, chased by hand.
-    auto: Sent, tracked and chased on a schedule.
+    auto: Sent on schedule, tracked, and followed up automatically.
   - hand: A carrier guideline found by asking whoever knows.
-    auto: Ask the question, get the passage.
+    auto: Ask the question, get the passage from the guideline.
   - hand: The proposal assembled from the quote, by hand.
     auto: Assembled from the quote.
 # Why two builds outside your industry still count. Sits between the case studies and the list below.

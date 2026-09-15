@@ -59,7 +59,6 @@ p{margin:0}
 .hero h1{font-size:clamp(1.8rem,5vw + .6rem,3.2rem);max-width:22ch}
 .hero .lede{font-size:1.1rem;color:var(--mute);max-width:54ch;margin:1.1rem 0 1.6rem}
 .hero .lede b{color:var(--ink);font-weight:600}
-.hero .from{font-size:14px;color:var(--mute);margin-top:1.1rem}
 
 .btn{display:inline-flex;justify-content:center;align-items:center;gap:.5rem;width:100%;min-height:48px;padding:.8rem 1.35rem;border-radius:2px;background:var(--acc);color:var(--on-acc);text-decoration:none;font-weight:600;font-size:15px;border:0;cursor:pointer;font-family:inherit}
 .btn:hover{opacity:.88}

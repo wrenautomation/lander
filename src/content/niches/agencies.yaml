@@ -3,20 +3,20 @@ hue: red
 title: Wren Automation for agencies
 kicker: Workflow automation for small agencies
 h1: A full workday a week back for each person on your team.
-lede: "Proposals, monthly reports and onboarding, with last month's deck rebuilt by hand each time. I'm William. I build the automations nobody at the agency has time to build: proposals, client reporting, onboarding, the handoffs between account and delivery. **Two builds below, with numbers.**"
+lede: "Proposals, monthly reports and onboarding, with last month's deck rebuilt by hand each time. I'm William. I build the automations nobody at the agency has time to build: proposals, client reporting, onboarding, the handoffs between account and delivery."
 cases: [government-of-canada, fuel-cell-group]
 # Pick a side. Sits under the hero, before the case studies. Left is by hand, right is the same job once built.
-sides_h2: Which column is your week?
-sides_intro: One client ends up in the CRM, the project tool and the deck because each one was set up on its own, in a different year. Nobody owns the gap between them, so nobody closes it.
-sides_hand: By hand
-sides_auto: Once built
+sides_h2: The same work, before and after
+sides_intro: A few situations that might apply to you.
+sides_hand: Manual work
+sides_auto: After we build it
 sides:
   - hand: One client typed into the CRM, the project tool and the deck.
-    auto: Typed once. The rest read from it.
+    auto: Entered once. The other two pull from it.
   - hand: The monthly report rebuilt from last month's.
-    auto: Built the same way each month, ready when it's due.
+    auto: Generated the same way each month, ready before it's due.
   - hand: The proposal assembled from the last one, find and replace.
-    auto: Assembled from the scoping call.
+    auto: Assembled from the scoping call notes.
   - hand: A brief found by asking whoever wrote it.
     auto: Ask the question, get the brief.
 # Why two builds outside your industry still count. Sits between the case studies and the list below.

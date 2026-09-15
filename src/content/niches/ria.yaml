@@ -3,22 +3,22 @@ hue: rust
 title: Wren Automation for RIAs
 kicker: Workflow automation for independent RIAs
 h1: A full workday a week back for each person on your team.
-lede: "The same AUM figure lives in your ADV, your agreements, your letters and your invoices, and someone types it four times. I'm William. I build the automations nobody at the firm has time to build: onboarding, client documents, quarterly letters, the handoffs in between. **Two builds below, with numbers.**"
+lede: "The same AUM figure lives in your ADV, your agreements, your letters and your invoices, and someone types it four times. I'm William. I build the automations nobody at the firm has time to build: onboarding, client documents, quarterly letters, the handoffs in between."
 cases: [government-of-canada, fuel-cell-group]
 # Pick a side. Sits under the hero, before the case studies. Left is by hand, right is the same job once built.
-sides_h2: Which column is your week?
-sides_intro: The AUM figure ends up in the ADV, the agreement, the letter and the invoice because each one was set up on its own, in a different year. Nobody owns the gap between them, so nobody closes it, and the retyping lands on whoever is newest.
-sides_hand: By hand
-sides_auto: Once built
+sides_h2: The same work, before and after
+sides_intro: A few situations that might apply to you.
+sides_hand: Manual work
+sides_auto: After we build it
 sides:
   - hand: The AUM figure typed into the ADV, the agreement, the letter and the invoice.
-    auto: Typed once. The other four read from it.
+    auto: Entered once. All four documents pull it from there.
   - hand: The onboarding packet made from the last client's, find and replace.
-    auto: Built from the intake form.
+    auto: Generated from the intake form.
   - hand: Performance numbers pasted into the quarterly letter.
-    auto: The numbers are already in it.
+    auto: The letter pulls the numbers in itself.
   - hand: Fee invoices checked against the agreement one at a time.
-    auto: Checked for you. You see the exceptions.
+    auto: Checked automatically. You only see the ones that don't match.
 # Why two builds outside your industry still count. Sits between the case studies and the list below.
 proves_h2: What this proves to you
 proves_intro: "Neither client is an RIA. What carries over:"

@@ -18,7 +18,6 @@ theme:
 
 # Hero button and the heading of the form section.
 cta: Get in touch
-from_note: If you got an email from me, this page is here so you can check the work before replying.
 
 # The offer in one breath, right under the hero. `more` links to the offer section below.
 offer:
@@ -29,7 +28,7 @@ offer:
 
 # Case studies.
 work_h2: Who I've helped
-work_intro: "Two builds, the same two in the email, both still in use. For each: what the team did by hand, how it runs now, what I built, and the numbers."
+work_intro: "Two builds I've done that are both still in use. An overview of what the teams did by hand, how it runs now, what I built, and some numbers."
 case_labels:
   story: The story
   now: What they do now
