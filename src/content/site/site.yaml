@@ -20,6 +20,15 @@ theme:
 cta: Get in touch
 # The link to the form after the case studies and again after the offer.
 mid_cta: Start with the free audit
+# Links to the niche pages. Shown on / only; a lead sent to /ria never sees the others.
+niches_pre: Who I work with
+niches:
+  - name: RIAs
+    href: /ria
+  - name: Insurance agencies
+    href: /insurance
+  - name: Agencies
+    href: /agencies
 
 # The offer in one breath, right under the hero. `more` links to the offer section below.
 offer:

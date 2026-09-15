@@ -62,6 +62,11 @@ p{margin:0}
 .hero .lede{font-size:1.1rem;color:var(--mute);max-width:54ch;margin:1.1rem 0 1.6rem}
 .hero .lede b{color:var(--ink);font-weight:600}
 
+/* the niche links under the hero button, / only */
+.hero .niches{display:flex;flex-wrap:wrap;gap:.3rem 1rem;margin-top:1.5rem;font-size:15px;color:var(--mute)}
+.hero .niches a{color:var(--acc);font-weight:600;text-decoration:none}
+.hero .niches a:hover{text-decoration:underline;text-underline-offset:4px}
+
 .btn{display:inline-flex;justify-content:center;align-items:center;gap:.5rem;min-height:44px;padding:.65rem 1.3rem;border-radius:2px;background:var(--acc);color:var(--on-acc);text-decoration:none;font-weight:600;font-size:15px;border:0;cursor:pointer;font-family:inherit}
 .btn:hover{opacity:.88}
 .btn:active{transform:translateY(1px)}
