@@ -68,7 +68,7 @@ const el = (tag: string, attrs: Record<string, string | number>) => { const e = 
   const tl = gsap.timeline({ onComplete: finish });
   if (v === '1') {
     // Overlay: a trace runs in from the left to the mark, the mark appears, the trace runs on to a filled node, then the sheet lifts.
-    const box = document.querySelector<HTMLElement>('.intro')!, svg = box.querySelector<SVGSVGElement>('svg')!, mark = box.querySelector<HTMLElement>('.intro-mark')!;
+    const box = document.querySelector<HTMLElement>('.sheet')!, svg = box.querySelector<SVGSVGElement>('svg')!, mark = box.querySelector<HTMLElement>('.intro-mark')!;
     const W = innerWidth, cx = W / 2, m = Math.min(72, W * .16), jog = W < 600 ? 60 : 110;
     svg.setAttribute('viewBox', `0 0 ${W} 80`);
     svg.append(
