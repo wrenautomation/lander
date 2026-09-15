@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wren lander: vision alternatives</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#faf7f2;--ink:#1b1714;--mute:#6d665e;--rule:#e5dfd6;--soft:#f2ede5;--trace:#8b8378;--acc:#a83b12;--on-acc:#fff}
+*{box-sizing:border-box}
+html,body{margin:0;background:#d9d3ca;color:var(--ink);font-family:Manrope,system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+::selection{background:var(--acc);color:#fff}
+
+/* playground chrome */
+.bar{position:sticky;top:0;z-index:5;background:var(--ink);color:var(--paper);padding:.7rem 1.2rem;display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;align-items:center;font-size:14px}
+.bar b{font-weight:600;margin-right:.4rem}
+.bar button{font:inherit;color:inherit;background:transparent;border:1px solid #514a43;border-radius:2px;padding:.3rem .7rem;cursor:pointer}
+.bar button[aria-pressed=true]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.note{max-width:1120px;margin:1.4rem auto .8rem;padding:0 1rem;font-size:14.5px;color:#3d3731}
+.note b{font-weight:600}
+.stage{margin:0 auto 3rem;width:1120px;max-width:100%;background:var(--paper);box-shadow:0 12px 40px -18px rgba(27,23,20,.45);container-type:inline-size;}
+.stage.phone{width:390px}
+.v{display:none}.v.on{display:block}
+
+/* shared site pieces (copied from the live world) */
+.wrap{padding:0 1.5rem}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:.9rem 0;border-bottom:1px solid var(--rule)}
+.brand{display:inline-flex;align-items:center;gap:.55rem;font-weight:600;font-size:15px}
+.brand img{width:26px;height:auto}
+.nav .links{display:flex;gap:1.4rem;font-size:15px;color:var(--ink)}
+.nav .links a{color:inherit;text-decoration:none}
+.btn{display:inline-block;background:var(--acc);color:var(--on-acc);padding:.7rem 1.3rem;border-radius:2px;font-weight:600;text-decoration:none;font-size:15px;border:0;font-family:inherit;cursor:pointer}
+.tr{width:100%;height:26px;display:block;overflow:visible}
+.tr path{fill:none;stroke:var(--trace);stroke-width:1;opacity:.55}
+.tr circle{fill:var(--paper);stroke:var(--trace);stroke-width:1}
+.tr .a{stroke:var(--acc);opacity:1}.tr circle.a{fill:var(--acc)}
+h1.big{font-size:clamp(1.8rem,5cqw + .6rem,3.1rem);line-height:1.08;letter-spacing:-.02em;font-weight:600;max-width:22ch;text-wrap:balance}
+.B h1.big{max-width:19ch;text-wrap:pretty}
+h1.big b{font-weight:inherit;color:var(--acc)}
+.lede{font-size:1.08rem;color:var(--mute);max-width:54ch}
+.lede b{color:var(--ink);font-weight:600}
+.sides{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule)}
+.sides>div{display:contents}
+.sides span{padding:.8rem 0;border-bottom:1px solid var(--rule);font-size:15px;color:var(--mute);padding-right:1.2rem}
+.sides span.auto{color:var(--ink)}
+.sides span.auto::before{content:'→ ';color:var(--acc)}
+.sides .hd span{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:600}
+.sides .hd span.auto{color:var(--acc)}
+.sides .hd span.auto::before{content:''}
+.tail{padding:1.2rem 1.5rem 1.6rem;border-top:1px dashed var(--rule);font-size:13.5px;color:var(--mute);text-align:center}
+@container (max-width:600px){.nav .links{display:none}.sides{grid-template-columns:1fr}.sides span{padding-right:0}.sides span:not(.auto){border-bottom:0;padding-bottom:.2rem}.sides .hd{display:none}}
+
+/* A: signed letter */
+.A .head{display:flex;align-items:center;gap:.9rem;padding:2.4rem 0 1.4rem}
+.A .head img{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:top;border:1px solid var(--rule)}
+.A .head b{display:block;font-weight:600;font-size:15px}
+.A .head span{font-size:14px;color:var(--mute)}
+.A .hero{padding-bottom:2rem;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:2.4rem 3rem;align-items:start}
+.A .hero .r{padding-top:.4rem}
+.A .hero .r h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:600;margin-bottom:.2rem}
+.A .cta{display:flex;align-items:center;gap:1.1rem;margin-top:1.4rem;flex-wrap:wrap}
+.A .cta a.q{color:var(--acc);font-weight:600;font-size:15px;text-decoration:none}
+.A .promise{margin-top:1.2rem;font-size:15px;color:var(--mute);max-width:52ch}
+.A .promise b{color:var(--ink);font-weight:600}
+@container (max-width:600px){.A .hero{grid-template-columns:1fr;gap:1.6rem}.A .head{padding-top:1.6rem}}
+
+/* B: show it running */
+.B .hero{padding:2.6rem 0 2.2rem;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem 3rem;align-items:center}
+.demo{border:1px solid var(--rule);background:color-mix(in srgb,var(--soft) 50%,var(--paper));border-radius:2px;padding:1.1rem 1.2rem 1.3rem;position:relative}
+.demo .cap{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:600;display:flex;justify-content:space-between}
+.demo .cap i{font-style:normal;letter-spacing:0;text-transform:none;font-weight:500;color:var(--mute)}
+.demo .in{gap:.8rem;margin-top:.8rem;border:1px solid var(--rule);background:var(--paper);border-radius:2px;padding:.6rem .8rem;font-size:14px;display:flex;justify-content:space-between;align-items:center}
+.demo .in span{color:var(--mute);min-width:0}
+.demo .in b{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;display:inline-block;width:0;animation:type 6s infinite;border-right:1.5px solid var(--acc)}
+@keyframes type{0%{width:0}8%{width:0}22%{width:11.6ch}96%{width:11.6ch;border-color:var(--acc)}100%{width:11.6ch;border-color:transparent}}
+.demo svg.wire.m{display:none}
+.demo svg.wire{display:block;width:100%;height:34px;overflow:visible}
+.demo svg.wire path{fill:none;stroke:var(--trace);stroke-width:1;opacity:.5}
+.demo svg.wire path.a{stroke:var(--acc);opacity:1;stroke-dasharray:600;stroke-dashoffset:600;animation:draw 6s infinite}
+@keyframes draw{0%,24%{stroke-dashoffset:600}46%,100%{stroke-dashoffset:0}}
+.demo svg.wire circle{fill:var(--paper);stroke:var(--trace)}
+.docs{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+.docs>div{border:1px solid var(--rule);background:var(--paper);border-radius:2px;padding:.55rem .6rem .6rem;font-size:12.5px;min-height:74px}
+.docs .t{margin:0 0 .35rem;font-size:12.5px;font-weight:600}
+.docs .l{height:4px;background:var(--rule);border-radius:2px;margin:.3rem 0}
+.docs .l.s{width:60%}
+.docs .val{color:var(--acc);font-weight:600;font-variant-numeric:tabular-nums;opacity:0;animation:pop 6s infinite;height:1.2em}
+.docs>div:nth-child(1) .val{animation-delay:0s}.docs>div:nth-child(2) .val{animation-delay:.35s}.docs>div:nth-child(3) .val{animation-delay:.7s}.docs>div:nth-child(4) .val{animation-delay:1.05s}
+@keyframes pop{0%,40%{opacity:0;transform:translateY(3px)}47%,92%{opacity:1;transform:none}100%{opacity:0}}
+.demo .foot{margin-top:.8rem;font-size:13px;color:var(--mute)}
+.B .cta{display:flex;align-items:center;gap:1.1rem;margin-top:1.4rem;flex-wrap:wrap}
+.B .cta span{font-size:14px;color:var(--mute)}
+.B .who{display:flex;align-items:center;gap:.7rem;margin-top:1.4rem;font-size:14px;color:var(--mute)}
+.B .who img{width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:top}
+.B .who b{color:var(--ink);font-weight:600}
+@container (max-width:600px){.B .hero{grid-template-columns:1fr;padding-top:1.8rem}.docs{grid-template-columns:1fr 1fr}.demo svg.wire.d{display:none}.demo svg.wire.m{display:block}}
+
+/* C: one screen */
+.C .hero{padding:2.4rem 0 2.2rem;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.85fr);gap:2rem 3.4rem;align-items:start}
+.C .proof{margin-top:1.4rem;display:grid;grid-template-columns:1fr 1fr;gap:.9rem 1.6rem;border-top:1px solid var(--rule);padding-top:1rem}
+.C .proof b{display:block;font-size:1.5rem;color:var(--acc);font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.C .proof span{font-size:13.5px;color:var(--mute)}
+.form{border:1px solid var(--rule);background:color-mix(in srgb,var(--soft) 50%,var(--paper));border-radius:2px;padding:1.2rem 1.3rem 1.3rem}
+.form h2{font-size:1.15rem;font-weight:600;margin-bottom:.2rem}
+.form p{font-size:14px;color:var(--mute);margin-bottom:.9rem}
+.form label{display:block;font-size:13px;font-weight:600;margin:.7rem 0 .25rem}
+.form input,.form textarea{width:100%;font:inherit;font-size:14.5px;padding:.55rem .7rem;border:1px solid var(--rule);border-radius:2px;background:var(--paper);color:var(--ink)}
+.form textarea{height:66px;resize:none}
+.form input::placeholder,.form textarea::placeholder{color:#9b938a}
+.form .btn{margin-top:1rem;width:100%;text-align:center}
+.form small{display:block;margin-top:.6rem;font-size:12.5px;color:var(--mute)}
+.C .who{display:flex;align-items:center;gap:.7rem;margin-top:1.5rem;font-size:14px;color:var(--mute)}
+.C .who img{width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:top}
+.C .who b{color:var(--ink);font-weight:600}
+@container (max-width:600px){.C .hero{grid-template-columns:1fr}.C .proof{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <span><b>Wren lander</b> vision alternatives, first viewport only. Everything below the fold stays as it is.</span>
+  <span><b>Variant</b>
+    <button data-v="A" aria-pressed="true">A · Signed letter</button>
+    <button data-v="B" aria-pressed="false">B · Show it running</button>
+    <button data-v="C" aria-pressed="false">C · One screen</button>
+  </span>
+  <span><b>Width</b>
+    <button data-w="desk" aria-pressed="true">Desktop</button>
+    <button data-w="phone" aria-pressed="false">Phone</button>
+  </span>
+</div>
+
+<p class="note" data-note="A"><b>A · Signed letter.</b> Same world. The person moves to the top, the h1 becomes the specific ADV line, and the before/after table sits in the hero instead of three screens down. The offer teaser collapses into one sentence. Answers "is this real?" and "is this about me?" in one screen.</p>
+<p class="note" data-note="B" hidden><b>B · Show it running.</b> Same world. The hero shows the automation instead of describing it: one figure typed once, four documents fill. Loops in CSS, no library. The one authored motion moment replaces the intro trace. Most distinctive of the three; the demo has to be honest about being an example.</p>
+<p class="note" data-note="C" hidden><b>C · One screen.</b> Same world, tuned for the under-a-minute reader. Pitch, three before/after rows, two real numbers and the form all in the first viewport. The long page below is for the reader who wants it. Highest expected form rate, least atmosphere.</p>
+
+<div class="stage">
+
+<!-- A -->
+<div class="v A on">
+  <div class="wrap">
+    <nav class="nav"><span class="brand"><img src="../public/brand/wren-mark.png" alt="">Wren Automation</span><div class="links"><a href="#">Who I've helped</a><a href="#">The offer</a><a href="#">Contact</a></div></nav>
+    <div class="head"><img src="../public/headshot.png" alt=""><div><b>William Jin</b><span>Software engineering, University of Waterloo · Toronto · william@wrenautomation.com</span></div></div>
+    <div class="hero">
+      <div>
+        <h1 class="big">The same <b>AUM figure</b> is typed into your ADV, your agreements, your letters and your invoices. Four times.</h1>
+        <p class="lede" style="margin-top:1rem">I build the automations nobody at the firm has time to build: <b>onboarding</b>, client documents, <b>quarterly letters</b>, the handoffs in between. A full workday a week back for each person on your team.</p>
+        <div class="cta"><a class="btn" href="#">Get in touch</a><a class="q" href="#">Who I've helped →</a></div>
+        <p class="promise">The audit is free. After that you pay by milestone, and <b>if a milestone doesn't give the hours back, you don't pay for it.</b></p>
+      </div>
+      <div class="r">
+        <h2>Your week, before and after</h2>
+        <div class="sides">
+          <div class="hd"><span>Manual work</span><span class="auto">After we build it</span></div>
+          <div><span>The AUM figure typed into the ADV, the agreement, the letter and the invoice.</span><span class="auto">Entered once. All four pull it from there.</span></div>
+          <div><span>The onboarding packet made from the last client's, find and replace.</span><span class="auto">Generated from the intake form.</span></div>
+          <div><span>Performance numbers pasted into the quarterly letter.</span><span class="auto">The letter pulls the numbers in itself.</span></div>
+          <div><span>Fee invoices checked against the agreement one at a time.</span><span class="auto">Checked automatically. You see the ones that don't match.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tail">↓ Case studies, what this proves, what gets automated first, the offer, questions, form. Unchanged.</div>
+</div>
+
+<!-- B -->
+<div class="v B">
+  <div class="wrap">
+    <nav class="nav"><span class="brand"><img src="../public/brand/wren-mark.png" alt="">Wren Automation</span><div class="links"><a href="#">Who I've helped</a><a href="#">The offer</a><a href="#">Contact</a></div></nav>
+    <div class="hero">
+      <div>
+        <h1 class="big">Type the <b>AUM figure</b> once. Every document that needs it fills itself.</h1>
+        <p class="lede" style="margin-top:1rem">The ADV, the agreement, the quarterly letter, the fee invoice. Someone at your firm types the same number into each of them. I build the piece in the middle, inside the tools you already use. <b>A full workday a week back</b> for each person on your team.</p>
+        <div class="cta"><a class="btn" href="#">Get in touch</a><span>The audit is free. You pay by milestone, after it runs.</span></div>
+        <div class="who"><img src="../public/headshot.png" alt=""><span><b>William Jin</b>, software engineering at Waterloo. I write the code myself.</span></div>
+      </div>
+      <div class="demo" aria-hidden="true">
+        <div class="cap"><span>Entered once</span><i>example figure</i></div>
+        <div class="in"><span>AUM, from the custodian feed</span><b>$84,200,000</b></div>
+        <svg class="wire d" viewBox="0 0 400 34" preserveAspectRatio="none">
+          <path d="M200 0 V10"/>
+          <path class="a" d="M200 0 V10 H50 V34 M200 10 H150 V34 M200 10 H250 V34 M200 10 H350 V34"/>
+          <circle cx="200" cy="10" r="3"/>
+        </svg>
+        <svg class="wire m" viewBox="0 0 400 34" preserveAspectRatio="none">
+          <path d="M200 0 V10"/>
+          <path class="a" d="M200 0 V10 H100 V34 M200 10 H300 V34"/>
+          <circle cx="200" cy="10" r="3"/>
+        </svg>
+        <div class="docs">
+          <div><div class="t">ADV Part 2</div><div class="l"></div><div class="l s"></div><div class="val">$84,200,000</div></div>
+          <div><div class="t">Agreement</div><div class="l"></div><div class="l s"></div><div class="val">$84,200,000</div></div>
+          <div><div class="t">Q3 letter</div><div class="l"></div><div class="l s"></div><div class="val">$84,200,000</div></div>
+          <div><div class="t">Fee invoice</div><div class="l"></div><div class="l s"></div><div class="val">$84,200,000</div></div>
+        </div>
+        <div class="foot">Change it once and all four update. The person who used to type it checks the ones that don't match.</div>
+      </div>
+    </div>
+  </div>
+  <div class="tail">↓ Before/after table, case studies, the offer, questions, form. Unchanged.</div>
+</div>
+
+<!-- C -->
+<div class="v C">
+  <div class="wrap">
+    <nav class="nav"><span class="brand"><img src="../public/brand/wren-mark.png" alt="">Wren Automation</span><div class="links"><a href="#">Who I've helped</a><a href="#">The offer</a><a href="#">About</a></div></nav>
+    <div class="hero">
+      <div>
+        <h1 class="big">A <b>full workday</b> a week back for each person on your team.</h1>
+        <p class="lede" style="margin-top:1rem">The same <b>AUM figure</b> lives in your <b>ADV</b>, your agreements, your letters and your invoices, and someone types it four times. I build the piece in the middle.</p>
+        <div class="sides" style="margin-top:1.3rem">
+          <div class="hd"><span>Manual work</span><span class="auto">After we build it</span></div>
+          <div><span>AUM typed into four documents.</span><span class="auto">Entered once. All four pull it.</span></div>
+          <div><span>Onboarding packet, find and replace.</span><span class="auto">Generated from the intake form.</span></div>
+          <div><span>Fee invoices checked one at a time.</span><span class="auto">Only the mismatches reach you.</span></div>
+        </div>
+        <div class="proof">
+          <div><b>6 to 7 hrs</b><span>a week back per person. Policy search for federal staff, Government of Canada, still in use.</span></div>
+          <div><b>200 hrs</b><span>of citation lookups automated for a University of Alberta lab, still in use.</span></div>
+        </div>
+        <div class="who"><img src="../public/headshot.png" alt=""><span><b>William Jin</b>, software engineering at Waterloo. The person on the call is the person who builds it.</span></div>
+      </div>
+      <form class="form" onsubmit="return false">
+        <h2>Start with the free audit</h2>
+        <p>Tell me what eats your week. I reply in a business day with a few times for a 30-minute call.</p>
+        <label>Work email</label><input type="email" placeholder="you@firm.com">
+        <label>What eats your week?</label><textarea placeholder="The report that takes a day, or the spreadsheet only one person understands."></textarea>
+        <button class="btn" type="submit">Send</button>
+        <small>No retainer. You pay per milestone, after it runs. If it doesn't give the hours back, you don't pay for it.</small>
+      </form>
+    </div>
+  </div>
+  <div class="tail">↓ Case studies in full, what this proves, what gets automated first, the offer, questions, about. Unchanged, for the reader who wants the long version.</div>
+</div>
+
+</div>
+
+<script>
+const stage=document.querySelector('.stage');
+document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('[data-v]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  document.querySelectorAll('.v').forEach(v=>v.classList.toggle('on',v.classList.contains(b.dataset.v)));
+  document.querySelectorAll('[data-note]').forEach(n=>n.hidden=n.dataset.note!==b.dataset.v);
+});
+document.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('[data-w]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  stage.classList.toggle('phone',b.dataset.w==='phone');
+});
+const q=new URLSearchParams(location.search);if(q.get('v'))document.querySelector('[data-v='+q.get('v')+']').click();if(q.get('w'))document.querySelector('[data-w='+q.get('w')+']').click();
+</script>
+</body>
+</html>

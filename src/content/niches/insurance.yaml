@@ -1,9 +1,18 @@
 # wrenautomation.com/insurance
 hue: green
 title: Wren Automation for insurance agencies
-kicker: Workflow automation for independent insurance agencies
-h1: A **full workday** a week back for each person on your team.
-lede: "**Renewals**, **certificates** and **loss runs**, with the same client data re-keyed three times along the way. I'm William. I build the automations nobody at the agency has time to build: certificates, renewals, proposals, the chasing in between."
+h1: Type the **insured** once. Every document that needs it fills itself.
+lede: "The certificate, the renewal letter, the proposal, the loss run request. Someone at the agency keys the same client into each of them. I build the piece in the middle, inside the tools you already use. **A full workday a week back** for each person on your team."
+# Under the hero button: who is writing, next to the photo from site.yaml.
+who: "**William Jin**, software engineering at Waterloo. I write the code myself."
+# The hero card. One value typed once, the documents that fill from it. It is an example and says so in `note`. 2 to 4 docs.
+demo:
+  label: Entered once
+  note: example client
+  field: Insured, from the policy
+  value: Oak Dental
+  docs: [Certificate, Renewal, Proposal, Loss run]
+  foot: "Change it once and all four update. The person who used to key it checks the ones that don't match."
 cases: [government-of-canada, fuel-cell-group]
 # Pick a side. Sits under the hero, before the case studies. Left is by hand, right is the same job once built.
 sides_h2: The same work, before and after

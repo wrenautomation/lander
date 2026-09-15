@@ -13,9 +13,17 @@ const niches = defineCollection({
   schema: z.strictObject({
     hue: z.enum(['rust', 'green', 'red']),
     title: z.string(),            // <title> and the email subject line
-    kicker: z.string(),         // one line above the h1: what this is and who it's for
-    h1: z.string(),
+    h1: z.string(),               // **bold** allowed: the accent colour
     lede: z.string(),             // **bold** allowed
+    who: z.string(),              // one line under the hero button, next to the photo. **bold** allowed
+    demo: z.strictObject({        // the hero card: one value typed once, the documents that fill from it. An example, and labelled as one.
+      label: z.string(),          // "Entered once"
+      note: z.string(),           // "example figure"
+      field: z.string(),          // where the value comes from
+      value: z.string(),          // the value that gets typed
+      docs: z.array(z.string()).min(2).max(4), // the documents that fill, 2 to 4
+      foot: z.string(),           // one line under the documents
+    }),
     cases: z.array(z.string()),   // case-study file names, in order
     sides_h2: z.string(),         // pick a side: by hand vs runs itself
     sides_intro: z.string(),

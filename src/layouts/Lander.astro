@@ -5,6 +5,7 @@ import { getEntry } from 'astro:content';
 import Base from './Base.astro';
 import Band from '../components/Band.astro';
 import Mark from '../components/Mark.astro';
+import Demo from '../components/Demo.astro';
 import Trace from '../components/Trace.astro';
 import Theme from '../components/Theme.astro';
 import Foot from '../components/Foot.astro';
@@ -38,10 +39,13 @@ const multi = new Set(['note', 'questions']);
 <section class="hero" id="top">
   <div class="wrap" data-intro-target>
     <svg class="itr" aria-hidden="true"></svg>
-    <p class="kicker">{n.kicker}</p>
-    <h1 set:html={inline(n.h1)} />
-    <p class="lede" set:html={inline(n.lede)} />
-    <a class="btn" href="#ask">{site.cta}</a>
+    <div class="copy">
+      <h1 set:html={inline(n.h1)} />
+      <p class="lede" set:html={inline(n.lede)} />
+      <a class="btn" href="#ask">{site.cta}</a>
+      <p class="who">{site.photo && <img src={site.photo} alt="" width="34" height="34">}<span set:html={inline(n.who)} /></p>
+    </div>
+    <Demo demo={n.demo} />
   </div>
 </section>
 

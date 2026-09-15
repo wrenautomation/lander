@@ -1,9 +1,18 @@
 # wrenautomation.com/ria
 hue: rust
 title: Wren Automation for RIAs
-kicker: Workflow automation for independent RIAs
-h1: A **full workday** a week back for each person on your team.
-lede: "The same **AUM figure** lives in your **ADV**, your agreements, your letters and your invoices, and someone types it four times. I'm William. I build the automations nobody at the firm has time to build: **onboarding**, client documents, **quarterly letters**, the handoffs in between."
+h1: Type the **AUM figure** once. Every document that needs it fills itself.
+lede: "The ADV, the agreement, the quarterly letter, the fee invoice. Someone at your firm types the same number into each of them. I build the piece in the middle, inside the tools you already use. **A full workday a week back** for each person on your team."
+# Under the hero button: who is writing, next to the photo from site.yaml.
+who: "**William Jin**, software engineering at Waterloo. I write the code myself."
+# The hero card. One value typed once, the documents that fill from it. It is an example and says so in `note`. 2 to 4 docs.
+demo:
+  label: Entered once
+  note: example figure
+  field: AUM, from the custodian feed
+  value: $84,200,000
+  docs: [ADV Part 2, Agreement, Q3 letter, Fee invoice]
+  foot: "Change it once and all four update. The person who used to type it checks the ones that don't match."
 cases: [government-of-canada, fuel-cell-group]
 # Pick a side. Sits under the hero, before the case studies. Left is by hand, right is the same job once built.
 sides_h2: The same work, before and after

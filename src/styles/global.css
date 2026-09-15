@@ -64,6 +64,37 @@ p{margin:0}
 .hero h1 b{font-weight:inherit;color:var(--acc)}
 .hero .lede{font-size:1.1rem;color:var(--mute);max-width:54ch;margin:1.1rem 0 1.6rem}
 .hero .lede b{color:var(--ink);font-weight:600}
+.hero .who{display:flex;align-items:center;gap:.7rem;margin-top:1.4rem;font-size:14px;color:var(--mute)}
+.hero .who img{width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:top}
+.hero .who b{color:var(--ink);font-weight:600}
+
+/* the hero card: one value typed once, the wire draws, the documents fill. Loops in CSS; Demo.astro sets --n (documents), --m (phone columns), --w (typed width). */
+.demo{margin-top:2.2rem;border:1px solid var(--rule);background:color-mix(in srgb,var(--soft) 50%,var(--paper));border-radius:2px;padding:1rem 1.1rem 1.2rem}
+.demo .cap{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:600;display:flex;justify-content:space-between;gap:1rem}
+.demo .cap i{font-style:normal;letter-spacing:0;text-transform:none;font-weight:500}
+.demo .in{display:flex;justify-content:space-between;align-items:center;gap:.8rem;margin-top:.8rem;border:1px solid var(--rule);background:var(--paper);border-radius:2px;padding:.6rem .8rem;font-size:14px}
+.demo .in span{color:var(--mute);min-width:0}
+.demo .in b{flex:none;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;display:inline-block;width:0;border-right:1.5px solid var(--acc);animation:demo-type 6s infinite}
+@keyframes demo-type{0%,8%{width:0}22%{width:calc(var(--w) + 1ch)}96%{width:calc(var(--w) + 1ch);border-color:var(--acc)}100%{width:calc(var(--w) + 1ch);border-color:transparent}}
+.demo svg.wire{display:block;width:100%;height:34px;overflow:visible}
+.demo svg.wire.d{display:none}
+.demo svg.wire path{fill:none;stroke:var(--trace);stroke-width:1;opacity:.5}
+.demo svg.wire path.a{stroke:var(--acc);opacity:1;stroke-dasharray:600;stroke-dashoffset:600;animation:demo-draw 6s infinite}
+@keyframes demo-draw{0%,24%{stroke-dashoffset:600}46%,100%{stroke-dashoffset:0}}
+.demo svg.wire circle{fill:var(--paper);stroke:var(--trace)}
+.docs{display:grid;grid-template-columns:repeat(var(--m),minmax(0,1fr));gap:.6rem}
+.docs>div{border:1px solid var(--rule);background:var(--paper);border-radius:2px;padding:.55rem .6rem .6rem;font-size:12.5px;min-height:74px}
+.docs .t{margin:0 0 .35rem;font-weight:600}
+.docs .l{height:4px;background:var(--rule);border-radius:2px;margin:.3rem 0}
+.docs .l.s{width:60%}
+.docs .val{color:var(--acc);font-weight:600;font-variant-numeric:tabular-nums;opacity:0;height:1.2em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:demo-pop 6s infinite;animation-delay:calc(var(--i) * .35s)}
+@keyframes demo-pop{0%,40%{opacity:0;transform:translateY(3px)}47%,92%{opacity:1;transform:none}100%{opacity:0}}
+.demo .foot{margin-top:.8rem;font-size:13px;color:var(--mute)}
+.no-motion .demo .in b,.no-motion .demo svg.wire path.a,.no-motion .docs .val{animation:none}
+.no-motion .demo .in b{width:calc(var(--w) + 1ch);border-color:transparent}
+.no-motion .demo svg.wire path.a{stroke-dashoffset:0}
+.no-motion .docs .val{opacity:1}
+@media (prefers-reduced-motion:reduce){.demo .in b,.demo svg.wire path.a,.docs .val{animation:none}.demo .in b{width:calc(var(--w) + 1ch);border-color:transparent}.demo svg.wire path.a{stroke-dashoffset:0}.docs .val{opacity:1}}
 
 /* the chooser on /: three cards, each in its niche's colour, one click each */
 .choose .lede{margin-bottom:2.2rem}
@@ -82,7 +113,7 @@ p{margin:0}
 .other a:hover{text-decoration:underline;text-underline-offset:4px}
 
 /* the landing intro (see Base.astro). Until it runs, what it reveals is hidden; if the script never comes, a keyframe shows it after 2.5s. */
-[data-intro] [data-intro-target]>:not(.itr){opacity:0;animation:intro-safe .01s 2.5s forwards}
+[data-intro] [data-intro-target]>:not(.itr,.copy),[data-intro] [data-intro-target]>.copy>*{opacity:0;animation:intro-safe .01s 2.5s forwards}
 @keyframes intro-safe{to{opacity:1}}
 .sheet{display:none;position:fixed;inset:0;z-index:50;background:var(--paper);place-items:center}
 [data-intro="1"] .sheet{display:grid}
@@ -260,8 +291,14 @@ footer .fine{font-size:13px;border-top:1px solid var(--rule);padding-top:1rem}
   .brand .name{font-size:16px}
   .nav .links{display:flex}
   .nav .contact{display:none}
-  .hero{padding:5rem 0 4.5rem}
-  .hero .lede{font-size:1.2rem;margin:1.3rem 0 1.9rem}
+  .hero{padding:4rem 0 4rem}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem 3rem;align-items:center}
+  .hero .itr{grid-column:1/-1}
+  .hero h1{max-width:20ch}
+  .hero .lede{font-size:1.15rem;margin:1.2rem 0 1.7rem}
+  .demo{margin-top:0}
+  .demo svg.wire.d{display:block} .demo svg.wire.m{display:none}
+  .docs{grid-template-columns:repeat(var(--n),minmax(0,1fr))}
   .choose .lede{margin-bottom:2.8rem}
   .pick{grid-template-columns:repeat(3,1fr);gap:1.25rem}
   .pick a{padding:1.4rem 1.6rem 1.6rem}

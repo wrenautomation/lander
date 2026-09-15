@@ -1,0 +1,16 @@
+---
+// The hero card: one value typed once, a wire draws down, the documents fill. CSS keyframes on a 6s loop, no library; still at rest under reduced motion and ?static. The copy comes from the niche file (`demo`). The wire is drawn for the number of documents: one drop per column on desktop, two columns on the phone when there are four.
+const { demo } = Astro.props as { demo: { label: string; note: string; field: string; value: string; docs: string[]; foot: string } };
+const n = demo.docs.length, cols = n === 4 ? 2 : n;
+const wire = (k: number) => { const xs = Array.from({ length: k }, (_, i) => Math.round(((i + .5) / k) * 400)); return 'M200 0 V10 ' + xs.map((x) => `M200 10 H${x} V34`).join(' '); };
+---
+<div class="demo" style={`--n:${n};--m:${cols};--w:${demo.value.length}ch`} aria-hidden="true">
+  <div class="cap"><span>{demo.label}</span><i>{demo.note}</i></div>
+  <div class="in"><span>{demo.field}</span><b>{demo.value}</b></div>
+  <svg class="wire d" viewBox="0 0 400 34" preserveAspectRatio="none"><path d="M200 0 V10"/><path class="a" d={wire(n)}/><circle cx="200" cy="10" r="3"/></svg>
+  <svg class="wire m" viewBox="0 0 400 34" preserveAspectRatio="none"><path d="M200 0 V10"/><path class="a" d={wire(cols)}/><circle cx="200" cy="10" r="3"/></svg>
+  <div class="docs">
+    {demo.docs.map((d, i) => <div style={`--i:${i}`}><div class="t">{d}</div><div class="l"></div><div class="l s"></div><div class="val">{demo.value}</div></div>)}
+  </div>
+  <p class="foot">{demo.foot}</p>
+</div>

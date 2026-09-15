@@ -57,7 +57,7 @@ const el = (tag: string, attrs: Record<string, string | number>) => { const e = 
 (() => {
   const v = root.dataset.intro, target = document.querySelector<HTMLElement>('[data-intro-target]');
   if (!v || !target || reduce) { delete root.dataset.intro; return; }
-  const itr = target.querySelector<SVGSVGElement>('svg.itr'), parts = [...target.children].filter((c) => c !== itr);
+  const itr = target.querySelector<SVGSVGElement>('svg.itr'), parts = [...target.children].filter((c) => c !== itr).flatMap((c) => (c.classList.contains('copy') ? [...c.children] : [c])); // the hero's text column staggers line by line, the card comes up as one
   const finish = () => { if (v === '2') itr?.classList.add('on'); delete root.dataset.intro; gsap.set(parts, { clearProps: 'opacity,transform' }); ScrollTrigger.refresh(); };
   const prep = (svg: SVGSVGElement) => {
     const paths = [...svg.querySelectorAll('path')], nodes = [...svg.querySelectorAll('circle')];

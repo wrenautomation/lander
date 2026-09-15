@@ -11,6 +11,24 @@
         ],
         "createdAt": "2026-09-14T15:24:03.425Z",
         "reason": "assistant: zero side padding is the grid-aligned rule-divider pattern (proof strip, target list); text sits against hairline rules, not inside a boxed container"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "designs/2026-09-15-ui-vision-playground.html"
+        ],
+        "createdAt": "2026-09-15T21:05:16.087Z",
+        "reason": "Claude: playground mock frame; .stage and .sides insets come from the children (page sections, table cell padding)"
+      },
+      {
+        "rule": "repeated-container-text",
+        "value": "*",
+        "files": [
+          "designs/2026-09-15-ui-vision-playground.html"
+        ],
+        "createdAt": "2026-09-15T21:05:16.113Z",
+        "reason": "Claude: three hero variants share one stage, one visible at a time"
       }
     ]
   }
