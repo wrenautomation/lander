@@ -19,11 +19,11 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 // Input attributes follow from the column, not the copy file.
 const input = { name: { type: 'text', autocomplete: 'given-name' }, email: { type: 'email', autocomplete: 'email' }, phone: { type: 'tel', autocomplete: 'tel' }, note: {}, questions: {} } as const;
 const multi = new Set(['note', 'questions']);
-// One short trace per principle card, in the accent, ending in a filled node. Same motif as the bands and the pipelines.
+// One small band per principle card, full width: grey hairlines with hollow nodes, one accent trace ending in a filled node. Rows at 6, 13, 20; nothing shares a row.
 const TRACES = [
-  { d: 'M0 13 H118 L130 5 H196', x: 200, y: 5 },
-  { d: 'M0 5 H70 L82 13 H236', x: 240, y: 13 },
-  { d: 'M0 13 H40 L52 5 H176', x: 180, y: 5 },
+  { acc: 'M0 6 H62 L70 13 H150', node: [154, 13], grey: ['M0 20 H96', 'M180 20 H226 L234 13 H272', 'M210 6 H320'], hollow: [[276, 13]] },
+  { acc: 'M0 20 H118 L126 13 H206 L214 6 H288', node: [292, 6], grey: ['M0 6 H58 L66 13 H98', 'M160 6 H190', 'M244 20 H320'], hollow: [[102, 13], [194, 6]] },
+  { acc: 'M0 13 H40 L48 6 H176', node: [180, 6], grey: ['M0 20 H140 L148 13 H230', 'M210 6 H320', 'M262 20 H320'], hollow: [[234, 13]] },
 ];
 ---
 <Base title={n.title} description={plain(n.lede)} hue={n.hue}>
@@ -156,7 +156,13 @@ const TRACES = [
       <div class="cols">
         {site.principles.map((p, i) => (
           <div>
-            <svg class="tr" viewBox="0 0 320 18" preserveAspectRatio="xMinYMid meet" data-band aria-hidden="true"><path d={TRACES[i % TRACES.length].d}/><circle cx={TRACES[i % TRACES.length].x} cy={TRACES[i % TRACES.length].y} r="3.5"/></svg>
+            {(() => { const t = TRACES[i % TRACES.length]; return (
+              <svg class="tr" viewBox="0 0 320 26" preserveAspectRatio="xMidYMid slice" data-band aria-hidden="true">
+                {t.grey.map((d) => <path d={d}/>)}
+                {t.hollow.map(([x, y]) => <circle cx={x} cy={y} r="3.5"/>)}
+                <path class="a" d={t.acc}/><circle class="a" cx={t.node[0]} cy={t.node[1]} r="3.5"/>
+              </svg>
+            ); })()}
             <h3>{p.name}</h3><p>{p.text}</p>
           </div>
         ))}
