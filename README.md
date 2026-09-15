@@ -53,7 +53,7 @@ npx wrangler pages secret put RESEND_API_KEY   --project-name wren-lander   # op
 npm run deploy
 ```
 
-Custom domain: Pages project → Custom domains → wrenautomation.com.
+Custom domain (done 2026-09-15): Pages project → Custom domains → add `wrenautomation.com` and `www`, then DNS → Records → `CNAME @ wren-lander.pages.dev` and `CNAME www wren-lander.pages.dev`, both proxied. Pages goes active a few minutes after the records exist.
 Every later deploy: `npm run deploy`.
 
 ## Every key the site can take
