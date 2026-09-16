@@ -26,7 +26,7 @@ chooser:
   kicker: For RIAs, insurance brokers and agencies
   h1: "**Custom automations** for small firms. The retyping between your tools stops, and each person gets a workday a week back."
   lede: "Someone at your firm keeps the same facts in four places by hand, and one place is wrong until a client points it out. I'm William, and I build the piece in the middle, inside the tools you already pay for. **Nothing to do with a new platform, a zap or another hire.**"
-  proof: "Two builds so far, both still in use. 17,000 federal staff ask one question instead of reading 220 directives. A lab's citation search covers 7,000 papers. By hand it was 200 hours."
+  proof: "17,000 federal staff find the rule with one question in a tool I built, instead of reading through 220 directives. A lab runs its citation search across 7,000 papers with the other, which took 200 hours by hand. Both are still in use."
   pick: Pick your industry
   pick_text: The jobs I automate in your industry, before and after.
   niches:
