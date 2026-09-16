@@ -1,5 +1,5 @@
 # Copy shared by every page. Edit freely. Keep the keys.
-# **bold** works in: h1 and lede (niche files and chooser), ask_intro, offer.promise. In the h1 it is the accent colour; in the lede it is ink on grey. Keep it to the words a reader in that industry sees every day.
+# **bold** works in: h1 and lede (niche files and chooser), the chooser niche text, ask_intro, offer.promise. In the h1 it is the accent colour; in the lede it is ink on grey. Keep it to the words a reader in that industry sees every day.
 # A value with a colon or a * needs quotes.
 
 name: William Jin
@@ -20,26 +20,26 @@ theme:
 cta: Get the free audit
 # The link to the form after the case studies and again after the offer.
 mid_cta: Start with the free audit
-# wrenautomation.com/: the chooser. Three paragraphs, then one click into an industry page. The hero is the discovery (the mechanism, and what it is not), `proof` is the two builds with their numbers, `pick` is the one action. No pitch, no price. `slug` is the niche file name; the card's colour comes from that file.
+# wrenautomation.com/: the chooser. The h1 is the pattern every niche page opens with ("Type the X once"), so the cards read as three answers to what "it" is, and the click is the reader picking theirs. Three lines above the cards (the pain, who, the proof), no more: the page is a fork, not a read. `slug` is the niche file name; the card's colour comes from that file.
 chooser:
   title: Wren Automation
   kicker: Custom automation for small firms
-  h1: Type the **client** in once. Every tool that needs it fills in, and each person gets a workday a week back.
-  lede: "Somebody at your firm typed the same client into a fifth tool this week. Nobody owns the chain, so one copy is wrong until the client points it out. I'm William. I build the piece in the middle, inside the tools you already pay for. **Nothing to do with a new platform, a template, a zap or another hire.**"
-  proof: "Two builds, both still in use. 17,000 federal staff find the rule with one question instead of reading through 220 directives. A lab's citation search runs across 7,000 papers, which was 200 hours by hand."
+  h1: Type it **once**. Every tool that needs it fills in.
+  lede: "Someone at your firm keeps the same facts in four places by hand, and one place is wrong until a client points it out. I'm William, and I build the piece in the middle, inside the tools you already pay for. **Nothing to do with a new platform, a zap or another hire.**"
+  proof: "Two builds so far, both still in use. 17,000 federal staff ask one question instead of reading 220 directives. A lab's citation search covers 7,000 papers. By hand it was 200 hours."
   pick: Pick your industry
-  pick_text: Each page has the jobs I automate there, the two builds, and the offer.
+  pick_text: What "it" is at your firm, and the same week once it's built.
   niches:
     - slug: ria
       name: RIAs
-      text: Part 1, Part 2A, the manual and the quarterly letter, kept in step by hand after every amendment.
+      text: "**The AUM figure.** Part 1, Part 2A, the manual and the quarterly letter, kept in step by hand after every amendment."
     - slug: insurance
       name: Insurance
-      text: Certificates, renewals and proposals, and the chasing that goes with each one.
+      text: "**The insured.** The certificate, the renewal, the proposal and the loss run request, each keyed from the same file."
     - slug: agencies
       name: Agencies
-      text: The same client typed into the CRM, the board, the timesheet and the invoice.
-  go: See what gets built
+      text: "**The client.** The CRM, the board, the timesheet and the invoice, each typed by hand from the same intake."
+  go: See the before and after
   other_pre: Not one of these?
   other: Email me
 

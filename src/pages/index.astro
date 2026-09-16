@@ -41,7 +41,7 @@ const picks = await Promise.all(c.niches.map(async (x) => {
         <a href={`/${p.slug}`} data-hue={p.hue}>
           <Trace i={i} />
           <h2>{p.name}</h2>
-          <p>{p.text}</p>
+          <p set:html={inline(p.text)} />
           <span class="go">{c.go} &rarr;</span>
         </a>
       ))}
