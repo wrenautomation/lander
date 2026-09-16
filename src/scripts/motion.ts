@@ -17,7 +17,11 @@ const setTheme = (t: string, save = true) => {
   if (save) try { localStorage.setItem('wren-theme', t); } catch {}
 };
 setTheme(q.get('theme') || root.dataset.theme || 'light', false);
-tb.onclick = () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+let themeT = 0;
+tb.onclick = () => {
+  root.classList.add('theming'); clearTimeout(themeT); themeT = window.setTimeout(() => root.classList.remove('theming'), 350);
+  setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+};
 
 /* ---------- form: fetch when JS is on, plain POST + redirect when it is off ---------- */
 const ask = document.querySelector<HTMLElement>('[data-ask]');
