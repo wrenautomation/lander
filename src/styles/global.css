@@ -105,7 +105,7 @@ p{margin:0}
 .choose-nav .contact{display:inline}
 .proof{font-size:15.5px;line-height:1.55;color:var(--ink);max-width:54ch;margin:0 0 2.2rem;padding-left:.9rem;border-left:2px solid var(--acc)}
 .pick-h{margin-bottom:1rem}
-.pick-h .lbl{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lbl);margin-bottom:.3rem}
+.pick-h .lbl{font-size:1.35rem;font-weight:600;letter-spacing:-.01em;text-transform:none;color:var(--ink);margin-bottom:.35rem}
 .pick-h p:not(.lbl){font-size:15.5px;color:var(--mute);max-width:54ch}
 .pick{display:grid;gap:.9rem}
 .pick a{display:block;text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:2px;padding:1.1rem var(--pad) 1.3rem;background:color-mix(in srgb,var(--soft) 45%,var(--paper));transition:border-color .15s,transform .15s}
