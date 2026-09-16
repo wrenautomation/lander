@@ -5,7 +5,7 @@
 #   94% of audited spreadsheets had at least one error: Panko, "What we know about spreadsheet errors".
 hue: rust
 title: Wren Automation for RIAs
-h1: Advisors spend a fifth of the week with **clients**. Hours of the rest go to the same figure typed into four documents. Type it once, and those hours go back to clients.
+h1: Advisors spend a fifth of the week with **clients**. Type the AUM figure once and the hours spent retyping it go back to them.
 lede: "Your AUM figure lives in four documents, and someone at your firm keeps them in step by hand. Part 1, Part 2A, the compliance manual, the quarterly letter. Nothing owns the chain between them, so a person is the integration. After every amendment all four have to catch up, and one lags until someone notices two disagree. I build the piece in the middle, inside the tools you already use. **Nothing to do with being more careful, a longer checklist or the compliance platform.**"
 # Under the hero button, next to the photo from site.yaml.
 who: "**William Jin**, software engineering at Waterloo. Built the policy search 17,000 federal staff use. I write the code myself."
@@ -16,11 +16,11 @@ demo:
   field: AUM, from the custodian feed
   value: $84,200,000
   docs: [ADV Part 1, Part 2A, Manual, Q3 letter]
-  foot: "Change it here. All four follow. Nobody retypes it, nobody re-reads the filing to check."
+  foot: "Change it here and all four follow. Nobody re-reads the filing to check."
 cases: [government-of-canada, fuel-cell-group]
 # Pick a side. Under the hero, before the case studies. Left is by hand, right is the same job once built.
 sides_h2: This is most RIAs. It's probably yours.
-sides_intro: "Kitces asked advisors to list their week. They report 43 hours and the tasks add up to 53. About 20% is in front of clients, 4.2 hours is admin, and ten hours a week are the ones nobody counts. Retyping is exactly the work that doesn't get counted. Schwab's benchmarking study says the top firms spend a quarter less time per client on operations, and they get there with digital workflows. Pick the rows that happen at your firm."
+sides_intro: "Kitces asked advisors to list their week. They report 43 hours and the tasks add up to 53. About 20% is in front of clients, 4.2 hours is admin, and ten hours a week that nobody counts. Retyping is that kind of work. Schwab's benchmarking study says the top firms spend a quarter less time per client on operations, and they get there with digital workflows. Pick the rows that happen at your firm."
 sides_hand: By hand, today
 sides_auto: Once it's built
 sides:

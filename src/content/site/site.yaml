@@ -24,7 +24,7 @@ mid_cta: Start with the free audit
 chooser:
   title: Wren Automation
   kicker: For RIAs, insurance brokers and agencies
-  h1: "**Custom automations** for small firms. The same facts stop being typed into four places, and each person gets a workday a week back."
+  h1: "**Custom automations** for small firms."
   lede: "Someone at your firm keeps the same client, figure or policy in four places by hand, and one place is wrong until a client points it out. Nothing owns the chain between your tools, so a person is the integration. I'm William. I build the piece in the middle, inside the tools you already use."
   proof: "One build has 17,000 users. Another gave a lab back 200 hours. Both still run without me. Your industry's page has the before and after."
   pick: Pick your industry
@@ -46,7 +46,7 @@ chooser:
 # The offer in one breath, right under the hero. `more` links to the offer section below.
 offer:
   eyebrow: The offer
-  promise: "**A full workday a week back for each person**, from onboarding, client emails, reports and invoices. Built once, running in your own accounts. If a milestone doesn't give the hours back, you don't pay for it."
+  promise: "**A full workday a week back for each person**, from onboarding, client emails, reports and invoices. Built once, running in your own accounts, paid per milestone after it runs."
   safe: "The audit is free. I find the automations with the highest return, the ones that take the repetitive work off your team. After that you pay by milestone, after each one runs, and you can walk away at any point with everything built so far."
   more: How that works
 
@@ -67,18 +67,18 @@ how:
   - name: Audit
     text: "A 30-minute call. You share your screen and walk me through one normal week: where the client gets typed, where the report comes from, where the invoice starts. I need no access to anything. I map the chain, count the hours per job, and you get one page back: what to automate first, what it saves a week, what it costs. Free, and yours to keep if you stop here."
   - name: Build
-    text: "Scope and milestones in writing before any code. The first milestone is the job with the most hours in it, so something useful is running early. I build inside the tools you already pay for, in your accounts, so your data never leaves them. Every week you get a screen share of what runs now, not a status email. You pay after each milestone runs and the hours have come back. Nothing hourly, no retainer."
+    text: "Scope and milestones in writing before any code. The first milestone is the job with the most hours in it, so something useful is running early. I build inside the tools you already pay for, in your accounts, so your data never leaves them. Every week you get a screen share of what runs now. You pay after each milestone runs. Nothing hourly, no retainer."
   - name: Handover
-    text: "Documentation written for whoever runs it, a walkthrough on a call, and the code. My access is removed. It keeps running without me and without a retainer. If it breaks because of my mistake, I fix it at no charge. If a tool changes on your side, I'm one email away and you decide whether that's a new milestone."
+    text: "Documentation written for whoever runs it, a walkthrough on a call, and the code. My access is removed. It keeps running without me and without a retainer. If it breaks because of something I got wrong, I fix it. If a tool changes on your side, I'm one email away and you decide whether that's a new milestone."
 # Three principles under the steps.
 principles_h3: 3 principles of Wren
 principles:
   - name: Accountability
-    text: Milestones agreed up front, paid after each one runs and does what we said. Weekly check-ins, so nothing drifts for a month. The hours back are guaranteed by me, personally, or the milestone is free.
+    text: Milestones agreed up front, paid after each one runs and does what we said. Weekly check-ins, so nothing drifts for a month.
   - name: Scalability
-    text: Built for the whole team, not one person's laptop. When the team grows or a tool changes, the automation keeps working and is easy to extend. You get the code, so nothing depends on me.
+    text: Built for the whole team. When the team grows or a tool changes, the automation keeps working and is easy to extend. You get the code, so nothing depends on me.
   - name: Utility
-    text: I solve the real problem, not the one in the brief. If the piece we scoped turns out not to be useful, or we hit a blocker in the build, we rescope on the spot and you still get value from the work done.
+    text: The build has to be useful, or it doesn't ship. If the piece we scoped turns out not to be, or we hit a blocker, we rescope on the spot and you keep what's already built.
 
 # Why not the alternatives. Sits between the offer and the questions.
 alt_h2: Why not a bigger agency, a consultant, or one more hire?
@@ -89,7 +89,7 @@ alt:
   - who: A consultant
     text: You get a recommendation. You still need someone to build it, and then a second vendor to manage. The audit is the recommendation, free, and the build is the next step with the same person.
   - who: One more hire
-    text: Onboarding first, then a person does the typing faster. The typing is still there, still by hand, still with about one error per hundred fields, and it grows with the client list. The problem is untouched. Once the job runs itself, the people you have get their day back, and the work they keep is the work that needs a person.
+    text: Onboarding first, then a person does the typing faster. The typing is still there, by hand, with about one error per hundred fields, and it grows with the client list. The problem is untouched. Once the job runs itself, the people you have get their day back, and the work they keep is the work that needs a person.
 
 questions_h2: Questions you probably have
 questions_intro: Short answers. Ask me the long ones on the call.
@@ -105,7 +105,7 @@ questions:
   - q: We have an IT person, or a compliance consultant. Do they get a say?
     a: Yes. They see everything as it's built, and the documentation is written for them.
   - q: What if it breaks after you leave?
-    a: You have the code and the documentation, so anyone technical can fix it. If it's my mistake, I fix it at no charge.
+    a: You have the code and the documentation, so anyone technical can fix it. If it's something I got wrong, I fix it.
   - q: How long does the first build take?
     a: Depends on the job. The one page from the audit has a date on it, and the first milestone is the job with the most hours in it.
 

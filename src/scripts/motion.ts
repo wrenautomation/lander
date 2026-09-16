@@ -173,6 +173,15 @@ const redraw = () => { pipes.forEach((p) => tracePipe(p, !reduce)); ScrollTrigge
 redraw(); document.fonts.ready.then(redraw);
 let rz: ReturnType<typeof setTimeout>; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(redraw, 150); });
 
+/* ---------- floating audit button ---------- */
+const fl = document.querySelector<HTMLElement>('[data-float]'), heroBtn = document.querySelector<HTMLElement>('.hero .btn'), askSec = document.getElementById('ask');
+if (fl && heroBtn && askSec && 'IntersectionObserver' in window) {
+  let heroGone = false, askSeen = false;
+  const show = () => { fl.hidden = !(heroGone && !askSeen); };
+  new IntersectionObserver(([e]) => { heroGone = !e.isIntersecting && e.boundingClientRect.top < 0; show(); }).observe(heroBtn);
+  new IntersectionObserver(([e]) => { askSeen = e.isIntersecting; show(); }, { rootMargin: '0px 0px -30% 0px' }).observe(askSec);
+}
+
 /* ---------- counters ---------- */
 document.querySelectorAll<HTMLElement>('[data-count]').forEach((f) => {
   if (reduce || f.dataset.count === '' || f.dataset.count == null) return;

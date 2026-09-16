@@ -60,7 +60,7 @@ p{margin:0}
 
 /* hero */
 .hero{padding:2.75rem 0 2.5rem}
-.hero h1{font-size:clamp(1.8rem,5vw + .6rem,3.2rem);max-width:22ch}
+.hero h1{font-size:clamp(1.45rem,2.6vw + .6rem,2.25rem);max-width:30ch;line-height:1.2}
 .hero h1 b{font-weight:inherit;color:var(--acc)}
 .hero .lede{font-size:1.1rem;color:var(--mute);max-width:54ch;margin:1.1rem 0 1.6rem}
 .hero .lede b{color:var(--ink);font-weight:600}
@@ -268,6 +268,10 @@ input:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:1px;borde
 textarea{min-height:110px;resize:vertical}
 textarea.short{min-height:72px}
 form .btn{width:100%}
+/* the floating audit button: shown by the script once the hero button scrolls off, hidden again while the form is on screen */
+.btn.float{position:fixed;right:16px;bottom:16px;z-index:40;box-shadow:0 6px 24px rgba(0,0,0,.18);transition:opacity .25s,transform .25s}
+.btn.float[hidden]{display:inline-flex;opacity:0;transform:translateY(8px);pointer-events:none}
+.no-motion .btn.float{transition:none}
 form small{color:var(--mute);font-size:13px;line-height:1.5}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .sent{display:none;border:1px solid var(--rule);background:var(--paper);padding:1.25rem;border-radius:2px}
@@ -300,13 +304,13 @@ footer .fine{font-size:13px;border-top:1px solid var(--rule);padding-top:1rem}
   .hero{padding:4rem 0 4rem}
   .hero:not(.choose) .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem 3rem;align-items:center}
   .hero .itr{grid-column:1/-1}
-  .hero h1{max-width:20ch}
+  .hero h1{max-width:30ch}
   .hero .lede{font-size:1.15rem;margin:1.2rem 0 1.7rem}
   .demo{margin-top:0}
   .demo svg.wire.d{display:block} .demo svg.wire.m{display:none}
   .docs{grid-template-columns:repeat(var(--n),minmax(0,1fr))}
   .hero.choose{padding-top:3.25rem}
-  .choose h1{max-width:26ch}
+  .choose h1{max-width:32ch}
   .choose .lede{margin-bottom:1.8rem}
   .proof{font-size:16.5px;margin-bottom:2.8rem;padding-left:1.1rem}
   .pick-h{margin-bottom:1.2rem}
