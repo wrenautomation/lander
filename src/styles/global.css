@@ -60,9 +60,9 @@ p{margin:0}
 .theme svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
 .theme svg{grid-area:1/1;transition:opacity .25s,transform .35s}
 .theme .moon{opacity:0;transform:rotate(-60deg) scale(.6)} [data-theme=dark] .theme .sun{opacity:0;transform:rotate(60deg) scale(.6)} [data-theme=dark] .theme .moon{opacity:1;transform:none}
-/* Only while the toggle is clicked: colours cross-fade instead of snapping. Off on load so nothing animates in. */
-.theming,.theming *{transition:background-color .3s ease,color .3s ease,border-color .3s ease,fill .3s ease,stroke .3s ease!important}
-.no-motion .theme svg,.no-motion.theming,.no-motion.theming *{transition:none!important}
+/* The toggle cross-fades a snapshot of the old page into the new one (View Transitions), so text never passes through mid-grey. Browsers without it snap. */
+::view-transition-old(root),::view-transition-new(root){animation-duration:.28s;mix-blend-mode:normal}
+.no-motion .theme svg{transition:none!important}
 
 /* hero */
 .hero{padding:2.75rem 0 2.5rem}
