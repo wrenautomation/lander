@@ -12,7 +12,7 @@ demo:
   field: Client, from the CRM
   value: Northwind Co.
   docs: [Board, Timesheet, Invoice, Report]
-  foot: "Rename it once and all four follow. The person who used to retype it now only checks."
+  foot: "Change it once and all four follow. Nobody retypes it."
 cases: [government-of-canada, fuel-cell-group]
 # Pick a side. Under the hero, before the case studies. Left is by hand, right is the same job once built.
 sides_h2: The same week, before and after
@@ -27,21 +27,21 @@ sides:
   - hand: Month end. Numbers out of the ad accounts into a spreadsheet, fixed by hand, pasted into the deck. One client gets last month's number.
     auto: The report builds itself on the first, in your format, from this month's numbers.
   - hand: The invoice comes from a timesheet someone filled in on Friday from memory.
-    auto: Hours logged as the work happens. The invoice is built from them.
+    auto: The hours come from the board, and the invoice is built from them.
   - hand: The proposal is last quarter's with find and replace, and one old client name survives.
     auto: Built from the scoping call notes. No old names.
 # Why two builds outside your industry still count. Between the case studies and the list below.
 proves_h2: Why two builds outside your industry count
-proves_intro: "Neither client is an agency. The problem had the same shape, and the numbers are real:"
+proves_intro: "Neither client is an agency. The problem had the same shape:"
 proves:
   - point: Same problem, bigger numbers
     detail: 17,000 federal staff found the rule by reading through 220 directives by hand. A lab searched 7,000 papers one at a time, 200 hours of someone's time. Your version is the same client typed into five tools.
   - point: Still running, without me
-    detail: Both builds are in use today. The department gets 6 to 7 hours a week back per person. The lab got its 200 hours back and a map it uses in its talks.
+    detail: Both are in use today. The department's runs in its own accounts and the lab's stayed with the lab. Yours stays in your accounts too.
   - point: Nobody learned a system
     detail: Staff type a question. Researchers ask the files. Your team keeps the tools it has, and the typing between them stops.
 targets_h2: What gets built first at an agency
-targets_intro: The account side, mostly. The jobs that repeat every month and eat billable hours. Bring one of these to the audit.
+targets_intro: The account side, mostly. The jobs that repeat every month and eat billable hours. Bring one of these to the audit. I've got room for a few more this month before I'm heads down on builds.
 targets:
   - what: Client onboarding
     how: one intake feeds the CRM, the board, the contract and the kickoff

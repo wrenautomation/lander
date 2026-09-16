@@ -17,7 +17,7 @@ theme:
   to_light: Light
 
 # Hero button and the heading of the form section.
-cta: Get in touch
+cta: Get the free audit
 # The link to the form after the case studies and again after the offer.
 mid_cta: Start with the free audit
 # wrenautomation.com/: the chooser. One click into an industry page; no pitch here. `slug` is the niche file name, the card's colour comes from that file.

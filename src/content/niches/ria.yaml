@@ -1,54 +1,56 @@
-# wrenautomation.com/ria
+# wrenautomation.com/ria. Continues the sec_ria emails (documents and operations arms): same scene, same words.
 hue: rust
 title: Wren Automation for RIAs
-h1: Type the **AUM figure** once. Every document that needs it fills itself.
-lede: "The ADV, the agreement, the quarterly letter, the fee invoice. Someone at your firm types the same number into each of them. I build the piece in the middle, inside the tools you already use. **A full workday a week back** for each person on your team."
-# Under the hero button: who is writing, next to the photo from site.yaml.
-who: "**William Jin**, software engineering at Waterloo. I write the code myself."
-# The hero card. One value typed once, the documents that fill from it. It is an example and says so in `note`. 2 to 4 docs.
+h1: Type the **AUM figure** once. Every document that holds it fills in, and nobody re-reads the filing to check.
+lede: "Your AUM figure lives in four documents, and someone at your firm keeps them in step by hand. Part 1, Part 2A, the compliance manual, the quarterly letter. After every amendment all four have to catch up, and one of them doesn't until someone notices two disagree. I build the piece in the middle, inside the tools you already use. **Nothing to do with being more careful, a longer checklist or the compliance platform.**"
+# Under the hero button, next to the photo from site.yaml.
+who: "**William Jin**, software engineering at Waterloo. I built the policy search 17,000 federal staff use, and I write the code myself."
+# The hero card: one value typed once, the documents that fill from it. An example, and labelled as one. 2 to 4 docs.
 demo:
-  label: Entered once
+  label: Typed once
   note: example figure
   field: AUM, from the custodian feed
   value: $84,200,000
-  docs: [ADV Part 2, Agreement, Q3 letter, Fee invoice]
-  foot: "Change it once and all four update. The person who used to type it checks the ones that don't match."
+  docs: [ADV Part 1, Part 2A, Manual, Q3 letter]
+  foot: "Change it once and all four follow. Nobody retypes it."
 cases: [government-of-canada, fuel-cell-group]
-# Pick a side. Sits under the hero, before the case studies. Left is by hand, right is the same job once built.
-sides_h2: The same work, before and after
-sides_intro: A few situations that might apply to you.
-sides_hand: Manual work
-sides_auto: After we build it
+# Pick a side. Under the hero, before the case studies. Left is by hand, right is the same job once built.
+sides_h2: The same week, before and after
+sides_intro: Pick the ones that happen at your firm. The checklist covers them until a new hire gets complacent, and the compliance platform reminds you what's due without noticing when two documents drift apart.
+sides_hand: By hand, today
+sides_auto: Once it's built
 sides:
-  - hand: The AUM figure typed into the ADV, the agreement, the letter and the invoice.
-    auto: Entered once. All four documents pull it from there.
-  - hand: The onboarding packet made from the last client's, find and replace.
-    auto: Generated from the intake form.
-  - hand: Performance numbers pasted into the quarterly letter.
-    auto: The letter pulls the numbers in itself.
+  - hand: The AUM figure typed into Part 1, Part 2A, the manual and the letter, then re-read after every amendment to check.
+    auto: Typed once. The other three are written from it.
+  - hand: A new client typed into the CRM, the custodian forms, the portfolio system and the planning tool. Same name, address, date of birth and beneficiaries, four times.
+    auto: Typed once. The other three are filled from it.
+  - hand: The onboarding packet made from the last client's, find and replace, and one old name survives.
+    auto: Built from the intake form. No old names.
+  - hand: The quarterly pull. Exported from three systems into one spreadsheet, fixed by hand, pasted into the letter the week it's due.
+    auto: The letter builds itself from this quarter's numbers, ready before it's due.
   - hand: Fee invoices checked against the agreement one at a time.
-    auto: Checked automatically. You only see the ones that don't match.
-# Why two builds outside your industry still count. Sits between the case studies and the list below.
-proves_h2: What this proves to you
-proves_intro: "Neither client is an RIA. What carries over:"
+    auto: Checked on their own. You only see the ones that don't match.
+# Why two builds outside your industry still count. Between the case studies and the list below.
+proves_h2: Why two builds outside your industry count
+proves_intro: "Neither client is an RIA. The problem had the same shape:"
 proves:
-  - point: The shape of the problem is the same
-    detail: The same figure looked up and typed four times, because it lives in the ADV, the agreement and the letter. Same shape as 17,000 people reading 220 directives to find one rule.
-  - point: Still in use
-    detail: Both are running today, without me. Nothing was left half done.
-  - point: Nobody had to learn a system
-    detail: Staff type a question. Researchers ask a question instead of clicking through folders. The work they were already doing got shorter.
-targets_h2: What usually gets automated first at an RIA
-targets_intro: Taken from Form ADV filings and from the RIAs I've talked to. Yours will differ, which is what the audit is for.
+  - point: Same problem, bigger numbers
+    detail: 17,000 federal staff found the rule by reading through 220 directives by hand. A lab searched 7,000 papers one at a time, 200 hours of someone's time. Your version is one figure kept in step across four documents, and one client typed into four systems.
+  - point: Still running, without me
+    detail: Both are in use today. The department's runs in its own accounts and the lab's stayed with the lab. Yours stays in your accounts too.
+  - point: Nobody learned a system
+    detail: Staff type a question. Researchers ask the files. Your team keeps the tools it has, and the retyping between them stops.
+targets_h2: What gets built first at an RIA
+targets_intro: Taken from Form ADV filings and from the RIAs I've talked to. Bring one of these to the audit. I've got room for a few more this month before I'm heads down on builds.
 targets:
   - what: Client onboarding packets
     how: agreement, IPS and custodian forms from one intake
   - what: Quarterly letters
-    how: with the performance figures already in it
+    how: with the performance figures already in them
   - what: Fee invoices
     how: from custodian data, checked against the agreement
   - what: ADV annual amendment prep
-    how: the numbers gathered before the deadline week
+    how: the numbers gathered before the deadline week, and every document that holds them updated together
   - what: Meeting notes into the CRM
     how: and the follow-up tasks that come out of them
   - what: Compliance calendar
