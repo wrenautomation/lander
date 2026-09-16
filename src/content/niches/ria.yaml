@@ -1,10 +1,14 @@
 # wrenautomation.com/ria. Continues the sec_ria emails (documents and operations arms): same scene, same words.
+# Figures in the prose and where they come from (checked 2026-09-16):
+#   Advisors spend about 20% of the week meeting clients, 4.2 hours a week on admin, report 43 hours and list tasks that add to 53: Kitces Research, "How do financial advisors actually spend their time".
+#   Top Performing Firms spend about 25% less time per client on operations: Schwab 2024 RIA Benchmarking Study. Verify the wording before quoting it in an email.
+#   94% of audited spreadsheets had at least one error: Panko, "What we know about spreadsheet errors".
 hue: rust
 title: Wren Automation for RIAs
-h1: Type the **AUM figure** once. Every document that holds it fills in, and nobody re-reads the filing to check.
-lede: "Your AUM figure lives in four documents, and someone at your firm keeps them in step by hand. Part 1, Part 2A, the compliance manual, the quarterly letter. After every amendment all four have to catch up, and one of them doesn't until someone notices two disagree. I build the piece in the middle, inside the tools you already use. **Nothing to do with being more careful, a longer checklist or the compliance platform.**"
+h1: Advisors spend a fifth of the week with **clients**. Hours of the rest go to the same figure typed into four documents. Type it once, and those hours go back to clients.
+lede: "Your AUM figure lives in four documents, and someone at your firm keeps them in step by hand. Part 1, Part 2A, the compliance manual, the quarterly letter. Nothing owns the chain between them, so a person is the integration. After every amendment all four have to catch up, and one lags until someone notices two disagree. I build the piece in the middle, inside the tools you already use. **Nothing to do with being more careful, a longer checklist or the compliance platform.**"
 # Under the hero button, next to the photo from site.yaml.
-who: "**William Jin**, software engineering at Waterloo. I built the policy search 17,000 federal staff use, and I write the code myself."
+who: "**William Jin**, software engineering at Waterloo. Built the policy search 17,000 federal staff use. I write the code myself."
 # The hero card: one value typed once, the documents that fill from it. An example, and labelled as one. 2 to 4 docs.
 demo:
   label: Typed once
@@ -12,11 +16,11 @@ demo:
   field: AUM, from the custodian feed
   value: $84,200,000
   docs: [ADV Part 1, Part 2A, Manual, Q3 letter]
-  foot: "Change it once and all four follow. Nobody retypes it."
+  foot: "Change it here. All four follow. Nobody retypes it, nobody re-reads the filing to check."
 cases: [government-of-canada, fuel-cell-group]
 # Pick a side. Under the hero, before the case studies. Left is by hand, right is the same job once built.
-sides_h2: The same week, before and after
-sides_intro: Pick the ones that happen at your firm. The checklist covers them until a new hire gets complacent, and the compliance platform reminds you what's due without noticing when two documents drift apart.
+sides_h2: This is most RIAs. It's probably yours.
+sides_intro: "Kitces asked advisors to list their week. They report 43 hours and the tasks add up to 53. About 20% is in front of clients, 4.2 hours is admin, and ten hours a week are the ones nobody counts. Retyping is exactly the work that doesn't get counted. Schwab's benchmarking study says the top firms spend a quarter less time per client on operations, and they get there with digital workflows. Pick the rows that happen at your firm."
 sides_hand: By hand, today
 sides_auto: Once it's built
 sides:
@@ -26,22 +30,24 @@ sides:
     auto: Typed once. The other three are filled from it.
   - hand: The onboarding packet made from the last client's, find and replace, and one old name survives.
     auto: Built from the intake form. No old names.
-  - hand: The quarterly pull. Exported from three systems into one spreadsheet, fixed by hand, pasted into the letter the week it's due.
+  - hand: The quarterly pull. Exported from three systems into one spreadsheet, fixed by hand, pasted into the letter the week it's due. 94% of audited spreadsheets have at least one error, and this is a spreadsheet.
     auto: The letter builds itself from this quarter's numbers, ready before it's due.
-  - hand: Fee invoices checked against the agreement one at a time.
-    auto: Checked on their own. You only see the ones that don't match.
+  - hand: Fee invoices checked against the agreement one at a time, or not at all in a busy quarter.
+    auto: Checked on their own, every quarter. You only see the ones that don't match.
+  - hand: The nightly CSV between two systems that breaks when two fields disagree, and nobody knows until a client asks.
+    auto: When something breaks, it says so, the same day, to a person.
 # Why two builds outside your industry still count. Between the case studies and the list below.
 proves_h2: Why two builds outside your industry count
-proves_intro: "Neither client is an RIA. The problem had the same shape:"
+proves_intro: "Neither client is an RIA. Both had the same problem you have, at a bigger scale:"
 proves:
   - point: Same problem, bigger numbers
-    detail: 17,000 federal staff found the rule by reading through 220 directives by hand. A lab searched 7,000 papers one at a time, 200 hours of someone's time. Your version is one figure kept in step across four documents, and one client typed into four systems.
+    detail: 17,000 federal staff found the rule by reading 220 directives by hand. A lab searched 7,000 papers one at a time, 200 hours of someone's time. Yours is one figure kept in step across four documents, and one client typed into four systems. Smaller, which is why it is a smaller build.
   - point: Still running, without me
-    detail: Both are in use today. The department's runs in its own accounts and the lab's stayed with the lab. Yours stays in your accounts too.
+    detail: Both are in use today, in the client's own accounts, with no retainer. Yours will be too.
   - point: Nobody learned a system
-    detail: Staff type a question. Researchers ask the files. Your team keeps the tools it has, and the retyping between them stops.
+    detail: Staff type a question. Researchers ask the files. Your team keeps every tool it has. The retyping between them stops.
 targets_h2: What gets built first at an RIA
-targets_intro: Taken from Form ADV filings and from the RIAs I've talked to. Bring one of these to the audit. I've got room for a few more this month before I'm heads down on builds.
+targets_intro: Taken from Form ADV filings and from the RIAs I've talked to. Bring one to the audit. I have room for a few more this month before I'm heads down on builds.
 targets:
   - what: Client onboarding packets
     how: agreement, IPS and custodian forms from one intake

@@ -24,11 +24,11 @@ mid_cta: Start with the free audit
 chooser:
   title: Wren Automation
   kicker: For RIAs, insurance brokers and agencies
-  h1: "**Custom automations** for small firms. The retyping between your tools stops, and each person gets a workday a week back."
-  lede: "Someone at your firm keeps the same facts in four places by hand, and one place is wrong until a client points it out. I'm William, and I build the integrations with the tools you use the most."
-  proof: "One build has 17,000 users. The other gave a lab back a few hundred hours. Read more below."
+  h1: "**Custom automations** for small firms. The same facts stop being typed into four places, and each person gets a workday a week back."
+  lede: "Someone at your firm keeps the same client, figure or policy in four places by hand, and one place is wrong until a client points it out. Nothing owns the chain between your tools, so a person is the integration. I'm William. I build the piece in the middle, inside the tools you already use."
+  proof: "One build has 17,000 users. Another gave a lab back 200 hours. Both still run without me. Your industry's page has the before and after."
   pick: Pick your industry
-  pick_text: The jobs I automate in your industry, before and after.
+  pick_text: The jobs I automate in your industry, by hand today and once it's built.
   niches:
     - slug: ria
       name: RIAs
@@ -46,13 +46,13 @@ chooser:
 # The offer in one breath, right under the hero. `more` links to the offer section below.
 offer:
   eyebrow: The offer
-  promise: "**A full workday a week back for each person**, from onboarding, client emails, reports and invoices, built once and running in your own accounts. If a milestone doesn't give the hours back, you don't pay for it."
-  safe: "Out of respect for your time, the audit is free. I find the automations with the highest return, the ones that take the repetitive work off your team and give you back your time and your sanity. After that you pay by milestone, and you can walk away at any point if the work isn't up to standard."
+  promise: "**A full workday a week back for each person**, from onboarding, client emails, reports and invoices. Built once, running in your own accounts. If a milestone doesn't give the hours back, you don't pay for it."
+  safe: "The audit is free. I find the automations with the highest return, the ones that take the repetitive work off your team. After that you pay by milestone, after each one runs, and you can walk away at any point with everything built so far."
   more: How that works
 
 # Case studies.
 work_h2: Who I've helped
-work_intro: "Two builds I've done that are both still in use. An overview of what the teams did by hand, how it runs now, what I built, and some numbers."
+work_intro: "Two builds, both still in use. What the team did by hand, what they do now, what I built, and the numbers."
 case_labels:
   story: The story
   now: What they do now
@@ -62,34 +62,34 @@ case_labels:
 
 # The offer section. Steps first, then the three things you're protected by.
 offer_h2: The offer
-offer_intro: Three steps. You see each piece working before you pay for it, and you keep everything at the end.
+offer_intro: Three steps. You see each piece running before you pay for it, and you keep everything at the end.
 how:
   - name: Audit
-    text: "A 30-minute call. I map where the hours go. You get one page back: what to automate first, what it saves, what it costs. Free, and yours to keep if you stop here."
+    text: "A 30-minute call. You share your screen and walk me through one normal week: where the client gets typed, where the report comes from, where the invoice starts. I need no access to anything. I map the chain, count the hours per job, and you get one page back: what to automate first, what it saves a week, what it costs. Free, and yours to keep if you stop here."
   - name: Build
-    text: Scope and milestones agreed up front. I build inside the tools you already use where possible and ship in short cycles, so something useful is running for you early. Each milestone stands on its own, and you see it running before you pay for it.
+    text: "Scope and milestones in writing before any code. The first milestone is the job with the most hours in it, so something useful is running early. I build inside the tools you already pay for, in your accounts, so your data never leaves them. Every week you get a screen share of what runs now, not a status email. You pay after each milestone runs and the hours have come back. Nothing hourly, no retainer."
   - name: Handover
-    text: Documentation, a walkthrough for whoever runs it, and the code. It keeps running without a retainer, and I'm reachable if something changes.
+    text: "Documentation written for whoever runs it, a walkthrough on a call, and the code. My access is removed. It keeps running without me and without a retainer. If it breaks because of my mistake, I fix it at no charge. If a tool changes on your side, I'm one email away and you decide whether that's a new milestone."
 # Three principles under the steps.
 principles_h3: 3 principles of Wren
 principles:
   - name: Accountability
-    text: Milestones agreed up front, paid after each one meets your needs. Frequent updates and checkins are done to ensure alignment, and actual ROI is personally guaranteed.
+    text: Milestones agreed up front, paid after each one runs and does what we said. Weekly check-ins, so nothing drifts for a month. The hours back are guaranteed by me, personally, or the milestone is free.
   - name: Scalability
-    text: Built to support a whole team of users. When the team grows or a tool changes, the automations maintain usability and are easy to extend.
+    text: Built for the whole team, not one person's laptop. When the team grows or a tool changes, the automation keeps working and is easy to extend. You get the code, so nothing depends on me.
   - name: Utility
-    text: I solve the real problem. If the piece we scoped is not useful or we discover major blockers during development, I'll ensure you still get value from my work.
+    text: I solve the real problem, not the one in the brief. If the piece we scoped turns out not to be useful, or we hit a blocker in the build, we rescope on the spot and you still get value from the work done.
 
 # Why not the alternatives. Sits between the offer and the questions.
 alt_h2: Why not a bigger agency, a consultant, or one more hire?
-alt_intro: Each one is a fair option. Here is what each costs you in risk, effort and time.
+alt_intro: Each is a fair option. Here is what each one costs you.
 alt:
   - who: A bigger agency
     text: Their smallest project is bigger than yours, and the retainer runs whether or not anything ships. The person who sold it hands you to a project manager, who hands you to a developer you never meet, and the follow-ups go quiet. Here you pay per milestone, and the person on the call is the person who builds it, checks in and answers the email.
   - who: A consultant
     text: You get a recommendation. You still need someone to build it, and then a second vendor to manage. The audit is the recommendation, free, and the build is the next step with the same person.
   - who: One more hire
-    text: Onboarding first, then a person does the typing faster. The typing is still there, done by hand with the errors that come with it, and it grows with the client list. The core problem is untouched. Once the job runs itself, the people you have get their week back, and the work they keep is the work that needs a person.
+    text: Onboarding first, then a person does the typing faster. The typing is still there, still by hand, still with about one error per hundred fields, and it grows with the client list. The problem is untouched. Once the job runs itself, the people you have get their day back, and the work they keep is the work that needs a person.
 
 questions_h2: Questions you probably have
 questions_intro: Short answers. Ask me the long ones on the call.
@@ -97,7 +97,7 @@ questions:
   - q: I don't know what I'd automate yet. Is it too early to talk?
     a: No. That's what the audit is for. Bring the job that annoys you most and we start there.
   - q: What does it cost?
-    a: Quoted after the audit, which is free. You pay per milestone, after each one runs, with nothing hourly and no retainer.
+    a: Quoted after the audit, which is free, per milestone, in writing. You pay after each milestone runs. Nothing hourly, no retainer.
   - q: Where does our client data go?
     a: It stays in your accounts. I build inside them, copy nothing to my own systems, and my access is removed at handover.
   - q: Do we need new software?
@@ -106,6 +106,8 @@ questions:
     a: Yes. They see everything as it's built, and the documentation is written for them.
   - q: What if it breaks after you leave?
     a: You have the code and the documentation, so anyone technical can fix it. If it's my mistake, I fix it at no charge.
+  - q: How long does the first build take?
+    a: Depends on the job. The one page from the audit has a date on it, and the first milestone is the job with the most hours in it.
 
 about_h2: About
 # The About photo. Remove the line to hide the slot.
@@ -113,15 +115,15 @@ photo: /headshot.png
 about:
   - I'm William. I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
   - "My work so far has been internships: data cleaning, pipelines that connect systems, and CRMs. The two builds above came out of that work."
-  - I want to get good at this work. The fastest way is to do it for firms that have the problem.
+  - I want to get very good at this. The fastest way is to do it for firms that have the problem, and do it well enough that they tell other firms.
 why_h3: Why me
 why:
-  - I'm trained as a software engineer and I write the code myself, so it holds up after the demo. Most agencies can give you something beautifully packaged at first, with hidden bugs and inefficiencies that show up over time.
-  - I'm building a business on this kind of work, and I want each build to be so good that you're not just satisfied, but you want to refer me to every business owner you know. I'm willing to relax the financial terms to get this kind of result.
+  - I'm trained as a software engineer and I write the code myself, so it holds up after the demo. Most agencies hand you something beautifully packaged, with bugs and shortcuts that show up in month three.
+  - I'm building a business on this work, and I want every build to be so good you refer me to every owner you know. I'll relax the financial terms to get that result, and I'll say so on the call.
 
 # The form. `ask_pre` sits above the heading. Fields render in this order. `required: true` adds the * and the check; `error` shows under the field when the check fails.
 ask_pre: Thanks for taking the time to read this far.
-ask_intro: Tell me what eats away at your weekly hours. I'll reply in a business day with a few times for a quick call. 
+ask_intro: Tell me what eats your week. I'll reply within a business day with a few times for the call.
 ask_fields:
   - key: name
     label: Name
@@ -146,10 +148,10 @@ ask_required: "* required"
 ask_submit: Send
 ask_error: "That didn't send. Email me instead:"
 thanks_h: Got it.
-thanks: Look for an email from william@wrenautomation.com. Check spam or email me directly if you don't find it. Talk to you soon!
+thanks: Look for an email from william@wrenautomation.com. Check spam if it isn't there, or email me directly. Talk soon.
 
 # Bottom of every page. `fine` is the privacy line; keep it true (see README, "What gets measured").
-fine: Your emails are not used for any unwanted subscription services or marketing. 
+fine: Your email is used to reply to you, never for a subscription or a marketing list.
 # Appended only when Turnstile is on. Cloudflare requires the link for invisible mode.
 fine_turnstile: The form is checked for bots by Cloudflare Turnstile, under its
 fine_turnstile_link: privacy addendum

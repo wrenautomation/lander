@@ -1,10 +1,15 @@
-# wrenautomation.com/agencies. Continues the DRAFT 12 agency emails: same scene, same words.
+# wrenautomation.com/agencies. Continues the DRAFT 12 agency emails (marketing and build arms): same scene, same words.
+# Figures in the prose and where they come from (checked 2026-09-16):
+#   70 to 80% utilization is what agencies aim for, so 8 to 12 hours a week per person is non-billable: Runn, utilization benchmarks.
+#   85 to 95% realization is called healthy, so 5 to 15% of logged hours never reach an invoice: Bennett Financials, agency benchmarks.
+#   94% of audited spreadsheets had at least one error: Panko, "What we know about spreadsheet errors".
+#   About 1 in 100 fields typed by hand is wrong: the long-run human-factors figure, also Panko.
 hue: red
 title: Wren Automation for agencies
-h1: Type the **client** in once. Every tool that needs it fills in, and the hours go back on an invoice.
-lede: "Somebody at your agency typed the same client into a fifth tool this week. CRM, board, Friday timesheet, invoice, notes doc. Nobody owns the chain, so when the scope changes, one of the five stays wrong until the client points it out. I build the piece in the middle, inside the tools you already pay for. **Nothing to do with a new platform, a template, a zap or another hire.**"
+h1: Eight to twelve hours a week per person at your agency are not billable. Most of it is the same **client** typed into five tools. Type it once, and the hours go back on an invoice.
+lede: "Somebody at your shop typed the same client into a fifth tool this week. CRM, board, Friday timesheet, invoice, notes doc. Nothing owns the chain between them, so a person is the integration. Every new client is five setups, every scope change is five edits, and one of the five stays wrong until the client points it out. I build the piece in the middle, inside the tools you already pay for. **Nothing to do with a new platform, a template, a zap or another hire.**"
 # Under the hero button, next to the photo from site.yaml.
-who: "**William Jin**, software engineering at Waterloo. I built the policy search 17,000 federal staff use, and I write the code myself."
+who: "**William Jin**, software engineering at Waterloo. Built the policy search 17,000 federal staff use. I write the code myself."
 # The hero card: one value typed once, the tools that fill from it. An example, and labelled as one. 2 to 4 docs.
 demo:
   label: Typed once
@@ -12,36 +17,38 @@ demo:
   field: Client, from the CRM
   value: Northwind Co.
   docs: [Board, Timesheet, Invoice, Report]
-  foot: "Change it once and all four follow. Nobody retypes it."
+  foot: "Change it here. All four follow. Nobody retypes it, nobody checks it."
 cases: [government-of-canada, fuel-cell-group]
 # Pick a side. Under the hero, before the case studies. Left is by hand, right is the same job once built.
-sides_h2: The same week, before and after
-sides_intro: Pick the ones that happen at your shop. The zap somebody set up covered one of them, until a field got renamed and it failed for three weeks before anyone noticed.
+sides_h2: This is most agencies. It's probably yours.
+sides_intro: "Agencies aim for 70 to 80% billable and call 85 to 95% realization healthy. Read that again: a fifth or more of every week is not billed, and 5 to 15% of the hours that are logged never reach an invoice. That is where the day a week goes. Pick the rows that happen at your shop."
 sides_hand: By hand, today
 sides_auto: Once it's built
 sides:
   - hand: A new client is five setups. The CRM, the board, the timesheet, the invoice, the doc.
     auto: One setup. The other four are created from it.
-  - hand: A scope change is five edits, and one gets missed until the client points it out.
+  - hand: A scope change is five edits. One gets missed until the client points it out.
     auto: One edit. The rest follow, so there is nothing to miss.
-  - hand: Month end. Numbers out of the ad accounts into a spreadsheet, fixed by hand, pasted into the deck. One client gets last month's number.
+  - hand: Month end. Ad accounts into a spreadsheet, fixed by hand, pasted into the deck. One client gets last month's number. 94% of audited spreadsheets have at least one error, and this is a spreadsheet.
     auto: The report builds itself on the first, in your format, from this month's numbers.
-  - hand: The invoice comes from a timesheet someone filled in on Friday from memory.
-    auto: The hours come from the board, and the invoice is built from them.
+  - hand: The invoice comes from a timesheet someone filled in on Friday from memory. The hours don't match the SOW, and someone eats the difference.
+    auto: The hours come from the board. The invoice is built from them.
   - hand: The proposal is last quarter's with find and replace, and one old client name survives.
     auto: Built from the scoping call notes. No old names.
+  - hand: The zap between the CRM and the board worked, until someone renamed a field. It failed for three weeks before anyone noticed.
+    auto: When something breaks, it says so, the same day, to a person.
 # Why two builds outside your industry still count. Between the case studies and the list below.
 proves_h2: Why two builds outside your industry count
-proves_intro: "Neither client is an agency. The problem had the same shape:"
+proves_intro: "Neither client is an agency. Both had the same problem you have, at a bigger scale:"
 proves:
   - point: Same problem, bigger numbers
-    detail: 17,000 federal staff found the rule by reading through 220 directives by hand. A lab searched 7,000 papers one at a time, 200 hours of someone's time. Your version is the same client typed into five tools.
+    detail: 17,000 federal staff found the rule by reading 220 directives by hand. A lab searched 7,000 papers one at a time, 200 hours of someone's time. Yours is one client typed into five tools. Smaller, which is why it is a smaller build.
   - point: Still running, without me
-    detail: Both are in use today. The department's runs in its own accounts and the lab's stayed with the lab. Yours stays in your accounts too.
+    detail: Both are in use today, in the client's own accounts, with no retainer. Yours will be too.
   - point: Nobody learned a system
-    detail: Staff type a question. Researchers ask the files. Your team keeps the tools it has, and the typing between them stops.
+    detail: Staff type a question. Researchers ask the files. Your team keeps every tool it has. The typing between them stops.
 targets_h2: What gets built first at an agency
-targets_intro: The account side, mostly. The jobs that repeat every month and eat billable hours. Bring one of these to the audit. I've got room for a few more this month before I'm heads down on builds.
+targets_intro: The account side, mostly. The jobs that repeat every month and eat billable hours. Bring one to the audit. I have room for a few more this month before I'm heads down on builds.
 targets:
   - what: Client onboarding
     how: one intake feeds the CRM, the board, the contract and the kickoff
