@@ -1,56 +1,60 @@
-# wrenautomation.com/agencies. SAMPLE COPY. Rewrite before sending anyone here.
+# wrenautomation.com/agencies. Continues the DRAFT 12 agency emails: same scene, same words.
 hue: red
 title: Wren Automation for agencies
-h1: Type the **client** once. Every document that needs it fills itself.
-lede: "The CRM, the project board, the monthly report, the deck. Someone at the agency types the same client into each of them. I build the piece in the middle, inside the tools you already use. **A full workday a week back** for each person on your team."
-# Under the hero button: who is writing, next to the photo from site.yaml.
-who: "**William Jin**, software engineering at Waterloo. I write the code myself."
-# The hero card. One value typed once, the documents that fill from it. It is an example and says so in `note`. 2 to 4 docs.
+h1: Type the **client** in once. Every tool that needs it fills in, and the hours go back on an invoice.
+lede: "Somebody at your agency typed the same client into a fifth tool this week. CRM, board, Friday timesheet, invoice, notes doc. Nobody owns the chain, so when the scope changes, one of the five stays wrong until the client points it out. I build the piece in the middle, inside the tools you already pay for. **Nothing to do with a new platform, a template, a zap or another hire.**"
+# Under the hero button, next to the photo from site.yaml.
+who: "**William Jin**, software engineering at Waterloo. I built the policy search 17,000 federal staff use, and I write the code myself."
+# The hero card: one value typed once, the tools that fill from it. An example, and labelled as one. 2 to 4 docs.
 demo:
-  label: Entered once
+  label: Typed once
   note: example client
   field: Client, from the CRM
   value: Northwind Co.
-  docs: [Board, Proposal, Report, Deck]
-  foot: "Change it once and all four update. The person who used to type it checks the ones that don't match."
+  docs: [Board, Timesheet, Invoice, Report]
+  foot: "Rename it once and all four follow. The person who used to retype it now only checks."
 cases: [government-of-canada, fuel-cell-group]
-# Pick a side. Sits under the hero, before the case studies. Left is by hand, right is the same job once built.
-sides_h2: The same work, before and after
-sides_intro: A few situations that might apply to you.
-sides_hand: Manual work
-sides_auto: After we build it
+# Pick a side. Under the hero, before the case studies. Left is by hand, right is the same job once built.
+sides_h2: The same week, before and after
+sides_intro: Pick the ones that happen at your shop. The zap somebody set up covered one of them, until a field got renamed and it failed for three weeks before anyone noticed.
+sides_hand: By hand, today
+sides_auto: Once it's built
 sides:
-  - hand: One client typed into the CRM, the project tool and the deck.
-    auto: Entered once. The other two pull from it.
-  - hand: The monthly report rebuilt from last month's.
-    auto: Generated the same way each month, ready before it's due.
-  - hand: The proposal assembled from the last one, find and replace.
-    auto: Assembled from the scoping call notes.
-  - hand: A brief found by asking whoever wrote it.
-    auto: Ask the question, get the brief.
-# Why two builds outside your industry still count. Sits between the case studies and the list below.
-proves_h2: What this proves to you
-proves_intro: "Neither client is an agency. What carries over:"
+  - hand: A new client is five setups. The CRM, the board, the timesheet, the invoice, the doc.
+    auto: One setup. The other four are created from it.
+  - hand: A scope change is five edits, and one gets missed until the client points it out.
+    auto: One edit. The rest follow, so there is nothing to miss.
+  - hand: Month end. Numbers out of the ad accounts into a spreadsheet, fixed by hand, pasted into the deck. One client gets last month's number.
+    auto: The report builds itself on the first, in your format, from this month's numbers.
+  - hand: The invoice comes from a timesheet someone filled in on Friday from memory.
+    auto: Hours logged as the work happens. The invoice is built from them.
+  - hand: The proposal is last quarter's with find and replace, and one old client name survives.
+    auto: Built from the scoping call notes. No old names.
+# Why two builds outside your industry still count. Between the case studies and the list below.
+proves_h2: Why two builds outside your industry count
+proves_intro: "Neither client is an agency. The problem had the same shape, and the numbers are real:"
 proves:
-  - point: The shape of the problem is the same
-    detail: One client typed into the CRM, the project tool and the deck, and a brief nobody can find. Same shape as 7,000 papers looked up one at a time.
-  - point: Still in use
-    detail: Both are running today, without me. Nothing was left half done.
-  - point: Nobody had to learn a system
-    detail: Staff type a question. Researchers ask a question instead of clicking through folders. The work they were already doing got shorter.
-targets_h2: What usually gets automated first at an agency
-targets_intro: The account side, mostly. The jobs that repeat every month and interrupt billable work.
+  - point: Same problem, bigger numbers
+    detail: 17,000 federal staff found the rule by reading through 220 directives by hand. A lab searched 7,000 papers one at a time, 200 hours of someone's time. Your version is the same client typed into five tools.
+  - point: Still running, without me
+    detail: Both builds are in use today. The department gets 6 to 7 hours a week back per person. The lab got its 200 hours back and a map it uses in its talks.
+  - point: Nobody learned a system
+    detail: Staff type a question. Researchers ask the files. Your team keeps the tools it has, and the typing between them stops.
+targets_h2: What gets built first at an agency
+targets_intro: The account side, mostly. The jobs that repeat every month and eat billable hours. Bring one of these to the audit.
 targets:
-  - what: Proposals and SOWs
-    how: assembled from the scoping call
-  - what: Monthly client reports
-    how: pulled from the platforms, in your format, on the first
   - what: Client onboarding
-    how: one intake feeds the contract, the brief and the kickoff
+    how: one intake feeds the CRM, the board, the contract and the kickoff
+  - what: Scope changes
+    how: one edit, and every tool that carries the scope follows
+  - what: Proposals and SOWs
+    how: assembled from the scoping call notes
+  - what: Monthly client reports
+    how: pulled from the ad accounts and analytics, in your deck, on the first
   - what: Hours to invoice
-    how: without the spreadsheet in between
+    how: without the Friday timesheet in between
+  - what: The unbilled check
+    how: which projects logged hours this month and have nothing invoiced, run every week instead of never
   - what: Chasing approvals
-    how: reminders that go out without an account manager remembering
-  - what: Account to delivery handoffs
-    how: the message that says "can you add this to the sheet"
+    how: the reminder goes out without an account manager remembering
 form_value: agencies

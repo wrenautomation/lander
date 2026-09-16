@@ -30,7 +30,7 @@ and `sops/cold-email-copy.md`). Wording only; no keys, no facts added.
 2. The site says "30-minute call" and "Request an audit"; the email
    says "free consultation and a proper audit" with no length. Fine on
    a page, but decide on purpose.
-3. `agencies.yaml` is still sample copy (its header says so).
+3. `agencies.yaml` was sample copy until 2026-09-16; it now continues the DRAFT 12 emails.
 4. `questions_intro` ("Short answers. Ask me the long ones on the
    call.") and `notfound` ("The front page does.") are one-line
    closers I kept because they read as his. Cut if they grate.
