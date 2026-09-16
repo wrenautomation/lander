@@ -10,7 +10,7 @@ h1: Type the **client** in once. Every tool that needs it follows.
 lede: |
   Somebody at your shop typed the same client into a fifth tool this week. CRM, board, Friday timesheet, invoice, notes doc.
 
-  Nothing owns the chain between them, so a person is the integration. A new client is five setups, a scope change is five edits, and one of the five stays wrong until the client points it out.
+  Nothing owns the chain between them, so a person is the integration. A new client is five setups, a scope change is five edits, and one of the five stays wrong until the client points it out. It gets worse with every client you sign.
 
   I build the piece in the middle, **inside the tools you already pay for**. No new platform, no new hire.
 # Under the hero button, next to the photo from site.yaml.
@@ -29,7 +29,9 @@ sides_h2: This is most agencies. It's probably yours.
 sides_intro: |
   Agencies aim for 70 to 80% billable and call 85 to 95% realization healthy. So a fifth or more of every week isn't billed, and 5 to 15% of the hours that are logged never reach an invoice.
 
-  That is where the day a week goes. Pick the rows that happen at your shop.
+  That is where the day a week goes.
+
+  The hours are the smaller cost. The person doing the retyping is usually your best account manager, and it is the part of the job good people quit over. A client typed for the fifth time is typed a little worse, by someone who stopped reading closely around the third. The hour you spend fixing it is an hour that didn't go to a pitch, a referral, or home. Pick the rows that happen at your shop.
 sides_hand: By hand, today
 sides_auto: Once it's built
 sides:
