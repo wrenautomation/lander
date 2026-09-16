@@ -29,6 +29,8 @@ img{max-width:100%;display:block}
 a{color:inherit}
 h1,h2,h3{margin:0;font-weight:600;line-height:1.15;letter-spacing:-.02em;text-wrap:balance}
 p{margin:0}
+/* .pp holds one or more paragraphs from a content field (blank line = break). Short paragraphs read on a phone; a wall does not. */
+.pp p+p{margin-top:.6rem}
 .mute{color:var(--mute)}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 
@@ -220,9 +222,9 @@ section.s+section.s:not(.ask){padding-top:0}
 .sides .auto::before{content:'→ ';color:var(--acc)}
 
 /* rows with a bold lead and a grey note: what this proves, what gets automated */
-.rows div{padding:.9rem 0;border-top:1px solid var(--rule)}
+.rows>div{padding:.9rem 0;border-top:1px solid var(--rule)}
 .rows b{display:block;font-weight:600}
-.rows span{color:var(--mute);font-size:15px}
+.rows span,.rows .t{color:var(--mute);font-size:15px}
 
 /* steps on a trace */
 .steps svg{display:none;width:100%;height:auto;overflow:visible}
@@ -232,9 +234,10 @@ section.s+section.s:not(.ask){padding-top:0}
 .steps .cols{display:grid;gap:1.4rem}
 .steps h3{font-size:1.1rem;margin-bottom:.3rem}
 .steps p{color:var(--mute)}
+.steps .cols>div>.pp{max-width:44ch}
 .steps .n{font-weight:600;font-size:13px;color:var(--lbl);margin-bottom:.3rem;letter-spacing:.06em}
 /* phone: number and name on one line */
-.steps .n{display:inline;margin-right:.6rem} .steps .n+h3{display:inline} .steps .n+h3+p{margin-top:.35rem}
+.steps .n{display:inline;margin-right:.6rem} .steps .n+h3{display:inline} .steps .n+h3+.pp{margin-top:.35rem}
 
 /* the usual arrangement vs working with me */
 

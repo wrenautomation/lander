@@ -2,7 +2,10 @@
 hue: green
 title: Wren Automation for insurance agencies
 h1: Type the **insured** once. Every document that needs it fills itself.
-lede: "The certificate, the renewal letter, the proposal, the loss run request. Someone at the agency keys the same client into each of them. I build the piece in the middle, inside the tools you already use. **A full workday a week back** for each person on your team."
+lede: |
+  The certificate, the renewal letter, the proposal, the loss run request. Someone at the agency keys the same client into each of them.
+
+  I build the piece in the middle, inside the tools you already use. **A full workday a week back** for each person on your team.
 # Under the hero button: who is writing, next to the photo from site.yaml.
 who: "**William Jin**, software engineering at Waterloo. I write the code myself."
 # The hero card. One value typed once, the documents that fill from it. It is an example and says so in `note`. 2 to 4 docs.

@@ -9,7 +9,7 @@ import Demo from '../components/Demo.astro';
 import Trace from '../components/Trace.astro';
 import Theme from '../components/Theme.astro';
 import Foot from '../components/Foot.astro';
-import { inline, plain } from '../lib/text';
+import { inline, plain, paras } from '../lib/text';
 
 const { niche } = Astro.props as { niche: CollectionEntry<'niches'> };
 const n = niche.data;
@@ -41,7 +41,7 @@ const multi = new Set(['note', 'questions']);
     <svg class="itr" aria-hidden="true"></svg>
     <div class="copy">
       <h1 set:html={inline(n.h1)} />
-      <p class="lede" set:html={inline(n.lede)} />
+      <div class="lede pp" set:html={paras(n.lede)} />
       <a class="btn" href="#ask">{site.cta}</a>
       <p class="who">{site.photo && <img src={site.photo} alt="" width="34" height="34">}<span set:html={inline(n.who)} /></p>
     </div>
@@ -55,7 +55,7 @@ const multi = new Set(['note', 'questions']);
   <aside class="teaser" aria-label={site.offer.eyebrow}>
     <h4>{site.offer.eyebrow}</h4>
     <p class="promise" set:html={inline(site.offer.promise)} />
-    <p class="safe">{site.offer.safe}</p>
+    <div class="safe pp" set:html={paras(site.offer.safe)} />
     <a href="#offer">{site.offer.more} &rarr;</a>
   </aside>
 </div>
@@ -65,7 +65,7 @@ const multi = new Set(['note', 'questions']);
 <section class="s" id="sides">
   <div class="wrap">
     <h2>{n.sides_h2}</h2>
-    <p class="intro">{n.sides_intro}</p>
+    <div class="intro pp" set:html={paras(n.sides_intro)} />
     <div class="sides" role="table">
       <div class="hd" role="row"><span role="columnheader">{n.sides_hand}</span><span role="columnheader">{n.sides_auto}</span></div>
       {n.sides.map((r) => <div role="row"><span role="cell">{r.hand}</span><span role="cell" class="auto">{r.auto}</span></div>)}
@@ -86,8 +86,8 @@ const multi = new Set(['note', 'questions']);
           ))}
         </div>
         <div class="top">
-          <div><h4>{site.case_labels.story}</h4><p>{c.story}</p></div>
-          <div><h4>{site.case_labels.now}</h4><p>{c.now}</p></div>
+          <div><h4>{site.case_labels.story}</h4><div class="pp" set:html={paras(c.story)} /></div>
+          <div><h4>{site.case_labels.now}</h4><div class="pp" set:html={paras(c.now)} /></div>
         </div>
         <div class="pipe">
           <h4>{site.case_labels.built}</h4>
@@ -115,7 +115,7 @@ const multi = new Set(['note', 'questions']);
     <h2>{n.proves_h2}</h2>
     <p class="intro">{n.proves_intro}</p>
     <div class="rows">
-      {n.proves.map((r) => <div><b>{r.point}</b><span>{r.detail}</span></div>)}
+      {n.proves.map((r) => <div><b>{r.point}</b><div class="t pp" set:html={paras(r.detail)} /></div>)}
     </div>
   </div>
 </section>
@@ -151,7 +151,7 @@ const multi = new Set(['note', 'questions']);
     </svg>
     <div class="cols">
       {site.how.map((h, i) => (
-        <div><div class="n">{String(i + 1).padStart(2, '0')}</div><h3>{h.name}</h3><p>{h.text}</p></div>
+        <div><div class="n">{String(i + 1).padStart(2, '0')}</div><h3>{h.name}</h3><div class="pp" set:html={paras(h.text)} /></div>
       ))}
     </div>
     <div class="principles">
@@ -160,7 +160,7 @@ const multi = new Set(['note', 'questions']);
         {site.principles.map((p, i) => (
           <div>
             <Trace i={i} />
-            <h3>{p.name}</h3><p>{p.text}</p>
+            <h3>{p.name}</h3><div class="pp" set:html={paras(p.text)} />
           </div>
         ))}
       </div>
@@ -176,7 +176,7 @@ const multi = new Set(['note', 'questions']);
     <h2>{site.alt_h2}</h2>
     <p class="intro">{site.alt_intro}</p>
     <div class="rows three">
-      {site.alt.map((a) => <div><b>{a.who}</b><span>{a.text}</span></div>)}
+      {site.alt.map((a) => <div><b>{a.who}</b><div class="t pp" set:html={paras(a.text)} /></div>)}
     </div>
   </div>
 </section>
@@ -186,7 +186,7 @@ const multi = new Set(['note', 'questions']);
     <h2>{site.questions_h2}</h2>
     <p class="intro">{site.questions_intro}</p>
     <div class="qa">
-      {site.questions.map((x) => <div><h3>{x.q}</h3><p>{x.a}</p></div>)}
+      {site.questions.map((x) => <div><h3>{x.q}</h3><div class="pp" set:html={paras(x.a)} /></div>)}
     </div>
   </div>
 </section>

@@ -7,7 +7,12 @@
 hue: red
 title: Wren Automation for agencies
 h1: Type the **client** in once. Every tool that needs it follows.
-lede: "Somebody at your shop typed the same client into a fifth tool this week. CRM, board, Friday timesheet, invoice, notes doc. Nothing owns the chain between them, so a person is the integration. Every new client is five setups, every scope change is five edits, and one of the five stays wrong until the client points it out. I build the piece in the middle, inside the tools you already pay for. **Nothing to do with a new platform, a template, a zap or another hire.**"
+lede: |
+  Somebody at your shop typed the same client into a fifth tool this week. CRM, board, Friday timesheet, invoice, notes doc.
+
+  Nothing owns the chain between them, so a person is the integration. A new client is five setups, a scope change is five edits, and one of the five stays wrong until the client points it out.
+
+  I build the piece in the middle, **inside the tools you already pay for**. No new platform, no new hire.
 # Under the hero button, next to the photo from site.yaml.
 who: "**William Jin**, software engineering at Waterloo. Built the policy search 17,000 federal staff use. I write the code myself."
 # The hero card: one value typed once, the tools that fill from it. An example, and labelled as one. 2 to 4 docs.
@@ -21,7 +26,10 @@ demo:
 cases: [government-of-canada, fuel-cell-group]
 # Pick a side. Under the hero, before the case studies. Left is by hand, right is the same job once built.
 sides_h2: This is most agencies. It's probably yours.
-sides_intro: "Agencies aim for 70 to 80% billable and call 85 to 95% realization healthy. So a fifth or more of every week isn't billed, and 5 to 15% of the hours that are logged never reach an invoice. That is where the day a week goes. Pick the rows that happen at your shop."
+sides_intro: |
+  Agencies aim for 70 to 80% billable and call 85 to 95% realization healthy. So a fifth or more of every week isn't billed, and 5 to 15% of the hours that are logged never reach an invoice.
+
+  That is where the day a week goes. Pick the rows that happen at your shop.
 sides_hand: By hand, today
 sides_auto: Once it's built
 sides:
@@ -42,11 +50,14 @@ proves_h2: Why two builds outside your industry count
 proves_intro: "Neither client is an agency. Both had the same problem you have, at a bigger scale:"
 proves:
   - point: Same problem, bigger numbers
-    detail: 17,000 federal staff found the rule by reading 220 directives by hand. A lab searched 7,000 papers one at a time, 200 hours of someone's time. Yours is one client typed into five tools. Smaller, which is why it is a smaller build.
+    detail: |
+      17,000 federal staff found the rule by reading 220 directives by hand. A lab searched 7,000 papers one at a time, 200 hours of someone's time.
+
+      Yours is one client typed into five tools. Smaller, which is why it is a smaller build.
   - point: Still running, without me
     detail: Both are in use today, in the client's own accounts, with no retainer. Yours will be too.
   - point: Nobody learned a system
-    detail: Staff type a question. Researchers ask the files. Your team keeps every tool it has. The typing between them stops.
+    detail: Staff type a question. Researchers ask the files. Your team keeps every tool it has, and the typing between them stops.
 targets_h2: What gets built first at an agency
 targets_intro: The account side, mostly. The jobs that repeat every month and eat billable hours. Bring one to the audit. I have room for a few more this month before I'm heads down on builds.
 targets:

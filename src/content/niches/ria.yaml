@@ -6,7 +6,12 @@
 hue: rust
 title: Wren Automation for RIAs
 h1: Type the **AUM figure** once. Every document that holds it follows.
-lede: "Your AUM figure lives in four documents, and someone at your firm keeps them in step by hand. Part 1, Part 2A, the compliance manual, the quarterly letter. Nothing owns the chain between them, so a person is the integration. After every amendment all four have to catch up, and one lags until someone notices two disagree. I build the piece in the middle, inside the tools you already use. **Nothing to do with being more careful, a longer checklist or the compliance platform.**"
+lede: |
+  Your AUM figure lives in four documents, and someone at your firm keeps them in step by hand. Part 1, Part 2A, the compliance manual, the quarterly letter.
+
+  Nothing owns the chain between them, so a person is the integration. After every amendment all four have to catch up, and one lags until someone notices two disagree.
+
+  I build the piece in the middle, inside the tools you already use. **Nothing to do with being more careful, a longer checklist or the compliance platform.**
 # Under the hero button, next to the photo from site.yaml.
 who: "**William Jin**, software engineering at Waterloo. Built the policy search 17,000 federal staff use. I write the code myself."
 # The hero card: one value typed once, the documents that fill from it. An example, and labelled as one. 2 to 4 docs.
@@ -20,7 +25,10 @@ demo:
 cases: [government-of-canada, fuel-cell-group]
 # Pick a side. Under the hero, before the case studies. Left is by hand, right is the same job once built.
 sides_h2: This is most RIAs. It's probably yours.
-sides_intro: "Kitces asked advisors to list their week. They report 43 hours and the tasks add up to 53. About 20% is in front of clients, 4.2 hours is admin, and ten hours a week that nobody counts. Retyping is that kind of work. Schwab's benchmarking study says the top firms spend a quarter less time per client on operations, and they get there with digital workflows. Pick the rows that happen at your firm."
+sides_intro: |
+  Kitces asked advisors to list their week. They report 43 hours and the tasks add up to 53. About 20% is in front of clients, 4.2 hours is admin, and ten hours a week that nobody counts. Retyping is that kind of work.
+
+  Schwab's benchmarking study says the top firms spend a quarter less time per client on operations, and they get there with digital workflows. Pick the rows that happen at your firm.
 sides_hand: By hand, today
 sides_auto: Once it's built
 sides:
@@ -41,11 +49,14 @@ proves_h2: Why two builds outside your industry count
 proves_intro: "Neither client is an RIA. Both had the same problem you have, at a bigger scale:"
 proves:
   - point: Same problem, bigger numbers
-    detail: 17,000 federal staff found the rule by reading 220 directives by hand. A lab searched 7,000 papers one at a time, 200 hours of someone's time. Yours is one figure kept in step across four documents, and one client typed into four systems. Smaller, which is why it is a smaller build.
+    detail: |
+      17,000 federal staff found the rule by reading 220 directives by hand. A lab searched 7,000 papers one at a time, 200 hours of someone's time.
+
+      Yours is one figure kept in step across four documents, and one client typed into four systems. Smaller, which is why it is a smaller build.
   - point: Still running, without me
     detail: Both are in use today, in the client's own accounts, with no retainer. Yours will be too.
   - point: Nobody learned a system
-    detail: Staff type a question. Researchers ask the files. Your team keeps every tool it has. The retyping between them stops.
+    detail: Staff type a question. Researchers ask the files. Your team keeps every tool it has, and the retyping between them stops.
 targets_h2: What gets built first at an RIA
 targets_intro: Taken from Form ADV filings and from the RIAs I've talked to. Bring one to the audit. I have room for a few more this month before I'm heads down on builds.
 targets:
