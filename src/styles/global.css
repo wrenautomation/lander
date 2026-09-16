@@ -110,7 +110,7 @@ p{margin:0}
 .pick a:hover,.pick a:focus-visible{border-color:var(--acc);transform:translateY(-2px)}
 .pick h2{font-size:1.45rem;letter-spacing:-.01em;margin-bottom:.45rem}
 .pick p{color:var(--mute);font-size:15.5px;line-height:1.5}
-.pick p b{color:var(--ink);font-weight:600}
+.pick p b{color:var(--acc);font-weight:600}
 .pick .go{display:inline-block;margin-top:1rem;color:var(--acc);font-weight:600;font-size:15px}
 .pick .go::after{content:'';display:block;height:1px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .2s}
 .pick a:hover .go::after{transform:scaleX(1)}

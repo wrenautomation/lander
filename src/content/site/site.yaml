@@ -25,20 +25,20 @@ chooser:
   title: Wren Automation
   kicker: For RIAs, insurance brokers and agencies
   h1: "**Custom automations** for small firms. The retyping between your tools stops, and each person gets a workday a week back."
-  lede: "Someone at your firm keeps the same facts in four places by hand, and one place is wrong until a client points it out. I'm William, and I build the piece in the middle, inside the tools you already pay for. **Nothing to do with a new platform, a zap or another hire.**"
-  proof: "17,000 federal staff use one of my builds. A lab got 200 hours back from the other. What each one replaced, and what yours would, is on your industry's page."
+  lede: "Someone at your firm keeps the same facts in four places by hand, and one place is wrong until a client points it out. I'm William, and I build the integrations with the tools you use the most."
+  proof: "One build has 17,000 users. The other gave a lab back a few hundred hours. What each does, and what yours would, is one click below."
   pick: Pick your industry
   pick_text: The jobs I automate in your industry, before and after.
   niches:
     - slug: ria
       name: RIAs
-      text: "**The AUM figure** in Part 1, Part 2A, the manual and the quarterly letter, kept in step by hand after every amendment."
+      text: "**Every amendment, four documents edited by hand.** Part 1, Part 2A, the manual and the quarterly letter."
     - slug: insurance
       name: Insurance
-      text: "**The insured** keyed into the certificate, the renewal, the proposal and the loss run request, from the same file each time."
+      text: "**The same insured keyed in four times.** The certificate, the renewal, the proposal and the loss run request."
     - slug: agencies
       name: Agencies
-      text: "**The client** typed into the CRM, the board, the timesheet and the invoice, by hand from the same intake."
+      text: "**The same client typed into five tools.** The CRM, the board, the timesheet, the invoice and the notes doc."
   go: See the before and after
   other_pre: Not one of these?
   other: Email me
