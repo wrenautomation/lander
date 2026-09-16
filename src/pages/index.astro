@@ -1,10 +1,10 @@
 ---
-// wrenautomation.com/: the chooser. No pitch here, one click into the industry page. Copy in site.yaml under `chooser`.
+// wrenautomation.com/: the chooser. Discovery, proof, then one click into the industry page. Copy in site.yaml under `chooser`.
 import { getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Mark from '../components/Mark.astro';
 import Theme from '../components/Theme.astro';
-import { inline } from '../lib/text';
+import { inline, plain } from '../lib/text';
 import Trace from '../components/Trace.astro';
 import Foot from '../components/Foot.astro';
 
@@ -16,7 +16,7 @@ const picks = await Promise.all(c.niches.map(async (x) => {
   return { ...x, hue: n.data.hue };
 }));
 ---
-<Base title={c.title} description={c.lede} hue="rust">
+<Base title={c.title} description={plain(c.lede)} hue="rust">
 
 <div class="wrap">
   <nav class="nav choose-nav" aria-label="Page">
@@ -33,8 +33,9 @@ const picks = await Promise.all(c.niches.map(async (x) => {
     <svg class="itr" aria-hidden="true"></svg>
     <p class="kicker">{c.kicker}</p>
     <h1 set:html={inline(c.h1)} />
-    <p class="lede">{c.lede}</p>
-    <p class="pick-h">{c.pick}</p>
+    <p class="lede" set:html={inline(c.lede)} />
+    <p class="proof">{c.proof}</p>
+    <div class="pick-h"><p class="lbl">{c.pick}</p><p>{c.pick_text}</p></div>
     <div class="pick">
       {picks.map((p, i) => (
         <a href={`/${p.slug}`} data-hue={p.hue}>

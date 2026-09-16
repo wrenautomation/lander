@@ -20,24 +20,26 @@ theme:
 cta: Get the free audit
 # The link to the form after the case studies and again after the offer.
 mid_cta: Start with the free audit
-# wrenautomation.com/: the chooser. One click into an industry page; no pitch here. `slug` is the niche file name, the card's colour comes from that file.
+# wrenautomation.com/: the chooser. Three paragraphs, then one click into an industry page. The hero is the discovery (the mechanism, and what it is not), `proof` is the two builds with their numbers, `pick` is the one action. No pitch, no price. `slug` is the niche file name; the card's colour comes from that file.
 chooser:
   title: Wren Automation
-  kicker: Custom automation and software for small businesses
-  h1: A **full workday** a week back for each person on your team.
-  lede: "I'm William. I build the automations nobody at the firm has time to build. Each page below has the work I automate in that industry, two builds still in use, and the offer."
+  kicker: Custom automation for small firms
+  h1: Type the **client** in once. Every tool that needs it fills in, and each person gets a workday a week back.
+  lede: "Somebody at your firm typed the same client into a fifth tool this week. Nobody owns the chain, so one copy is wrong until the client points it out. I'm William. I build the piece in the middle, inside the tools you already pay for. **Nothing to do with a new platform, a template, a zap or another hire.**"
+  proof: "Two builds, both still in use. 17,000 federal staff find the rule with one question instead of reading through 220 directives. A lab's citation search runs across 7,000 papers, which was 200 hours by hand."
   pick: Pick your industry
+  pick_text: Each page has the jobs I automate there, the two builds, and the offer.
   niches:
     - slug: ria
       name: RIAs
-      text: Onboarding, client documents, quarterly letters, the handoffs in between.
+      text: Part 1, Part 2A, the manual and the quarterly letter, kept in step by hand after every amendment.
     - slug: insurance
       name: Insurance
-      text: Certificates, renewals, proposals, the chasing in between.
+      text: Certificates, renewals and proposals, and the chasing that goes with each one.
     - slug: agencies
       name: Agencies
-      text: Proposals, client reporting, onboarding, the handoffs between account and delivery.
-  go: See the page
+      text: The same client typed into the CRM, the board, the timesheet and the invoice.
+  go: See what gets built
   other_pre: Not one of these?
   other: Email me
 

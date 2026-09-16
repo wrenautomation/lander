@@ -71,7 +71,7 @@ const site = defineCollection({
     cta: z.string(),
     mid_cta: z.string(), // the link to the form after the case studies and after the offer
     chooser: z.strictObject({ // the front page: pick an industry
-      title: z.string(), kicker: z.string(), h1: z.string(), lede: z.string(), pick: z.string(),
+      title: z.string(), kicker: z.string(), h1: z.string(), lede: z.string(), proof: z.string(), pick: z.string(), pick_text: z.string(),
       niches: z.array(z.strictObject({ slug: z.string(), name: z.string(), text: z.string() })),
       go: z.string(), other_pre: z.string(), other: z.string(),
     }),
