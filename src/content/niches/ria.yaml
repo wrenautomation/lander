@@ -1,11 +1,11 @@
 # wrenautomation.com/ria. Continues the sec_ria emails (documents and operations arms): same scene, same words.
 # Figures in the prose and where they come from (checked 2026-09-16):
 #   Advisors spend about 20% of the week meeting clients, 4.2 hours a week on admin, report 43 hours and list tasks that add to 53: Kitces Research, "How do financial advisors actually spend their time".
-#   Top Performing Firms spend about 25% less time per client on operations: Schwab 2024 RIA Benchmarking Study. Verify the wording before quoting it in an email.
+#   Top Performing Firms spend about 25% less time per client on operations and 10% more on service: Schwab 2024 RIA Benchmarking Study, confirmed 2026-09-16 via ClientWise's summary.
 #   94% of audited spreadsheets had at least one error: Panko, "What we know about spreadsheet errors".
 hue: rust
 title: Wren Automation for RIAs
-h1: Advisors spend a fifth of the week with **clients**. Type the AUM figure once and the hours spent retyping it go back to them.
+h1: Type the **AUM figure** once. Every document that holds it follows.
 lede: "Your AUM figure lives in four documents, and someone at your firm keeps them in step by hand. Part 1, Part 2A, the compliance manual, the quarterly letter. Nothing owns the chain between them, so a person is the integration. After every amendment all four have to catch up, and one lags until someone notices two disagree. I build the piece in the middle, inside the tools you already use. **Nothing to do with being more careful, a longer checklist or the compliance platform.**"
 # Under the hero button, next to the photo from site.yaml.
 who: "**William Jin**, software engineering at Waterloo. Built the policy search 17,000 federal staff use. I write the code myself."

@@ -6,7 +6,7 @@
 #   About 1 in 100 fields typed by hand is wrong: the long-run human-factors figure, also Panko.
 hue: red
 title: Wren Automation for agencies
-h1: Eight to twelve hours a week per person at your agency aren't billable. Type the **client** in once and they go back on an invoice.
+h1: Type the **client** in once. Every tool that needs it follows.
 lede: "Somebody at your shop typed the same client into a fifth tool this week. CRM, board, Friday timesheet, invoice, notes doc. Nothing owns the chain between them, so a person is the integration. Every new client is five setups, every scope change is five edits, and one of the five stays wrong until the client points it out. I build the piece in the middle, inside the tools you already pay for. **Nothing to do with a new platform, a template, a zap or another hire.**"
 # Under the hero button, next to the photo from site.yaml.
 who: "**William Jin**, software engineering at Waterloo. Built the policy search 17,000 federal staff use. I write the code myself."
