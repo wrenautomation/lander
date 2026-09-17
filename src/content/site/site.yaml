@@ -20,11 +20,11 @@ theme:
 cta: Get the free audit
 # The link to the form after the case studies and again after the offer.
 mid_cta: Start with the free audit
-# wrenautomation.com/: the chooser. The h1 says what is on offer in plain words (custom automations, the hours back). Three lines above the cards (the pain, who, the proof), no more: the page is a fork, not a read. `slug` is the niche file name; the card's colour comes from that file.
+# wrenautomation.com/: the chooser. The h1 says what is on offer in plain words (custom automations) and who it is for (firms ready to scale). Three lines above the cards (the pain, who, the proof), no more: the page is a fork, not a read. `slug` is the niche file name; the card's colour comes from that file.
 chooser:
   title: Wren Automation
   kicker: For RIAs, insurance brokers and agencies
-  h1: "**Custom automations** for small firms."
+  h1: "**Custom automations** for firms ready to scale."
   lede: |
     Someone at your firm keeps the same client, figure or policy in four places by hand, and one place is wrong until a client points it out. Nothing owns the chain between your tools, so a person is the integration. It grows with every client, and it is the work good people quit over.
 
