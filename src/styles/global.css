@@ -217,7 +217,9 @@ section.s+section.s:not(.ask){padding-top:0}
 .principles .cols h3{font-size:1.45rem;letter-spacing:-.01em;margin-bottom:.6rem}
 .principles .cols p{font-size:16px;line-height:1.55}
 
-/* pick a side: by hand on the left, once built on the right */
+/* pick a side: by hand on the left, once built on the right. The instruction sits in ink right above the table. */
+#sides .intro{margin-bottom:1.1rem}
+.pick-line{color:var(--ink);font-weight:500;margin:0 0 1rem}
 .sides{border-top:1px solid var(--rule)}
 .sides .hd{display:none}
 .sides>div{display:grid;gap:.35rem;padding:.9rem 0;border-bottom:1px solid var(--rule);font-size:15.5px}

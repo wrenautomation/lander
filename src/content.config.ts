@@ -27,6 +27,7 @@ const niches = defineCollection({
     cases: z.array(z.string()),   // case-study file names, in order
     sides_h2: z.string(),         // pick a side: by hand vs runs itself
     sides_intro: z.string(),
+    sides_pick: z.string(),       // one line in ink above the table: pick the rows that happen at your firm
     sides_hand: z.string(),       // column headings
     sides_auto: z.string(),
     sides: z.array(z.strictObject({ hand: z.string(), auto: z.string() })),

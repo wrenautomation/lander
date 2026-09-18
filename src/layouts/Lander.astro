@@ -66,6 +66,7 @@ const multi = new Set(['note', 'questions']);
   <div class="wrap">
     <h2>{n.sides_h2}</h2>
     <div class="intro pp" set:html={paras(n.sides_intro)} />
+    <p class="pick-line">{n.sides_pick}</p>
     <div class="sides" role="table">
       <div class="hd" role="row"><span role="columnheader">{n.sides_hand}</span><span role="columnheader">{n.sides_auto}</span></div>
       {n.sides.map((r) => <div role="row"><span role="cell">{r.hand}</span><span role="cell" class="auto">{r.auto}</span></div>)}

@@ -28,7 +28,7 @@ impact:
   - fig: 200 hrs
     count: 200
     suffix: " hrs"
-    label: of someone's time, at about two minutes a paper
+    label: of searching by hand that nobody does now, at two minutes a paper
   - fig: 7,000
     count: 7000
     label: papers tracked without anyone searching

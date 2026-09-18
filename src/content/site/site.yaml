@@ -9,7 +9,7 @@ city: Toronto
 # Top bar. Order is fixed; words are yours.
 nav:
   work: Who I've helped
-  offer: The offer
+  offer: How it works
   about: About
   contact: Contact
 theme:
@@ -23,24 +23,24 @@ mid_cta: Start with the free audit
 # wrenautomation.com/: the chooser. The h1 says what is on offer in plain words (custom automations, for firms). Three lines above the cards (the pain, who, the proof), no more: the page is a fork, not a read. `slug` is the niche file name; the card's colour comes from that file.
 chooser:
   title: Wren Automation
-  kicker: For RIAs, insurance brokers and agencies
+  kicker: For RIAs, insurance agencies, marketing and dev shops
   h1: "**Custom automations** for firms."
   lede: |
-    Someone at your firm keeps the same client, figure or policy in four places by hand, and one place is wrong until a client points it out. Nothing owns the chain between your tools, so a person is the integration. It grows with every client, and it is the work good people quit over.
+    Someone at your firm keeps the same client, figure or policy in four places by hand, and one place is wrong until a client points it out. Nothing connects your tools, so a person does. It grows with every client, and it is the work good people quit over.
 
-    I'm William. I build the piece in the middle, inside the tools you already use.
-  proof: "One build has 17,000 users. Another gave a lab back 200 hours. Both still run without me. See the details for yourself below."
+    I'm William. I build the connection, inside the tools you already use.
+  proof: "One build has 17,000 users. Another gave a lab back 200 hours. Both still run without me."
   pick: Pick your industry
-  pick_text: The jobs I automate in your industry, by hand today and once it's built.
+  pick_text: Your page shows the jobs I automate in your industry, by hand today and once it's built.
   niches:
     - slug: ria
       name: RIAs
       text: "**Every amendment, four documents edited by hand.** Part 1, Part 2A, the manual and the quarterly letter."
     - slug: insurance
-      name: Insurance
+      name: Insurance agencies
       text: "**The same insured keyed in four times.** The certificate, the renewal, the proposal and the loss run request."
     - slug: agencies
-      name: Agencies
+      name: Marketing and dev shops
       text: "**The same client typed into five tools.** The CRM, the board, the timesheet, the invoice and the notes doc."
   go: See the before and after
   other_pre: Not one of these?
@@ -49,12 +49,12 @@ chooser:
 # The offer in one breath, right under the hero. `more` links to the offer section below.
 offer:
   eyebrow: The offer
-  promise: "**A full workday a week back for each person**, from onboarding, client emails, reports and invoices. Built once, running in your own accounts, paid per milestone after it runs."
+  promise: "**A full workday a week back for each person** doing the onboarding, client emails, reports and invoices by hand. Built once, running in your own accounts, paid per milestone after it runs."
   safe: |
-    The audit is free. I find the automations with the highest return, the ones that take the repetitive work off your team.
+    The audit is free. It finds the jobs with the most repeated hours in them, and those get built first.
 
     After that you pay by milestone, after each one runs. Walk away at any point and keep everything built so far.
-  more: How that works
+  more: How it works
 
 # Case studies.
 work_h2: Who I've helped
@@ -66,13 +66,13 @@ case_labels:
   person: a person does this
   auto: runs on its own
 
-# The offer section. Steps first, then the three things you're protected by.
-offer_h2: The offer
+# How it works. Steps first, then the three rules.
+offer_h2: How it works
 offer_intro: Three steps. You see each piece running before you pay for it, and you keep everything at the end.
 how:
   - name: Audit
     text: |
-      A 30-minute call. You share your screen and walk me through one normal week: where the client gets typed, where the report comes from, where the invoice starts. I need no access to anything.
+      A 30-minute call. You share your screen and walk me through one normal week: where the client gets typed, where the report comes from, where the invoice starts. I don't need access to anything.
 
       I map the chain and count the hours per job. You get one page back: what to automate first, what it saves a week, what it costs.
 
@@ -86,11 +86,11 @@ how:
       You pay after each milestone runs. Nothing hourly, no retainer.
   - name: Handover
     text: |
-      Documentation written for whoever runs it, a walkthrough on a call, and the code. My access is removed.
+      You get the code, documentation written for whoever runs it, and a walkthrough on a call. Then my access is removed.
 
       It keeps running without me and without a retainer. If it breaks because of something I got wrong, I fix it. If a tool changes on your side, I'm one email away and you decide whether that's a new milestone.
-# Three principles under the steps.
-principles_h3: 3 principles of Wren
+# Three rules under the steps.
+principles_h3: Three rules I work by
 principles:
   - name: Accountability
     text: |
@@ -109,10 +109,10 @@ principles:
       If the piece we scoped turns out not to be, or we hit a blocker, we rescope on the spot and you keep what's already built.
 
 # Why not the alternatives. Sits between the offer and the questions.
-alt_h2: Why not a bigger agency, a consultant, or one more hire?
+alt_h2: Why not an automation agency, a consultant, or one more hire?
 alt_intro: Each is a fair option. Here is what each one costs you.
 alt:
-  - who: A bigger agency
+  - who: An automation agency
     text: |
       Their smallest project is bigger than yours, and the retainer runs whether or not anything ships. The person who sold it hands you to a project manager, who hands you to a developer you never meet, and the follow-ups go quiet.
 
@@ -134,7 +134,7 @@ questions:
   - q: I don't know what I'd automate yet. Is it too early to talk?
     a: No. That's what the audit is for. Bring the job that annoys you most and we start there.
   - q: What does it cost?
-    a: Quoted after the audit, which is free, per milestone, in writing. You pay after each milestone runs. Nothing hourly, no retainer.
+    a: The audit is free. The build is quoted per milestone, in writing, on the page you get back from the audit. You pay after each milestone runs. Nothing hourly, no retainer.
   - q: Where does our client data go?
     a: It stays in your accounts. I build inside them, copy nothing to my own systems, and my access is removed at handover.
   - q: Do we need new software?
@@ -155,7 +155,7 @@ about:
   - I want to get very good at this. The fastest way is to do it for firms that have the problem, and do it well enough that they tell other firms.
 why_h3: Why me
 why:
-  - I'm trained as a software engineer and I write the code myself, so it holds up after the demo. Most agencies hand you something beautifully packaged, with bugs and shortcuts that show up in month three.
+  - I'm trained as a software engineer and I write the code myself, so it holds up after the demo. Most automation agencies hand you something beautifully packaged, with bugs and shortcuts that show up in month three.
   - I'm building a business on this work, and I want every build to be so good you refer me to every owner you know. I'll relax the financial terms to get that result, and I'll say so on the call.
 
 # The form. `ask_pre` sits above the heading. Fields render in this order. `required: true` adds the * and the check; `error` shows under the field when the check fails.
@@ -166,10 +166,10 @@ ask_fields:
     label: Name
     placeholder: First name is fine
   - key: email
-    label: Work email
-    placeholder: you@firm.com
+    label: Email
+    placeholder: you@yourfirm.com
     required: true
-    error: Enter a work email.
+    error: Enter an email address I can reply to.
   - key: phone
     label: Phone
     placeholder: "+1"
@@ -177,15 +177,15 @@ ask_fields:
     label: What eats your week?
     placeholder: The report that takes a day, or the spreadsheet only one person understands.
     required: true
-    error: One line is enough.
+    error: Add one line, even a rough one.
   - key: questions
     label: Any questions or concerns?
     placeholder: Price, timing, whether this fits your setup.
 ask_required: "* required"
-ask_submit: Send
+ask_submit: Request the free audit
 ask_error: "That didn't send. Email me instead:"
-thanks_h: Got it.
-thanks: Look for an email from william@wrenautomation.com. Check spam if it isn't there, or email me directly. Talk soon.
+thanks_h: Got it, thanks.
+thanks: Look for an email from william@wrenautomation.com within a business day. If it isn't there, check spam or email me directly. Talk soon.
 
 # Bottom of every page. `fine` is the privacy line; keep it true (see README, "What gets measured").
 fine: Your email is used to reply to you, never for a subscription or a marketing list.
