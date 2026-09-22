@@ -1,0 +1,53 @@
+---
+// /privacy. The legal text lives here, not in site.yaml: it is prose about
+// this code, and it has to be edited next to the code it describes
+// (functions/api, schema.sql, src/scripts/hit.ts).
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+import Foot from '../components/Foot.astro';
+const site = (await getEntry('site', 'site'))!.data;
+const updated = 'September 22, 2026';
+---
+<Base title="Privacy — Wren Automation" description="What Wren Automation collects, why, and how to have it deleted." hue="rust">
+<div class="wrap">
+  <nav class="nav" aria-label="Page">
+    <a href="/" aria-label="Wren Automation, front page"><Mark /></a>
+    <div class="right">
+      <button class="theme" type="button" data-theme-toggle data-to-dark={site.theme.to_dark} data-to-light={site.theme.to_light} aria-label="Switch between light and dark">{site.theme.to_dark}</button>
+    </div>
+  </nav>
+</div>
+<section class="hero">
+  <div class="wrap">
+    <h1>Privacy</h1>
+    <p class="lede">Wren Automation is one person, William Jin, in Toronto. This page says exactly what this site and my outreach collect. Last updated {updated}.</p>
+  </div>
+</section>
+<section class="s">
+  <div class="wrap legal">
+    <h2>The form</h2>
+    <p>If you fill in the audit form I store what you typed — name, email, phone, what eats your week, your questions — with the page you sent it from, the campaign or referring link that brought you, your country, your IP address and your browser's user-agent string. It goes into a Cloudflare D1 database and I get a notification. I use it to reply to you and to prepare the call. It is never sold, rented, or added to a marketing list.</p>
+    <p>The form is checked for bots by Cloudflare Turnstile, under its <a href="https://www.cloudflare.com/turnstile-privacy-policy/">privacy addendum</a>.</p>
+
+    <h2>Page views</h2>
+    <p>Each page view writes one anonymous row: the page, how far down it you scrolled, how long it was visible, whether you clicked through to the form or touched a field, your viewport width, your country, the referring link and your user-agent. No IP address, no identifier, no cookie, nothing that links two visits to each other. I read it to find out which paragraph loses people. Cloudflare Web Analytics may also be on; it is cookieless and gives me counts, not people.</p>
+
+    <h2>Email I send you</h2>
+    <p>I email firms who haven't asked, which is what cold outreach is. Addresses come from public sources — a company's own website and public business listings. Those messages can carry a one-pixel image that tells me the message was opened, and they carry an unsubscribe link. Unsubscribe, or reply with "stop", and the address is suppressed: I will not email it again. Reply once and you are in an ordinary conversation, nothing more.</p>
+
+    <h2>Client work</h2>
+    <p>When I build for a client I handle their data under the agreement we sign, only for that build, and it stays in their systems. Nothing from a client's data ever comes into this site.</p>
+
+    <h2>Who else sees it</h2>
+    <p>Cloudflare hosts the site and the database. Google Workspace carries my email. Resend and Discord deliver the notification when the form is submitted. Each of them sees the data it needs to do that and nothing else. No advertising networks, no data brokers.</p>
+
+    <h2>Keeping and deleting</h2>
+    <p>Form submissions are kept while there's a reason to — a live conversation, a build, the records a business has to keep. Page-view rows are kept as counts. Email <a href={`mailto:${site.email}`}>{site.email}</a> and I will tell you what I hold about you, correct it, or delete it. No form, no account, no wait: one email to a person who reads it.</p>
+
+    <h2>Changes</h2>
+    <p>If this changes, the date at the top changes with it.</p>
+  </div>
+</section>
+<Foot site={site} />
+</Base>

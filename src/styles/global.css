@@ -162,6 +162,12 @@ p{margin:0}
 
 /* sections */
 section.s{padding:3rem 0}
+/* /privacy: plain prose, one column, narrow measure. */
+.legal{max-width:62ch}
+.legal h2{font-size:1.15rem;margin:1.8rem 0 .5rem}
+.legal h2:first-child{margin-top:0}
+.legal p{margin:0 0 .8rem;color:var(--mute)}
+.legal a{color:var(--ink)}
 section.s+section.s:not(.ask){padding-top:0}
 .s h2{font-size:clamp(1.6rem,4.5vw,2.3rem);margin-bottom:.6rem}
 #work h2{font-size:clamp(1.9rem,5vw,2.8rem)}

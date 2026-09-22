@@ -192,6 +192,8 @@ fine: Your email is used to reply to you, never for a subscription or a marketin
 # Appended only when Turnstile is on. Cloudflare requires the link for invisible mode.
 fine_turnstile: The form is checked for bots by Cloudflare Turnstile, under its
 fine_turnstile_link: privacy addendum
+# The footer link to /privacy.
+fine_privacy: Privacy
 
 # The 404 page.
 notfound_title: Not found
