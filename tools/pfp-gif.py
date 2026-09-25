@@ -1,6 +1,8 @@
 """
-The animated profile picture: the Wren mark, its circuit dots lighting in
-rust one after another, then 2.6 s still. Frame 0 is the plain mark, which
+The profile pictures: the Wren mark in cream on rust, so it stands out in
+a white inbox or feed. wren-pfp.png is the still one (Instagram, LinkedIn,
+YouTube); the GIF lights the circuit dots gold one after another, then
+2.6 s still. Frame 0 is the plain mark, which
 is all Gmail's inbox list shows; an opened mail plays the rest. Run from
 the repo root: python3 tools/pfp-gif.py (Pillow). Uploaded per inbox by
 autobrowse (`profile-photo`, or the domain plan's photoUrl).
@@ -8,12 +10,17 @@ autobrowse (`profile-photo`, or the domain plan's photoUrl).
 import math
 from PIL import Image, ImageDraw, ImageChops
 SRC = "public/brand/wren-pfp-source.png"
-RUST = (168, 59, 18)
+RUST = (168, 59, 18)                     # --acc on the site
+CREAM = (250, 247, 242)                  # --paper
+GOLD = (255, 200, 87)                    # a lit dot
 NODES = [(255, 959), (546, 1197), (983, 1128), (1177, 1013), (1239, 857), (1122, 806)]
 OUT, STEP, REST = 400, 50, 2600          # px, ms a frame, ms of stillness
-base = Image.open(SRC).convert("RGB")
-S = base.size[0]
-dark = base.convert("L").point(lambda v: 255 if v < 128 else 0)
+src = Image.open(SRC).convert("L")
+S = src.size[0]
+dark = src.point(lambda v: 255 if v < 128 else 0)  # where the bird is
+base = Image.new("RGB", (S, S), RUST)
+base.paste(Image.new("RGB", (S, S), CREAM), (0, 0), dark)
+base.resize((1000, 1000), Image.LANCZOS).save("public/brand/wren-pfp.png")
 
 def frame(t):  # t in seconds since the pulse began
     img = base.copy().convert("RGBA")
@@ -25,11 +32,11 @@ def frame(t):  # t in seconds since the pulse began
         circ = Image.new("L", (S, S), 0)
         ImageDraw.Draw(circ).ellipse((x - 40, y - 40, x + 40, y + 40), fill=int(255 * glow))
         mask = ImageChops.multiply(circ, dark)
-        img.paste(Image.new("RGBA", (S, S), RUST + (255,)), (0, 0), mask)
+        img.paste(Image.new("RGBA", (S, S), GOLD + (255,)), (0, 0), mask)
         # a faint ring, growing as the light passes
         ring = Image.new("RGBA", (S, S), (0, 0, 0, 0))
         r = 38 + 34 * min(1, max(0, d / 0.45))
-        ImageDraw.Draw(ring).ellipse((x - r, y - r, x + r, y + r), outline=RUST + (int(70 * glow),), width=6)
+        ImageDraw.Draw(ring).ellipse((x - r, y - r, x + r, y + r), outline=GOLD + (int(90 * glow),), width=6)
         img = Image.alpha_composite(img, ring)
     return img.convert("RGB").resize((OUT, OUT), Image.LANCZOS)
 
