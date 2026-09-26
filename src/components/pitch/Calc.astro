@@ -11,13 +11,12 @@ const fmt = (x: number, unit: string) =>
   : unit === 'percent' ? `${x}%` : Math.round(x).toLocaleString('en-US');
 ---
 <section class="sec calc" id="calc">
-  <div class="wrap two">
+  <div class="wrap grid">
     <div class="head">
-      <p class="eyebrow" data-rise>{c.eyebrow}</p>
-      <h2 data-rise set:html={rich(c.h2)} />
-      <p class="intro" data-rise>{c.intro}</p>
+      <h2 set:html={rich(c.h2)} />
+      <p class="intro">{c.intro}</p>
     </div>
-    <div class="shell" data-rise><div class="core" data-calc>
+    <div class="calc-body" data-calc>
       {c.inputs.map((i) => (
         <label class="slider">
           <span class="row"><span>{i.label}</span><output data-out={i.key}>{fmt(i.value, i.unit)}</output></span>
@@ -26,9 +25,9 @@ const fmt = (x: number, unit: string) =>
       ))}
       <div class="res">
         <div><b data-res="orders">{fmt(orders, 'count')}</b><span>{c.out_orders}</span></div>
-        <div class="hot"><b data-res="fees">{fmt(fees, 'usd')}</b><span>{c.out_fees}</span></div>
+        <div class="big"><b data-res="fees">{fmt(fees, 'usd')}</b><span>{c.out_fees}</span></div>
       </div>
       <p class="fine">{c.fine}</p>
-    </div></div>
+    </div>
   </div>
 </section>

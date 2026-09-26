@@ -1,7 +1,8 @@
 ---
-// The form. An offer with an application: one question per step, then contact details. Without one: a contact form.
-// Posts to /api/apply. With JS: fetch, then the calendar, a thank-you or a not-a-fit. Without JS: a plain POST that
-// redirects to #applied-fit / #applied-nofit / #applied-error, which CSS shows with :target.
+// The form, in the first screen beside the hero. An offer with an application: one question per step, then contact
+// details. Without one: a contact form. Posts to /api/apply. With JS: fetch, then the calendar, a thank-you or a
+// not-a-fit. Without JS: a plain POST that redirects to #applied-fit / #applied-nofit / #applied-error, which CSS
+// shows with :target.
 import type { CollectionEntry } from 'astro:content';
 import { fieldName } from '../../lib/offers';
 import { rich } from '../../lib/text';
@@ -14,73 +15,68 @@ const qs = offer.application?.questions ?? [];
 const total = qs.length + 1;
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
-<section class="sec apply" id="apply">
-  <div class="wrap two">
-    <div class="head">
-      <p class="eyebrow" data-rise>{a.eyebrow}</p>
-      <h2 data-rise set:html={rich(a.h2)} />
-      <p class="intro" data-rise>{a.intro}</p>
-      {offer.slots && a.slots && (
-        <div class="slots" data-rise>{Array.from({ length: offer.slots }, () => <i aria-hidden="true"></i>)}<span>{a.slots}</span></div>
-      )}
-    </div>
-    <div class="shell" data-rise><div class="core" data-apply data-total={total}>
-      <form method="post" action="/api/apply" data-lead>
-        {qs.length > 0 && a.steps && (
-          <div class="progress" aria-hidden="true"><span data-count-label>{a.steps.step} <b data-at>1</b> {a.steps.of} {total}</span><i><i data-bar></i></i></div>
-        )}
-        {qs.map((q, i) => (
-          <fieldset class="step" data-step={i} data-kind={q.kind} data-required={q.required ? '' : undefined}>
-            <legend>{q.ask}</legend>
-            {q.kind === 'text'
-              ? <textarea name={fieldName(q.id)} placeholder={q.placeholder} rows="3"></textarea>
-              : <div class:list={['choices', { many: q.kind === 'many' }]}>
-                  {q.choices.map((c, j) => (
-                    <label class="choice">
-                      <input type={q.kind === 'one' ? 'radio' : 'checkbox'} name={fieldName(q.id)} value={c.id} required={q.kind === 'one' && q.required && j === 0}>
-                      <span>{c.label}</span>
-                    </label>
-                  ))}
-                </div>}
-            {a.steps && <p class="fe" data-error>{a.steps.pick_one}</p>}
-          </fieldset>
-        ))}
-        <fieldset class="step contact" data-step={qs.length}>
-          {a.steps && <legend>{a.steps.contact_h}</legend>}
-          <div class="fields">
-            <label class="field"><span>{a.name}</span><input name="name" type="text" autocomplete="name"></label>
-            <label class="field"><span>{a.email} <small>{a.required}</small></span><input name="email" type="email" autocomplete="email" required><em class="fe" data-error>{a.bad_email}</em></label>
-            <label class="field"><span>{a.firm} <small>{a.required}</small></span><input name="firm" type="text" autocomplete="url" inputmode="url" required><em class="fe" data-error>{a.required}</em></label>
-            {a.note && <label class="field wide"><span>{a.note}</span><textarea name="note" rows="4"></textarea></label>}
-          </div>
-          <input type="hidden" name="offer" value={offer.id}>
-          <input type="hidden" name="page" value={path}>
-          {['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref'].map((k) => <input type="hidden" name={k} value="">)}
-          <label class="hp" aria-hidden="true">Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
-          {turnstile && <div class="cf-turnstile" data-sitekey={turnstile} data-size="flexible" data-theme="dark"></div>}
-          <button class="btn" type="submit" data-submit data-sending={a.sending}><span>{a.submit}</span><Arrow /></button>
-        </fieldset>
-        {qs.length > 0 && a.steps && (
-          <div class="nav-steps">
-            <button type="button" class="back" data-back>{a.steps.back}</button>
-            <button type="button" class="btn" data-next><span>{a.steps.next}</span><Arrow /></button>
-          </div>
-        )}
-      </form>
-      <div class="result" id="applied-fit" data-result="fit" tabindex="-1">
-        {offer.booking ? (
-          <>
-            <h3 set:html={rich(a.book_h!)} /><p>{a.book}</p>
-            <div class="cal" data-cal data-booking={offer.booking}></div>
-            <a class="ghost" href={offer.booking} target="_blank" rel="noopener">{offer.booking.replace(/^https:\/\//, '')} &nearr;</a>
-          </>
-        ) : (
-          <><h3 set:html={rich(a.thanks_h)} /><p>{a.thanks}</p></>
-        )}
-      </div>
-      {a.nofit_h && <div class="result" id="applied-nofit" data-result="nofit" tabindex="-1"><h3 set:html={rich(a.nofit_h)} /><p>{a.nofit}</p></div>}
-      <div class="result" id="applied-error" data-result="error" tabindex="-1" role="alert"><p>{a.error} <a href={`mailto:${email}`}>{email}</a></p></div>
-    </div></div>
+<div class="panel" id="apply" data-apply data-total={total}>
+  <div class="ask">
+    <h2>{a.h2}</h2>
+    <p class="intro">{a.intro}</p>
+    {offer.slots && a.slots && (
+      <p class="slots">{Array.from({ length: offer.slots }, () => <i aria-hidden="true"></i>)}<span>{a.slots}</span></p>
+    )}
   </div>
-</section>
+  <form method="post" action="/api/apply" data-lead>
+    {qs.length > 0 && a.steps && (
+      <p class="progress" aria-hidden="true"><span>{a.steps.step} <b data-at>1</b> {a.steps.of} {total}</span><span class="segs">{Array.from({ length: total }, () => <i></i>)}</span></p>
+    )}
+    {qs.map((q, i) => (
+      <fieldset class="step" data-step={i} data-kind={q.kind} data-required={q.required ? '' : undefined}>
+        <legend>{q.ask}</legend>
+        {q.kind === 'text'
+          ? <textarea name={fieldName(q.id)} placeholder={q.placeholder} rows="3"></textarea>
+          : <div class:list={['choices', { many: q.kind === 'many' }]}>
+              {q.choices.map((c, j) => (
+                <label class="choice">
+                  <input type={q.kind === 'one' ? 'radio' : 'checkbox'} name={fieldName(q.id)} value={c.id} required={q.kind === 'one' && q.required && j === 0}>
+                  <span>{c.label}</span>
+                </label>
+              ))}
+            </div>}
+        {a.steps && <p class="fe" data-error>{a.steps.pick_one}</p>}
+      </fieldset>
+    ))}
+    <fieldset class="step contact" data-step={qs.length}>
+      {a.steps && <legend>{a.steps.contact_h}</legend>}
+      <div class="fields">
+        <label class="field"><span>{a.name}</span><input name="name" type="text" autocomplete="name"></label>
+        <label class="field"><span>{a.email} <small>{a.required}</small></span><input name="email" type="email" autocomplete="email" required><em class="fe" data-error>{a.bad_email}</em></label>
+        <label class="field"><span>{a.firm} <small>{a.required}</small></span><input name="firm" type="text" autocomplete="url" inputmode="url" required><em class="fe" data-error>{a.required}</em></label>
+        {a.note && <label class="field"><span>{a.note}</span><textarea name="note" rows="3"></textarea></label>}
+      </div>
+      <input type="hidden" name="offer" value={offer.id}>
+      <input type="hidden" name="page" value={path}>
+      {['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref'].map((k) => <input type="hidden" name={k} value="">)}
+      <label class="hp" aria-hidden="true">Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      {turnstile && <div class="cf-turnstile" data-sitekey={turnstile} data-size="flexible" data-theme="light"></div>}
+      <button class="btn ink" type="submit" data-submit data-sending={a.sending}><span>{a.submit}</span><Arrow /></button>
+    </fieldset>
+    {qs.length > 0 && a.steps && (
+      <div class="nav-steps">
+        <button type="button" class="back" data-back>{a.steps.back}</button>
+        <button type="button" class="btn ink" data-next><span>{a.steps.next}</span><Arrow /></button>
+      </div>
+    )}
+  </form>
+  <div class="result" id="applied-fit" data-result="fit" tabindex="-1">
+    {offer.booking ? (
+      <>
+        <h3 set:html={rich(a.book_h!)} /><p>{a.book}</p>
+        <div class="cal" data-cal data-booking={offer.booking}></div>
+        <a class="plain" href={offer.booking} target="_blank" rel="noopener">{offer.booking.replace(/^https:\/\//, '')}</a>
+      </>
+    ) : (
+      <><h3 set:html={rich(a.thanks_h)} /><p>{a.thanks}</p></>
+    )}
+  </div>
+  {a.nofit_h && <div class="result" id="applied-nofit" data-result="nofit" tabindex="-1"><h3 set:html={rich(a.nofit_h)} /><p>{a.nofit}</p></div>}
+  <div class="result" id="applied-error" data-result="error" tabindex="-1" role="alert"><p>{a.error} <a href={`mailto:${email}`}>{email}</a></p></div>
+</div>
 {turnstile && <script is:inline async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>}

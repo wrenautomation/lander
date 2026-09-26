@@ -32,7 +32,7 @@ All words live in `src/content/`.
 Rules for pitch yaml:
 - `*word*` renders serif italic in the accent colour (headlines). `**word**` renders ink.
 - `{slots}` and `{days}` fill from the offer. A card under `industries` that names its own `offer:` fills from that one. A token the offer doesn't have fails the build.
-- A section left out doesn't render: `console`, `strip`, `field`, `calc`, `industries`, `deal`, `ladder` are optional. `deal` needs a free offer. `ladder.names` must name exactly the offer's `next`.
+- A section left out doesn't render: `strip`, `field`, `calc`, `industries`, `deal`, `ladder` are optional. `deal` needs a free offer. `ladder.names` must name exactly the offer's `next`.
 - `ask` must have `steps` and `nofit` when the offer has an application, `book_h` and `book` when it has a booking link. The `nofit` line says the fit rule in words; change it with the fit rule in wren.
 - A blank line inside a `|` block is a paragraph break. A value with a colon or `*` at the start needs quotes.
 
@@ -51,7 +51,7 @@ Before the first `preview`: `npx wrangler d1 execute wren-leads --local --file s
 The real Turnstile keys fail on localhost. To test a form locally, build with the test site key and pass the test secret:
 `PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA npx astro build`, and `TURNSTILE_SECRET=1x0000000000000000000000000000000AA` in `.dev.vars`. Put the real ones back after.
 
-Motion off: `?static`, or the OS reduced-motion setting. Pitch pages are dark only; niche pages default dark with a toggle.
+Motion off: `?static`, or the OS reduced-motion setting. Pitch pages are light only (DESIGN.md); niche pages default dark with a toggle.
 
 ## Deploy (once)
 
@@ -126,7 +126,7 @@ src/pages/[...slug].astro  one route per pitch file
 src/pages/[niche].astro    one route per niche file
 src/layouts/Pitch.astro    the pitch page, sections in fixed order
 src/layouts/Lander.astro   the niche page
-src/components/pitch/      Console, Calc, Apply (the stepped form), Arrow
+src/components/pitch/      Calc, Apply (the form panel in the hero), Arrow
 src/styles/pitch.css       pitch design: tokens, bezels, motion gates
 src/styles/global.css      niche design
 src/scripts/pitch.ts       pitch motion, calculator, stepped form

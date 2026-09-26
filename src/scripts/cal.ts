@@ -33,11 +33,11 @@ function cal(): CalFn {
 /** Mount the booking calendar for `link` (a cal.com URL) into `el`, prefilled so the booker only confirms. */
 export function mountBooking(el: HTMLElement, link: string, who: { name: string; email: string }, accent: string) {
   const u = new URL(link);
-  const config: Record<string, string> = { ...Object.fromEntries(u.searchParams), theme: 'dark', layout: 'month_view', email: who.email };
+  const config: Record<string, string> = { ...Object.fromEntries(u.searchParams), theme: 'light', layout: 'month_view', email: who.email };
   if (who.name) config.name = who.name;
   const Cal = cal();
   Cal('init', NS, { origin: ORIGIN });
   const api = Cal.ns![NS];
   api('inline', { elementOrSelector: el, calLink: u.pathname.replace(/^\//, ''), config });
-  api('ui', { theme: 'dark', hideEventTypeDetails: false, layout: 'month_view', cssVarsPerTheme: { dark: { 'cal-brand': accent } } });
+  api('ui', { theme: 'light', hideEventTypeDetails: false, layout: 'month_view', cssVarsPerTheme: { light: { 'cal-brand': accent } } });
 }

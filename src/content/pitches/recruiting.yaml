@@ -16,45 +16,25 @@ nav:
 nav_cta: Apply
 
 hero:
-  eyebrow: Free {days}-day pilot · {slots} recruiting firms
-  h1: Your old clients are your next *job orders*.
+  h1: Your past clients are *your next job orders.*
   lede: |
-    Every past client in your ATS paid you a fee once. Most haven't heard from you in a year.
+    **For owners of recruiting firms.** Hundreds of past clients sit in your ATS, gone quiet. New business still hangs on one or two people.
 
-    I win them back in your recruiter's name, for {days} days, free. You keep every job order.
-  cta: Apply for a pilot slot
-  cta_to: "#apply"
+    I write to them in your recruiter's name and hand you the replies. Free for {days} days.
   second: How the pilot works
   second_to: "#how"
-  note: Two minutes to apply. {slots} firms at a time.
-
-console:
-  label: Example dashboard. Illustration, not a result.
-  title: Reactivation · day 21
-  stats:
-    - { label: Contacts reached, value: 1840 }
-    - { label: Replies, value: 73 }
-    - { label: Meetings booked, value: 19 }
-    - { label: Job orders, value: 7 }
-  feed_label: Replies, sorted
-  feed:
-    - quote: "Good timing. We're hiring two controllers next month, can we talk Thursday?"
-      who: VP Finance, last placement 2024
-      tag: Job order
-    - quote: "I moved to a new company. We need a plant manager here too."
-      who: Former client, new employer
-      tag: New account
-    - quote: "Not now, but check back in Q1."
-      who: HR Director
-      tag: Follow up Jan
+  by: I'm an engineer, and I run every pilot myself.
+  facts:
+    - { k: The pilot, v: "Free for {days} days. {slots} firms this round." }
+    - { k: You send, v: "An export of past clients from your ATS, and one recruiter's name." }
+    - { k: You keep, v: "The cleaned list, the emails and the domain, whatever happens." }
 
 strip:
   label: Works from an export of
   items: [Bullhorn, Loxo, Recruit CRM, JobAdder, Crelate, Vincere, PCRecruiter, a spreadsheet]
 
 field:
-  eyebrow: The list you already paid for
-  h2: Your best new business is *already in your ATS*.
+  h2: Your best new business is *already in your ATS.*
   text: |
     Your team spends the week chasing new logos. Meanwhile hundreds of past clients, people who already trust you, never hear from you again.
 
@@ -63,8 +43,7 @@ field:
   awake: The ones worth a conversation this quarter.
 
 calc:
-  eyebrow: Your numbers
-  h2: What your dead list is *worth*.
+  h2: What your dead list is *worth.*
   intro: Move the sliders to your firm. The assumptions are yours too.
   inputs:
     - { key: contacts, label: Past clients and hiring contacts, min: 500, max: 20000, step: 100, value: 3000, unit: count }
@@ -76,8 +55,7 @@ calc:
   fine: An estimate from your inputs, not a promise. The pilot gives you the real number.
 
 halves:
-  eyebrow: The whole picture
-  h2: Two ways a firm grows. *I build both*.
+  h2: Two ways a firm grows. *I build both.*
   intro: More business in the front. Less busywork in the back. The pilot starts at the front, because that's where the money is.
   sides:
     - tag: Front of house
@@ -97,8 +75,7 @@ halves:
   bridge: The pilot fills the desk. When the new business lands, the admin grows with it. That's the second build.
 
 steps:
-  eyebrow: The pilot
-  h2: '{days} days, *start to numbers*.'
+  h2: '{days} days, *start to numbers.*'
   intro: You approve everything before it sends. Your main domain is never touched.
   items:
     - when: Day 0
@@ -115,8 +92,7 @@ steps:
       text: We sit down with replies, meetings, job orders and fees. You decide what's next. Walking away is fine.
 
 deal:
-  eyebrow: The deal
-  h2: Free, and here's *why*.
+  h2: Free, and here's *why.*
   get: What you get
   give: What you put in
   we_get: What I get
@@ -128,16 +104,15 @@ deal:
       a: I do the work myself. {slots} firms is what one engineer runs well in {days} days.
 
 ladder:
-  eyebrow: After the pilot
-  h2: If it works, *what's next*.
+  h2: If it works, *what's next.*
   intro: Nothing is automatic. Each one is its own yes.
+  now: Now
   names:
     recruiting-candidate-reactivation: Optional, paid
     ops-automation-build: The second build
 
 proof:
-  eyebrow: Who's building it
-  h2: An engineer, *not an agency*.
+  h2: An engineer, *not an agency.*
   intro: I write the code myself, so it holds up after the demo.
   items:
     - fig: "17,000"
@@ -151,8 +126,7 @@ proof:
       text: because the same system found your firm, checked your address and wrote to you.
 
 about:
-  eyebrow: About
-  h2: Hi, I'm *William*.
+  h2: Hi, I'm *William.*
   paras:
     - I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
     - My internships were data pipelines, systems that talk to each other, and CRMs. Now I build the systems that bring firms business, and the automations that handle what comes with it.
@@ -161,8 +135,7 @@ about:
   sign: William Jin · Toronto
 
 faq:
-  eyebrow: Questions
-  h2: What owners *ask first*.
+  h2: What owners *ask first.*
   items:
     - q: Will this hurt our email domain?
       a: No. Emails go from a new domain in your recruiter's name, warmed up and sent in small batches. Your main domain is never touched.
@@ -180,10 +153,9 @@ faq:
       a: Then we both learn something. You keep the cleaned list, the copy and the domain.
 
 ask:
-  eyebrow: Apply
-  h2: Apply for *a pilot slot*.
-  intro: A few quick questions, then your details. If it's a fit, you pick a time right after.
-  slots: "{slots} pilot slots this round. Taken in the order the calls happen."
+  h2: Apply for the free {days}-day pilot.
+  intro: Four quick questions, then your email. If it fits, you book the call right here.
+  slots: "{slots} firms this round."
   submit: Send application
   sending: Sending…
   name: Your name
@@ -200,3 +172,8 @@ ask:
   nofit_h: Thanks. *I've got it.*
   # Says the fit rule in words. Change it with the fit gates in wren's offer.
   nofit: The pilot fits firms with 5+ recruiters and 500+ past contacts. I'll still read this and reply within a business day.
+
+close:
+  h2: '{slots} firms this round. *One minute to apply.*'
+  text: Four questions, then you pick a time. Nothing to prepare.
+  cta: Apply for a pilot slot

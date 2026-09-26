@@ -67,58 +67,6 @@
       "application": {
         "questions": [
           {
-            "id": "role",
-            "ask": "What's your role?",
-            "kind": "one",
-            "required": true,
-            "choices": [
-              {
-                "id": "owner",
-                "label": "Owner, founder or CEO"
-              },
-              {
-                "id": "exec",
-                "label": "Managing director or partner"
-              },
-              {
-                "id": "bd_lead",
-                "label": "Head of sales or BD"
-              },
-              {
-                "id": "recruiter",
-                "label": "Recruiter or account manager"
-              },
-              {
-                "id": "other",
-                "label": "Something else"
-              }
-            ]
-          },
-          {
-            "id": "placement_type",
-            "ask": "What does your firm mostly place?",
-            "kind": "one",
-            "required": true,
-            "choices": [
-              {
-                "id": "permanent",
-                "label": "Permanent"
-              },
-              {
-                "id": "contract",
-                "label": "Contract and temp"
-              },
-              {
-                "id": "executive",
-                "label": "Executive search"
-              },
-              {
-                "id": "mix",
-                "label": "A mix"
-              }
-            ]
-          },
-          {
             "id": "recruiters",
             "ask": "How many recruiters do you have?",
             "kind": "one",
@@ -195,63 +143,32 @@
             ]
           },
           {
-            "id": "avg_fee",
-            "ask": "What's your average placement fee?",
+            "id": "role",
+            "ask": "What's your role?",
             "kind": "one",
             "required": true,
             "choices": [
               {
-                "id": "f0_10k",
-                "label": "Under $10k"
+                "id": "owner",
+                "label": "Owner, founder or CEO"
               },
               {
-                "id": "f10k_25k",
-                "label": "$10k to $25k"
+                "id": "exec",
+                "label": "Managing director or partner"
               },
               {
-                "id": "f25k_plus",
-                "label": "More than $25k"
-              }
-            ]
-          },
-          {
-            "id": "ats",
-            "ask": "Which ATS or CRM do you use?",
-            "kind": "one",
-            "required": true,
-            "choices": [
-              {
-                "id": "bullhorn",
-                "label": "Bullhorn"
+                "id": "bd_lead",
+                "label": "Head of sales or BD"
               },
               {
-                "id": "loxo",
-                "label": "Loxo"
-              },
-              {
-                "id": "recruit_crm",
-                "label": "Recruit CRM"
-              },
-              {
-                "id": "jobadder",
-                "label": "JobAdder"
-              },
-              {
-                "id": "crelate",
-                "label": "Crelate"
+                "id": "recruiter",
+                "label": "Recruiter or account manager"
               },
               {
                 "id": "other",
                 "label": "Something else"
               }
             ]
-          },
-          {
-            "id": "anything_else",
-            "ask": "Anything I should know?",
-            "kind": "text",
-            "placeholder": "The client you lost touch with, the list nobody works, a worry.",
-            "required": false
           }
         ],
         "fit": [

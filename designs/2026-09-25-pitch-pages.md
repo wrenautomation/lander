@@ -25,9 +25,10 @@
 - D2. Answers stored as JSON keyed by question id, not columns. Questions change per offer; the table doesn't.
 - D3. Fit is computed on the server from the offer rule, stored, and told to the applicant. Not-fit applicants are still saved and read.
 - D4. Scarcity copy comes from `offer.slots`/`offer.days`, with the reason on the page (one engineer).
-- D5. Dark only, rust accent, solid colours. Gradient text was removed.
+- D5. ~~Dark only, rust accent.~~ Replaced by D8.
 - D7. Cal.com's official inline embed, not a bare iframe. Its `?embed=true` page stays blank until `embed.js` talks to it from the parent.
-- D6. Imagery is code for now: an animated console and a dormant-list dot field. Generated imagery can replace them without layout changes.
+- D6. Imagery is code for now: the dormant-list dot field (the console went with D8). Generated imagery can replace it without layout changes.
+- D8 (2026-09-26). Full overhaul after "doesn't look high ticket". Light only, set as an annual report: 12-column grid, hairline rules, Archivo, square corners, one rust. Kept only the rust, the bird mark and scroll motion. No eyebrows, cards or console. The form is a rust panel in the first screen: beside the headline on desktop, right under the lede on phone, question 1 visible without scrolling. A `close` section repeats the call at the end. System in DESIGN.md.
 
 ## Next
 
@@ -38,4 +39,5 @@
 
 1. No-JS applicants can't pass Turnstile, so they land on the error block with a mailto. Acceptable for now; a JS-off visitor is rare.
 2. The fit rule is duplicated in wren and `src/lib/offers.ts`. Same logic, two copies; a change in one without the other drifts silently until the snapshot check. Move it to a shared package if it grows.
-3. The calculator's defaults (0.5% come back, 40% filled) are assumptions, labelled as such. Replace with pilot numbers once there are some.
+3. Short phones: on an iPhone SE (568px tall) the panel heading shows at 413px but question 1 starts below the fold. iPhone 13 and up show it.
+4. The calculator's defaults (0.5% come back, 40% filled) are assumptions, labelled as such. Replace with pilot numbers once there are some.

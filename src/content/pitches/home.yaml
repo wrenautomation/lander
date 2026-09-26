@@ -14,42 +14,21 @@ nav:
 nav_cta: Get in touch
 
 hero:
-  eyebrow: Growth and operations systems for service firms
-  h1: More business in. Less *busywork* out.
+  h1: More business in. *Less busywork out.*
   lede: |
-    I build the systems that bring your firm new clients, and the automations that handle the work they create.
+    **For owners of service firms.** New clients depend on one or two people, and each one adds admin your team has no time for.
 
-    One engineer. Built into the tools you already pay for.
-  cta: Tell me about your firm
-  cta_to: "#apply"
-  second: See what I build
-  second_to: "#halves"
-  note: Recruiting firm? The free pilot is open.
-  note_to: /recruiting
-
-console:
-  label: Example week. Illustration, not a result.
-  title: Your firm · this week
-  stats:
-    - { label: Leads answered, value: 214 }
-    - { label: Meetings booked, value: 31 }
-    - { label: Admin hours saved, value: 46 }
-    - { label: Tasks run, value: 1930 }
-  feed_label: What ran
-  feed:
-    - quote: "New inquiry from the site answered in 2 minutes. Call booked for Tuesday."
-      who: Speed to lead
-      tag: Booked
-    - quote: "Signed contract read, client created in the CRM, kickoff scheduled."
-      who: Onboarding
-      tag: Done
-    - quote: "Monday pipeline report built and sent to the partners."
-      who: Reporting
-      tag: Sent
+    I build the systems that bring in the business, and the automations that handle the work it creates.
+  second: "Recruiting firm? See the free pilot"
+  second_to: /recruiting
+  by: I'm an engineer. The person who scopes it builds it.
+  facts:
+    - { k: Start, v: "A 30-minute call, then a one-page plan with the price." }
+    - { k: Build, v: "Inside the tools you already pay for, one milestone at a time." }
+    - { k: After, v: "I run it, fix it and add to it every month." }
 
 halves:
-  eyebrow: What I build
-  h2: Two halves of *one system*.
+  h2: Two halves of *one system.*
   intro: Most firms hire for growth and drown in the admin that follows. I build both ends, so the second doesn't eat the first.
   sides:
     - tag: Front of house
@@ -69,8 +48,7 @@ halves:
   bridge: Growth first, because it pays for the rest. Then the admin it creates, automated before it needs a hire.
 
 industries:
-  eyebrow: Where I start
-  h2: Pick *your firm*.
+  h2: Pick *your firm.*
   items:
     - name: Recruiting and staffing
       text: The past clients in your ATS, turned into new job orders.
@@ -88,8 +66,7 @@ industries:
       go: Tell me about it
 
 steps:
-  eyebrow: How it works
-  h2: From one call to *a system that runs*.
+  h2: From one call to *a system that runs.*
   intro: You see the plan and the price before anything starts.
   items:
     - when: Week 0
@@ -106,8 +83,7 @@ steps:
       text: I watch it, fix it and add to it every month. You get the numbers.
 
 proof:
-  eyebrow: Who's building it
-  h2: An engineer, *not an agency*.
+  h2: An engineer, *not an agency.*
   intro: I write the code myself, so it holds up after the demo.
   items:
     - fig: "17,000"
@@ -121,8 +97,7 @@ proof:
       text: who scopes it, builds it and answers when it breaks. No handoffs.
 
 about:
-  eyebrow: About
-  h2: Hi, I'm *William*.
+  h2: Hi, I'm *William.*
   paras:
     - I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
     - My internships were data pipelines, systems that talk to each other, and CRMs. Now I build the systems that bring firms business, and the automations that handle what comes with it.
@@ -130,8 +105,7 @@ about:
   sign: William Jin · Toronto
 
 faq:
-  eyebrow: Questions
-  h2: What owners *ask first*.
+  h2: What owners *ask first.*
   items:
     - q: Do we have to change our tools?
       a: No. I build inside what you already use. If a tool is the problem, I'll say so and why.
@@ -143,8 +117,7 @@ faq:
       a: Me. The person who scopes it is the person who builds it.
 
 ask:
-  eyebrow: Get in touch
-  h2: Tell me about *your firm*.
+  h2: Tell me about your firm.
   intro: What you do, where the hours go, what you want more of. I reply within one business day.
   submit: Send
   sending: Sending…
@@ -157,3 +130,8 @@ ask:
   error: "That didn't send. Email me instead:"
   thanks_h: Got it. *Talk soon.*
   thanks: I'll reply within one business day, from william@wrenautomation.com.
+
+close:
+  h2: One call. *A plan you keep either way.*
+  text: Thirty minutes, then one page back with what to build first and what it costs.
+  cta: Tell me about your firm

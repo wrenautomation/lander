@@ -161,9 +161,10 @@ const offers = defineCollection({
 });
 
 // Pitch pages (/ and /recruiting): one yaml each, the copy for a page that sells one offer.
-// Sections render in a fixed order; leave one out and it doesn't render. *word* in a heading
-// turns it serif italic (the accent), **word** in body text turns it ink.
+// Sections render in a fixed order; leave an optional one out and it doesn't render. *words* in a heading
+// are the punch, set in ink after a grey setup; **word** in body text turns it ink. No labels above headings.
 const qa = z.array(z.strictObject({ q: z.string(), a: z.string() }));
+const head = { h2: z.string(), intro: z.string() };
 const pitches = defineCollection({
   loader: one('pitches'),
   schema: z.strictObject({
@@ -174,21 +175,18 @@ const pitches = defineCollection({
     form_value: z.string(),             // what the D1 row says this page was
     nav: z.array(z.strictObject({ label: z.string(), to: z.string() })),
     nav_cta: z.string(),
+    // The first screen: who it's for and the pain (lede), what Wren does, then the form beside it (ask).
     hero: z.strictObject({
-      eyebrow: z.string(), h1: z.string(), lede: z.string(),
-      cta: z.string(), cta_to: z.string(), second: z.string(), second_to: z.string(), note: z.string(), note_to: z.string().optional(), // makes the note a link
+      h1: z.string(),
+      lede: z.string(),                 // blank line = paragraph. Open with the reader: **For owners of ...**
+      second: z.string(), second_to: z.string(),  // the quiet link under the lede
+      by: z.string(),                   // one line beside William's photo
+      facts: z.array(z.strictObject({ k: z.string(), v: z.string() })).max(3).optional(), // the offer in three plain lines
     }),
-    // The hero visual: an example dashboard, labelled as one. Numbers are an illustration.
-    console: z.strictObject({
-      label: z.string(), title: z.string(),
-      stats: z.array(z.strictObject({ label: z.string(), value: z.number(), prefix: z.string().default('') })).length(4),
-      feed_label: z.string(),
-      feed: z.array(z.strictObject({ quote: z.string(), who: z.string(), tag: z.string() })).min(2).max(4),
-    }).optional(),
     strip: z.strictObject({ label: z.string(), items: z.array(z.string()) }).optional(),
-    field: z.strictObject({ eyebrow: z.string(), h2: z.string(), text: z.string(), dormant: z.string(), awake: z.string() }).optional(),
+    field: z.strictObject({ h2: z.string(), text: z.string(), dormant: z.string(), awake: z.string() }).optional(),
     calc: z.strictObject({
-      eyebrow: z.string(), h2: z.string(), intro: z.string(),
+      ...head,
       inputs: z.array(z.strictObject({
         key: z.enum(['contacts', 'fee', 'rate', 'fill']), label: z.string(),
         min: z.number(), max: z.number(), step: z.number(), value: z.number(),
@@ -197,7 +195,7 @@ const pitches = defineCollection({
       out_orders: z.string(), out_fees: z.string(), fine: z.string(),
     }).optional(),
     halves: z.strictObject({
-      eyebrow: z.string(), h2: z.string(), intro: z.string(),
+      ...head,
       sides: z.array(z.strictObject({
         tag: z.string(), h3: z.string(), text: z.string(),
         items: z.array(z.strictObject({ name: z.string(), text: z.string(), badge: z.string().optional() })),
@@ -205,31 +203,31 @@ const pitches = defineCollection({
       bridge: z.string(),
     }),
     industries: z.strictObject({
-      eyebrow: z.string(), h2: z.string(),
+      h2: z.string(),
       items: z.array(z.strictObject({ name: z.string(), text: z.string(), to: z.string(), go: z.string(), badge: z.string().optional(), offer: z.string().optional() })),
     }).optional(),
     steps: z.strictObject({
-      eyebrow: z.string(), h2: z.string(), intro: z.string(),
+      ...head,
       items: z.array(z.strictObject({ when: z.string(), name: z.string(), text: z.string() })).min(3).max(5),
     }),
     // The terms come from the offer; these are the headings around them.
     deal: z.strictObject({
-      eyebrow: z.string(), h2: z.string(), get: z.string(), give: z.string(), we_get: z.string(),
+      h2: z.string(), get: z.string(), give: z.string(), we_get: z.string(),
       guarantee: z.string(), why: qa,
     }).optional(),
-    ladder: z.strictObject({ eyebrow: z.string(), h2: z.string(), intro: z.string(), names: z.record(z.string(), z.string()) }).optional(),
+    ladder: z.strictObject({ ...head, now: z.string(), names: z.record(z.string(), z.string()) }).optional(),
     proof: z.strictObject({
-      eyebrow: z.string(), h2: z.string(), intro: z.string(),
+      ...head,
       items: z.array(z.strictObject({ fig: z.string(), label: z.string(), text: z.string() })).min(2).max(4),
     }),
-    about: z.strictObject({ eyebrow: z.string(), h2: z.string(), paras: z.array(z.string()), photo: z.string().optional(), sign: z.string() }),
-    faq: z.strictObject({ eyebrow: z.string(), h2: z.string(), items: qa }),
-    // The form: the offer's application when it has one (steps, nofit), else a short contact form.
-    // After a fit: book_h/book with the calendar when the offer has a booking link, thanks_h/thanks without.
-    // The build refuses a page missing the copy its offer needs.
+    about: z.strictObject({ h2: z.string(), paras: z.array(z.string()), photo: z.string(), sign: z.string() }),
+    faq: z.strictObject({ h2: z.string(), items: qa }),
+    // The form, in the first screen beside the hero: the offer's application when it has one (steps, nofit),
+    // else a short contact form. After a fit: book_h/book with the calendar when the offer has a booking
+    // link, thanks_h/thanks without. The build refuses a page missing the copy its offer needs.
     ask: z.strictObject({
-      eyebrow: z.string(), h2: z.string(), intro: z.string(),
-      slots: z.string().optional(),     // under the slot bars, when the offer has slots
+      h2: z.string(), intro: z.string(),
+      slots: z.string().optional(),     // beside the slot bars, when the offer has slots
       submit: z.string(), sending: z.string(),
       name: z.string(), email: z.string(), firm: z.string(), note: z.string().optional(),
       required: z.string(), bad_email: z.string(), error: z.string(),
@@ -238,6 +236,8 @@ const pitches = defineCollection({
       steps: z.strictObject({ step: z.string(), of: z.string(), next: z.string(), back: z.string(), pick_one: z.string(), contact_h: z.string() }).optional(),
       nofit_h: z.string().optional(), nofit: z.string().optional(),
     }),
+    // The last screen: one line and a button back up to the form.
+    close: z.strictObject({ h2: z.string(), text: z.string(), cta: z.string() }),
   }),
 });
 

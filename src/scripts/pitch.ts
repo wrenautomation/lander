@@ -1,4 +1,4 @@
-// Pitch pages: motion (reveals, counters, the dormant-list field, the timeline) and the two things that work
+// Pitch pages: the scroll-drawn parts (the dormant list waking, the steps rule filling) and the two things that work
 // without motion too (the calculator, the stepped form). html.js is set in Pitch.astro's head when motion is on.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -9,85 +9,19 @@ const root = document.documentElement;
 const motion = root.classList.contains('js');
 const $ = <T extends Element = HTMLElement>(s: string, el: ParentNode = document) => el.querySelector<T>(s);
 const $$ = <T extends Element = HTMLElement>(s: string, el: ParentNode = document) => [...el.querySelectorAll<T>(s)];
-const EASE = 'expo.out';
 const fmt = (n: number) => Math.round(n).toLocaleString('en-US');
 
-/* ---------- nav and the floating CTA ---------- */
-const nav = $('[data-nav]');
-ScrollTrigger.create({ start: 60, end: 'max', onToggle: (s) => nav?.classList.toggle('scrolled', s.isActive) });
-const float = $('[data-float]'), hero = $('.hero'), apply = $('#apply');
-if (float && hero && apply) {
-  const seen = new Map<Element, boolean>();
-  new IntersectionObserver((es) => {
-    for (const e of es) seen.set(e.target, e.isIntersecting);
-    float.classList.toggle('show', !seen.get(hero) && !seen.get(apply));
-  }).observe(hero);
-  new IntersectionObserver((es) => {
-    for (const e of es) seen.set(e.target, e.isIntersecting);
-    float.classList.toggle('show', !seen.get(hero) && !seen.get(apply));
-  }, { rootMargin: '0px 0px -30% 0px' }).observe(apply);
+/* ---------- the phone's floating button: shown once the form and the hero are out of view ---------- */
+const float = $('[data-float]'), hero = $('.hero');
+if (float && hero) {
+  new IntersectionObserver(([e]) => float.classList.toggle('show', !e.isIntersecting)).observe(hero);
 }
 
-/* ---------- reveals ---------- */
-// Wrap each word of the h1 in a mask, keeping <em> and <b> around their words.
-function split(el: Element) {
-  for (const node of [...el.childNodes]) {
-    if (node.nodeType === Node.TEXT_NODE) {
-      const frag = document.createDocumentFragment();
-      for (const part of (node.textContent || '').split(/(\s+)/)) {
-        if (!part) continue;
-        if (/^\s+$/.test(part)) { frag.append(' '); continue; }
-        const w = document.createElement('span'); w.className = 'w';
-        const i = document.createElement('span'); i.textContent = part; w.append(i); frag.append(w);
-      }
-      node.replaceWith(frag);
-    } else if (node.nodeType === Node.ELEMENT_NODE) split(node as Element);
-  }
-}
-
-if (motion) {
-  const h1 = $('[data-split]');
-  if (h1) split(h1);
-  const heroRise = $$('.hero [data-rise]');
-  const consoleEl = $('[data-console]');
-  gsap.set('[data-rise]', { opacity: 0, y: 34 });
-  if (consoleEl) gsap.set(consoleEl, { opacity: 0, y: 70 });
-  if (h1) gsap.set($$('.w>span', h1), { yPercent: 115 });
-  root.classList.add('ready');
-  if (h1) (h1 as HTMLElement).style.visibility = 'visible';
-
-  const tl = gsap.timeline({ defaults: { ease: EASE } });
-  if (h1) tl.to($$('.w>span', h1), { yPercent: 0, duration: 1.3, stagger: 0.055 }, 0.1);
-  tl.to(heroRise, { opacity: 1, y: 0, duration: 1.1, stagger: 0.08 }, 0.35);
-  if (consoleEl) tl.to(consoleEl, { opacity: 1, y: 0, duration: 1.6 }, 0.5).from($$('[data-feed]', consoleEl), { opacity: 0, x: 24, duration: 1, stagger: 0.14 }, 1.1);
-
-  ScrollTrigger.batch($$('[data-rise]').filter((el) => !heroRise.includes(el)), {
-    start: 'top 88%',
-    onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.09, overwrite: true }),
-  });
-
-  // counters count up to the number already in the HTML
-  for (const b of $$('[data-count]')) {
-    const end = Number(b.dataset.count), pre = b.dataset.prefix || '', o = { v: 0 };
-    b.textContent = `${pre}0`;
-    gsap.to(o, {
-      v: end, duration: 2.2, ease: 'power3.out', delay: 0.9, onUpdate: () => { b.textContent = pre + fmt(o.v); },
-      scrollTrigger: { trigger: b, start: 'top 92%', once: true },
-    });
-  }
-
-  // the console drifts up slower than the page
-  if (consoleEl && hero) {
-    gsap.to(consoleEl, { yPercent: -10, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
-    gsap.to('.glow i:first-child', { yPercent: 25, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
-  }
-
-  // the timeline rail fills as you read; each step lights when the rail reaches it
-  const rail = $('[data-rail]'), line = $('[data-timeline]');
-  if (rail && line) {
-    gsap.fromTo(rail, { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: line, start: 'top 60%', end: 'bottom 60%', scrub: 0.6 } });
-    for (const li of $$('[data-stop]', line)) ScrollTrigger.create({ trigger: li, start: 'top 60%', onToggle: (s) => li.classList.toggle('on', s.isActive || s.progress > 0), end: 'max' });
-  }
+/* ---------- the steps: the rule fills as you read; each stop lights when the rule reaches it ---------- */
+const rail = $('[data-rail]'), line = $('[data-timeline]');
+if (motion && rail && line) {
+  gsap.fromTo(rail, { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: line, start: 'top 60%', end: 'bottom 60%', scrub: 0.6 } });
+  for (const li of $$('[data-stop]', line)) ScrollTrigger.create({ trigger: li, start: 'top 60%', end: 'max', onToggle: (s) => li.classList.toggle('on', s.isActive) });
 } else {
   for (const li of $$('[data-stop]')) li.classList.add('on');
 }
@@ -96,21 +30,22 @@ if (motion) {
 const canvas = $<HTMLCanvasElement>('[data-field]');
 if (canvas) {
   const box = canvas.parentElement!, ctx = canvas.getContext('2d')!;
-  const acc = getComputedStyle(root).getPropertyValue('--acc').trim() || '#ec8a5b';
+  const css = getComputedStyle(root);
+  const acc = css.getPropertyValue('--acc').trim() || '#C24E1C', dim = css.getPropertyValue('--ink-3').trim() || '#8A8A85';
   let rng = 7;
   const rand = () => { rng = (rng * 16807) % 2147483647; return rng / 2147483647; }; // seeded: the same field every visit
   type Dot = { x: number; y: number; r: number }; // r = when it lights (0..1), or 2 = stays dormant
   let dots: Dot[] = [], W = 0, H = 0, p = motion ? 0 : 1;
-  const AWAKE = 0.075;
+  const AWAKE = 0.075, R = 2.6;
   const build = () => {
     const dpr = Math.min(2, devicePixelRatio || 1);
     W = box.clientWidth; H = box.clientHeight;
     canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const gap = W < 520 ? 13 : 16, cols = Math.floor(W / gap), rows = Math.floor(H / gap);
+    const gap = W < 520 ? 15 : 19, cols = Math.floor(W / gap), rows = Math.floor(H / gap);
     const ox = (W - (cols - 1) * gap) / 2, oy = (H - (rows - 1) * gap) / 2;
     rng = 7;
     const hubs = Array.from({ length: 4 }, () => ({ x: rand() * W, y: rand() * H }));
-    const raw = [];
+    const raw: { x: number; y: number; t: number }[] = [];
     for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) {
       const x = ox + i * gap, y = oy + j * gap;
       const d = Math.min(...hubs.map((h) => Math.hypot(h.x - x, h.y - y))) / Math.max(W, H);
@@ -120,19 +55,16 @@ if (canvas) {
     const awake = raw.filter((d) => d.t < cut).sort(() => rand() - 0.5);
     const order = new Map(awake.map((d, k) => [d, k / awake.length]));
     dots = raw.map((d) => ({ x: d.x, y: d.y, r: order.get(d) ?? 2 }));
-    box.classList.add('drawn');
   };
+  // dormant: an outline in grey. Woken: the outline fills rust and grows a little, once, as the scroll reaches it.
   const draw = () => {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = 'rgba(244,238,231,.17)';
-    for (const d of dots) if (d.r > 1 || p <= d.r) { ctx.beginPath(); ctx.arc(d.x, d.y, 1.15, 0, 7); ctx.fill(); }
+    ctx.lineWidth = 1; ctx.strokeStyle = dim;
     for (const d of dots) {
-      if (d.r > 1 || p <= d.r) continue;
-      const k = Math.min(1, (p - d.r) * 10);
-      ctx.globalAlpha = 0.16 * k; ctx.fillStyle = acc; ctx.beginPath(); ctx.arc(d.x, d.y, 7 * k, 0, 7); ctx.fill();
-      ctx.globalAlpha = k; ctx.beginPath(); ctx.arc(d.x, d.y, 1.2 + 1.3 * k, 0, 7); ctx.fill();
+      const k = d.r > 1 ? 0 : Math.max(0, Math.min(1, (p - d.r) * 10));
+      if (k === 0) { ctx.beginPath(); ctx.arc(d.x, d.y, R, 0, 7); ctx.stroke(); continue; }
+      ctx.fillStyle = acc; ctx.beginPath(); ctx.arc(d.x, d.y, R + 1.4 * k, 0, 7); ctx.fill();
     }
-    ctx.globalAlpha = 1;
   };
   build(); draw();
   new ResizeObserver(() => { build(); draw(); }).observe(box);
@@ -169,7 +101,7 @@ if (box) {
   const form = $<HTMLFormElement>('form', box)!;
   const steps = $$('.step', form);
   const next = $<HTMLButtonElement>('[data-next]', form), back = $<HTMLButtonElement>('[data-back]', form);
-  const bar = $('[data-bar]', form), at = $('[data-at]', form);
+  const segs = $$('.segs i', form), at = $('[data-at]', form);
   const submit = $<HTMLButtonElement>('[data-submit]', form)!;
   let cur = 0;
   form.noValidate = true;
@@ -182,7 +114,7 @@ if (box) {
   const show = (i: number, focus = true) => {
     cur = i;
     steps.forEach((s, j) => s.classList.toggle('on', j === i));
-    if (bar) bar.style.transform = `scaleX(${(i + 1) / steps.length})`;
+    segs.forEach((g, j) => g.classList.toggle('on', j <= i));
     if (at) at.textContent = String(i + 1);
     if (back) back.hidden = i === 0;
     if (next) next.hidden = i === steps.length - 1;
