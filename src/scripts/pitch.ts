@@ -2,6 +2,7 @@
 // without motion too (the calculator, the stepped form). html.js is set in Pitch.astro's head when motion is on.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { mountBooking } from './cal';
 
 gsap.registerPlugin(ScrollTrigger);
 const root = document.documentElement;
@@ -225,14 +226,10 @@ if (box) {
     submit.disabled = false; label.textContent = was;
     box.dataset.state = state;
     const cal = $('[data-cal]', box);
-    if (state === 'fit' && booking && cal) {
-      const u = new URL(booking);
-      u.searchParams.set('embed', 'true'); u.searchParams.set('theme', 'dark');
+    if (state === 'fit' && booking && cal && !cal.childElementCount) {
       const name = (form.elements.namedItem('name') as HTMLInputElement).value.trim();
-      if (name) u.searchParams.set('name', name);
-      u.searchParams.set('email', email.value.trim());
-      const f = document.createElement('iframe'); f.src = u.toString(); f.title = 'Pick a time'; f.loading = 'lazy';
-      cal.replaceChildren(f);
+      const accent = getComputedStyle(root).getPropertyValue('--acc').trim();
+      mountBooking(cal, booking, { name, email: email.value.trim() }, accent); // booking is tagged by /api/apply
     }
     const shown = $<HTMLElement>(`[data-result="${state}"]`, box);
     shown?.focus({ preventScroll: true });

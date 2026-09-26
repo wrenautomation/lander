@@ -16,7 +16,7 @@ cd ../wren && pnpm offers:export ../lander/src/data/offers.json
 
 wren's gates fail when the snapshot is stale. The build fails when a page names an offer that isn't live, or one whose `page` isn't that page's path.
 
-From the offer, not the yaml: the deal terms (what you get, what you put in, what I get, the guarantee), `{slots}` and `{days}`, the ladder after it (`offer.next`), the form questions and who fits, and the booking link. Set `booking` on the offer to a Cal.com URL and a fit applicant gets the calendar in the page. While it's null they get the thank-you line.
+From the offer, not the yaml: the deal terms (what you get, what you put in, what I get, the guarantee), `{slots}` and `{days}`, the ladder after it (`offer.next`), the form questions and who fits, and the booking link. Set `booking` on the offer to a Cal.com URL and a fit applicant gets the calendar in the page. While it's null they get the thank-you line. The link carries `metadata[offer]`, `metadata[application]` (the `applications.id`) and the utm, so wren can match a booking to its application.
 
 ## Edit the copy
 
@@ -129,10 +129,11 @@ src/layouts/Lander.astro   the niche page
 src/components/pitch/      Console, Calc, Apply (the stepped form), Arrow
 src/styles/pitch.css       pitch design: tokens, bezels, motion gates
 src/styles/global.css      niche design
-src/scripts/pitch.ts       pitch motion, calculator, stepped form, booking embed
+src/scripts/pitch.ts       pitch motion, calculator, stepped form
+src/scripts/cal.ts         the Cal.com calendar in the page (embed.js, inline)
 src/scripts/motion.ts      niche motion, theme, form
 src/scripts/hit.ts         the page-view beacon, utm into the forms
-functions/_shared/         env, form checks (Turnstile, bots), notify (Discord + Resend)
+functions/_shared/         env, form checks (Turnstile, bots), notify (Discord + Resend), booking link tags
 functions/api/apply.ts     POST for pitch pages: offer check, answers, fit, D1, notify
 functions/api/lead.ts      POST for niche pages
 functions/api/hit.ts       POST for the beacon

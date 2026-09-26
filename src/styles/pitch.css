@@ -21,7 +21,7 @@ h1,h2,h3{margin:0;font-weight:500;text-wrap:balance}
 ul,ol{margin:0;padding:0;list-style:none}
 ::selection{background:var(--acc);color:#140c07}
 :focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:6px}
-section[id]{scroll-margin-top:5.5rem}
+section[id],[data-apply]{scroll-margin-top:5.5rem}
 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.005em;color:var(--acc);padding-right:.06em}
 b{font-weight:500;color:var(--ink)}
 
@@ -321,9 +321,9 @@ textarea:focus,.field input:focus{outline:none;border-color:var(--acc);box-shado
 .result:target,[data-state=fit] [data-result=fit],[data-state=nofit] [data-result=nofit],[data-state=error] [data-result=error]{display:block;animation:step-in .8s var(--out) both}
 [data-state=fit] form,[data-state=nofit] form,[data-apply]:has(#applied-fit:target,#applied-nofit:target) form{display:none}
 #applied-error{margin-top:1.4rem}
-.cal{margin-top:1.4rem;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.cal{margin-top:1.4rem;border-radius:16px;overflow:hidden;border:1px solid var(--line);min-height:480px}
 .cal:empty{display:none}
-.cal iframe{display:block;width:100%;height:680px;border:0;background:var(--bg)}
+.cal iframe{display:block;width:100%;border:0}
 
 /* ---------- footer, floating CTA ---------- */
 .foot{border-top:1px solid var(--line);padding:3rem 0 6rem}

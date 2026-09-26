@@ -3,6 +3,7 @@
 // and says whether it fits and where to book. JSON for the page's script; a redirect to #applied-* when JS is off.
 import type { Env } from '../_shared/env';
 import { EMAIL, clip, human, isBot, origin, readForm } from '../_shared/form';
+import { bookingLink } from '../_shared/booking';
 import { notify } from '../_shared/notify';
 import { type Answers, answersFrom, fits, invalidAnswers, offerFor } from '../../src/lib/offers';
 
@@ -29,7 +30,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   if (!(await human(env, form, o.ip))) return reply(403, { ok: false, error: 'turnstile' });
 
   const row = { name: clip(form.get('name'), 120), firm: clip(form.get('firm'), 200), note: clip(form.get('note'), 4000), fit: fits(offer, answers) };
-  await env.DB.prepare(
+  const saved = await env.DB.prepare(
     `insert into applications (ts, offer, name, email, firm, note, answers, fit, page, utm_source, utm_medium, utm_campaign, utm_content, ref, country, ip, ua)
      values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   ).bind(
@@ -54,5 +55,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     body: [...said, row.note].filter(Boolean).join('\n') || '(no answers)',
     replyTo: email,
   });
-  return reply(200, { ok: true, fit: row.fit, booking: row.fit ? offer.booking : null });
+  const booking = row.fit && offer.booking
+    ? bookingLink(offer.booking, {
+        offer: offer.id, application: String(saved.meta.last_row_id),
+        utm_source: o.utm_source, utm_medium: o.utm_medium, utm_campaign: o.utm_campaign, utm_content: o.utm_content,
+      })
+    : null;
+  return reply(200, { ok: true, fit: row.fit, booking });
 };

@@ -17,7 +17,7 @@
 - `src/lib/pitch.ts` loads a pitch yaml with its offer and fails the build when: the offer isn't live, `offer.page` isn't the pitch path, ladder names don't match `offer.next`, `deal` is on a paid offer, `ask` lacks the copy the offer's form needs, or a `{token}` has no value.
 - `src/lib/offers.ts` holds the fit rule and answer checks, ported from wren. The page and `/api/apply` use the same code.
 - `/api/apply` checks the offer is live, the email, the answers and Turnstile, then writes an `applications` row with answers as JSON and `fit`, and pings Discord and email. It returns JSON to the script, or 303s to `#applied-fit|nofit|error` with JS off.
-- A fit applicant gets the Cal.com embed when `offer.booking` is set, otherwise a thank-you.
+- A fit applicant gets the Cal.com calendar in the page when `offer.booking` is set, otherwise a thank-you. `/api/apply` tags the link (`functions/_shared/booking.ts`); `src/scripts/cal.ts` mounts it with Cal's `embed.js`. Those are the only two files that know the vendor.
 
 ## Decisions
 
@@ -26,11 +26,12 @@
 - D3. Fit is computed on the server from the offer rule, stored, and told to the applicant. Not-fit applicants are still saved and read.
 - D4. Scarcity copy comes from `offer.slots`/`offer.days`, with the reason on the page (one engineer).
 - D5. Dark only, rust accent, solid colours. Gradient text was removed.
+- D7. Cal.com's official inline embed, not a bare iframe. Its `?embed=true` page stays blank until `embed.js` talks to it from the parent.
 - D6. Imagery is code for now: an animated console and a dormant-list dot field. Generated imagery can replace them without layout changes.
 
 ## Next
 
-- wren: pull applications from D1 into deals (authenticated `/api/export`), book calls via an autobrowse `calcom` site, set `booking` on the pilot offer.
+- wren: pull applications from D1 into deals (authenticated `/api/export`); `BookingSync` reads bookings through the `calcom` site and joins on `metadata.application`.
 - wren: a recruiting niche whose arm pitches `recruiting-reactivation-pilot` and links `/recruiting`.
 
 ## Where to attack

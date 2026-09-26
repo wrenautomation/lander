@@ -63,7 +63,7 @@
         "ops-automation-build"
       ],
       "page": "/recruiting",
-      "booking": null,
+      "booking": "https://cal.com/wrenautomation/pilot",
       "application": {
         "questions": [
           {
