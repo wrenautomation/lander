@@ -1,0 +1,268 @@
+---
+// A page that sells one offer: / and /recruiting. Copy from src/content/pitches, terms from the offer
+// (src/data/offers.json via lib/pitch.ts). Sections render in this order; a section left out of the yaml
+// doesn't render. Reads fully with JS off; src/scripts/pitch.ts adds the motion.
+import '../styles/pitch.css';
+import type { CollectionEntry } from 'astro:content';
+import { getEntry } from 'astro:content';
+import Head from '../components/Head.astro';
+import Analytics from '../components/Analytics.astro';
+import Mark from '../components/Mark.astro';
+import Arrow from '../components/pitch/Arrow.astro';
+import Console from '../components/pitch/Console.astro';
+import Calc from '../components/pitch/Calc.astro';
+import Apply from '../components/pitch/Apply.astro';
+import { loadPitch } from '../lib/pitch';
+import { bare, rich, richParas } from '../lib/text';
+
+const { entry } = Astro.props as { entry: CollectionEntry<'pitches'> };
+const { p, offer, next } = await loadPitch(entry);
+const site = (await getEntry('site', 'site'))!.data;
+const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const year = new Date().getFullYear();
+const pad = (i: number) => String(i + 1).padStart(2, '0');
+---
+<!doctype html>
+<html lang="en" class="pitch" data-niche={p.form_value}>
+<head>
+  <Head title={bare(p.title)} description={bare(p.description)} />
+  <meta name="color-scheme" content="dark">
+  <script is:inline>
+    /* motion on: hide what the script reveals, before first paint. Off for ?static and reduced motion, so the page reads as-is. */
+    try{if(!new URLSearchParams(location.search).has('static')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js')}catch(e){}
+  </script>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <nav class="pill" aria-label="Page" data-nav>
+    <a class="home" href="#top" aria-label="Wren Automation, top of page"><Mark /></a>
+    <div class="links">{p.nav.map((n) => <a href={n.to}>{n.label}</a>)}</div>
+    <a class="btn sm" href="#apply" data-cta><span>{p.nav_cta}</span><Arrow /></a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="top">
+  <div class="glow" aria-hidden="true"><i></i><i></i></div>
+  <div class="wrap hero-grid">
+    <div class="copy">
+      <p class="eyebrow" data-rise>{p.hero.eyebrow}</p>
+      <h1 data-split set:html={rich(p.hero.h1)} />
+      <div class="lede" data-rise set:html={richParas(p.hero.lede)} />
+      <div class="ctas" data-rise>
+        <a class="btn" href={p.hero.cta_to} data-cta><span>{p.hero.cta}</span><Arrow /></a>
+        <a class="ghost" href={p.hero.second_to}>{p.hero.second}</a>
+      </div>
+      <p class="note" data-rise>{p.hero.note_to ? <a class="ghost" href={p.hero.note_to}>{p.hero.note}</a> : p.hero.note}</p>
+    </div>
+    {p.console && <Console c={p.console} />}
+  </div>
+</section>
+
+{p.strip && (
+  <section class="strip" aria-label={p.strip.label}>
+    <p class="wrap">{p.strip.label}</p>
+    <div class="marquee"><div class="track">
+      <ul>{p.strip.items.map((x) => <li>{x}</li>)}</ul>
+      <ul aria-hidden="true">{p.strip.items.map((x) => <li>{x}</li>)}</ul>
+    </div></div>
+  </section>
+)}
+
+{p.field && (
+  <section class="sec field" id="field" data-field-sec>
+    <div class="wrap two">
+      <div class="head">
+        <p class="eyebrow" data-rise>{p.field.eyebrow}</p>
+        <h2 data-rise set:html={rich(p.field.h2)} />
+        <div class="intro" data-rise set:html={richParas(p.field.text)} />
+        <ul class="legend" data-rise>
+          <li><i class="dim"></i>{p.field.dormant}</li>
+          <li><i class="lit"></i>{p.field.awake}</li>
+        </ul>
+      </div>
+      <div class="shell" data-rise><div class="core dots"><canvas data-field aria-hidden="true"></canvas></div></div>
+    </div>
+  </section>
+)}
+
+{p.calc && <Calc c={p.calc} />}
+
+<section class="sec halves" id="halves">
+  <div class="wrap">
+    <div class="head center">
+      <p class="eyebrow" data-rise>{p.halves.eyebrow}</p>
+      <h2 data-rise set:html={rich(p.halves.h2)} />
+      <p class="intro" data-rise>{p.halves.intro}</p>
+    </div>
+    <div class="split">
+      {p.halves.sides.map((s, i) => (
+        <article class:list={['shell', 'side', { front: i === 0 }]} data-rise>
+          <div class="core">
+            <p class="tag">{s.tag}</p>
+            <h3 set:html={rich(s.h3)} />
+            <p class="sub">{s.text}</p>
+            <ul>
+              {s.items.map((it) => (
+                <li><div><b>{it.name}</b>{it.badge && <span class="badge">{it.badge}</span>}</div><p>{it.text}</p></li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+      <span class="joint" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></span>
+    </div>
+    <p class="bridge" data-rise set:html={rich(p.halves.bridge)} />
+  </div>
+</section>
+
+{p.industries && (
+  <section class="sec industries" id="industries">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow" data-rise>{p.industries.eyebrow}</p>
+        <h2 data-rise set:html={rich(p.industries.h2)} />
+      </div>
+      <div class="cards">
+        {p.industries.items.map((it, i) => (
+          <a class:list={['shell', 'card', { lead: i === 0 }]} href={it.to} data-rise data-cta={it.to === '#apply' ? '' : undefined}>
+            <div class="core">
+              {it.badge && <span class="badge">{it.badge}</span>}
+              <h3>{it.name}</h3>
+              <p>{it.text}</p>
+              <span class="go">{it.go}<Arrow /></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<section class="sec steps" id="how">
+  <div class="wrap two">
+    <div class="head sticky">
+      <p class="eyebrow" data-rise>{p.steps.eyebrow}</p>
+      <h2 data-rise set:html={rich(p.steps.h2)} />
+      <p class="intro" data-rise>{p.steps.intro}</p>
+    </div>
+    <ol class="timeline" data-timeline>
+      <span class="rail" aria-hidden="true"><i data-rail></i></span>
+      {p.steps.items.map((s) => (
+        <li data-rise data-stop><span class="node" aria-hidden="true"></span><p class="when">{s.when}</p><h3>{s.name}</h3><p>{s.text}</p></li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+{p.deal && (
+  <section class="sec deal" id="deal">
+    <div class="wrap">
+      <div class="head center">
+        <p class="eyebrow" data-rise>{p.deal.eyebrow}</p>
+        <h2 data-rise set:html={rich(p.deal.h2)} />
+        <p class="intro" data-rise>{offer.promise}</p>
+      </div>
+      <div class="terms">
+        {[
+          { h: p.deal.get, items: offer.youGet, cls: 'get' },
+          { h: p.deal.give, items: offer.youGive, cls: 'give' },
+          { h: p.deal.we_get, items: offer.weGet, cls: 'we' },
+        ].map((t) => (
+          <div class:list={['shell', t.cls]} data-rise><div class="core">
+            <h3>{t.h}</h3>
+            <ul>{t.items.map((x) => <li>{x}</li>)}</ul>
+          </div></div>
+        ))}
+      </div>
+      {offer.guarantee && (
+        <div class="guarantee" data-rise><span>{p.deal.guarantee}</span><p>{offer.guarantee}</p></div>
+      )}
+      <div class="why">
+        {p.deal.why.map((w) => <div data-rise><h3>{w.q}</h3><p>{w.a}</p></div>)}
+      </div>
+    </div>
+  </section>
+)}
+
+{p.ladder && next.length > 0 && (
+  <section class="sec ladder">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow" data-rise>{p.ladder.eyebrow}</p>
+        <h2 data-rise set:html={rich(p.ladder.h2)} />
+        <p class="intro" data-rise>{p.ladder.intro}</p>
+      </div>
+      <ol class="rungs">
+        <li class="now" data-rise><span class="n">{pad(0)}</span><div><p class="tag">{offer.name}</p><p>{offer.promise}</p></div></li>
+        {next.map((o, i) => (
+          <li data-rise><span class="n">{pad(i + 1)}</span><div><p class="tag">{p.ladder!.names[o.id]}</p><h3>{o.name}</h3><p>{o.promise}</p></div></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+)}
+
+<section class="sec proof">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow" data-rise>{p.proof.eyebrow}</p>
+      <h2 data-rise set:html={rich(p.proof.h2)} />
+      <p class="intro" data-rise>{p.proof.intro}</p>
+    </div>
+    <div class="figs">
+      {p.proof.items.map((f) => (
+        <div data-rise><b class="fig">{f.fig}</b><p class="lbl">{f.label}</p><p>{f.text}</p></div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="sec about" id="about">
+  <div class="wrap two">
+    {p.about.photo && (
+      <div class="shell photo" data-rise><div class="core"><img src={p.about.photo} alt={site.name} width="640" height="640" loading="lazy"></div></div>
+    )}
+    <div class="head">
+      <p class="eyebrow" data-rise>{p.about.eyebrow}</p>
+      <h2 data-rise set:html={rich(p.about.h2)} />
+      {p.about.paras.map((x) => <p class="para" data-rise>{x}</p>)}
+      <p class="sign" data-rise>{p.about.sign}</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec faq">
+  <div class="wrap two">
+    <div class="head sticky">
+      <p class="eyebrow" data-rise>{p.faq.eyebrow}</p>
+      <h2 data-rise set:html={rich(p.faq.h2)} />
+    </div>
+    <div class="qa">
+      {p.faq.items.map((x) => (
+        <details data-rise><summary>{x.q}<i aria-hidden="true"></i></summary><p>{x.a}</p></details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<Apply a={p.ask} offer={offer} email={site.email} path={p.path} />
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <a class="home" href="#top" aria-label="Wren Automation, top of page"><Mark /></a>
+    <a href={`mailto:${site.email}`}>{site.email}</a>
+    <p class="fine">© {year} Wren Automation · {site.city} · {site.fine}{turnstile && <> {site.fine_turnstile} <a href="https://www.cloudflare.com/turnstile-privacy-policy/">{site.fine_turnstile_link}</a>.</>} <a href="/privacy">{site.fine_privacy}</a></p>
+  </div>
+</footer>
+
+<a class="btn float" href="#apply" data-cta data-float><span>{p.nav_cta}</span><Arrow /></a>
+
+<script src="../scripts/pitch.ts"></script>
+<script src="../scripts/hit.ts"></script>
+<Analytics />
+</body>
+</html>

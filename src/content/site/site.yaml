@@ -1,5 +1,5 @@
 # Copy shared by every page. Edit freely. Keep the keys.
-# **bold** works in: h1 and lede (niche files and chooser), the chooser niche text, ask_intro, offer.promise. In the h1 it is the accent colour; in the lede it is ink on grey. Keep it to the words a reader in that industry sees every day.
+# **bold** works in: h1 and lede (niche files), ask_intro, offer.promise. In the h1 it is the accent colour; in the lede it is ink on grey. Keep it to the words a reader in that industry sees every day.
 # A value with a colon or a * needs quotes.
 
 name: William Jin
@@ -20,31 +20,6 @@ theme:
 cta: Get the free audit
 # The link to the form after the case studies and again after the offer.
 mid_cta: Start with the free audit
-# wrenautomation.com/: the chooser. The h1 says what is on offer in plain words (custom automations, for firms). Three lines above the cards (the pain, who, the proof), no more: the page is a fork, not a read. `slug` is the niche file name; the card's colour comes from that file.
-chooser:
-  title: Wren Automation
-  kicker: For RIAs, insurance agencies, marketing and dev shops
-  h1: "**Custom automations** for firms."
-  lede: |
-    Someone at your firm keeps the same client, figure or policy in four places by hand, and one place is wrong until a client points it out. Nothing connects your tools, so a person does. It grows with every client, and it is the work good people quit over.
-
-    I'm William. I build the connection, inside the tools you already use.
-  proof: "One build has 17,000 users. Another gave a lab back 200 hours. Both still run without me."
-  pick: Pick your industry
-  pick_text: Your page shows the jobs I automate in your industry, by hand today and once it's built.
-  niches:
-    - slug: ria
-      name: RIAs
-      text: "**Every amendment, four documents edited by hand.** Part 1, Part 2A, the manual and the quarterly letter."
-    - slug: insurance
-      name: Insurance agencies
-      text: "**The same insured keyed in four times.** The certificate, the renewal, the proposal and the loss run request."
-    - slug: agencies
-      name: Marketing and dev shops
-      text: "**The same client typed into five tools.** The CRM, the board, the timesheet, the invoice and the notes doc."
-  go: See the before and after
-  other_pre: Not one of these?
-  other: Email me
 
 # The offer in one breath, right under the hero. `more` links to the offer section below.
 offer:

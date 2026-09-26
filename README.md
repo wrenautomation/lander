@@ -1,48 +1,57 @@
 # Wren Automation lander
 
-Post-email credibility page. `/` is a chooser (three cards, one per industry); `/ria`, `/insurance`, `/agencies` are the pages.
-Spec: `designs/2026-09-14-lander-spec.md`.
+wrenautomation.com. Two kinds of page:
+- **Pitch pages** sell one offer: `/` (the general story, more business in and less busywork out) and `/recruiting` (the free reactivation pilot). The wren recruiting emails link to `/recruiting`.
+- **Niche pages**, the older design: `/agencies`. `/ria` and `/insurance` are gone and 301 to `/` (`public/_redirects`).
+
+Specs: `designs/2026-09-25-pitch-pages.md` (pitch pages), `designs/2026-09-14-lander-spec.md` (niche pages). Offers: `wren/designs/2026-09-25-offers.md`.
+
+## Offers come from wren
+
+Every pitch page sells a named offer from wren's registry (`wren/packages/offers`). The lander reads a snapshot of it, `src/data/offers.json`. Never edit that file by hand. Change the offer in wren, then:
+
+```
+cd ../wren && pnpm offers:export ../lander/src/data/offers.json
+```
+
+wren's gates fail when the snapshot is stale. The build fails when a page names an offer that isn't live, or one whose `page` isn't that page's path.
+
+From the offer, not the yaml: the deal terms (what you get, what you put in, what I get, the guarantee), `{slots}` and `{days}`, the ladder after it (`offer.next`), the form questions and who fits, and the booking link. Set `booking` on the offer to a Cal.com URL and a fit applicant gets the calendar in the page. While it's null they get the thank-you line.
 
 ## Edit the copy
 
-All words live in `src/content/`. Nothing in `src/` outside that folder is prose.
+All words live in `src/content/`.
 
 | Want to change | File |
 |---|---|
-| Headline, intro, "what this proves", "what gets automated" list for one page | `niches/<page>.yaml` |
-| The front page: headline, the three cards, the "not one of these" line | `site/site.yaml`, `chooser:` |
-| A case study (story, now, steps, numbers, stack) | `case-studies/<name>.yaml` |
-| "Which column is your week" rows and the "pick the rows" line for one page | `niches/<page>.yaml`, `sides:` and `sides_pick:` |
-| Everything else: nav, offer teaser, section headings and labels, how it works, principles, why not an agency, questions, about, form fields, footer, 404 | `site/site.yaml` |
+| Any words on `/` or `/recruiting` | `pitches/home.yaml`, `pitches/recruiting.yaml` |
+| Any words on `/agencies` | `niches/agencies.yaml`, plus `site/site.yaml` for the shared parts |
+| A case study on a niche page | `case-studies/<name>.yaml` |
+| Footer, 404, email, city | `site/site.yaml` |
 
-Rules:
-- A blank line inside a text value is a paragraph break. Write long fields as `key: |` blocks with a blank line between paragraphs (see `how:` in `site.yaml`). Two or three short paragraphs read on a phone; one long one does not.
-- `**bold**` works in `h1`, `lede`, `ask_intro` and `offer.promise` only. In the h1 it turns the words the accent colour; in the lede it turns them ink. Use it for the words a reader in that industry sees every day (AUM, ADV, renewals), a few per page.
-- A value with a colon or a `*` needs quotes: `h1: "Renewals: the short version"`.
-- Form fields are the `ask_fields` list. Keys: `name`, `email`, `phone`, `note`, `questions`. `required: true` adds the `*` and the check; `error` is the line shown under the field when the check fails. The email is always checked on the server. A database made before 2026-09-15 needs `npm run db:alter` once for the `name` and `questions` columns.
-- Keep the indentation. A stray key or missing field fails the build with the file and line.
-- Case-study `count:` makes a figure count up on scroll. Leave it out for text figures like `½ day`.
-- A step with `you: true` gets the filled node (a person does it).
+Rules for pitch yaml:
+- `*word*` renders serif italic in the accent colour (headlines). `**word**` renders ink.
+- `{slots}` and `{days}` fill from the offer. A card under `industries` that names its own `offer:` fills from that one. A token the offer doesn't have fails the build.
+- A section left out doesn't render: `console`, `strip`, `field`, `calc`, `industries`, `deal`, `ladder` are optional. `deal` needs a free offer. `ladder.names` must name exactly the offer's `next`.
+- `ask` must have `steps` and `nofit` when the offer has an application, `book_h` and `book` when it has a booking link. The `nofit` line says the fit rule in words; change it with the fit rule in wren.
+- A blank line inside a `|` block is a paragraph break. A value with a colon or `*` at the start needs quotes.
 
-New page: copy `niches/ria.yaml` to `niches/<slug>.yaml`. The file name is the URL. Set `hue` (rust, green or red) and `form_value`. Add a card for it under `chooser.niches` in `site.yaml`.
-New case study: add `case-studies/<name>.yaml`, then list `<name>` under `cases:` in each niche that should show it.
-Photo: `public/headshot.png`, set by `photo:` in `site.yaml`. Remove that line and the slot goes invisible.
-Colours, spacing, breakpoint: `src/styles/global.css`. One breakpoint, 840px.
+New pitch page: add `pitches/<name>.yaml` with a `path`, name an offer whose `page` is that path, export the offer snapshot.
 
 ## Run it
 
 ```
 npm install
 npm run dev        # http://localhost:4321, live reload, no form backend
-npm run preview    # full build + Cloudflare emulation, form works against a local D1
+npm run preview    # full build + Cloudflare emulation, forms work against a local D1
+npm run check      # astro check + functions typecheck
 ```
 
 Before the first `preview`: `npx wrangler d1 execute wren-leads --local --file schema.sql`.
+The real Turnstile keys fail on localhost. To test a form locally, build with the test site key and pass the test secret:
+`PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA npx astro build`, and `TURNSTILE_SECRET=1x0000000000000000000000000000000AA` in `.dev.vars`. Put the real ones back after.
 
-Theme: light by default, the button remembers. Add `?theme=dark` to force it.
-Motion off: `?static`, or the OS reduced-motion setting.
-Landing intro, the first time a tab opens each page: the chooser gets the overlay (mark and trace, then the sheet lifts), a niche page draws its hero trace in place. `?intro=1` / `?intro=2` force one, `?intro=0` turns it off. Gate in `Base.astro`, the inline script; the in-place trace is the empty `svg.itr` at the top of each hero.
-Theme toggle: `src/components/Theme.astro`, sun and moon icons; the `theme:` words in `site.yaml` are the button's accessible name.
+Motion off: `?static`, or the OS reduced-motion setting. Pitch pages are dark only; niche pages default dark with a toggle.
 
 ## Deploy (once)
 
@@ -58,7 +67,7 @@ npm run deploy
 ```
 
 Custom domain (done 2026-09-15): Pages project → Custom domains → add `wrenautomation.com` and `www`, then DNS → Records → `CNAME @ wren-lander.pages.dev` and `CNAME www wren-lander.pages.dev`, both proxied. Pages goes active a few minutes after the records exist.
-Every later deploy: push to `main`. GitHub Actions (`.github/workflows/deploy.yml`) runs check, build and deploy; watch it with `gh run watch`. `npm run deploy` still works from your machine.
+Every later deploy: push to `main`. A change to `schema.sql` needs `npm run db:migrate` first; CI doesn't migrate D1. GitHub Actions (`.github/workflows/deploy.yml`) runs check, build and deploy; watch it with `gh run watch`. `npm run deploy` still works from your machine.
 The workflow needs four repo secrets: `CLOUDFLARE_API_TOKEN` (dash → My Profile → API Tokens → Create, Account · Cloudflare Pages · Edit), `CLOUDFLARE_ACCOUNT_ID`, `PUBLIC_CF_ANALYTICS`, `PUBLIC_TURNSTILE_SITE_KEY`. Set one with `gh secret set NAME -R wrenautomation/lander`.
 
 ## Every key the site can take
@@ -81,12 +90,14 @@ No cookies, no ids. The footer line promises that; keep it true.
 
 - **Cloudflare Web Analytics** (if the token is set): visits, referrers, per page. Cookieless.
 - **Our own beacon** (`src/scripts/hit.ts` → `/api/hit` → `hits` table): one row per page view when the tab closes or hides. Page, % scrolled, seconds visible, clicked the CTA, touched the form, viewport width, utm, referrer, country. Sent with `sendBeacon`, so it survives the tab closing. Skipped with `?static` / `?probe`.
-- **Leads** (`leads` table): the form fields plus the utm and referrer the visitor arrived with, country, ip, user agent.
+- **Leads** (`leads` table): the niche-page form, plus the utm and referrer the visitor arrived with, country, ip, user agent.
+- **Applications** (`applications` table): the pitch-page form. Offer, name, email, firm, note, every answer as JSON keyed by question id, `fit` (1/0 by the offer's rule), page, utm, ref, country, ip, user agent. A fit applicant is told so on the page; Discord and email ping either way.
 
 ```
 npm run hits            # per page: views, mobile share, avg depth, avg secs, CTA clicks, form touches
 npm run hits:campaign   # the same per utm_campaign
 npm run leads           # last 50 leads
+npm run applications    # last 50 applications
 EMAIL=x@y.com npm run forget   # delete a lead on request
 ```
 
@@ -94,29 +105,37 @@ Views under 2 seconds are dropped from the summaries (bots, misclicks). Under ~1
 
 ### Links you send
 
-Put a utm on every link in an email: `https://wrenautomation.com/ria?utm_source=email&utm_campaign=ria-sep`.
-`utm_campaign` is the one you will group by. The first utm a visitor lands with stays with them if they click from `/` to `/ria` in the same tab, and it is saved on the lead if they submit.
+Put a utm on every link in an email: `https://wrenautomation.com/recruiting?utm_source=email&utm_campaign=recruiting-sep`.
+`utm_campaign` is the one you will group by. The first utm a visitor lands with stays with them for the tab, and it is saved on the lead or application if they submit.
 
 ### Pixels
 
-None. A Meta / LinkedIn / Google pixel sets cookies, which breaks the footer promise and needs a consent banner (Quebec Law 25, PIPEDA). Add one only when running paid ads, together with a `/privacy` page and a consent gate. There is no `/thanks` page; the thank-you is `?sent=1` on the same URL, so count conversions from the `leads` table, not from a page view.
+None. A Meta / LinkedIn / Google pixel sets cookies, which breaks the footer promise and needs a consent banner (Quebec Law 25, PIPEDA). Add one only when running paid ads, together with a `/privacy` page and a consent gate. There is no `/thanks` page; the result shows on the same URL, so count conversions from the `leads` and `applications` tables, not from a page view.
 
 ## Layout
 
 ```
-src/content/         copy (yaml)
-src/content.config.ts  what each yaml must contain
-src/pages/[...slug].astro  one route per niche file
-src/pages/404.astro        the not-found page (copy in site.yaml)
-src/pages/sitemap.xml.ts   one URL per niche page
-src/components/Foot.astro  footer: privacy line, © year, analytics clause
-public/robots.txt          allows everything except /api/, points at the sitemap
-public/_headers            security headers and cache rules
-src/layouts/Lander.astro   the page
-src/styles/global.css      mobile first, one breakpoint
-src/scripts/motion.ts      theme, traces, counters, form
-src/scripts/hit.ts         the page-view beacon, utm into the form
-functions/api/lead.ts      POST handler: D1 row, optional Turnstile + email
-functions/api/hit.ts       POST handler for the beacon
-schema.sql                 the leads and hits tables
+src/content/pitches/       pitch page copy (one yaml per page)
+src/content/niches/        niche page copy
+src/content.config.ts      what each yaml must contain
+src/data/offers.json       offer snapshot exported from wren; never hand-edited
+src/lib/offers.ts          offer types, fit rule, answer checks (shared by pages and functions)
+src/lib/pitch.ts           loads a pitch with its offer; every build-time check lives here
+src/lib/text.ts            *accent*, **ink**, paragraphs, {token} filling
+src/pages/[...slug].astro  one route per pitch file
+src/pages/[niche].astro    one route per niche file
+src/layouts/Pitch.astro    the pitch page, sections in fixed order
+src/layouts/Lander.astro   the niche page
+src/components/pitch/      Console, Calc, Apply (the stepped form), Arrow
+src/styles/pitch.css       pitch design: tokens, bezels, motion gates
+src/styles/global.css      niche design
+src/scripts/pitch.ts       pitch motion, calculator, stepped form, booking embed
+src/scripts/motion.ts      niche motion, theme, form
+src/scripts/hit.ts         the page-view beacon, utm into the forms
+functions/_shared/         env, form checks (Turnstile, bots), notify (Discord + Resend)
+functions/api/apply.ts     POST for pitch pages: offer check, answers, fit, D1, notify
+functions/api/lead.ts      POST for niche pages
+functions/api/hit.ts       POST for the beacon
+schema.sql                 leads, hits, applications (safe to re-run)
+public/_redirects          /ria and /insurance to /
 ```

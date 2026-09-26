@@ -23,7 +23,7 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 const input = { name: { type: 'text', autocomplete: 'given-name' }, email: { type: 'email', autocomplete: 'email' }, phone: { type: 'tel', autocomplete: 'tel' }, note: {}, questions: {} } as const;
 const multi = new Set(['note', 'questions']);
 ---
-<Base title={n.title} description={plain(n.lede)} hue={n.hue}>
+<Base title={n.title} description={plain(n.lede)} hue={n.hue} niche={n.form_value}>
 
 <div class="wrap">
   <nav class="nav" aria-label="Page">

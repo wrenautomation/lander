@@ -1,0 +1,27 @@
+---
+// Everything in <head> every page shares: meta, social cards, icons, fonts. Layouts add their own scripts after it.
+const { title, description, image = '/brand/wren-lockup.png', noindex = false } = Astro.props as {
+  title: string; description: string; image?: string; noindex?: boolean;
+};
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={canonical}>
+{noindex && <meta name="robots" content="noindex">}
+<link rel="icon" href="/brand/wren-mark.png">
+<link rel="apple-touch-icon" href="/brand/wren-mark.png">
+<meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#110e0c" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Wren Automation">
+<meta property="og:url" content={canonical}>
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:image" content={new URL(image, Astro.site)}>
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">

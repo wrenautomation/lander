@@ -1,7 +1,7 @@
 // Schemas for the content files. William edits the files, never this.
 import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
-import { glob } from 'astro/loaders';
+import { file, glob } from 'astro/loaders';
 
 const one = (base: string) =>
   glob({ pattern: '**/*.yaml', base: `./src/content/${base}` });
@@ -71,11 +71,6 @@ const site = defineCollection({
     theme: z.strictObject({ to_dark: z.string(), to_light: z.string() }),
     cta: z.string(),
     mid_cta: z.string(), // the link to the form after the case studies and after the offer
-    chooser: z.strictObject({ // the front page: pick an industry
-      title: z.string(), kicker: z.string(), h1: z.string(), lede: z.string(), proof: z.string(), pick: z.string(), pick_text: z.string(),
-      niches: z.array(z.strictObject({ slug: z.string(), name: z.string(), text: z.string() })),
-      go: z.string(), other_pre: z.string(), other: z.string(),
-    }),
     offer: z.strictObject({ eyebrow: z.string(), promise: z.string(), safe: z.string(), more: z.string() }), // promise: **bold** allowed
     work_h2: z.string(),
     work_intro: z.string(),
@@ -121,4 +116,129 @@ const site = defineCollection({
   }),
 });
 
-export const collections = { niches, cases, site };
+// The offer registry, exported from wren (packages/offers) by `pnpm offers:export`. Never edited here.
+// This schema is the reader's half of the contract: a snapshot of another version fails the build.
+const choice = z.strictObject({ id: z.string(), label: z.string() });
+const question = z.discriminatedUnion('kind', [
+  z.strictObject({ id: z.string(), ask: z.string(), kind: z.enum(['one', 'many']), choices: z.array(choice), required: z.boolean() }),
+  z.strictObject({ id: z.string(), ask: z.string(), kind: z.literal('text'), placeholder: z.string(), required: z.boolean() }),
+]);
+const range = z.strictObject({ min: z.number(), max: z.number() }).nullable();
+const offers = defineCollection({
+  loader: file('src/data/offers.json', {
+    parser: (text) => {
+      const snap = JSON.parse(text);
+      if (snap.version !== 1) throw new Error(`offers.json is snapshot version ${snap.version}; this site reads version 1`);
+      return snap.offers;
+    },
+  }),
+  schema: z.strictObject({
+    id: z.string(),
+    name: z.string(),
+    status: z.enum(['draft', 'live', 'paused', 'retired']),
+    audience: z.string(),
+    promise: z.string(),
+    price: z.discriminatedUnion('kind', [
+      z.strictObject({ kind: z.literal('free') }),
+      z.strictObject({ kind: z.literal('quoted') }),
+      z.strictObject({ kind: z.literal('fixed'), upfront: range, monthly: range }),
+    ]),
+    slots: z.number().nullable(),
+    days: z.number().nullable(),
+    youGet: z.array(z.string()),
+    youGive: z.array(z.string()),
+    weGet: z.array(z.string()),
+    guarantee: z.string().nullable(),
+    measures: z.array(z.strictObject({ key: z.string(), label: z.string(), unit: z.enum(['count', 'usd', 'hours']) })),
+    next: z.array(z.string()),
+    page: z.string().nullable(),
+    booking: z.string().nullable(),
+    application: z.strictObject({
+      questions: z.array(question),
+      fit: z.array(z.strictObject({ question: z.string(), anyOf: z.array(z.string()) })),
+    }).nullable(),
+  }),
+});
+
+// Pitch pages (/ and /recruiting): one yaml each, the copy for a page that sells one offer.
+// Sections render in a fixed order; leave one out and it doesn't render. *word* in a heading
+// turns it serif italic (the accent), **word** in body text turns it ink.
+const qa = z.array(z.strictObject({ q: z.string(), a: z.string() }));
+const pitches = defineCollection({
+  loader: one('pitches'),
+  schema: z.strictObject({
+    title: z.string(),
+    description: z.string(),
+    path: z.string(),                   // the URL: '/' or '/recruiting'. Must equal the offer's page.
+    offer: z.string(),                  // an id in offers.json, live, whose `page` is this path
+    form_value: z.string(),             // what the D1 row says this page was
+    nav: z.array(z.strictObject({ label: z.string(), to: z.string() })),
+    nav_cta: z.string(),
+    hero: z.strictObject({
+      eyebrow: z.string(), h1: z.string(), lede: z.string(),
+      cta: z.string(), cta_to: z.string(), second: z.string(), second_to: z.string(), note: z.string(), note_to: z.string().optional(), // makes the note a link
+    }),
+    // The hero visual: an example dashboard, labelled as one. Numbers are an illustration.
+    console: z.strictObject({
+      label: z.string(), title: z.string(),
+      stats: z.array(z.strictObject({ label: z.string(), value: z.number(), prefix: z.string().default('') })).length(4),
+      feed_label: z.string(),
+      feed: z.array(z.strictObject({ quote: z.string(), who: z.string(), tag: z.string() })).min(2).max(4),
+    }).optional(),
+    strip: z.strictObject({ label: z.string(), items: z.array(z.string()) }).optional(),
+    field: z.strictObject({ eyebrow: z.string(), h2: z.string(), text: z.string(), dormant: z.string(), awake: z.string() }).optional(),
+    calc: z.strictObject({
+      eyebrow: z.string(), h2: z.string(), intro: z.string(),
+      inputs: z.array(z.strictObject({
+        key: z.enum(['contacts', 'fee', 'rate', 'fill']), label: z.string(),
+        min: z.number(), max: z.number(), step: z.number(), value: z.number(),
+        unit: z.enum(['count', 'usd', 'percent']),
+      })).length(4),
+      out_orders: z.string(), out_fees: z.string(), fine: z.string(),
+    }).optional(),
+    halves: z.strictObject({
+      eyebrow: z.string(), h2: z.string(), intro: z.string(),
+      sides: z.array(z.strictObject({
+        tag: z.string(), h3: z.string(), text: z.string(),
+        items: z.array(z.strictObject({ name: z.string(), text: z.string(), badge: z.string().optional() })),
+      })).length(2),
+      bridge: z.string(),
+    }),
+    industries: z.strictObject({
+      eyebrow: z.string(), h2: z.string(),
+      items: z.array(z.strictObject({ name: z.string(), text: z.string(), to: z.string(), go: z.string(), badge: z.string().optional(), offer: z.string().optional() })),
+    }).optional(),
+    steps: z.strictObject({
+      eyebrow: z.string(), h2: z.string(), intro: z.string(),
+      items: z.array(z.strictObject({ when: z.string(), name: z.string(), text: z.string() })).min(3).max(5),
+    }),
+    // The terms come from the offer; these are the headings around them.
+    deal: z.strictObject({
+      eyebrow: z.string(), h2: z.string(), get: z.string(), give: z.string(), we_get: z.string(),
+      guarantee: z.string(), why: qa,
+    }).optional(),
+    ladder: z.strictObject({ eyebrow: z.string(), h2: z.string(), intro: z.string(), names: z.record(z.string(), z.string()) }).optional(),
+    proof: z.strictObject({
+      eyebrow: z.string(), h2: z.string(), intro: z.string(),
+      items: z.array(z.strictObject({ fig: z.string(), label: z.string(), text: z.string() })).min(2).max(4),
+    }),
+    about: z.strictObject({ eyebrow: z.string(), h2: z.string(), paras: z.array(z.string()), photo: z.string().optional(), sign: z.string() }),
+    faq: z.strictObject({ eyebrow: z.string(), h2: z.string(), items: qa }),
+    // The form: the offer's application when it has one (steps, nofit), else a short contact form.
+    // After a fit: book_h/book with the calendar when the offer has a booking link, thanks_h/thanks without.
+    // The build refuses a page missing the copy its offer needs.
+    ask: z.strictObject({
+      eyebrow: z.string(), h2: z.string(), intro: z.string(),
+      slots: z.string().optional(),     // under the slot bars, when the offer has slots
+      submit: z.string(), sending: z.string(),
+      name: z.string(), email: z.string(), firm: z.string(), note: z.string().optional(),
+      required: z.string(), bad_email: z.string(), error: z.string(),
+      thanks_h: z.string(), thanks: z.string(),
+      book_h: z.string().optional(), book: z.string().optional(),
+      steps: z.strictObject({ step: z.string(), of: z.string(), next: z.string(), back: z.string(), pick_one: z.string(), contact_h: z.string() }).optional(),
+      nofit_h: z.string().optional(), nofit: z.string().optional(),
+    }),
+  }),
+});
+
+export const collections = { niches, cases, site, offers, pitches };

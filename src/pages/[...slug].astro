@@ -1,12 +1,11 @@
 ---
-// /ria, /insurance, /agencies: one page per file in src/content/niches. / is index.astro.
-import { getCollection } from 'astro:content';
-import Lander from '../layouts/Lander.astro';
+// Pitch pages: one per file in src/content/pitches, at its `path` (/ and /recruiting). Niche pages are [niche].astro,
+// a separate route so each layout's CSS stays on its own pages.
+import Pitch from '../layouts/Pitch.astro';
+import { pitchPaths } from '../lib/pitch';
 
 export async function getStaticPaths() {
-  const niches = await getCollection('niches');
-  return niches.map((niche) => ({ params: { slug: niche.id }, props: { niche } }));
+  return (await pitchPaths()).map(({ slug, entry }) => ({ params: { slug }, props: { entry } }));
 }
-const { niche } = Astro.props;
 ---
-<Lander niche={niche} />
+<Pitch entry={Astro.props.entry} />

@@ -1,0 +1,159 @@
+# wrenautomation.com/. The general story for anyone who lands here without an industry link:
+# more business in, less busywork out, both built by one engineer. Industry pages carry the offers.
+# Reader: an owner or executive of a service firm.
+title: Wren Automation
+description: Systems that bring your firm new business, and automations that handle the work it creates.
+path: /
+offer: ops-automation-build
+form_value: general
+
+nav:
+  - { label: What I build, to: "#halves" }
+  - { label: How it works, to: "#how" }
+  - { label: About, to: "#about" }
+nav_cta: Get in touch
+
+hero:
+  eyebrow: Growth and operations systems for service firms
+  h1: More business in. Less *busywork* out.
+  lede: |
+    I build the systems that bring your firm new clients, and the automations that handle the work they create.
+
+    One engineer. Built into the tools you already pay for.
+  cta: Tell me about your firm
+  cta_to: "#apply"
+  second: See what I build
+  second_to: "#halves"
+  note: Recruiting firm? The free pilot is open.
+  note_to: /recruiting
+
+console:
+  label: Example week. Illustration, not a result.
+  title: Your firm · this week
+  stats:
+    - { label: Leads answered, value: 214 }
+    - { label: Meetings booked, value: 31 }
+    - { label: Admin hours saved, value: 46 }
+    - { label: Tasks run, value: 1930 }
+  feed_label: What ran
+  feed:
+    - quote: "New inquiry from the site answered in 2 minutes. Call booked for Tuesday."
+      who: Speed to lead
+      tag: Booked
+    - quote: "Signed contract read, client created in the CRM, kickoff scheduled."
+      who: Onboarding
+      tag: Done
+    - quote: "Monday pipeline report built and sent to the partners."
+      who: Reporting
+      tag: Sent
+
+halves:
+  eyebrow: What I build
+  h2: Two halves of *one system*.
+  intro: Most firms hire for growth and drown in the admin that follows. I build both ends, so the second doesn't eat the first.
+  sides:
+    - tag: Front of house
+      h3: More business in
+      text: A pipeline that doesn't hang on one or two rainmakers.
+      items:
+        - { name: Dead lead reactivation, text: "Past clients and cold contacts, won back in your name." }
+        - { name: Speed to lead, text: "Every inquiry answered in minutes, day or night." }
+        - { name: Outbound to new clients, text: "The companies you want, found, checked and written to." }
+    - tag: Back of house
+      h3: Less busywork out
+      text: Admin that stops growing with headcount.
+      items:
+        - { name: Intake and onboarding, text: "Forms, contracts and documents land in your systems without retyping." }
+        - { name: Scheduling and follow-up, text: "Meetings booked, clients updated, nobody chasing." }
+        - { name: Reports and invoices, text: "The numbers your partners ask for, built by themselves." }
+  bridge: Growth first, because it pays for the rest. Then the admin it creates, automated before it needs a hire.
+
+industries:
+  eyebrow: Where I start
+  h2: Pick *your firm*.
+  items:
+    - name: Recruiting and staffing
+      text: The past clients in your ATS, turned into new job orders.
+      to: /recruiting
+      go: See the free pilot
+      offer: recruiting-reactivation-pilot  # {slots} and {days} in this card come from this offer
+      badge: "Free pilot · {slots} firms"
+    - name: Agencies
+      text: Client onboarding, reporting and the busywork between, automated.
+      to: /agencies
+      go: See the agency page
+    - name: Another industry
+      text: Same systems, your tools. Tell me what a normal week looks like.
+      to: "#apply"
+      go: Tell me about it
+
+steps:
+  eyebrow: How it works
+  h2: From one call to *a system that runs*.
+  intro: You see the plan and the price before anything starts.
+  items:
+    - when: Week 0
+      name: Call
+      text: Thirty minutes. Walk me through a normal week, where the business comes from and where the hours go.
+    - when: Week 1
+      name: Plan
+      text: One page back. What to build first, what it's worth, what it costs. Yours to keep either way.
+    - when: Weeks 2–6
+      name: Build
+      text: Built inside your tools, one milestone at a time. Each one runs before the next starts.
+    - when: After
+      name: Run
+      text: I watch it, fix it and add to it every month. You get the numbers.
+
+proof:
+  eyebrow: Who's building it
+  h2: An engineer, *not an agency*.
+  intro: I write the code myself, so it holds up after the demo.
+  items:
+    - fig: "17,000"
+      label: Government of Canada staff
+      text: use a policy search I built instead of reading 220+ directives by hand.
+    - fig: "200+ hrs"
+      label: University of Alberta lab
+      text: of manual lookups cut across 7,000+ records of messy research data.
+    - fig: "1"
+      label: Person on your build
+      text: who scopes it, builds it and answers when it breaks. No handoffs.
+
+about:
+  eyebrow: About
+  h2: Hi, I'm *William*.
+  paras:
+    - I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
+    - My internships were data pipelines, systems that talk to each other, and CRMs. Now I build the systems that bring firms business, and the automations that handle what comes with it.
+  photo: /headshot.png
+  sign: William Jin · Toronto
+
+faq:
+  eyebrow: Questions
+  h2: What owners *ask first*.
+  items:
+    - q: Do we have to change our tools?
+      a: No. I build inside what you already use. If a tool is the problem, I'll say so and why.
+    - q: What does it cost?
+      a: It starts with a free call and a one-page plan. You see the price before anything is built.
+    - q: What if something breaks?
+      a: If something I built breaks because of my mistake, I fix it free.
+    - q: Who do we deal with?
+      a: Me. The person who scopes it is the person who builds it.
+
+ask:
+  eyebrow: Get in touch
+  h2: Tell me about *your firm*.
+  intro: What you do, where the hours go, what you want more of. I reply within one business day.
+  submit: Send
+  sending: Sending…
+  name: Your name
+  email: Work email
+  firm: Company website
+  note: What's going on?
+  required: Required
+  bad_email: Enter an email I can reply to.
+  error: "That didn't send. Email me instead:"
+  thanks_h: Got it. *Talk soon.*
+  thanks: I'll reply within one business day, from william@wrenautomation.com.

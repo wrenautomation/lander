@@ -1,0 +1,27 @@
+---
+// The hero visual: an example dashboard, labelled as one. Final numbers are in the HTML; the script counts up to them.
+import type { CollectionEntry } from 'astro:content';
+const { c } = Astro.props as { c: NonNullable<CollectionEntry<'pitches'>['data']['console']> };
+const n = (v: number) => v.toLocaleString('en-US');
+---
+<figure class="console" data-console>
+  <div class="shell"><div class="core">
+    <div class="bar">
+      <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="ttl">{c.title}</span>
+      <span class="live"><i aria-hidden="true"></i>Live</span>
+    </div>
+    <div class="stats">
+      {c.stats.map((s) => (
+        <div class="stat"><b data-count={s.value} data-prefix={s.prefix}>{s.prefix}{n(s.value)}</b><span>{s.label}</span></div>
+      ))}
+    </div>
+    <p class="feed-h">{c.feed_label}</p>
+    <ul class="feed">
+      {c.feed.map((f) => (
+        <li data-feed><p>&ldquo;{f.quote}&rdquo;</p><div><span>{f.who}</span><em>{f.tag}</em></div></li>
+      ))}
+    </ul>
+  </div></div>
+  <figcaption>{c.label}</figcaption>
+</figure>

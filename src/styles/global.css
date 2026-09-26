@@ -23,7 +23,7 @@
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-html,body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:Geist,system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
 body{overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit}
@@ -102,40 +102,10 @@ p{margin:0}
 .no-motion .docs .val{opacity:1}
 @media (prefers-reduced-motion:reduce){.demo .in b,.demo svg.wire path.a,.docs .val{animation:none}.demo .in b{width:calc(var(--w) + 1ch);border-color:transparent}.demo svg.wire path.a{stroke-dashoffset:0}.docs .val{opacity:1}}
 
-/* the chooser on /: the discovery, the two builds as proof, then three cards, each in its niche's colour, one click each */
-.hero.choose{padding-top:2.25rem}
-.choose .kicker{margin-bottom:.8rem}
-.choose .lede{margin-bottom:1.5rem}
-.choose-nav .contact{display:inline}
-.proof{font-size:15.5px;line-height:1.55;color:var(--ink);max-width:54ch;margin:0 0 2.2rem;padding-left:.9rem;border-left:2px solid var(--acc)}
-.pick-h{margin-bottom:1rem}
-.pick-h .lbl{font-size:1.35rem;font-weight:600;letter-spacing:-.01em;text-transform:none;color:var(--ink);margin-bottom:.35rem}
-.pick-h p:not(.lbl){font-size:15.5px;color:var(--mute);max-width:54ch}
-.pick{display:grid;gap:.9rem}
-.pick a{display:block;text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:2px;padding:1.1rem var(--pad) 1.3rem;background:color-mix(in srgb,var(--soft) 45%,var(--paper));transition:border-color .15s,transform .15s}
-.pick a:hover,.pick a:focus-visible{border-color:var(--acc);transform:translateY(-2px)}
-.pick h2{font-size:1.45rem;letter-spacing:-.01em;margin-bottom:.45rem}
-.pick p{color:var(--mute);font-size:15.5px;line-height:1.5}
-.pick p b{color:var(--acc);font-weight:600}
-.pick .go{display:inline-block;margin-top:1rem;color:var(--acc);font-weight:600;font-size:15px}
-.pick .go::after{content:'';display:block;height:1px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .2s}
-.pick a:hover .go::after{transform:scaleX(1)}
-.other{margin-top:1.8rem;font-size:15px;color:var(--mute)}
-.other a{color:var(--acc);font-weight:600;text-decoration:none}
-.other a:hover{text-decoration:underline;text-underline-offset:4px}
 
 /* the landing intro (see Base.astro). Until it runs, what it reveals is hidden; if the script never comes, a keyframe shows it after 2.5s. */
 [data-intro] [data-intro-target]>:not(.itr,.copy),[data-intro] [data-intro-target]>.copy>*{opacity:0;animation:intro-safe .01s 2.5s forwards}
 @keyframes intro-safe{to{opacity:1}}
-.sheet{display:none;position:fixed;inset:0;z-index:50;background:var(--paper);place-items:center}
-[data-intro="1"] .sheet{display:grid}
-.sheet svg{position:absolute;left:0;top:50%;width:100%;height:80px;transform:translateY(-50%);overflow:visible}
-.sheet path{fill:none;stroke:var(--trace);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
-.sheet circle{fill:var(--paper);stroke:var(--trace);stroke-width:1;opacity:.8}
-.sheet .a{stroke:var(--acc);stroke-width:1.25;opacity:1} .sheet circle.a{fill:var(--acc)}
-.intro-mark{position:relative;display:block;padding:0 18px;background:var(--paper)}
-.intro-mark .mark{height:64px;width:auto}
-.itr{display:none;width:100%;height:40px;margin-bottom:1.4rem;overflow:visible}
 [data-intro="2"] .itr,.itr.on{display:block}
 .itr path{fill:none;stroke:var(--trace);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;opacity:.75}
 .itr circle{fill:var(--paper);stroke:var(--trace);stroke-width:1;opacity:.75}
@@ -214,7 +184,7 @@ section.s+section.s:not(.ask){padding-top:0}
 .principles>h3{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lbl);margin-bottom:1rem}
 .principles .cols{gap:1rem}
 .principles .cols>div{border:1px solid color-mix(in srgb,var(--acc) 40%,var(--rule));outline:1px solid var(--rule);outline-offset:3px;border-radius:2px;padding:1.1rem var(--pad) 1.5rem;background:color-mix(in srgb,var(--soft) 45%,var(--paper))}
-/* a small band across the top of a card (principles, the chooser): grey hairlines, one accent trace with a filled node */
+/* a small band across the top of a card (principles): grey hairlines, one accent trace with a filled node */
 .tr{display:block;width:100%;height:26px;margin-bottom:.9rem;overflow:hidden;--card:color-mix(in srgb,var(--soft) 45%,var(--paper))}
 .tr path{fill:none;stroke:var(--trace);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;opacity:.7}
 .tr circle{fill:var(--card);stroke:var(--trace);stroke-width:1;opacity:.7}
@@ -317,22 +287,13 @@ footer .fine{font-size:13px;border-top:1px solid var(--rule);padding-top:1rem}
   .nav .links{display:flex}
   .nav .contact{display:none}
   .hero{padding:4rem 0 4rem}
-  .hero:not(.choose) .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem 3rem;align-items:center}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem 3rem;align-items:center}
   .hero .itr{grid-column:1/-1}
   .hero h1{max-width:30ch}
   .hero .lede{font-size:1.15rem;margin:1.2rem 0 1.7rem}
   .demo{margin-top:0}
   .demo svg.wire.d{display:block} .demo svg.wire.m{display:none}
   .docs{grid-template-columns:repeat(var(--n),minmax(0,1fr))}
-  .hero.choose{padding-top:3.25rem}
-  .choose h1{max-width:32ch}
-  .choose .lede{margin-bottom:1.8rem}
-  .proof{font-size:16.5px;margin-bottom:2.8rem;padding-left:1.1rem}
-  .pick-h{margin-bottom:1.2rem}
-  .pick{grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
-  .pick a{padding:1.4rem 1.6rem 1.6rem}
-  .pick h2{font-size:1.6rem}
-  .intro-mark .mark{height:80px}
   .itr{height:48px;margin-bottom:1.8rem}
   form .btn{width:auto}
   .teaser{display:grid;grid-template-columns:1fr 1fr;gap:1rem 3rem;align-items:start;padding:2rem 0 2.1rem}

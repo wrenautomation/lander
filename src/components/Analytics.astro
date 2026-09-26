@@ -1,0 +1,5 @@
+---
+// Cloudflare Web Analytics, when PUBLIC_CF_ANALYTICS is set.
+const token = import.meta.env.PUBLIC_CF_ANALYTICS;
+---
+{token && <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token": "${token}"}`}></script>}

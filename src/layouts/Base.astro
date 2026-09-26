@@ -1,48 +1,29 @@
 ---
+// The layout for /agencies, /privacy and 404. Pitch pages (/, /recruiting) use Pitch.astro.
 import '../styles/global.css';
-const { title, description, hue, image = '/brand/wren-lockup.png', noindex = false } = Astro.props as {
-  title: string; description: string; hue: string; image?: string; noindex?: boolean;
+import Head from '../components/Head.astro';
+import Analytics from '../components/Analytics.astro';
+const { title, description, hue, niche, image, noindex = false } = Astro.props as {
+  title: string; description: string; hue: string; niche?: string; image?: string; noindex?: boolean;
 };
-const canonical = new URL(Astro.url.pathname, Astro.site);
-const analytics = import.meta.env.PUBLIC_CF_ANALYTICS;
 ---
 <!doctype html>
-<html lang="en" data-theme="light" data-hue={hue}>
+<html lang="en" data-theme="dark" data-hue={hue} data-niche={niche}>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{title}</title>
-  <meta name="description" content={description}>
-  <link rel="canonical" href={canonical}>
-  {noindex && <meta name="robots" content="noindex">}
-  <link rel="icon" href="/brand/wren-mark.png">
-  <link rel="apple-touch-icon" href="/brand/wren-mark.png">
-  <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#161311" media="(prefers-color-scheme: dark)">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Wren Automation">
-  <meta property="og:url" content={canonical}>
-  <meta property="og:title" content={title}>
-  <meta property="og:description" content={description}>
-  <meta property="og:image" content={new URL(image, Astro.site)}>
-  <meta name="twitter:card" content="summary_large_image">
+  <Head title={title} description={description} image={image} noindex={noindex} />
   <script is:inline>
-    /* theme before first paint: saved choice, else the system's */
-    try{var t=localStorage.getItem('wren-theme')||'light';document.documentElement.dataset.theme=t}catch(e){}
-    /* the landing intro, the first time a tab opens each page: the overlay (1) on the chooser, the hero drawing itself (2) on a niche page. ?intro=1 / ?intro=2 force one, ?intro=0 turns it off. Off for ?static, reduced motion and deep links. Set here so the first paint already hides what the intro reveals. */
+    /* theme before first paint: the saved choice, else dark */
+    try{var t=localStorage.getItem('wren-theme')||'dark';document.documentElement.dataset.theme=t}catch(e){}
+    /* the hero draws itself the first time a tab opens each page. ?intro=1 forces it, ?intro=0 turns it off. Off for ?static, reduced motion and deep links. Set here so the first paint already hides what the intro reveals. */
     try{var p=new URLSearchParams(location.search),i=p.get('intro'),k='wren-intro:'+location.pathname,ok=!p.has('static')&&!p.has('sent')&&!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(ok&&i===null&&!sessionStorage.getItem(k))i=location.pathname==='/'?'1':'2';
-    if(ok&&i&&i!=='0'){document.documentElement.dataset.intro=i;sessionStorage.setItem(k,'1')}}catch(e){}
+    if(ok&&i===null&&!sessionStorage.getItem(k))i='2';
+    if(ok&&i&&i!=='0'){document.documentElement.dataset.intro='2';sessionStorage.setItem(k,'1')}}catch(e){}
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="sheet" aria-hidden="true"><svg data-intro-svg></svg><span class="intro-mark"><img class="mark l" src="/brand/wren-mark.png" alt="" width="1048" height="957"><img class="mark d" src="/brand/wren-mark-white.png" alt="" width="1048" height="957"></span></div>
   <slot />
   <script src="../scripts/motion.ts"></script>
   <script src="../scripts/hit.ts"></script>
-  {analytics && <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token": "${analytics}"}`}></script>}
+  <Analytics />
 </body>
 </html>

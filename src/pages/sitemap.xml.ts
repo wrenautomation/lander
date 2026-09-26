@@ -1,13 +1,12 @@
-// The chooser and one URL per niche page. Search engines find it through robots.txt.
+// Every pitch and niche page. Search engines find it through robots.txt.
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 
 export const GET: APIRoute = async ({ site }) => {
-  const niches = await getCollection('niches');
-  const urls = [new URL('/', site).href, ...niches.map((n) => new URL(`/${n.id}`, site).href)];
+  const paths = [...(await getCollection('pitches')).map((p) => p.data.path), ...(await getCollection('niches')).map((n) => `/${n.id}`)];
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u) => `  <url><loc>${u}</loc></url>`).join('\n')}
+${paths.map((p) => `  <url><loc>${new URL(p, site).href}</loc></url>`).join('\n')}
 </urlset>
 `;
   return new Response(body, { headers: { 'Content-Type': 'application/xml' } });

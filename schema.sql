@@ -43,3 +43,28 @@ create table if not exists hits (
 );
 
 -- name and questions were added 2026-09-15. A database created before then: npm run db:alter
+
+-- one row per application from a pitch page (functions/api/apply.ts). offer = an id in the offer registry
+-- (wren packages/offers). answers = JSON {question id: choice id | [choice ids] | text}; fit = 1 when every
+-- fit gate passed. Offers without an application (the / contact form) store {} and fit 1. Added 2026-09-25.
+create table if not exists applications (
+  id integer primary key autoincrement,
+  ts text not null,
+  offer text not null,
+  name text,
+  email text not null,
+  firm text,
+  note text,
+  answers text not null,
+  fit integer not null,
+  page text,
+  utm_source text,
+  utm_medium text,
+  utm_campaign text,
+  utm_content text,
+  ref text,
+  country text,
+  ip text,
+  ua text
+);
+create index if not exists ix_applications_ts on applications (ts);

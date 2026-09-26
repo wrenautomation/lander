@@ -8,50 +8,47 @@ web
 
 ## Stack
 
-Astro, static output, GSAP + ScrollTrigger for motion, Cloudflare Pages with one Pages Function for the lead form. Confirmed by William 2026-09-14.
+Astro, static output, GSAP + ScrollTrigger for motion, Cloudflare Pages Functions + D1 for the forms. Confirmed by William 2026-09-14.
 
 ## Users
 
-Owners and principals of small registered investment advisers (RIAs), and soon insurance agencies. Age skews 45 to 65. They received a hyper-personalised cold email from William (it quotes their own Form ADV), and they either clicked "More at <link>" or googled him. They read on a phone, skeptical, deciding in under a minute whether the email was real and whether replying is safe.
+Owners, CEOs and managing directors of midsize service firms. First: recruiting and staffing firms (5+ recruiters, years of past clients in the ATS). They got a cold email from wren and clicked, or found the site. They care about two things: more business (job orders, a pipeline that doesn't hang on one rainmaker) and less busywork for their team. Skeptical, often on a phone, deciding in under a minute.
 
 ## Product Purpose
 
-Wren Automation is William's one-person automation agency. It builds document and workflow automations for small financial firms: the handoffs between people, manual spreadsheets, brittle edits, the same AUM figure typed into five documents. The site exists to make the cold email believable and to make replying feel low-risk. Success: the visitor believes the case studies and replies to the email, or submits the form.
+Wren Automation is William's one-engineer firm. It builds both halves: systems that bring a firm new business (dead lead reactivation, speed to lead, outbound) and automations that handle the admin that business creates. The site makes the email believable, states the offer plainly, and turns interest into an application and a booked call.
 
 ## Positioning
 
-A stranger read your filing and built things like this before. Proof is specific and personal: named work, before and after numbers, a real person. No agency gloss, no team page, no pricing, no calendar link. The first step is a free consultation and an audit, scheduled by replying with times.
+An engineer, not an agency. Every pitch page sells one named offer from wren's registry (`wren/packages/offers`). Recruiting: a free 30-day dead lead reactivation pilot, 3 firms at a time, in exchange for a case study, introductions and real numbers. The paid ladder after it is shown, never priced on the page except where the offer says so. ICP for the ladder: firms that can pay $10-15k upfront and $5-10k/mo.
 
 ## Operating Context
 
-Visitors arrive from the cold-email campaign run by emails_gen (the sibling repo). Email CTA is organic scheduling: "send me some times, I'll book it". The site must not contradict that: no Calendly, no "15 minutes". Niche pages (`/ria`, `/insurance`) match the email's niche; the root is generic. Niche pages never link to each other.
+wren's recruiting campaign links to `/recruiting`. `/` tells the general story and routes recruiting firms to `/recruiting`. `/agencies` stays on the older niche design. The form is an application: offer questions one at a time, then contact details. A fit applicant books a call on Cal.com in the page once the offer has a booking link; until then they get a reply within one business day.
 
 ## Capabilities and Constraints
 
-- Sections in order: hero, the pain (family then one example), case studies, how it works, about, the ask, footer.
-- Form: email, phone (optional), "what eats your week". Hidden niche and source fields. Posts to a Pages Function; Turnstile; D1 row; email to William.
-- All copy lives in content files (markdown/yaml), never in components. William edits prose himself.
-- Light default, toggleable dark. System preference honoured on first visit.
-- Motion is presentation-grade: builds, counters, pinned case studies with scrub. Never scroll hijack. `prefers-reduced-motion` honoured. Page reads fully with JS off.
-- No price, scope, stack claims, guarantees, testimonials that do not exist.
-- Undecided: `?f=<firm>` hero personalisation (later pass). Scroll VSL (later).
+- Pitch sections in order: hero with console, ATS strip, dormant-list field, value calculator, the two halves, industries, steps, the deal, the ladder, proof, about, FAQ, apply, footer. Any optional section can be left out.
+- Terms, slots, days, questions, fit rule and booking link come from the offer snapshot, never the yaml. The build fails on a mismatch.
+- All copy lives in yaml. William edits prose himself.
+- Pitch pages are dark only (warm near-black, rust accent, Geist + Instrument Serif). Imagery is drawn in code for now (console, dot field); generated imagery can slot in later.
+- Motion is presentation-grade and never hijacks scroll. `?static` and reduced motion turn it off. Pages read fully with JS off.
+- No invented numbers, testimonials, logos or results. Illustrations are labelled as illustrations.
 
 ## Brand Commitments
 
 - Name: Wren Automation. Short, subtle. No surname in the brand.
-- Voice: William's cold-email voice. Extremely concise, plain sentences a person would say out loud, lowercase subjects, honest student bio, a jab that lands. No jargon, no filler, no hype verbs.
-- The site signs off the way the emails do: thanks for reading this far.
+- Voice: William's cold-email voice. Extremely concise, plain sentences a person would say out loud. No jargon, no filler, no hype verbs.
 
 ## Evidence on Hand
 
-- Two case studies referenced in the live email templates (`emails_gen/src/emailsgen/niches/sec_ria/templates/`): a document automation for the Government of Canada, and a fuel cell related build. William will supply full details (client, before, built, after numbers, stack, quote). Do not invent numbers; placeholders are labelled.
-- No testimonials, logos, or press yet. Do not fabricate.
-- No photo of William in the repo yet. Placeholder slot, labelled.
+- Government of Canada policy search (17,000 staff, 220+ directives). University of Alberta lab (200+ hours of lookups cut across 7,000+ records).
+- No client case studies, testimonials, logos or press yet. The pilot exists to make the first ones.
+- Headshot at `public/headshot.png`.
 
 ## Product Principles
 
-- Prove, don't claim. Every section is a case study or a removed objection.
-- One door. One ask, phrased like the email.
-- Match the email. Same voice, same niche, same offer, same scheduling rule.
-- Editable by William. Copy is data.
-- Presentation-grade motion for people who sit through decks; never in the way of reading.
+- One offer per page, stated plainly: what you get, what you put in, what I get.
+- Real scarcity only: the slot count is the offer's, and the reason is on the page.
+- Match the email. Same voice, same offer.
+- Copy is data, terms are the registry's.

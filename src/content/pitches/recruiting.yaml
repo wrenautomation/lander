@@ -1,0 +1,202 @@
+# wrenautomation.com/recruiting. The recruiting emails link here. Reader: the owner, CEO or MD
+# of a midsize recruiting firm. They care about two things: more business (job orders, a pipeline
+# that doesn't hang on one rainmaker) and less busywork for their team.
+# The terms (what you get, what you give, what I get, slots, days, the guarantee, the questions on
+# the form) come from the offer in wren (packages/offers), not from this file.
+title: Wren Automation for recruiting firms
+description: A free {days}-day pilot that turns the past clients in your ATS into new job orders. {slots} firms at a time.
+path: /recruiting
+offer: recruiting-reactivation-pilot
+form_value: recruiting
+
+nav:
+  - { label: The pilot, to: "#how" }
+  - { label: The deal, to: "#deal" }
+  - { label: About, to: "#about" }
+nav_cta: Apply
+
+hero:
+  eyebrow: Free {days}-day pilot · {slots} recruiting firms
+  h1: Your old clients are your next *job orders*.
+  lede: |
+    Every past client in your ATS paid you a fee once. Most haven't heard from you in a year.
+
+    I win them back in your recruiter's name, for {days} days, free. You keep every job order.
+  cta: Apply for a pilot slot
+  cta_to: "#apply"
+  second: How the pilot works
+  second_to: "#how"
+  note: Two minutes to apply. {slots} firms at a time.
+
+console:
+  label: Example dashboard. Illustration, not a result.
+  title: Reactivation · day 21
+  stats:
+    - { label: Contacts reached, value: 1840 }
+    - { label: Replies, value: 73 }
+    - { label: Meetings booked, value: 19 }
+    - { label: Job orders, value: 7 }
+  feed_label: Replies, sorted
+  feed:
+    - quote: "Good timing. We're hiring two controllers next month, can we talk Thursday?"
+      who: VP Finance, last placement 2024
+      tag: Job order
+    - quote: "I moved to a new company. We need a plant manager here too."
+      who: Former client, new employer
+      tag: New account
+    - quote: "Not now, but check back in Q1."
+      who: HR Director
+      tag: Follow up Jan
+
+strip:
+  label: Works from an export of
+  items: [Bullhorn, Loxo, Recruit CRM, JobAdder, Crelate, Vincere, PCRecruiter, a spreadsheet]
+
+field:
+  eyebrow: The list you already paid for
+  h2: Your best new business is *already in your ATS*.
+  text: |
+    Your team spends the week chasing new logos. Meanwhile hundreds of past clients, people who already trust you, never hear from you again.
+
+    The hiring manager moved to a new company. The VP got promoted and has a new budget. Nobody followed up, because nobody had the time.
+  dormant: Past clients and contacts. Dormant.
+  awake: The ones worth a conversation this quarter.
+
+calc:
+  eyebrow: Your numbers
+  h2: What your dead list is *worth*.
+  intro: Move the sliders to your firm. The assumptions are yours too.
+  inputs:
+    - { key: contacts, label: Past clients and hiring contacts, min: 500, max: 20000, step: 100, value: 3000, unit: count }
+    - { key: fee, label: Average placement fee, min: 5000, max: 60000, step: 1000, value: 20000, unit: usd }
+    - { key: rate, label: Contacts that come back with a job order, min: 0.1, max: 3, step: 0.1, value: 0.5, unit: percent }
+    - { key: fill, label: Job orders your team fills, min: 10, max: 90, step: 5, value: 40, unit: percent }
+  out_orders: New job orders
+  out_fees: In fees
+  fine: An estimate from your inputs, not a promise. The pilot gives you the real number.
+
+halves:
+  eyebrow: The whole picture
+  h2: Two ways a firm grows. *I build both*.
+  intro: More business in the front. Less busywork in the back. The pilot starts at the front, because that's where the money is.
+  sides:
+    - tag: Front of house
+      h3: More business in
+      text: A pipeline that doesn't hang on one or two rainmakers.
+      items:
+        - { name: Dead lead reactivation, text: "Past clients and cold contacts, won back in your recruiter's name.", badge: The free pilot }
+        - { name: Speed to lead, text: "Every inbound job order answered in minutes, day or night, before a competitor calls back." }
+        - { name: Outbound to new clients, text: "Hiring managers at the companies you want, found, checked and written to." }
+    - tag: Back of house
+      h3: Less busywork out
+      text: More job orders means more admin. This is where it stops growing with headcount.
+      items:
+        - { name: Intake to ATS, text: "Job orders, resumes and notes land in the ATS without anyone typing them." }
+        - { name: Scheduling and status, text: "Interviews booked, candidates and clients updated, nobody chasing." }
+        - { name: Reports and invoices, text: "Placements to invoices, the pipeline report on Monday, built by themselves." }
+  bridge: The pilot fills the desk. When the new business lands, the admin grows with it. That's the second build.
+
+steps:
+  eyebrow: The pilot
+  h2: '{days} days, *start to numbers*.'
+  intro: You approve everything before it sends. Your main domain is never touched.
+  items:
+    - when: Day 0
+      name: Kickoff
+      text: A 30-minute call. You send an export of past clients and contacts, and pick the recruiter whose name goes on the emails.
+    - when: Days 1–7
+      name: Build
+      text: I clean the list, check every address, and set up a new domain in your recruiter's name. You read and approve the emails.
+    - when: Days 8–30
+      name: Run
+      text: Emails go out in small daily batches. Replies are sorted every day. The warm ones reach your recruiter the same day, with the history.
+    - when: Day 30
+      name: Numbers
+      text: We sit down with replies, meetings, job orders and fees. You decide what's next. Walking away is fine.
+
+deal:
+  eyebrow: The deal
+  h2: Free, and here's *why*.
+  get: What you get
+  give: What you put in
+  we_get: What I get
+  guarantee: Whatever happens
+  why:
+    - q: Why free?
+      a: I'm building my recruiting case studies. You get the work, I get real numbers and, if it works, your introductions.
+    - q: Why only {slots}?
+      a: I do the work myself. {slots} firms is what one engineer runs well in {days} days.
+
+ladder:
+  eyebrow: After the pilot
+  h2: If it works, *what's next*.
+  intro: Nothing is automatic. Each one is its own yes.
+  names:
+    recruiting-candidate-reactivation: Optional, paid
+    ops-automation-build: The second build
+
+proof:
+  eyebrow: Who's building it
+  h2: An engineer, *not an agency*.
+  intro: I write the code myself, so it holds up after the demo.
+  items:
+    - fig: "17,000"
+      label: Government of Canada staff
+      text: use a policy search I built instead of reading 220+ directives by hand.
+    - fig: "200+ hrs"
+      label: University of Alberta lab
+      text: of manual lookups cut across 7,000+ records of messy research data.
+    - fig: You
+      label: Read this far
+      text: because the same system found your firm, checked your address and wrote to you.
+
+about:
+  eyebrow: About
+  h2: Hi, I'm *William*.
+  paras:
+    - I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
+    - My internships were data pipelines, systems that talk to each other, and CRMs. Now I build the systems that bring firms business, and the automations that handle what comes with it.
+    - I want every pilot to go well enough that you tell other owners. That's the whole plan.
+  photo: /headshot.png
+  sign: William Jin · Toronto
+
+faq:
+  eyebrow: Questions
+  h2: What owners *ask first*.
+  items:
+    - q: Will this hurt our email domain?
+      a: No. Emails go from a new domain in your recruiter's name, warmed up and sent in small batches. Your main domain is never touched.
+    - q: Do you need access to our ATS?
+      a: No. An export is enough. If you keep going after the pilot, we talk about access then.
+    - q: Who writes the emails?
+      a: I do, in your recruiter's voice. Nothing sends until you approve it.
+    - q: Our recruiters are already busy. Who handles replies?
+      a: I sort every reply. Your recruiter only gets the warm ones, with the history attached.
+    - q: What happens to our data?
+      a: It's used for your campaign only. Deleted at the end unless you continue.
+    - q: What does it cost after {days} days?
+      a: Nothing, unless you want more. Anything after is its own offer and its own yes.
+    - q: What if nobody replies?
+      a: Then we both learn something. You keep the cleaned list, the copy and the domain.
+
+ask:
+  eyebrow: Apply
+  h2: Apply for *a pilot slot*.
+  intro: A few quick questions, then your details. If it's a fit, you pick a time right after.
+  slots: "{slots} pilot slots this round. Taken in the order the calls happen."
+  submit: Send application
+  sending: Sending…
+  name: Your name
+  email: Work email
+  firm: Firm website
+  required: Required
+  bad_email: Enter an email I can reply to.
+  error: "That didn't send. Email me instead:"
+  steps: { step: Question, of: of, next: Next, back: Back, pick_one: Pick one to continue., contact_h: Where do I reach you? }
+  book_h: You're a fit. *Pick a time.*
+  book: Thirty minutes, on video. Bring the export if you have it handy.
+  thanks_h: You're a fit. *I'll be in touch.*
+  thanks: I'll email you a few times within one business day, from william@wrenautomation.com.
+  nofit_h: Thanks. *I've got it.*
+  # Says the fit rule in words. Change it with the fit gates in wren's offer.
+  nofit: The pilot fits firms with 5+ recruiters and 500+ past contacts. I'll still read this and reply within a business day.

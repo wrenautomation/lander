@@ -4,7 +4,7 @@
 const q = new URLSearchParams(location.search);
 if (!q.has('static') && !q.has('probe')) {
   const KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
-  // first touch: the utm on the link they clicked survives a hop from / to /ria within the tab
+  // first touch: the utm on the link they clicked survives a hop from / to /recruiting within the tab
   let touch: Record<string, string> = {};
   try { touch = JSON.parse(sessionStorage.getItem('wren-touch') || 'null') || {}; } catch {}
   if (KEYS.some((k) => q.has(k)) || !('ref' in touch)) {
@@ -23,14 +23,14 @@ if (!q.has('static') && !q.has('probe')) {
     depth = Math.max(depth, h > 0 ? Math.min(100, Math.round((scrollY / h) * 100)) : 100);
   };
   measure(); addEventListener('scroll', measure, { passive: true });
-  document.querySelectorAll('a[href="#ask"]').forEach((a) => a.addEventListener('click', () => { cta = 1; }));
+  document.querySelectorAll('a[data-cta], a[href="#ask"]').forEach((a) => a.addEventListener('click', () => { cta = 1; }));
   document.querySelector('form[data-lead]')?.addEventListener('focusin', () => { touched = 1; });
 
   const send = () => {
     if (sent) return; sent = true;
     if (shown) secs += (performance.now() - shown) / 1000;
     const body = {
-      page: location.pathname, niche: document.querySelector<HTMLInputElement>('input[name=niche]')?.value || '',
+      page: location.pathname, niche: document.documentElement.dataset.niche || '',
       depth, secs: Math.round(secs), cta, touched, w: innerWidth, ...touch,
     };
     navigator.sendBeacon('/api/hit', new Blob([JSON.stringify(body)], { type: 'application/json' }));

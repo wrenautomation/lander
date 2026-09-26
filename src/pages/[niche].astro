@@ -1,0 +1,15 @@
+---
+// Niche pages (/agencies): one per file in src/content/niches, the older single-page layout. A URL a pitch page
+// also claims fails the build.
+import { getCollection } from 'astro:content';
+import Lander from '../layouts/Lander.astro';
+
+export async function getStaticPaths() {
+  const pitched = new Set((await getCollection('pitches')).map((p) => p.data.path));
+  return (await getCollection('niches')).map((niche) => {
+    if (pitched.has(`/${niche.id}`)) throw new Error(`niches/${niche.id}.yaml and a pitch page both claim /${niche.id}`);
+    return { params: { niche: niche.id }, props: { niche } };
+  });
+}
+---
+<Lander niche={Astro.props.niche} />
