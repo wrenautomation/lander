@@ -4,6 +4,9 @@ import type { Env } from './env';
 export const clip = (v: unknown, n: number) => (typeof v === 'string' ? v.trim().slice(0, n) : '');
 export const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
+/** The posted form, or null when the body isn't one (a probe, a bad client). */
+export const readForm = (request: Request): Promise<FormData | null> => request.formData().catch(() => null);
+
 /** Where the submit came from: the page, the first-touch utm (filled by src/scripts/hit.ts) and the request. */
 export function origin(form: FormData, request: Request) {
   return {

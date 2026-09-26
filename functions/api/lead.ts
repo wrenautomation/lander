@@ -1,7 +1,7 @@
 // POST /api/lead: the contact form on /agencies. Stores the row in D1, pings William, answers JSON or redirects back.
 // Pitch pages (/, /recruiting) post to /api/apply instead.
 import type { Env } from '../_shared/env';
-import { EMAIL, clip, human, isBot, origin } from '../_shared/form';
+import { EMAIL, clip, human, isBot, origin, readForm } from '../_shared/form';
 import { notify } from '../_shared/notify';
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
@@ -13,7 +13,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return Response.redirect(back.toString(), 303);
   };
 
-  const form = await request.formData();
+  const form = await readForm(request);
+  if (!form) return reply(400, false);
   if (isBot(form)) return reply(200, true);
   const email = clip(form.get('email'), 200);
   if (!EMAIL.test(email)) return reply(400, false);

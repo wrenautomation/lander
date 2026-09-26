@@ -2,7 +2,7 @@
 // Checks it against the offer in src/data/offers.json, stores it in D1 `applications`, pings William,
 // and says whether it fits and where to book. JSON for the page's script; a redirect to #applied-* when JS is off.
 import type { Env } from '../_shared/env';
-import { EMAIL, clip, human, isBot, origin } from '../_shared/form';
+import { EMAIL, clip, human, isBot, origin, readForm } from '../_shared/form';
 import { notify } from '../_shared/notify';
 import { type Answers, answersFrom, fits, invalidAnswers, offerFor } from '../../src/lib/offers';
 
@@ -15,7 +15,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return Response.redirect(back.toString(), 303);
   };
 
-  const form = await request.formData();
+  const form = await readForm(request);
+  if (!form) return reply(400, { ok: false, error: 'form' });
   if (isBot(form)) return reply(200, { ok: true, fit: false, booking: null });
   const offer = offerFor(clip(form.get('offer'), 64));
   if (!offer || offer.status !== 'live') return reply(400, { ok: false, error: 'offer' });
