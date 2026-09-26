@@ -20,12 +20,12 @@ const { p, offer, next } = await loadPitch(entry);
 const site = (await getEntry('site', 'site'))!.data;
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 const year = new Date().getFullYear();
-const FONTS = 'https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap';
+const FONTS = 'https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&display=swap';
 ---
 <!doctype html>
 <html lang="en" class="pitch" data-niche={p.form_value}>
 <head>
-  <Head title={bare(p.title)} description={bare(p.description)} fonts={FONTS} theme="#ffffff" />
+  <Head title={bare(p.title)} description={bare(p.description)} fonts={FONTS} theme="#FAF9F6" />
   <meta name="color-scheme" content="light">
   <script is:inline>
     /* motion on: the scroll-drawn parts start undrawn. Off for ?static and reduced motion, so the page reads as-is. */
@@ -134,7 +134,7 @@ const FONTS = 'https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..12
     <ol class="timeline" data-timeline>
       <span class="rail" aria-hidden="true"><i data-rail></i></span>
       {p.steps.items.map((s) => (
-        <li data-stop><span class="node" aria-hidden="true"></span><p class="when">{s.when}</p><h3>{s.name}</h3><p>{s.text}</p></li>
+        <li data-stop><span class="node" aria-hidden="true"></span><h3>{s.name} <span class="when">{s.when}</span></h3><p>{s.text}</p></li>
       ))}
     </ol>
   </div>

@@ -160,7 +160,7 @@ if (box) {
     const cal = $('[data-cal]', box);
     if (state === 'fit' && booking && cal && !cal.childElementCount) {
       const name = (form.elements.namedItem('name') as HTMLInputElement).value.trim();
-      const accent = getComputedStyle(root).getPropertyValue('--acc').trim();
+      const accent = getComputedStyle(root).getPropertyValue('--ink').trim();
       mountBooking(cal, booking, { name, email: email.value.trim() }, accent); // booking is tagged by /api/apply
     }
     const shown = $<HTMLElement>(`[data-result="${state}"]`, box);
