@@ -31,6 +31,7 @@
 - D8 (2026-09-26). Full overhaul after "doesn't look high ticket". Light only, set as an annual report: 12-column grid, hairline rules, Archivo, square corners, one rust. Kept only the rust, the bird mark and scroll motion. No eyebrows, cards or console. The form is a rust panel in the first screen: beside the headline on desktop, right under the lede on phone, question 1 visible without scrolling. A `close` section repeats the call at the end. System in DESIGN.md.
 - D9 (2026-09-26). Still not high ticket enough. Type and color reworked, layout kept: Newsreader serif for headings (italic punch, no grey two-tone) with Hanken Grotesk for text; bond paper and warm ink; the form panel and closing screen are ink, not rust. Rust darkened to oxide and cut to small marks (woken dots, steps rule, tags). Portraits greyscale. Step timing moved beside the step name so nothing sits above a heading.
 - D10 (2026-09-26). Mostly black and white: white screen, black text reads most premium. No dark blocks; the form panel and closing screen are white, set off by one black rule. Buttons black, hover rust. Rust (#C24E1C) only for small marks: woken dots, steps rule, selected dot, slot dots, errors. Fields are underlines.
+- D11 (2026-09-27). Font cleaner, less stylized: Geist for everything, headings 500 with tight tracking, no italics anywhere. Replaces Newsreader + Hanken Grotesk.
 
 ## Next
 

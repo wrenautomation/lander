@@ -31,7 +31,7 @@ wren's recruiting campaign links to `/recruiting`. `/` tells the general story a
 - Pitch sections in order: hero (copy, facts, byline, and the form beside it behind a black rule), ATS strip, dormant-list field, value calculator, the two halves, industries, steps, the deal, the ladder, proof, about, FAQ, closing call, footer. Any optional section can be left out.
 - Terms, slots, days, questions, fit rule and booking link come from the offer snapshot, never the yaml. The build fails on a mismatch.
 - All copy lives in yaml. William edits prose himself.
-- Pitch pages are light only, set as a partner's letter (white screen, black text, Newsreader + Hanken Grotesk, rust for small marks only). See DESIGN.md. Imagery is drawn in code for now (dot field); generated imagery can slot in later.
+- Pitch pages are light only, set as a partner's letter (white screen, black text, Geist only, no italics, rust for small marks only). See DESIGN.md. Imagery is drawn in code for now (dot field); generated imagery can slot in later.
 - Motion is presentation-grade and never hijacks scroll. `?static` and reduced motion turn it off. Pages read fully with JS off.
 - No invented numbers, testimonials, logos or results. Illustrations are labelled as illustrations.
 

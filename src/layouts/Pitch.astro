@@ -20,7 +20,7 @@ const { p, offer, next } = await loadPitch(entry);
 const site = (await getEntry('site', 'site'))!.data;
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 const year = new Date().getFullYear();
-const FONTS = 'https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&display=swap';
+const FONTS = 'https://fonts.googleapis.com/css2?family=Geist:wght@400..700&display=swap';
 ---
 <!doctype html>
 <html lang="en" class="pitch" data-niche={p.form_value}>

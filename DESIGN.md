@@ -1,6 +1,6 @@
 ---
 name: Wren Automation
-description: Pitch pages set like a partner's letter. White paper, black ink, a book serif, small rust marks.
+description: Pitch pages set like a partner's letter. White paper, black ink, one clean sans, small rust marks.
 colors:
   paper: "#FFFFFF"
   paper-2: "#F4F4F2"
@@ -12,40 +12,40 @@ colors:
   rust: "#C24E1C"
 typography:
   display:
-    fontFamily: "Newsreader, ui-serif, Georgia, serif"
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(2.6rem, 1.2rem + 4.8vw, 5.9rem)"
     fontWeight: 360
     lineHeight: 1.02
     letterSpacing: "-0.022em"
   headline:
-    fontFamily: "Newsreader, ui-serif, Georgia, serif"
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(2.1rem, 1.4rem + 2.4vw, 3.6rem)"
     fontWeight: 380
     lineHeight: 1.02
     letterSpacing: "-0.022em"
   title:
-    fontFamily: "Newsreader, ui-serif, Georgia, serif"
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(21px, 1.2rem + .4vw, 26px)"
     fontWeight: 400
     lineHeight: 1.18
     letterSpacing: "-0.01em"
   lede:
-    fontFamily: "Newsreader, ui-serif, Georgia, serif"
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(18px, .95rem + .5vw, 23px)"
     fontWeight: 400
     lineHeight: 1.45
   body:
-    fontFamily: "Hanken Grotesk, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
     fontSize: "17px"
     fontWeight: 400
     lineHeight: 1.6
   label:
-    fontFamily: "Hanken Grotesk, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
     fontSize: "12.5px"
     fontWeight: 600
     letterSpacing: "0.09em"
   figure:
-    fontFamily: "Newsreader, ui-serif, Georgia, serif"
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(2.9rem, 1.8rem + 3.2vw, 4.9rem)"
     fontWeight: 320
     lineHeight: 1
@@ -84,14 +84,14 @@ components:
 
 **Creative North Star: "The Partner's Letter"**
 
-The pitch pages (/ and /recruiting) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, plain white paper, black ink. A book serif speaks; a quiet grotesque does the work. Sections join on 1px ink rules into one continuous sheet.
+The pitch pages (/ and /recruiting) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, plain white paper, black ink. One clean sans, Geist, does everything. No italics. Sections join on 1px ink rules into one continuous sheet.
 
 White screen, black text, everywhere. No dark blocks: the form panel is set off by a single black rule, and the closing screen by another. Rust appears only as small marks. The page is light only.
 
 It rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no cards, no eyebrows above headings.
 
 **Key Characteristics:**
-- Serif headings; the turn of the sentence in italic.
+- Geist throughout, medium-weight headings with tight tracking. No italics.
 - Square corners everywhere.
 - The form sits in the first screen, set off by one black rule.
 - One authored motion: contacts and the steps rule fill rust as you scroll.
@@ -121,22 +121,21 @@ Black on white, with small rust marks.
 
 ## Typography
 
-**Display Font:** Newsreader (variable, optical sizes), with Georgia as fallback.
-**Body Font:** Hanken Grotesk, with the system sans as fallback.
+**Font:** Geist, one family for everything, with the system sans as fallback.
 
-**Character:** A literary serif at light weights for anything that speaks; a plain grotesque for anything that works.
+**Character:** Clean and plain. Hierarchy comes from size and weight, not style.
 
 ### Hierarchy
-- **Display** (360, clamp 2.6–5.9rem, 1.02): the hero headline only.
-- **Headline** (380, clamp 2.1–3.6rem, 1.02): section heads and the closing screen.
-- **Title** (400, 21–26px, 1.18): items, steps, terms, form questions, FAQ questions.
-- **Lede** (serif 400, 18–23px, 1.45): the hero paragraph, max 31em. Its bold opener is italic ink.
-- **Body** (sans 400, 17px, 1.6): text, max about 36em.
-- **Label** (sans 600, 11.5–13.5px, +0.09em, uppercase): table keys, step timing, tags, buttons. Never above a heading.
-- **Figure** (serif 320, lining tabular): proof figures and calculator results.
+- **Display** (500, clamp 2.5–5.4rem, 1.04, −0.035em): the hero headline only.
+- **Headline** (500, clamp 2–3.4rem, 1.04, −0.035em): section heads and the closing screen.
+- **Title** (500, 20–24px, 1.2): items, steps, terms, form questions, FAQ questions.
+- **Lede** (400, 18–23px, 1.45): the hero paragraph, max 31em. Its bold opener is ink, weight 500.
+- **Body** (400, 17px, 1.6): text, max about 36em.
+- **Label** (600, 11.5–13.5px, +0.09em, uppercase): table keys, step timing, tags, buttons. Never above a heading.
+- **Figure** (500, −0.04em, tabular): proof figures and calculator results.
 
 ### Named Rules
-**The Italic Turn Rule.** A heading's `*punch*` is set in italic, same ink. No grey setup, no color.
+**The Plain Punch Rule.** A heading's `*punch*` renders plain: same ink, same style. No italic, no grey, no color.
 **The Tabular Rule.** Every number that changes or lines up uses lining tabular figures.
 
 ## Layout
@@ -181,7 +180,8 @@ Square corners throughout (0). Circles only for radio buttons, dots, step nodes,
 ## Do's and Don'ts
 
 ### Do:
-- **Do** set headings in Newsreader with the punch in italic.
+- **Do** set everything in Geist; headings 500 with tight tracking.
+- **Don't** use italics or a serif.
 - **Do** keep rust to dots, lines and tags.
 - **Do** separate with 1px rules, not boxes.
 - **Do** keep question 1 in the first phone screen.
