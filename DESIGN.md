@@ -1,18 +1,15 @@
 ---
 name: Wren Automation
-description: Pitch pages set like a partner's letter. Bond paper, warm ink, a book serif, one oxide mark.
+description: Pitch pages set like a partner's letter. White paper, black ink, a book serif, small rust marks.
 colors:
-  paper: "#FAF9F6"
-  paper-2: "#F1EEE7"
-  ink: "#17150F"
-  ink-2: "#5B574E"
-  ink-3: "#9A958A"
-  rule: "rgba(23,21,15,.13)"
-  oxide: "#A63D17"
-  night: "#17150F"
-  on-night: "#F4F1EA"
-  on-night-2: "rgba(244,241,234,.7)"
-  night-rule: "rgba(244,241,234,.18)"
+  paper: "#FFFFFF"
+  paper-2: "#F4F4F2"
+  ink: "#0E0E0E"
+  ink-2: "#56564F"
+  ink-3: "#9C9C96"
+  rule: "rgba(14,14,14,.13)"
+  line: "rgba(14,14,14,.38)"
+  rust: "#C24E1C"
 typography:
   display:
     fontFamily: "Newsreader, ui-serif, Georgia, serif"
@@ -65,24 +62,19 @@ spacing:
 components:
   button:
     backgroundColor: "{colors.ink}"
-    textColor: "{colors.on-night}"
+    textColor: "{colors.paper}"
     rounded: "{rounded.none}"
     padding: "1.15em 1.6em"
   button-hover:
-    backgroundColor: "{colors.oxide}"
-  button-on-night:
-    backgroundColor: "{colors.on-night}"
+    backgroundColor: "{colors.rust}"
+  field:
+    backgroundColor: "transparent"
     textColor: "{colors.ink}"
     rounded: "{rounded.none}"
-    padding: "1.15em 1.6em"
-  field:
+    padding: "10px 0"
+  panel:
     backgroundColor: "{colors.paper}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.none}"
-    padding: "14px 15px"
-  panel:
-    backgroundColor: "{colors.night}"
-    textColor: "{colors.on-night}"
     rounded: "{rounded.none}"
 ---
 
@@ -92,39 +84,40 @@ components:
 
 **Creative North Star: "The Partner's Letter"**
 
-The pitch pages (/ and /recruiting) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, bond paper. A book serif speaks; a quiet grotesque does the work. Sections join on 1px ink rules into one continuous sheet.
+The pitch pages (/ and /recruiting) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, plain white paper, black ink. A book serif speaks; a quiet grotesque does the work. Sections join on 1px ink rules into one continuous sheet.
 
-Two blocks of ink carry the calls to act: the form panel in the first screen and the closing screen. Color is almost absent. Oxide appears only as small marks. The page is light only.
+White screen, black text, everywhere. No dark blocks: the form panel is set off by a single black rule, and the closing screen by another. Rust appears only as small marks. The page is light only.
 
 It rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no cards, no eyebrows above headings.
 
 **Key Characteristics:**
 - Serif headings; the turn of the sentence in italic.
 - Square corners everywhere.
-- The form lives in an ink panel in the first screen.
-- One authored motion: contacts and the steps rule fill oxide as you scroll.
+- The form sits in the first screen, set off by one black rule.
+- One authored motion: contacts and the steps rule fill rust as you scroll.
 - Portraits in greyscale.
 
 Scope: this records `src/styles/pitch.css`. The privacy and 404 pages still use `global.css`, the previous system.
 
 ## Colors
 
-Warm ink on bond paper, with one small mark.
+Black on white, with small rust marks.
 
 ### Primary
-- **Oxide** (oxide): marks only. Woken contacts in the dots field, the steps rule and nodes, the selected-answer dot, small tags, focus rings, button hover. Never a fill for a block or a button at rest.
+- **Rust** (rust): marks only. Woken contacts in the dots field, the steps rule and nodes, the selected-answer dot, slot dots, small tags, error text, focus rings, button hover. Never a fill for a block or a button at rest.
 
 ### Neutral
-- **Bond** (paper): the page.
-- **Second Stock** (paper-2): row hover and the booking state. Never a card.
-- **Warm Ink** (ink / night): text, buttons on paper, section rules, and the two ink blocks.
-- **Grey** (ink-2): secondary text. 6.9:1 on bond.
+- **Paper** (paper): the page and the form panel. Pure white.
+- **Second Stock** (paper-2): row hover. Never a card.
+- **Ink** (ink): text, buttons, section rules, the checked answer row.
+- **Grey** (ink-2): secondary text. 7.4:1 on white.
 - **Mark Grey** (ink-3): dormant dots and scrollbar only.
 - **Hairline** (rule): rules inside a section.
-- **On Night** (on-night, on-night-2, night-rule): text, secondary text and rules inside the ink blocks.
+- **Field Line** (line): field underlines; ink on focus.
 
 ### Named Rules
-**The Small Mark Rule.** Oxide never fills anything bigger than a dot, a line or a tag. If it covers an area, it is wrong.
+**The Small Mark Rule.** Rust never fills anything bigger than a dot, a line or a tag. If it covers an area, it is wrong.
+**The White Page Rule.** No dark sections. Separation comes from black rules, never from a black block.
 
 ## Typography
 
@@ -150,11 +143,11 @@ Warm ink on bond paper, with one small mark.
 
 A 12-column grid, max 1320px, gutter 16–48px. Sections: text head in columns 1–5, body in 7–12 from 900px, heads sticky where the body is long. Section padding 72–148px, joined by a 1px ink rule.
 
-Hero from 1024px: copy in columns 1–7, the ink panel in 8–12 bleeding to the right edge, full first-screen height. Below 1024px it stacks: headline, lede, then the panel bleeding to both gutters. Under 720px the bar, headline, lede and panel tighten so question 1 and its first answer show in the first iPhone 13 screen. The float button appears on phones once the hero leaves view.
+Hero from 1024px: copy in columns 1–7, the form panel in 8–12 behind a full-height black rule. Below 1024px it stacks: headline, lede, then the panel under a full-width black rule. Under 720px the bar, headline, lede and panel tighten so question 1 and its first answer show in the first iPhone 13 screen. The float button appears on phones once the hero leaves view.
 
 ## Elevation & Depth
 
-Flat. Depth comes from stock (bond, second stock, ink) and rules. The only shadow is under the phone float button.
+Flat. Depth comes from rules alone. The only shadow is under the phone float button.
 
 ### Named Rules
 **The Flat Sheet Rule.** No shadows on anything that sits in the page.
@@ -167,35 +160,34 @@ Square corners throughout (0). Circles only for radio buttons, dots, step nodes,
 
 ### Buttons
 - **Shape:** square (0). Small uppercase label, arrow after it.
-- **On paper:** ink, bond text. Hover turns oxide.
-- **On ink:** bond, ink text. Hover goes white.
+- Ink, white text. Hover turns rust. One style everywhere.
 
 ### Application panel
-- **Style:** warm ink block, bond text, rules at 18% bond.
-- **Choices:** full-width rows split by rules. A checked row turns bond with ink text and an oxide dot.
-- **Progress:** "Question 1 of 5" label plus thin segments that fill bond.
-- **Fields:** bond, square, no border. Invalid gets a 2px oxide inset.
-- **After sending:** the header and form hide. A fit with a calendar turns the panel to second stock and takes the whole first screen.
+- **Style:** white, black text, set off by a 1px black rule (left on desktop, top on phone).
+- **Choices:** full-width rows split by rules. A checked row turns ink with white text and a rust dot.
+- **Progress:** "Question 1 of 5" label plus thin segments that fill ink.
+- **Fields:** underline only, ink on focus. Invalid turns the line rust with a rust note.
+- **After sending:** the header and form hide. A fit with a calendar takes the whole first screen.
 
 ### Navigation
-- Sticky bond bar, 64px (56px on phones), ink rule below. Bird mark and serif name left, text links, ink button right. Links hide under 820px.
+- Sticky white bar, 64px (56px on phones), ink rule below. Bird mark and serif name left, text links, ink button right. Links hide under 820px.
 
 ### Dots field (signature)
-- Grey outlined dots, the dormant past clients. As you scroll, some fill oxide and grow. Reduced motion shows them filled.
+- Grey outlined dots, the dormant past clients. As you scroll, some fill rust and grow. Reduced motion shows them filled.
 
 ### Steps timeline
-- A hairline rail that fills oxide as you scroll. Round nodes turn oxide as the fill passes. Step timing sits beside the step name as a label.
+- A hairline rail that fills rust as you scroll. Round nodes turn rust as the fill passes. Step timing sits beside the step name as a label.
 
 ## Do's and Don'ts
 
 ### Do:
 - **Do** set headings in Newsreader with the punch in italic.
-- **Do** keep oxide to dots, lines and tags.
+- **Do** keep rust to dots, lines and tags.
 - **Do** separate with 1px rules, not boxes.
 - **Do** keep question 1 in the first phone screen.
 
 ### Don't:
 - **Don't** add eyebrows or kickers above headings.
 - **Don't** use cards, rounded corners, glow, gradients or glass.
-- **Don't** fill a block or a resting button with oxide.
-- **Don't** add a dark theme.
+- **Don't** fill a block or a resting button with rust.
+- **Don't** add a dark theme or a dark section.

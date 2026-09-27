@@ -1,63 +1,68 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-26T21:43:39.340934+00:00",
+  "generatedAt": "2026-09-27T00:53:51.669535+00:00",
   "title": "Design System: Wren Automation",
   "extensions": {
     "colorMeta": {
-      "oxide": {
+      "rust": {
         "role": "primary",
-        "displayName": "Oxide",
-        "canonical": "#A63D17",
+        "displayName": "Rust",
+        "canonical": "#C24E1C",
         "tonalRamp": [
-          "#2E1106",
-          "#4D1C0A",
-          "#6E280F",
-          "#8B3213",
-          "#A63D17",
-          "#C76A45",
-          "#DE9D82",
-          "#F2D3C5"
+          "#3A1608",
+          "#5E230D",
+          "#843113",
+          "#A63F18",
+          "#C24E1C",
+          "#D5764C",
+          "#E6A386",
+          "#F6D8CA"
         ]
       },
       "paper": {
         "role": "neutral",
-        "displayName": "Bond",
-        "canonical": "#FAF9F6"
+        "displayName": "Paper",
+        "canonical": "#FFFFFF"
       },
       "paper-2": {
         "role": "neutral",
         "displayName": "Second Stock",
-        "canonical": "#F1EEE7"
+        "canonical": "#F4F4F2"
       },
       "ink": {
         "role": "neutral",
-        "displayName": "Warm Ink",
-        "canonical": "#17150F",
+        "displayName": "Ink",
+        "canonical": "#0E0E0E",
         "tonalRamp": [
-          "#17150F",
-          "#2C2A24",
-          "#433F37",
-          "#5B574E",
-          "#7A766C",
-          "#9A958A",
-          "#C9C5BB",
-          "#F1EEE7"
+          "#0E0E0E",
+          "#26261F",
+          "#3E3E37",
+          "#56564F",
+          "#79796F",
+          "#9C9C96",
+          "#C4C4BF",
+          "#EBEBE8"
         ]
       },
       "ink-2": {
         "role": "neutral",
         "displayName": "Grey",
-        "canonical": "#5B574E"
+        "canonical": "#56564F"
       },
       "ink-3": {
         "role": "neutral",
         "displayName": "Mark Grey",
-        "canonical": "#9A958A"
+        "canonical": "#9C9C96"
       },
-      "on-night": {
+      "rule": {
         "role": "neutral",
-        "displayName": "On Night",
-        "canonical": "#F4F1EA"
+        "displayName": "Hairline",
+        "canonical": "rgba(14,14,14,.13)"
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Field Line",
+        "canonical": "rgba(14,14,14,.38)"
       }
     },
     "typographyMeta": {
@@ -98,7 +103,7 @@
       {
         "name": "scroll-fill",
         "value": "GSAP ScrollTrigger scrub",
-        "purpose": "Dots wake and the steps rail fills oxide as you scroll."
+        "purpose": "Dots wake and the steps rail fills rust as you scroll."
       }
     ],
     "breakpoints": [
@@ -125,62 +130,54 @@
       "name": "Button",
       "kind": "button",
       "refersTo": "button",
-      "description": "Ink on paper; oxide on hover.",
+      "description": "Ink on paper; rust on hover.",
       "html": "<a class=\"ds-btn\" href=\"#\">Apply for a pilot slot <span>&#8599;</span></a>",
-      "css": ".ds-btn{display:inline-flex;align-items:center;gap:.9em;padding:1.15em 1.6em;background:#17150F;color:#F4F1EA;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;line-height:1;border-radius:0;transition:background-color .35s cubic-bezier(.16,1,.3,1)}.ds-btn:hover{background:#A63D17}.ds-btn:focus-visible{outline:2px solid #A63D17;outline-offset:3px}"
-    },
-    {
-      "name": "Button on Ink",
-      "kind": "button",
-      "refersTo": "button-on-night",
-      "description": "Inside the form panel and closing screen.",
-      "html": "<div class=\"ds-night\"><button class=\"ds-btn-n\">Next <span>&#8599;</span></button></div>",
-      "css": ".ds-night{background:#17150F;padding:24px}.ds-btn-n{display:inline-flex;gap:.9em;padding:1.15em 1.6em;background:#F4F1EA;color:#17150F;border:0;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}.ds-btn-n:hover{background:#fff}.ds-btn-n:focus-visible{outline:2px solid #F4F1EA;outline-offset:3px}"
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:.9em;padding:1.15em 1.6em;background:#0E0E0E;color:#FFFFFF;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;line-height:1;border-radius:0;transition:background-color .35s cubic-bezier(.16,1,.3,1)}.ds-btn:hover{background:#C24E1C}.ds-btn:focus-visible{outline:2px solid #C24E1C;outline-offset:3px}"
     },
     {
       "name": "Choice Row",
       "kind": "custom",
-      "description": "One answer in the ink panel; checked turns bond with an oxide dot.",
-      "html": "<div class=\"ds-night\"><label class=\"ds-choice\"><input type=\"radio\" name=\"n\"><span>5 to 15</span></label><label class=\"ds-choice\"><input type=\"radio\" name=\"n\" checked><span>16 to 50</span></label></div>",
-      "css": ".ds-night{background:#17150F;color:#F4F1EA;padding:24px;font-family:'Hanken Grotesk',sans-serif}.ds-choice{display:flex;gap:14px;align-items:center;padding:13px 14px;border-top:1px solid rgba(244,241,234,.18);cursor:pointer}.ds-choice:hover{background:rgba(244,241,234,.06)}.ds-choice:has(input:checked){background:#F4F1EA;color:#17150F}.ds-choice input{accent-color:#A63D17}"
+      "description": "One answer row; checked turns ink with white text and a rust dot.",
+      "html": "<div class=\"ds-w\"><label class=\"ds-choice\"><input type=\"radio\" name=\"n\"><span>5 to 15</span></label><label class=\"ds-choice on\"><input type=\"radio\" name=\"n\" checked><span>16 to 50</span></label></div>",
+      "css": ".ds-w{background:#fff;color:#0E0E0E;padding:24px;font-family:'Hanken Grotesk',sans-serif}.ds-choice{display:flex;gap:14px;align-items:center;padding:13px 14px;border-top:1px solid rgba(14,14,14,.13)}.ds-choice.on{background:#0E0E0E;color:#fff}.ds-choice input{accent-color:#C24E1C}"
     },
     {
       "name": "Field",
       "kind": "input",
       "refersTo": "field",
-      "description": "Bond square input on the ink panel.",
-      "html": "<div class=\"ds-night\"><label class=\"ds-field\"><span>Work email</span><input type=\"email\"></label></div>",
-      "css": ".ds-night{background:#17150F;color:#F4F1EA;padding:24px;font-family:'Hanken Grotesk',sans-serif}.ds-field span{display:block;font-size:13.5px;color:rgba(244,241,234,.7);margin-bottom:6px}.ds-field input{width:100%;background:#FAF9F6;color:#17150F;border:0;padding:14px 15px;font-size:16px;border-radius:0}.ds-field input:focus-visible{outline:2px solid #F4F1EA;outline-offset:3px}"
+      "description": "Underline field; ink on focus, rust when invalid.",
+      "html": "<div class=\"ds-w\"><label class=\"ds-field\"><span>Work email</span><input type=\"email\"></label></div>",
+      "css": ".ds-w{background:#fff;color:#0E0E0E;padding:24px;font-family:'Hanken Grotesk',sans-serif}.ds-field span{display:block;font-size:13.5px;color:#56564F;margin-bottom:4px}.ds-field input{width:100%;border:0;border-bottom:1px solid rgba(14,14,14,.38);padding:10px 0;font-size:17px;background:transparent}.ds-field input:focus{outline:none;border-color:#0E0E0E;box-shadow:0 1px 0 #0E0E0E}"
     },
     {
       "name": "Nav Bar",
       "kind": "nav",
-      "description": "Sticky bond bar, serif name, ink rule below.",
+      "description": "Sticky white bar, serif name, ink rule below.",
       "html": "<nav class=\"ds-nav\"><b>Wren Automation</b><a href=\"#\">The pilot</a><a href=\"#\">About</a><a class=\"ds-nav-btn\" href=\"#\">Apply</a></nav>",
-      "css": ".ds-nav{display:flex;align-items:center;gap:30px;height:64px;padding:0 24px;background:#FAF9F6;border-bottom:1px solid #17150F;font-family:'Hanken Grotesk',sans-serif;font-size:14.5px}.ds-nav b{margin-right:auto;font:500 21px Newsreader,serif}.ds-nav a{color:#5B574E}.ds-nav a:hover{color:#17150F}.ds-nav .ds-nav-btn{background:#17150F;color:#F4F1EA;padding:1em 1.3em;font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}"
+      "css": ".ds-nav{display:flex;align-items:center;gap:30px;height:64px;padding:0 24px;background:#FFFFFF;border-bottom:1px solid #0E0E0E;font-family:'Hanken Grotesk',sans-serif;font-size:14.5px}.ds-nav b{margin-right:auto;font:500 21px Newsreader,serif}.ds-nav a{color:#5B574E}.ds-nav a:hover{color:#0E0E0E}.ds-nav .ds-nav-btn{background:#0E0E0E;color:#FFFFFF;padding:1em 1.3em;font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}"
     },
     {
       "name": "Headline",
       "kind": "custom",
       "description": "Serif with an italic turn.",
       "html": "<h2 class=\"ds-h\">30 days, <em>start to numbers.</em></h2>",
-      "css": ".ds-h{font:380 3.6rem/1.02 Newsreader,serif;letter-spacing:-.022em;color:#17150F}.ds-h em{font-style:italic}"
+      "css": ".ds-h{font:380 3.6rem/1.02 Newsreader,serif;letter-spacing:-.022em;color:#0E0E0E}.ds-h em{font-style:italic}"
     }
   ],
   "narrative": {
     "northStar": "The Partner's Letter",
-    "overview": "The pitch pages (/ and /recruiting) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, bond paper. A book serif speaks; a quiet grotesque does the work. Sections join on 1px ink rules into one continuous sheet.\n\nTwo blocks of ink carry the calls to act: the form panel in the first screen and the closing screen. Color is almost absent. Oxide appears only as small marks. The page is light only.\n\nIt rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no cards, no eyebrows above headings.",
+    "overview": "The pitch pages (/ and /recruiting) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, plain white paper, black ink. A book serif speaks; a quiet grotesque does the work. Sections join on 1px ink rules into one continuous sheet.\n\nWhite screen, black text, everywhere. No dark blocks: the form panel is set off by a single black rule, and the closing screen by another. Rust appears only as small marks. The page is light only.\n\nIt rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no cards, no eyebrows above headings.",
     "keyCharacteristics": [
       "Serif headings; the turn of the sentence in italic.",
       "Square corners everywhere.",
       "The form lives in an ink panel in the first screen.",
-      "One authored motion: contacts and the steps rule fill oxide as you scroll.",
+      "One authored motion: contacts and the steps rule fill rust as you scroll.",
       "Portraits in greyscale."
     ],
     "rules": [
       {
         "name": "The Small Mark Rule",
-        "body": "Oxide never fills anything bigger than a dot, a line or a tag. If it covers an area, it is wrong.",
+        "body": "Rust never fills anything bigger than a dot, a line or a tag. If it covers an area, it is wrong.",
         "section": "colors"
       },
       {
@@ -201,14 +198,14 @@
     ],
     "dos": [
       "Do set headings in Newsreader with the punch in italic.",
-      "Do keep oxide to dots, lines and tags.",
+      "Do keep rust to dots, lines and tags.",
       "Do separate with 1px rules, not boxes.",
       "Do keep question 1 in the first phone screen."
     ],
     "donts": [
       "Don't add eyebrows or kickers above headings.",
       "Don't use cards, rounded corners, glow, gradients or glass.",
-      "Don't fill a block or a resting button with oxide.",
+      "Don't fill a block or a resting button with rust.",
       "Don't add a dark theme."
     ]
   }
