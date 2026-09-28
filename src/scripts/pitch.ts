@@ -136,7 +136,7 @@ if (motion) {
   }
 
   // blocks rise in, in reading order, a few at a time
-  const ups = $$('.sec .intro, .legend, .dots, .calc-body>*, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .terms>div, .guarantee, .why>div, .figs>div, .about .photo, .about .para, .sign, .qa details, .close p, .close .btn, .me');
+  const ups = $$('.sec .intro, .legend, .dots, .calc-body>*, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .terms>div, .guarantee, .why>div, .figs>div, .about .photo, .about .para, .sign, .qa>div, .close p, .close .btn, .me');
   gsap.set(ups, { opacity: 0, y: 48 });
   ScrollTrigger.batch(ups, { start: 'top 90%', once: true, onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: OUT, stagger: 0.08, overwrite: true }) });
 

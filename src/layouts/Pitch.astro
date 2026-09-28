@@ -193,7 +193,7 @@ const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
     <div class="head sticky"><h2 set:html={rich(p.faq.h2)} /></div>
     <div class="qa">
       {p.faq.items.map((x) => (
-        <details><summary>{x.q}<i aria-hidden="true"></i></summary><p>{x.a}</p></details>
+        <div><h3>{x.q}</h3><p>{x.a}</p></div>
       ))}
     </div>
   </div>
