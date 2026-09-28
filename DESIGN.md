@@ -240,7 +240,7 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 
 ### Back cover (closing screen and footer)
 - One rust block, cream text, like the pfp and the banners.
-- The ask on the left, William's greyscale portrait and name on the right (a small face beside the name on phones), a cream button.
+- The ask alone, a cream button. No portrait: William's face shows once, large, in About (D15).
 - Footer under a faint cream rule: email, fine print, then the sign-off: the bird and "Wren Automation" set as wide as the page.
 - The phone float button hides here; the cover has its own.
 

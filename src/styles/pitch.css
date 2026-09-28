@@ -467,11 +467,7 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.25)}
 .close .btn{margin-top:2.2rem;background:var(--cream);color:var(--ink)}
 .close .btn:hover{background:var(--ink);color:var(--cream)}
 .close :focus-visible,.foot :focus-visible{outline-color:var(--cream)}
-.me img{width:100%;aspect-ratio:4/5;object-fit:cover;background:rgba(250,247,242,.12);filter:grayscale(1) contrast(1.06)}
-.me figcaption{margin-top:14px;font-size:14px;font-weight:600;line-height:1.45}
-.me figcaption span{display:block;font-weight:400;color:var(--cream-2)}
-@media (min-width:900px){.close .grid>.head{grid-column:1/8;align-self:center}.close .grid>.me{grid-column:9/13}}
-@media (max-width:899px){.me{display:flex;align-items:center;gap:16px;margin-top:36px}.me img{width:84px;aspect-ratio:1}.me figcaption{margin-top:0}}
+@media (min-width:900px){.close .grid>.head{grid-column:1/9}}
 
 .foot .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:14px 32px;padding-top:36px;border-top:1px solid rgba(250,247,242,.28)}
 .foot .mail{font-weight:500;text-decoration:underline;text-decoration-color:rgba(250,247,242,.45)}
