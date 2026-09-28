@@ -11,9 +11,9 @@ Mode: Persuade. Light only. Both pitch pages share Pitch.astro and pitch.css.
 
 ## Direction contract
 
-THESIS: The pitch set like a partner's letter from a serious firm: a strict 12-column grid, hairline rules, one sans (General Sans), no italics, pictures before paragraphs (faces, image slots, a code-drawn diagram per step), white screen and black text throughout, the form set off by one black rule, rust for small marks only. It refuses the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no cards, no eyebrows.
+THESIS: The pitch set like a partner's letter from a serious firm: a strict 12-column grid, hairline rules, one sans (General Sans), no italics, pictures before paragraphs (faces, image slots, a code-drawn diagram per step), white screen and black text, the form set off by one black rule, the pfp's rust in set places only (stamp, buttons, guarantee seal, back cover). It refuses the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no cards, no eyebrows.
 
-OWN-WORLD: White paper #FFFFFF, black ink #0E0E0E, greys 56564F/9C9C96, rust #C24E1C for marks only. General Sans for everything, no italics. Greyscale photos; image slots are generated (Higgsfield), never stock. No dark sections: the form panel and the closing screen are white, set off by black rules. Square corners, 1px rules.
+OWN-WORLD: White paper #FFFFFF, black ink #0E0E0E, greys 56564F/9C9C96, brand rust #A83B12 with cream #FAF7F2 on it (both from the pfp): fills only the stamp, buttons, the guarantee seal and the back cover; marks elsewhere. General Sans for everything, no italics. Greyscale photos; image slots are generated (Higgsfield), never stock. No black sections: the form panel is white, set off by a black rule. The closing screen and footer are one rust back cover. Square corners, 1px rules.
 
 STORY: An owner of a midsize recruiting firm sees who it's for, the pain (past clients gone quiet, BD hanging on one or two people), what Wren does and the free pilot, then answers question 1 without scrolling. Everything below is evidence for the doubtful.
 

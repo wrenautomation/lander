@@ -13,10 +13,15 @@ const $ = <T extends Element = HTMLElement>(s: string, el: ParentNode = document
 const $$ = <T extends Element = HTMLElement>(s: string, el: ParentNode = document) => [...el.querySelectorAll<T>(s)];
 const fmt = (n: number) => Math.round(n).toLocaleString('en-US');
 
-/* ---------- the phone's floating button: shown once the form and the hero are out of view ---------- */
+/* ---------- the phone's floating button: shown between the hero and the rust back cover, which has its own ---------- */
 const float = $('[data-float]'), hero = $('.hero');
 if (float && hero) {
-  new IntersectionObserver(([e]) => float.classList.toggle('show', !e.isIntersecting)).observe(hero);
+  const inView = new Set<Element>();
+  const io = new IntersectionObserver((es) => {
+    for (const e of es) e.isIntersecting ? inView.add(e.target) : inView.delete(e.target);
+    float.classList.toggle('show', inView.size === 0);
+  });
+  for (const el of [hero, $('.close'), $('.foot')]) if (el) io.observe(el);
 }
 
 /* ---------- the steps: the rule fills as you read; each stop lights when the rule reaches it ---------- */
@@ -263,7 +268,7 @@ if (box) {
     const cal = $('[data-cal]', box);
     if (state === 'fit' && booking && cal && !cal.childElementCount) {
       const name = (form.elements.namedItem('name') as HTMLInputElement).value.trim();
-      const accent = getComputedStyle(root).getPropertyValue('--ink').trim();
+      const accent = getComputedStyle(root).getPropertyValue('--acc').trim();
       mountBooking(cal, booking, { name, email: email.value.trim() }, accent); // booking is tagged by /api/apply
     }
     const shown = $<HTMLElement>(`[data-result="${state}"]`, box);

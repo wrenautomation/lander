@@ -1,15 +1,17 @@
 ---
 name: Wren Automation
-description: Pitch pages set like a partner's letter, told in pictures. White paper, black ink, General Sans, faces and diagrams, small rust marks.
+description: Pitch pages set like a partner's letter, told in pictures. White paper, black ink, General Sans, faces and diagrams, the brand's rust in a few set places.
 colors:
   paper: "#FFFFFF"
-  paper-2: "#F4F4F2"
+  paper-2: "#F4F1EC"
   ink: "#0E0E0E"
   ink-2: "#56564F"
   ink-3: "#9C9C96"
   rule: "rgba(14,14,14,.13)"
   line: "rgba(14,14,14,.38)"
-  rust: "#C24E1C"
+  rust: "#A83B12"
+  cream: "#FAF7F2"
+  cream-2: "#EFDDD3"
 typography:
   display:
     fontFamily: "General Sans, ui-sans-serif, system-ui, sans-serif"
@@ -66,12 +68,22 @@ spacing:
   max: "1320px"
 components:
   button:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.paper}"
+    backgroundColor: "{colors.rust}"
+    textColor: "{colors.cream}"
     rounded: "{rounded.none}"
     padding: "1.15em 1.6em"
   button-hover:
+    backgroundColor: "{colors.ink}"
+  button-on-rust:
+    backgroundColor: "{colors.cream}"
+    textColor: "{colors.ink}"
+  seal:
     backgroundColor: "{colors.rust}"
+    textColor: "{colors.cream}"
+    rounded: "{rounded.none}"
+  back-cover:
+    backgroundColor: "{colors.rust}"
+    textColor: "{colors.cream}"
   field:
     backgroundColor: "transparent"
     textColor: "{colors.ink}"
@@ -93,7 +105,7 @@ The pitch pages (/ and /recruiting) read like a letter from a partner at a serio
 
 Most readers only look at headings and pictures, so the pictures carry the story: faces for trust, an example thread in the first screen, a photo per half, and a small diagram under every step. Diagrams are drawn in code and always shown whole. Motion brings things in as you scroll; it never hides anything behind a click.
 
-White screen, black text, everywhere. No dark blocks. Rust appears only as small marks. Light only.
+White screen, black text. The brand's rust, the one on the pfp and banners, fills only a few set places so it reads as a signature, not a theme: the stamp, the buttons, the guarantee seal and the back cover. Everywhere else it is a small mark. No black blocks. Light only.
 
 It rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no eyebrows above headings, no stock photos.
 
@@ -104,28 +116,32 @@ It rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mo
 - Pictures before paragraphs: faces, image slots, step diagrams.
 - Motion as a slideshow: things arrive as they're reached; sections dim as they leave.
 - All photos greyscale.
+- The pfp in the corner of every screen: a cream bird on a rust square.
+- The page ends on a rust back cover, like the banners.
 
 Scope: this records `src/styles/pitch.css`. The privacy and 404 pages still use `global.css`, the previous system.
 
 ## Colors
 
-Black on white, with small rust marks.
+Black on white, with the brand's rust in set places. The rust and cream are sampled from the pfp (`public/brand/wren-pfp.png`).
 
 ### Primary
-- **Rust** (rust): marks only. Woken contacts, the steps rule and nodes, the selected-answer dot, slot dots, the reply rule in the example thread, the hot row and hot bar in a diagram, the flow's last node and runner, ticker dots, tags, errors, focus rings, button hover. Never a fill for a block or a button at rest.
+- **Rust** (rust, #A83B12, 6.4:1 on white): fills the stamp, buttons, the guarantee seal and the back cover (closing screen and footer); text selection. Elsewhere marks only: woken contacts, the steps rule and nodes, the selected-answer dot, slot dots, the reply rule in the example thread, the hot row and hot bar in a diagram, the flow's last node and runner, ticker dots, tags, errors, focus rings.
+- **Cream** (cream, #FAF7F2): the pfp's bird. Text, marks and buttons on rust only (5.9:1).
+- **Cream Grey** (cream-2): secondary text on rust (4.8:1).
 
 ### Neutral
 - **Paper** (paper): the page and the form panel. Pure white.
-- **Second Stock** (paper-2): image tiles, call tiles, face backgrounds, row hover.
-- **Ink** (ink): text, buttons, section rules, diagram lines and bars, the checked answer row, the file chip.
+- **Second Stock** (paper-2): image tiles, call tiles, face backgrounds, row hover. Slightly warm, toward the cream.
+- **Ink** (ink): text, button hover, section rules, diagram lines and bars, the checked answer row, the file chip.
 - **Grey** (ink-2): secondary text. 7.4:1 on white.
 - **Mark Grey** (ink-3): dormant dots and scrollbar only.
 - **Hairline** (rule): rules inside a section.
 - **Field Line** (line): field underlines; ink on focus.
 
 ### Named Rules
-**The Small Mark Rule.** Rust never fills anything bigger than a dot, a line, a thin bar or a tag. If it covers an area, it is wrong.
-**The White Page Rule.** No dark sections. Separation comes from black rules, never from a black block.
+**The Set Places Rule.** Rust fills exactly four things: the stamp, buttons, the guarantee seal and the back cover. Anything else rust is a dot, a line, a thin bar or a tag. A new rust area needs a reason as strong as those.
+**The White Page Rule.** No black blocks. Separation comes from black rules. The only colored blocks are the seal and the back cover.
 
 ## Typography
 
@@ -158,6 +174,7 @@ Hero from 1024px: copy in columns 1–7 with the example thread under it, the fo
 Pictures carry the page. Three kinds, all greyscale:
 
 - **Real photo:** William's headshot (hero byline, about, closing screen, the call diagram).
+- **The mark:** the bird, drawn with a CSS mask (`public/brand/wren-mark-512.png`) so it takes the text color: cream in the stamp, seal and sign-off.
 - **Image slots:** each has a `file` and the `prompt` that makes it, in the pitch yaml. The picture lives at `src/assets/img/<file>` and Astro resizes it. Until it exists the slot draws a hatched paper-2 tile with a faint bird mark (a face: initials). `?prompts` on the URL prints each prompt on its tile; `npm run images` lists what's missing. Pictures are generated (Higgsfield), never stock.
 - **Diagrams:** drawn in code (Art.astro), one per step: `call` (two video tiles, a file chip), `rows` (a cleaned list with marks: ok, moved, out, hot), `flow` (nodes on a wire, a rust runner), `bars` (thin bars, one rust). Always whole on the page.
 
@@ -195,7 +212,7 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 
 ### Buttons
 - **Shape:** square (0). Small uppercase label, arrow after it.
-- Ink, white text. Hover turns rust. One style everywhere.
+- Rust, cream text. Hover turns ink. On rust (the back cover) the button is cream with ink text.
 
 ### Application panel
 - **Style:** white, black text, set off by a 1px black rule (left on desktop, top on phone).
@@ -208,7 +225,10 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 - A label, then two messages between hairlines: face, name, role, time, text. The reply is indented behind a rust rule. A rust-dot tag says what it means.
 
 ### Navigation
-- Sticky white bar, 64px (56px on phones), ink rule below. Bird mark and name left, text links, ink button right. Links hide under 820px.
+- Sticky white bar, 64px (56px on phones), ink rule below. The stamp (the pfp: a cream bird on a 32px rust square, 28px on phones) and the name left, text links, the rust button right. Links hide under 820px.
+
+### Guarantee seal
+- The offer's one promise in a rust block, cream text: the bird and the label left, the promise large on the right. Full bleed on phones.
 
 ### Dots field (signature)
 - Grey outlined dots, the dormant past clients. As you scroll, some fill rust and grow.
@@ -216,8 +236,11 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 ### Steps timeline
 - A hairline rail that fills rust as you scroll. Round nodes turn rust as the fill passes. Step timing beside the step name. A diagram under each step's text.
 
-### Closing screen
-- The ask on the left, William's portrait and name on the right (a small face beside the name on phones).
+### Back cover (closing screen and footer)
+- One rust block, cream text, like the pfp and the banners.
+- The ask on the left, William's greyscale portrait and name on the right (a small face beside the name on phones), a cream button.
+- Footer under a faint cream rule: email, fine print, then the sign-off: the bird and "Wren Automation" set as wide as the page.
+- The phone float button hides here; the cover has its own.
 
 ## Do's and Don'ts
 
@@ -225,7 +248,7 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 - **Do** set everything in General Sans; headings 500 with tight tracking.
 - **Do** lead with a picture, a face or a diagram where a paragraph would go.
 - **Do** keep diagrams whole; motion only brings them in.
-- **Do** keep rust to dots, lines, thin bars and tags.
+- **Do** keep rust fills to the stamp, buttons, the seal and the back cover; marks elsewhere.
 - **Do** keep question 1 in the first phone screen.
 
 ### Don't:
@@ -233,4 +256,4 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 - **Don't** pin sections or hide content behind clicks.
 - **Don't** add eyebrows or kickers above headings.
 - **Don't** use italics, a serif, rounded corners, glow, gradients or glass.
-- **Don't** add a dark theme or a dark section.
+- **Don't** add a dark theme, a black section, or a rust section beyond the seal and the back cover.

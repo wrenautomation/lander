@@ -1,18 +1,22 @@
 /* Pitch pages (/ and /recruiting): the partner's letter, told in pictures. White page, black text, hairline rules on
    a 12-column grid. One sans throughout (General Sans), no italics. The form sits in the first screen, set off by a
    black rule. Pictures carry the story: faces, image slots (a plain tile until the file exists), and a small diagram
-   per step drawn in code. Rust is an accent only: marks, lines, tags, hover. Light only.
+   per step drawn in code. Rust is the brand's (the pfp's rust, the bird's cream on it), used in few places so it
+   carries: the stamp, the buttons, the guarantee seal and the back cover (closing screen and footer); marks elsewhere.
+   Light only.
    html.js = motion on (set in Pitch.astro's head); without it everything renders whole and still. */
 
 :root{
   --paper:#FFFFFF;
-  --paper-2:#F4F4F2;
+  --paper-2:#F4F1EC;
   --ink:#0E0E0E;
   --ink-2:#56564F;   /* secondary text: 7.4:1 on white */
   --ink-3:#9C9C96;   /* marks only */
   --rule:rgba(14,14,14,.13);
   --line:rgba(14,14,14,.38); /* field underlines */
-  --acc:#C24E1C;     /* rust: accents only, never a block */
+  --acc:#A83B12;     /* brand rust (the pfp): 6.4:1 on white */
+  --cream:#FAF7F2;   /* the pfp's bird: text and marks on rust only, 5.9:1 */
+  --cream-2:#EFDDD3; /* secondary text on rust, 4.8:1 */
   --sans:'General Sans',ui-sans-serif,system-ui,sans-serif;
   --gut:clamp(16px,4vw,48px);
   --max:1320px;
@@ -31,7 +35,7 @@ a{color:inherit;text-decoration:none}
 button,input,textarea{font:inherit;color:inherit}
 ul,ol{list-style:none}
 p,li{text-wrap:pretty}
-::selection{background:var(--ink);color:var(--paper)}
+::selection{background:var(--acc);color:var(--cream)}
 :focus-visible{outline:2px solid var(--acc);outline-offset:3px}
 ::-webkit-scrollbar{width:11px;height:11px}
 ::-webkit-scrollbar-track{background:var(--paper)}
@@ -57,8 +61,8 @@ a:not(.btn){text-underline-offset:.24em;text-decoration-thickness:1px}
 .label,.when,.progress>span:first-child,.guarantee span{font-family:var(--sans);font-size:12.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
 
 /* ---------- buttons ---------- */
-.btn{display:inline-flex;align-items:center;gap:.9em;padding:1.15em 1.6em;background:var(--ink);color:var(--paper);font-family:var(--sans);font-weight:600;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;line-height:1;white-space:nowrap;border:0;cursor:pointer;transition:background-color .35s var(--out),color .35s var(--out),transform .2s var(--out)}
-.btn:hover{background:var(--acc)}
+.btn{display:inline-flex;align-items:center;gap:.9em;padding:1.15em 1.6em;background:var(--acc);color:var(--cream);font-family:var(--sans);font-weight:600;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;line-height:1;white-space:nowrap;border:0;cursor:pointer;transition:background-color .35s var(--out),color .35s var(--out),transform .2s var(--out)}
+.btn:hover{background:var(--ink)}
 .btn:active{transform:translateY(1px)}
 .btn.sm{padding:1em 1.3em;font-size:12.5px}
 .btn[disabled]{opacity:.6;cursor:progress}
@@ -70,8 +74,11 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 .top{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--ink)}
 .bar{display:flex;align-items:center;gap:clamp(16px,3vw,40px);height:var(--bar)}
 .brand{display:inline-flex;align-items:center;gap:10px}
-.mark{height:24px;width:auto}
-.mark.d{display:none}
+/* the stamp: the pfp itself, a cream bird on a rust square. .bird is the mark in the current text colour. */
+.stamp{flex:none;display:grid;place-items:center;width:32px;height:32px;background:var(--acc)}
+.stamp::before{content:"";width:72%;background:var(--cream)}
+.stamp::before,.bird{display:block;aspect-ratio:1048/957;-webkit-mask:url(/brand/wren-mark-512.png) center/contain no-repeat;mask:url(/brand/wren-mark-512.png) center/contain no-repeat}
+.bird{background:currentColor}
 .brand .name{font-weight:600;font-size:19px;letter-spacing:-.02em;white-space:nowrap}
 .links{display:flex;gap:30px;margin-left:auto;font-size:14.5px;color:var(--ink-2)}
 .links a{transition:color .25s}
@@ -147,7 +154,7 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 @media (max-width:719px){
   :root{--bar:56px}
   .brand .name{font-size:18px}
-  .mark{height:20px}
+  .stamp{width:28px;height:28px}
   .top .btn{padding:.95em 1.1em;font-size:12px}
   h1{font-size:clamp(2.3rem,1.5rem + 3.6vw,2.9rem)}
   .copy{padding:18px 0 22px}
@@ -245,7 +252,8 @@ label.field small{font-size:12px;margin-left:6px}
 .js .marq ul{animation:marq 38s linear infinite}
 .js .marq:hover ul{animation-play-state:paused}
 @keyframes marq{to{transform:translateX(-100%)}}
-html:not(.js) .marq ul{flex-wrap:wrap;white-space:normal}
+html:not(.js) .marq ul{flex:1 1 auto;min-width:0;flex-wrap:wrap}
+html:not(.js) .marq li{white-space:nowrap}
 html:not(.js) .marq ul+ul{display:none}
 html:not(.js) .marq li:last-child::after{display:none}
 @media (max-width:719px){.strip .wrap{flex-direction:column;align-items:stretch}}
@@ -383,9 +391,11 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.25)}
 .terms h3{font-size:22px}
 .terms ul{margin-top:14px}
 .terms li{padding-block:14px;border-top:1px solid var(--rule);font-size:16px;color:var(--ink-2)}
-.guarantee{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--cg);align-items:baseline;margin-top:clamp(40px,5vw,64px);padding-block:28px;border-block:1px solid var(--ink)}
-.guarantee span{grid-column:1/4;font-size:11.5px}
-.guarantee p{grid-column:4/13;font-size:clamp(23px,1.1rem + 1vw,33px);font-weight:500;letter-spacing:-.02em;line-height:1.25}
+/* the seal: the one promise, cream on rust */
+.guarantee{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--cg);align-items:start;margin-top:clamp(40px,5vw,64px);padding:clamp(28px,4vw,56px) clamp(22px,3vw,48px);background:var(--acc);color:var(--cream)}
+.guarantee span{grid-column:1/4;display:flex;flex-direction:column;gap:18px;font-size:11.5px;padding-top:.5em}
+.guarantee .bird{width:clamp(40px,4vw,56px)}
+.guarantee p{grid-column:4/13;font-size:clamp(23px,1.1rem + 1vw,33px);font-weight:500;letter-spacing:-.02em;line-height:1.25;max-width:24em}
 .why{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);margin-top:clamp(40px,5vw,64px)}
 .why h3{font-size:22px}
 .why p{color:var(--ink-2);margin-top:6px;max-width:34em}
@@ -393,8 +403,10 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.25)}
   .terms{grid-template-columns:1fr}
   .terms>div+div{border-left:0;padding-left:0;margin-top:28px;border-top:1px solid var(--ink)}
   .terms>div:not(:last-child){padding-right:0}
-  .guarantee{display:block}
-  .guarantee p{margin-top:10px}
+  .guarantee{display:block;margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut)}
+  .guarantee span{flex-direction:row;align-items:center;gap:12px;padding-top:0}
+  .guarantee .bird{width:30px}
+  .guarantee p{margin-top:16px}
   .why{grid-template-columns:1fr}
 }
 
@@ -438,22 +450,28 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.25)}
 .qa details[open] summary i::after{transform:rotate(0)}
 .qa details p{color:var(--ink-2);padding-bottom:24px;max-width:40em}
 
-/* the last screen: the ask, and the face behind it */
-.close{border-top:1px solid var(--ink);padding-block:clamp(88px,12vw,176px)}
+/* the back cover: the last screen and the footer, cream on rust like the pfp and the banners */
+.close,.foot{background:var(--acc);color:var(--cream)}
+.close{padding-block:clamp(88px,12vw,176px) clamp(64px,8vw,120px)}
 .close h2{font-size:clamp(2.6rem,1.4rem + 4vw,5rem);max-width:15ch}
-.close p{font-size:18px;color:var(--ink-2);margin-top:1.5rem;max-width:36em}
-.close .btn{margin-top:2.2rem}
-.me img{width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--paper-2);filter:grayscale(1) contrast(1.06)}
+.close p{font-size:18px;color:var(--cream-2);margin-top:1.5rem;max-width:36em}
+.close .btn{margin-top:2.2rem;background:var(--cream);color:var(--ink)}
+.close .btn:hover{background:var(--ink);color:var(--cream)}
+.close :focus-visible,.foot :focus-visible{outline-color:var(--cream)}
+.me img{width:100%;aspect-ratio:4/5;object-fit:cover;background:rgba(250,247,242,.12);filter:grayscale(1) contrast(1.06)}
 .me figcaption{margin-top:14px;font-size:14px;font-weight:600;line-height:1.45}
-.me figcaption span{display:block;font-weight:400;color:var(--ink-2)}
+.me figcaption span{display:block;font-weight:400;color:var(--cream-2)}
 @media (min-width:900px){.close .grid>.head{grid-column:1/8;align-self:center}.close .grid>.me{grid-column:9/13}}
 @media (max-width:899px){.me{display:flex;align-items:center;gap:16px;margin-top:48px}.me img{width:84px;aspect-ratio:1}.me figcaption{margin-top:0}}
 
-.foot{padding-block:40px 48px}
-.foot .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:14px 32px}
-.foot .wrap>a:nth-child(2){font-weight:500;text-decoration:underline;text-decoration-color:var(--rule)}
-.foot .fine{flex-basis:100%;font-size:13px;color:var(--ink-2)}
+.foot .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:14px 32px;padding-top:36px;border-top:1px solid rgba(250,247,242,.28)}
+.foot .mail{font-weight:500;text-decoration:underline;text-decoration-color:rgba(250,247,242,.45)}
+.foot .mail:hover{text-decoration-color:var(--cream)}
+.foot .fine{flex-basis:100%;font-size:13px;color:var(--cream-2)}
 .foot .fine a{text-decoration:underline}
+/* the sign-off: the banner's lockup, set as wide as the page */
+.sign-off{flex-basis:100%;display:flex;align-items:center;gap:.22em;margin-block:clamp(40px,7vw,96px) clamp(28px,4vw,56px);font-size:clamp(2.1rem,9.8vw,9rem);font-weight:600;letter-spacing:-.045em;line-height:1;white-space:nowrap}
+.sign-off .bird{flex:none;width:1.12em}
 
 /* the phone's button back to the form, once the form is out of view */
 .float{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:30;transform:translateY(160%);transition:transform .5s var(--out),background-color .35s var(--out);box-shadow:0 12px 32px -12px rgba(14,14,14,.45)}

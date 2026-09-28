@@ -8,7 +8,6 @@ import type { CollectionEntry } from 'astro:content';
 import { getEntry } from 'astro:content';
 import Head from '../components/Head.astro';
 import Analytics from '../components/Analytics.astro';
-import Mark from '../components/Mark.astro';
 import Arrow from '../components/pitch/Arrow.astro';
 import Calc from '../components/pitch/Calc.astro';
 import Scene from '../components/pitch/Scene.astro';
@@ -41,7 +40,7 @@ const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
 
 <header class="top" data-nav>
   <div class="wrap bar">
-    <a class="home" href="#top" aria-label="Wren Automation, top of page"><Mark /></a>
+    <a class="home" href="#top" aria-label="Wren Automation, top of page"><span class="brand"><i class="stamp" aria-hidden="true"></i><span class="name">Wren Automation</span></span></a>
     <nav class="links" aria-label="Page">{p.nav.map((n) => <a href={n.to}>{n.label}</a>)}</nav>
     <a class="btn ink sm" href="#apply" data-cta><span>{p.nav_cta}</span><Arrow /></a>
   </div>
@@ -161,7 +160,7 @@ const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
         ))}
       </div>
       {offer.guarantee && (
-        <div class="guarantee"><span>{p.deal.guarantee}</span><p>{offer.guarantee}</p></div>
+        <div class="guarantee"><span><i class="bird" aria-hidden="true"></i>{p.deal.guarantee}</span><p>{offer.guarantee}</p></div>
       )}
       <div class="why">
         {p.deal.why.map((w) => <div><h3>{w.q}</h3><p>{w.a}</p></div>)}
@@ -240,9 +239,9 @@ const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
 
 <footer class="foot">
   <div class="wrap">
-    <a class="home" href="#top" aria-label="Wren Automation, top of page"><Mark /></a>
-    <a href={`mailto:${site.email}`}>{site.email}</a>
+    <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
     <p class="fine">© {year} Wren Automation · {site.city} · {site.fine}{turnstile && <> {site.fine_turnstile} <a href="https://www.cloudflare.com/turnstile-privacy-policy/">{site.fine_turnstile_link}</a>.</>} <a href="/privacy">{site.fine_privacy}</a></p>
+    <a class="sign-off" href="#top" aria-label="Wren Automation, top of page"><i class="bird" aria-hidden="true"></i><span>Wren Automation</span></a>
   </div>
 </footer>
 
