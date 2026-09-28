@@ -461,7 +461,7 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.25)}
 
 /* the back cover: the last screen and the footer, cream on rust like the pfp and the banners */
 .close,.foot{background:var(--acc);color:var(--cream)}
-.close{padding-block:clamp(88px,12vw,176px) clamp(64px,8vw,120px)}
+.close{padding-block:clamp(80px,10vw,152px) clamp(40px,4vw,64px)}
 .close h2{font-size:clamp(2.6rem,1.4rem + 4vw,5rem);max-width:15ch}
 .close p{font-size:18px;color:var(--cream-2);margin-top:1.5rem;max-width:36em}
 .close .btn{margin-top:2.2rem;background:var(--cream);color:var(--ink)}
@@ -471,7 +471,7 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.25)}
 .me figcaption{margin-top:14px;font-size:14px;font-weight:600;line-height:1.45}
 .me figcaption span{display:block;font-weight:400;color:var(--cream-2)}
 @media (min-width:900px){.close .grid>.head{grid-column:1/8;align-self:center}.close .grid>.me{grid-column:9/13}}
-@media (max-width:899px){.me{display:flex;align-items:center;gap:16px;margin-top:48px}.me img{width:84px;aspect-ratio:1}.me figcaption{margin-top:0}}
+@media (max-width:899px){.me{display:flex;align-items:center;gap:16px;margin-top:36px}.me img{width:84px;aspect-ratio:1}.me figcaption{margin-top:0}}
 
 .foot .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:14px 32px;padding-top:36px;border-top:1px solid rgba(250,247,242,.28)}
 .foot .mail{font-weight:500;text-decoration:underline;text-decoration-color:rgba(250,247,242,.45)}
@@ -479,7 +479,7 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.25)}
 .foot .fine{flex-basis:100%;font-size:13px;color:var(--cream-2)}
 .foot .fine a{text-decoration:underline}
 /* the sign-off: the banner's lockup, set as wide as the page */
-.sign-off{flex-basis:100%;display:flex;align-items:center;gap:.22em;margin-block:clamp(40px,7vw,96px) clamp(28px,4vw,56px);font-size:clamp(2.1rem,9.8vw,9rem);font-weight:600;letter-spacing:-.045em;line-height:1;white-space:nowrap}
+.sign-off{flex-basis:100%;display:flex;align-items:center;gap:.22em;margin-block:clamp(28px,4vw,56px) clamp(20px,3vw,40px);font-size:clamp(2.1rem,9.8vw,9rem);font-weight:600;letter-spacing:-.045em;line-height:1;white-space:nowrap}
 .sign-off .bird{flex:none;width:1.12em}
 
 /* the phone's button back to the form, once the form is out of view */

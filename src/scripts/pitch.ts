@@ -190,6 +190,10 @@ if (motion) {
   for (const w of $$('.sec>.wrap')) {
     gsap.to(w, { opacity: 0.25, y: -40, ease: 'none', scrollTrigger: { trigger: w.parentElement, start: 'bottom 40%', end: 'bottom top', scrub: true } });
   }
+  // a sticky heading leaves with its last item, not after it: gone before the item reaches the top
+  for (const h of $$('.head.sticky')) {
+    gsap.to(h, { opacity: 0, y: -40, ease: 'none', scrollTrigger: { trigger: h.parentElement, start: 'bottom 55%', end: 'bottom 25%', scrub: true } });
+  }
 
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
 }
