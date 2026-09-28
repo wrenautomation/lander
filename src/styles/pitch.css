@@ -477,6 +477,7 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.25)}
 /* the sign-off: the banner's lockup, set as wide as the page */
 .sign-off{flex-basis:100%;display:flex;align-items:center;gap:.22em;margin-block:clamp(28px,4vw,56px) clamp(20px,3vw,40px);font-size:clamp(2.1rem,9.8vw,9rem);font-weight:600;letter-spacing:-.045em;line-height:1;white-space:nowrap}
 .sign-off .bird{flex:none;width:1.12em}
+.sign-off span{font-size:.5em;letter-spacing:-.03em}
 
 /* the phone's button back to the form, once the form is out of view */
 .float{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:30;transform:translateY(160%);transition:transform .5s var(--out),background-color .35s var(--out);box-shadow:0 12px 32px -12px rgba(14,14,14,.45)}
