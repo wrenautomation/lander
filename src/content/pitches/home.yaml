@@ -22,10 +22,20 @@ hero:
   second: "Recruiting firm? See the free pilot"
   second_to: /recruiting
   by: I'm an engineer. The person who scopes it builds it.
-  facts:
-    - { k: Start, v: "A 30-minute call, then a one-page plan with the price." }
-    - { k: Build, v: "Inside the tools you already pay for, one milestone at a time." }
-    - { k: After, v: "I run it, fix it and add to it every month." }
+  scene:
+    label: Example
+    a:
+      name: New inquiry
+      role: Website form
+      when: 11:48 pm
+      text: Do you take on firms our size? We need help before month end.
+      face: { file: home/face-lead.jpg, prompt: "Head-and-shoulders portrait of a business owner in his 40s, relaxed, open-collar shirt, plain light grey backdrop, soft window light, 85mm, black and white editorial photography, natural light, fine grain, no text, no logos, square crop" }
+    b:
+      name: Your firm
+      role: Automatic reply
+      when: 11:50 pm
+      text: We do. Here are two times tomorrow. Pick one and it's booked.
+    tag: Answered in two minutes, booked before anyone else called back.
 
 halves:
   h2: Two halves of *one system.*
@@ -34,6 +44,10 @@ halves:
     - tag: Front of house
       h3: More business in
       text: A pipeline that doesn't hang on one or two rainmakers.
+      image:
+        file: home/front.jpg
+        alt: A firm owner shaking hands with a new client.
+        prompt: "The owner of a small professional services firm shaking hands with a new client across a meeting table, both smiling, bright modern office, candid, black and white editorial photography, natural light, fine grain, no text, no logos, 4:3"
       items:
         - { name: Dead lead reactivation, text: "Past clients and cold contacts, won back in your name." }
         - { name: Speed to lead, text: "Every inquiry answered in minutes, day or night." }
@@ -41,6 +55,10 @@ halves:
     - tag: Back of house
       h3: Less busywork out
       text: Admin that stops growing with headcount.
+      image:
+        file: home/back.jpg
+        alt: A clear desk, a laptop open to a finished report.
+        prompt: "A clear desk in a small office at the end of the day, laptop open to a finished report, a pen and a closed notebook, nobody in frame, warm late light, black and white editorial photography, natural light, fine grain, no text, no logos, 4:3"
       items:
         - { name: Intake and onboarding, text: "Forms, contracts and documents land in your systems without retyping." }
         - { name: Scheduling and follow-up, text: "Meetings booked, clients updated, nobody chasing." }
@@ -72,15 +90,34 @@ steps:
     - when: Week 0
       name: Call
       text: Thirty minutes. Walk me through a normal week, where the business comes from and where the hours go.
+      art:
+        kind: call
+        them: You
+        face: { file: home/face-owner.jpg, prompt: "Head-and-shoulders portrait of the owner of a small professional services firm, a man in his late 40s, on a video call, attentive, slight smile, plain light grey backdrop, soft window light, 85mm, black and white editorial photography, natural light, fine grain, no text, no logos, square crop" }
+        chip: A normal week
+        mins: 30 min
     - when: Week 1
       name: Plan
       text: One page back. What to build first, what it's worth, what it costs. Yours to keep either way.
+      art:
+        kind: bars
+        bars:
+          - { label: Speed to lead, w: 100, hot: true }
+          - { label: Intake to CRM, w: 64 }
+          - { label: Monday report, w: 38 }
     - when: Weeks 2–6
       name: Build
       text: Built inside your tools, one milestone at a time. Each one runs before the next starts.
+      art: { kind: flow, nodes: [Web form, CRM, Calendar, Invoice] }
     - when: After
       name: Run
       text: I watch it, fix it and add to it every month. You get the numbers.
+      art:
+        kind: rows
+        rows:
+          - { text: New inquiry, note: Answered in 2 min, mark: hot }
+          - { text: Monday report, note: Sent 7:00 am, mark: ok }
+          - { text: Calendar sync, note: Fixed the same day, mark: moved }
 
 proof:
   h2: An engineer, *not an agency.*

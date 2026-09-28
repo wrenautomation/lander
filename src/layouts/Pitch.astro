@@ -11,6 +11,9 @@ import Analytics from '../components/Analytics.astro';
 import Mark from '../components/Mark.astro';
 import Arrow from '../components/pitch/Arrow.astro';
 import Calc from '../components/pitch/Calc.astro';
+import Scene from '../components/pitch/Scene.astro';
+import Shot from '../components/pitch/Shot.astro';
+import Art from '../components/pitch/Art.astro';
 import Apply from '../components/pitch/Apply.astro';
 import { loadPitch } from '../lib/pitch';
 import { bare, rich, richParas } from '../lib/text';
@@ -20,7 +23,8 @@ const { p, offer, next } = await loadPitch(entry);
 const site = (await getEntry('site', 'site'))!.data;
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 const year = new Date().getFullYear();
-const FONTS = 'https://fonts.googleapis.com/css2?family=Geist:wght@400..700&display=swap';
+const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap';
+const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
 ---
 <!doctype html>
 <html lang="en" class="pitch" data-niche={p.form_value}>
@@ -29,7 +33,8 @@ const FONTS = 'https://fonts.googleapis.com/css2?family=Geist:wght@400..700&disp
   <meta name="color-scheme" content="light">
   <script is:inline>
     /* motion on: the scroll-drawn parts start undrawn. Off for ?static and reduced motion, so the page reads as-is. */
-    try{if(!new URLSearchParams(location.search).has('static')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js')}catch(e){}
+    /* ?prompts prints each empty image slot's prompt on the tile. */
+    try{var q=new URLSearchParams(location.search),h=document.documentElement;if(q.has('prompts'))h.classList.add('prompts');if(!q.has('static')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)h.classList.add('js')}catch(e){}
   </script>
 </head>
 <body>
@@ -51,9 +56,7 @@ const FONTS = 'https://fonts.googleapis.com/css2?family=Geist:wght@400..700&disp
       <a class="more" href={p.hero.second_to}>{p.hero.second}<Arrow /></a>
     </div>
     <Apply a={p.ask} offer={offer} email={site.email} path={p.path} />
-    {p.hero.facts && (
-      <dl class="facts">{p.hero.facts.map((f) => <div><dt>{f.k}</dt><dd>{f.v}</dd></div>)}</dl>
-    )}
+    {p.hero.scene && <Scene s={p.hero.scene} />}
     <p class="by">
       <img src={p.about.photo} alt="" width="96" height="96">
       <span><b>{p.about.sign}</b>{p.hero.by}</span>
@@ -63,7 +66,7 @@ const FONTS = 'https://fonts.googleapis.com/css2?family=Geist:wght@400..700&disp
 
 {p.strip && (
   <section class="strip" aria-label={p.strip.label}>
-    <div class="wrap"><p>{p.strip.label}</p><ul>{p.strip.items.map((x) => <li>{x}</li>)}</ul></div>
+    <div class="wrap"><p>{p.strip.label}</p><div class="marq"><ul>{p.strip.items.map((x) => <li>{x}</li>)}</ul><ul aria-hidden="true">{p.strip.items.map((x) => <li>{x}</li>)}</ul></div></div>
   </section>
 )}
 
@@ -94,6 +97,7 @@ const FONTS = 'https://fonts.googleapis.com/css2?family=Geist:wght@400..700&disp
     <div class="split">
       {p.halves.sides.map((s) => (
         <article class="side">
+          {s.image && <Shot s={s.image} />}
           <h3 set:html={rich(s.h3)} />
           <p class="sub"><b>{s.tag}.</b> {s.text}</p>
           <ul>
@@ -134,7 +138,7 @@ const FONTS = 'https://fonts.googleapis.com/css2?family=Geist:wght@400..700&disp
     <ol class="timeline" data-timeline>
       <span class="rail" aria-hidden="true"><i data-rail></i></span>
       {p.steps.items.map((s) => (
-        <li data-stop><span class="node" aria-hidden="true"></span><h3>{s.name} <span class="when">{s.when}</span></h3><p>{s.text}</p></li>
+        <li data-stop><span class="node" aria-hidden="true"></span><h3>{s.name} <span class="when">{s.when}</span></h3><p>{s.text}</p>{s.art && <Art a={s.art} me={me} />}</li>
       ))}
     </ol>
   </div>
@@ -220,10 +224,16 @@ const FONTS = 'https://fonts.googleapis.com/css2?family=Geist:wght@400..700&disp
 </section>
 
 <section class="close">
-  <div class="wrap">
-    <h2 set:html={rich(p.close.h2)} />
-    <p>{p.close.text}</p>
-    <a class="btn" href="#apply" data-cta><span>{p.close.cta}</span><Arrow /></a>
+  <div class="wrap grid">
+    <div class="head">
+      <h2 set:html={rich(p.close.h2)} />
+      <p>{p.close.text}</p>
+      <a class="btn" href="#apply" data-cta><span>{p.close.cta}</span><Arrow /></a>
+    </div>
+    <figure class="me">
+      <img src={p.about.photo} alt={p.about.sign} width="640" height="640" loading="lazy">
+      <figcaption>{p.about.sign}<span>{p.hero.by}</span></figcaption>
+    </figure>
   </div>
 </section>
 </main>

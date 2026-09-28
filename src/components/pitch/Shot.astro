@@ -1,0 +1,13 @@
+---
+// One image slot: the generated picture, or until then a plain tile. ?prompts on the URL prints each tile's prompt.
+import { Image } from 'astro:assets';
+import { shotSrc } from '../../lib/shots';
+type S = { file: string; alt: string; prompt: string; ratio: string };
+const { s, class: cls } = Astro.props as { s: S; class?: string };
+const img = shotSrc(s.file);
+---
+<figure class:list={['shot', cls, { empty: !img }]} style={`aspect-ratio:${s.ratio}`} data-shot>
+  {img
+    ? <Image src={img} alt={s.alt} widths={[480, 800, 1200, 1600]} sizes="(min-width: 900px) 45vw, 100vw" loading="lazy" />
+    : <div class="ph" role="img" aria-label={s.alt} data-prompt={`${s.file}: ${s.prompt}`}><img src="/brand/wren-mark.png" alt="" width="1048" height="957"></div>}
+</figure>

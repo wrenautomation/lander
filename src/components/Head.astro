@@ -26,6 +26,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 <meta property="og:description" content={description}>
 <meta property="og:image" content={new URL(image, Astro.site)}>
 <meta name="twitter:card" content="summary_large_image">
+{fonts === FONTS ? <>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</> : <link rel="preconnect" href={new URL(fonts).origin} crossorigin>}
 <link href={fonts} rel="stylesheet">

@@ -162,9 +162,25 @@ const offers = defineCollection({
 
 // Pitch pages (/ and /recruiting): one yaml each, the copy for a page that sells one offer.
 // Sections render in a fixed order; leave an optional one out and it doesn't render. *words* in a heading
-// are the punch, set in ink after a grey setup; **word** in body text turns it ink. No labels above headings.
+// are the punch (rendered plain); **word** in body text turns it ink. No labels above headings.
 const qa = z.array(z.strictObject({ q: z.string(), a: z.string() }));
 const head = { h2: z.string(), intro: z.string() };
+// An image slot: src/assets/img/<file> once it's generated, and the prompt that makes it. Until the file exists the
+// page draws a plain tile (a face: initials). `npm run images` lists the missing ones with their prompts.
+const shot = z.strictObject({ file: z.string(), alt: z.string(), prompt: z.string(), ratio: z.string().default('4/3') });
+const face = z.strictObject({ file: z.string(), prompt: z.string() });
+const msg = z.strictObject({ name: z.string(), role: z.string(), when: z.string(), text: z.string(), face: face.optional() });
+// A step's diagram, drawn in code. Always shown whole; motion only brings the parts in.
+const art = z.discriminatedUnion('kind', [
+  // a video call: William's tile and theirs, with what they bring passing across
+  z.strictObject({ kind: z.literal('call'), them: z.string(), face: face.optional(), chip: z.string(), mins: z.string() }),
+  // a list being worked: ok = checked, hot = worth a call, moved = changed, out = removed
+  z.strictObject({ kind: z.literal('rows'), rows: z.array(z.strictObject({ text: z.string(), note: z.string(), mark: z.enum(['ok', 'hot', 'moved', 'out']) })).min(2).max(5) }),
+  // a chain of tools or stages, with a mark running along it
+  z.strictObject({ kind: z.literal('flow'), nodes: z.array(z.string()).min(2).max(5) }),
+  // relative sizes, no numbers: w is 1-100
+  z.strictObject({ kind: z.literal('bars'), bars: z.array(z.strictObject({ label: z.string(), w: z.number().min(1).max(100), hot: z.boolean().optional() })).min(2).max(5) }),
+]);
 const pitches = defineCollection({
   loader: one('pitches'),
   schema: z.strictObject({
@@ -181,7 +197,8 @@ const pitches = defineCollection({
       lede: z.string(),                 // blank line = paragraph. Open with the reader: **For owners of ...**
       second: z.string(), second_to: z.string(),  // the quiet link under the lede
       by: z.string(),                   // one line beside William's photo
-      facts: z.array(z.strictObject({ k: z.string(), v: z.string() })).max(3).optional(), // the offer in three plain lines
+      // what the work looks like, in one picture: a message and the reply it gets. An example, labelled as one.
+      scene: z.strictObject({ label: z.string(), a: msg, b: msg, tag: z.string() }).optional(),
     }),
     strip: z.strictObject({ label: z.string(), items: z.array(z.string()) }).optional(),
     field: z.strictObject({ h2: z.string(), text: z.string(), dormant: z.string(), awake: z.string() }).optional(),
@@ -197,7 +214,7 @@ const pitches = defineCollection({
     halves: z.strictObject({
       ...head,
       sides: z.array(z.strictObject({
-        tag: z.string(), h3: z.string(), text: z.string(),
+        tag: z.string(), h3: z.string(), text: z.string(), image: shot.optional(),
         items: z.array(z.strictObject({ name: z.string(), text: z.string(), badge: z.string().optional() })),
       })).length(2),
       bridge: z.string(),
@@ -208,7 +225,7 @@ const pitches = defineCollection({
     }).optional(),
     steps: z.strictObject({
       ...head,
-      items: z.array(z.strictObject({ when: z.string(), name: z.string(), text: z.string() })).min(3).max(5),
+      items: z.array(z.strictObject({ when: z.string(), name: z.string(), text: z.string(), art: art.optional() })).min(3).max(5),
     }),
     // The terms come from the offer; these are the headings around them.
     deal: z.strictObject({

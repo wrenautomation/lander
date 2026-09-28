@@ -24,10 +24,21 @@ hero:
   second: How the pilot works
   second_to: "#how"
   by: I'm an engineer, and I run every pilot myself.
-  facts:
-    - { k: The pilot, v: "Free for {days} days. {slots} firms this round." }
-    - { k: You send, v: "An export of past clients from your ATS, and one recruiter's name." }
-    - { k: You keep, v: "The cleaned list, the emails and the domain, whatever happens." }
+  scene:
+    label: Example
+    a:
+      name: Sam Reyes
+      role: Your recruiter
+      when: Tue 9:14 am
+      text: "Dana, it's been a while since we filled your data team. Hiring again this quarter?"
+      face: { file: recruiting/face-recruiter.jpg, prompt: "Head-and-shoulders portrait of a friendly recruiter in his early 30s, open half-smile, button-down shirt, plain light grey backdrop, soft window light, 85mm, black and white editorial photography, natural light, fine grain, no text, no logos, square crop" }
+    b:
+      name: Dana Whitfield
+      role: VP Talent, Northwind
+      when: Tue 11:02 am
+      text: Good timing. We just opened two roles. Free Thursday?
+      face: { file: recruiting/face-client.jpg, prompt: "Head-and-shoulders portrait of a confident VP of Talent in her mid 40s, warm direct expression, blazer, plain light grey backdrop, soft window light, 85mm, black and white editorial photography, natural light, fine grain, no text, no logos, square crop" }
+    tag: A warm reply, in your recruiter's inbox the same day.
 
 strip:
   label: Works from an export of
@@ -61,6 +72,10 @@ halves:
     - tag: Front of house
       h3: More business in
       text: A pipeline that doesn't hang on one or two rainmakers.
+      image:
+        file: recruiting/front.jpg
+        alt: A recruiter on the phone with a client, laughing.
+        prompt: "A recruiting firm owner on a phone call with a client, leaning back at a desk by a tall window, laughing, small modern office, candid, black and white editorial photography, natural light, fine grain, no text, no logos, 4:3"
       items:
         - { name: Dead lead reactivation, text: "Past clients and cold contacts, won back in your recruiter's name.", badge: The free pilot }
         - { name: Speed to lead, text: "Every inbound job order answered in minutes, day or night, before a competitor calls back." }
@@ -68,6 +83,10 @@ halves:
     - tag: Back of house
       h3: Less busywork out
       text: More job orders means more admin. This is where it stops growing with headcount.
+      image:
+        file: recruiting/back.jpg
+        alt: A clear desk, a laptop open to a full calendar.
+        prompt: "A tidy desk in a small recruiting office, laptop open to a full calendar, a coffee, a neat stack of resumes, nobody in frame, early morning light, black and white editorial photography, natural light, fine grain, no text, no logos, 4:3"
       items:
         - { name: Intake to ATS, text: "Job orders, resumes and notes land in the ATS without anyone typing them." }
         - { name: Scheduling and status, text: "Interviews booked, candidates and clients updated, nobody chasing." }
@@ -81,15 +100,36 @@ steps:
     - when: Day 0
       name: Kickoff
       text: A 30-minute call. You send an export of past clients and contacts, and pick the recruiter whose name goes on the emails.
+      art:
+        kind: call
+        them: You
+        face: { file: recruiting/face-owner.jpg, prompt: "Head-and-shoulders portrait of the owner of a midsize recruiting firm, a woman in her early 50s, on a video call, attentive, slight smile, plain light grey backdrop, soft window light, 85mm, black and white editorial photography, natural light, fine grain, no text, no logos, square crop" }
+        chip: past-clients.csv
+        mins: 30 min
     - when: Days 1–7
       name: Build
       text: I clean the list, check every address, and set up a new domain in your recruiter's name. You read and approve the emails.
+      art:
+        kind: rows
+        rows:
+          - { text: Dana Whitfield, note: Moved to Northwind, mark: moved }
+          - { text: Mark Osei, note: Address checked, mark: ok }
+          - { text: j.lee@oldco.com, note: Bounces. Removed, mark: out }
+          - { text: Lena Park, note: Promoted. New budget, mark: hot }
     - when: Days 8–30
       name: Run
       text: Emails go out in small daily batches. Replies are sorted every day. The warm ones reach your recruiter the same day, with the history.
+      art: { kind: flow, nodes: [Sent, Replied, Sorted, Your recruiter] }
     - when: Day 30
       name: Numbers
       text: We sit down with replies, meetings, job orders and fees. You decide what's next. Walking away is fine.
+      art:
+        kind: bars
+        bars:
+          - { label: Replies, w: 100 }
+          - { label: Meetings, w: 52 }
+          - { label: Job orders, w: 30 }
+          - { label: Fees, w: 18, hot: true }
 
 deal:
   h2: Free, and here's *why.*

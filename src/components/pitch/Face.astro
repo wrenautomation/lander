@@ -1,0 +1,12 @@
+---
+// A face: a real photo, a generated one once its file exists, or initials until then.
+import { Image } from 'astro:assets';
+import { initials, shotSrc } from '../../lib/shots';
+const { name, face, photo } = Astro.props as { name: string; face?: { file: string; prompt: string }; photo?: string };
+const img = face ? shotSrc(face.file) : null;
+---
+<span class="face" data-prompt={!photo && !img && face ? `${face.file}: ${face.prompt}` : undefined}>
+  {photo ? <img src={photo} alt="" loading="lazy" decoding="async">
+    : img ? <Image src={img} alt="" width={192} height={192} loading="lazy" />
+    : <b aria-hidden="true">{initials(name)}</b>}
+</span>

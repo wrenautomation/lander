@@ -132,14 +132,14 @@
       "refersTo": "button",
       "description": "Ink on paper; rust on hover.",
       "html": "<a class=\"ds-btn\" href=\"#\">Apply for a pilot slot <span>&#8599;</span></a>",
-      "css": ".ds-btn{display:inline-flex;align-items:center;gap:.9em;padding:1.15em 1.6em;background:#0E0E0E;color:#FFFFFF;font-family:'Geist',sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;line-height:1;border-radius:0;transition:background-color .35s cubic-bezier(.16,1,.3,1)}.ds-btn:hover{background:#C24E1C}.ds-btn:focus-visible{outline:2px solid #C24E1C;outline-offset:3px}"
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:.9em;padding:1.15em 1.6em;background:#0E0E0E;color:#FFFFFF;font-family:'General Sans',sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;line-height:1;border-radius:0;transition:background-color .35s cubic-bezier(.16,1,.3,1)}.ds-btn:hover{background:#C24E1C}.ds-btn:focus-visible{outline:2px solid #C24E1C;outline-offset:3px}"
     },
     {
       "name": "Choice Row",
       "kind": "custom",
       "description": "One answer row; checked turns ink with white text and a rust dot.",
       "html": "<div class=\"ds-w\"><label class=\"ds-choice\"><input type=\"radio\" name=\"n\"><span>5 to 15</span></label><label class=\"ds-choice on\"><input type=\"radio\" name=\"n\" checked><span>16 to 50</span></label></div>",
-      "css": ".ds-w{background:#fff;color:#0E0E0E;padding:24px;font-family:'Geist',sans-sans-serif}.ds-choice{display:flex;gap:14px;align-items:center;padding:13px 14px;border-top:1px solid rgba(14,14,14,.13)}.ds-choice.on{background:#0E0E0E;color:#fff}.ds-choice input{accent-color:#C24E1C}"
+      "css": ".ds-w{background:#fff;color:#0E0E0E;padding:24px;font-family:'General Sans',sans-serif}.ds-choice{display:flex;gap:14px;align-items:center;padding:13px 14px;border-top:1px solid rgba(14,14,14,.13)}.ds-choice.on{background:#0E0E0E;color:#fff}.ds-choice input{accent-color:#C24E1C}"
     },
     {
       "name": "Field",
@@ -147,32 +147,33 @@
       "refersTo": "field",
       "description": "Underline field; ink on focus, rust when invalid.",
       "html": "<div class=\"ds-w\"><label class=\"ds-field\"><span>Work email</span><input type=\"email\"></label></div>",
-      "css": ".ds-w{background:#fff;color:#0E0E0E;padding:24px;font-family:'Geist',sans-sans-serif}.ds-field span{display:block;font-size:13.5px;color:#56564F;margin-bottom:4px}.ds-field input{width:100%;border:0;border-bottom:1px solid rgba(14,14,14,.38);padding:10px 0;font-size:17px;background:transparent}.ds-field input:focus{outline:none;border-color:#0E0E0E;box-shadow:0 1px 0 #0E0E0E}"
+      "css": ".ds-w{background:#fff;color:#0E0E0E;padding:24px;font-family:'General Sans',sans-serif}.ds-field span{display:block;font-size:13.5px;color:#56564F;margin-bottom:4px}.ds-field input{width:100%;border:0;border-bottom:1px solid rgba(14,14,14,.38);padding:10px 0;font-size:17px;background:transparent}.ds-field input:focus{outline:none;border-color:#0E0E0E;box-shadow:0 1px 0 #0E0E0E}"
     },
     {
       "name": "Nav Bar",
       "kind": "nav",
       "description": "Sticky white bar, serif name, ink rule below.",
       "html": "<nav class=\"ds-nav\"><b>Wren Automation</b><a href=\"#\">The pilot</a><a href=\"#\">About</a><a class=\"ds-nav-btn\" href=\"#\">Apply</a></nav>",
-      "css": ".ds-nav{display:flex;align-items:center;gap:30px;height:64px;padding:0 24px;background:#FFFFFF;border-bottom:1px solid #0E0E0E;font-family:'Geist',sans-serif;font-size:14.5px}.ds-nav b{margin-right:auto;font:500 21px Geist,sans-serif}.ds-nav a{color:#5B574E}.ds-nav a:hover{color:#0E0E0E}.ds-nav .ds-nav-btn{background:#0E0E0E;color:#FFFFFF;padding:1em 1.3em;font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}"
+      "css": ".ds-nav{display:flex;align-items:center;gap:30px;height:64px;padding:0 24px;background:#FFFFFF;border-bottom:1px solid #0E0E0E;font-family:'General Sans',sans-serif;font-size:14.5px}.ds-nav b{margin-right:auto;font:500 21px 'General Sans',sans-serif}.ds-nav a{color:#5B574E}.ds-nav a:hover{color:#0E0E0E}.ds-nav .ds-nav-btn{background:#0E0E0E;color:#FFFFFF;padding:1em 1.3em;font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}"
     },
     {
       "name": "Headline",
       "kind": "custom",
-      "description": "Geist 500, tight tracking, plain punch.",
+      "description": "General Sans 500, tight tracking, plain punch.",
       "html": "<h2 class=\"ds-h\">30 days, <em>start to numbers.</em></h2>",
-      "css": ".ds-h{font:500 3.4rem/1.04 Geist,sans-serif;letter-spacing:-.035em;color:#0E0E0E}.ds-h em{font-style:normal}"
+      "css": ".ds-h{font:500 3.4rem/1.04 'General Sans',sans-serif;letter-spacing:-.035em;color:#0E0E0E}.ds-h em{font-style:normal}"
     }
   ],
   "narrative": {
-    "northStar": "The Partner's Letter",
-    "overview": "The pitch pages (/ and /recruiting) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, plain white paper, black ink. A book serif speaks; a quiet grotesque does the work. Sections join on 1px ink rules into one continuous sheet.\n\nWhite screen, black text, everywhere. No dark blocks: the form panel is set off by a single black rule, and the closing screen by another. Rust appears only as small marks. The page is light only.\n\nIt rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no cards, no eyebrows above headings.",
+    "northStar": "The Partner's Letter, told in pictures",
+    "overview": "The pitch pages (/ and /recruiting) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, plain white paper, black ink. One sans, General Sans, does everything. No italics.\n\nMost readers only look at headings and pictures, so the pictures carry the story: faces, an example thread in the first screen, a photo per half, a small code-drawn diagram under every step. Diagrams are always whole; motion brings things in as you scroll and never hides anything behind a click.\n\nWhite screen, black text. No dark blocks. Rust only as small marks. Light only. No stock photos: image slots carry their Higgsfield prompt until the file exists.",
     "keyCharacteristics": [
-      "Geist throughout, medium-weight headings with tight tracking. No italics.",
+      "General Sans throughout, medium-weight headings with tight tracking. No italics.",
       "Square corners everywhere.",
-      "The form lives in an ink panel in the first screen.",
-      "One authored motion: contacts and the steps rule fill rust as you scroll.",
-      "Portraits in greyscale."
+      "The form sits in the first screen behind one black rule.",
+      "Pictures before paragraphs: faces, image slots, step diagrams.",
+      "Motion as a slideshow: things arrive as reached, sections dim as they leave.",
+      "All photos greyscale."
     ],
     "rules": [
       {
@@ -197,16 +198,20 @@
       }
     ],
     "dos": [
-      "Do set everything in Geist; headings 500 with tight tracking.",
+      "Do set everything in General Sans; headings 500 with tight tracking.",
       "Do keep rust to dots, lines and tags.",
       "Do separate with 1px rules, not boxes.",
-      "Do keep question 1 in the first phone screen."
+      "Do keep question 1 in the first phone screen.",
+      "Do lead with a picture, a face or a diagram where a paragraph would go.",
+      "Do keep diagrams whole; motion only brings them in."
     ],
     "donts": [
       "Don't add eyebrows or kickers above headings.",
       "Don't use cards, rounded corners, glow, gradients or glass.",
       "Don't fill a block or a resting button with rust.",
-      "Don't add a dark theme."
+      "Don't add a dark theme.",
+      "Don't use stock photos; generate from the slot's prompt.",
+      "Don't pin sections or hide content behind clicks."
     ]
   }
 }

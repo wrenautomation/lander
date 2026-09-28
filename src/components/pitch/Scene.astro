@@ -1,0 +1,22 @@
+---
+// The hero's picture of the work: a message, and the reply it gets. Labelled as an example. With motion it plays
+// once on load (the reply types in); without, it is simply there.
+import type { CollectionEntry } from 'astro:content';
+import Face from './Face.astro';
+type Scene = NonNullable<CollectionEntry<'pitches'>['data']['hero']['scene']>;
+const { s } = Astro.props as { s: Scene };
+---
+<figure class="scene" data-scene>
+  <figcaption class="label">{s.label}</figcaption>
+  {[s.a, s.b].map((m, i) => (
+    <div class:list={['msg', i ? 'in' : 'out']}>
+      <Face name={m.name} face={m.face} />
+      <div class="body">
+        <p class="who"><b>{m.name}</b><span>{m.role}</span><time>{m.when}</time></p>
+        <p class="txt">{m.text}</p>
+        {i === 1 && <span class="typing" aria-hidden="true"><i></i><i></i><i></i></span>}
+      </div>
+    </div>
+  ))}
+  <p class="tag"><i aria-hidden="true"></i>{s.tag}</p>
+</figure>

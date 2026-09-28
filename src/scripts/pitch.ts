@@ -1,5 +1,7 @@
-// Pitch pages: the scroll-drawn parts (the dormant list waking, the steps rule filling) and the two things that work
-// without motion too (the calculator, the stepped form). html.js is set in Pitch.astro's head when motion is on.
+// Pitch pages: the motion (the hero coming in, headings rising word by word, blocks and pictures entering as you
+// scroll, each step's diagram assembling, the dormant list waking, the steps rule filling) and the two things that
+// work without motion too (the calculator, the stepped form). html.js is set in Pitch.astro's head when motion is on;
+// without it everything renders whole and still. Diagrams are always complete: motion only brings their parts in.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { mountBooking } from './cal';
@@ -74,6 +76,107 @@ if (canvas) {
       onUpdate: (s) => { p = s.progress; draw(); },
     });
   }
+}
+
+/* ---------- entrances: nothing waits on a click, everything arrives as it's reached ---------- */
+// Wraps each word in .w>span so it can rise out of its own line box. Keeps inline markup (the *punch* em).
+const words = (el: HTMLElement) => {
+  const walk = (n: Node) => {
+    for (const c of [...n.childNodes]) {
+      if (c.nodeType === Node.ELEMENT_NODE) { walk(c); continue; }
+      if (c.nodeType !== Node.TEXT_NODE) continue;
+      const frag = document.createDocumentFragment();
+      for (const t of c.textContent!.split(/(\s+)/)) {
+        if (!t) continue;
+        if (/^\s+$/.test(t)) { frag.append(t); continue; }
+        const w = document.createElement('span'), i = document.createElement('span');
+        w.className = 'w'; i.textContent = t; w.append(i); frag.append(w);
+      }
+      c.replaceWith(frag);
+    }
+  };
+  walk(el);
+  return $$('.w>span', el);
+};
+const OUT = 'expo.out';
+
+if (motion) {
+  // the first screen: the headline rises, then the rest. The form panel is never held back.
+  const h1 = $('.hero h1');
+  const intro = gsap.timeline({ defaults: { ease: OUT, duration: 1.1 } });
+  if (h1) { gsap.set(h1, { opacity: 1 }); intro.fromTo(words(h1), { yPercent: 110 }, { yPercent: 0, stagger: 0.06 }, 0.1); }
+  intro.fromTo($$('.hero :is(.lede,.more,.by)'), { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.12 }, 0.4);
+
+  // the example thread plays out: a message, the other side typing, the reply, what it means
+  const scene = $('[data-scene]');
+  if (scene) {
+    gsap.set(scene, { opacity: 1 });
+    const [a, b] = $$('.msg', scene);
+    gsap.timeline({ defaults: { ease: OUT, duration: 0.9 }, scrollTrigger: { trigger: scene, start: 'top 88%', once: true } })
+      .fromTo($('.label', scene), { opacity: 0 }, { opacity: 1 }, 0.5)
+      .fromTo(a, { opacity: 0, y: 24 }, { opacity: 1, y: 0 }, 0.6)
+      .fromTo(b, { opacity: 0, y: 24 }, { opacity: 1, y: 0 }, 1.3)
+      .fromTo($('.txt', b), { opacity: 0 }, { opacity: 1, duration: 0.6 }, 2.5)
+      .fromTo($('.typing', b), { opacity: 0 }, { opacity: 1, duration: 0.2 }, 1.5)
+      .to($('.typing', b), { opacity: 0, duration: 0.2 }, 2.4)
+      .fromTo($('.tag', scene), { opacity: 0, y: 12 }, { opacity: 1, y: 0 }, 2.9);
+  }
+
+  // section headings: word by word, as each comes into view
+  for (const h of $$('.sec h2, .close h2')) {
+    gsap.fromTo(words(h), { yPercent: 110 }, { yPercent: 0, duration: 1.1, ease: OUT, stagger: 0.05, scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
+  }
+
+  // blocks rise in, in reading order, a few at a time
+  const ups = $$('.sec .intro, .legend, .dots, .calc-body>*, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .terms>div, .guarantee, .why>div, .rungs li, .figs>div, .about .photo, .about .para, .sign, .qa details, .close p, .close .btn, .me');
+  gsap.set(ups, { opacity: 0, y: 48 });
+  ScrollTrigger.batch(ups, { start: 'top 90%', once: true, onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: OUT, stagger: 0.08, overwrite: true }) });
+
+  // pictures wipe open from alternate sides, settle, then drift a little against the scroll
+  $$('[data-shot]').forEach((s, k) => {
+    const pic = s.firstElementChild as HTMLElement;
+    gsap.timeline({ scrollTrigger: { trigger: s, start: 'top 85%', once: true } })
+      .fromTo(s, { clipPath: k % 2 ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'expo.inOut' })
+      .fromTo(pic, { scale: 1.35 }, { scale: 1.12, duration: 1.8, ease: OUT }, 0.1);
+    gsap.fromTo(pic, { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: s, start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+
+  // each step's diagram assembles itself once, then the flow keeps a dot running through it
+  const ART: Record<string, (el: HTMLElement, tl: gsap.core.Timeline) => unknown> = {
+    call: (el, tl) => tl
+      .fromTo($$('.tile', el), { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.14 })
+      .fromTo($$('.face', el), { scale: 0.6 }, { scale: 1, stagger: 0.14, ease: 'back.out(2)' }, 0.15)
+      .fromTo($('.mins', el), { opacity: 0 }, { opacity: 1 }, 0.5)
+      .fromTo($('[data-chip]', el), { opacity: 0, x: () => el.clientWidth / 4 }, { opacity: 1, x: 0, duration: 1.2 }, 0.7),
+    rows: (el, tl) => tl
+      .fromTo($$('li', el), { opacity: 0, x: -24 }, { opacity: 1, x: 0, stagger: 0.14 })
+      .fromTo($$('.mk', el), { scale: 0 }, { scale: 1, stagger: 0.14, duration: 0.6, ease: 'back.out(3)' }, 0.4),
+    flow: (el, tl) => tl
+      .fromTo($('.wire', el), { scaleX: 0 }, { scaleX: 1, duration: 1.4, ease: 'expo.inOut' })
+      .fromTo($$('li', el), { opacity: 0, y: 14 }, { opacity: 1, y: 0, stagger: 0.2 }, 0)
+      .call(() => el.classList.add('run')),
+    bars: (el, tl) => tl
+      .fromTo($$('i', el), { scaleX: 0 }, { scaleX: 1, duration: 1.3, stagger: 0.14 })
+      .fromTo($$('span', el), { opacity: 0 }, { opacity: 1, stagger: 0.14 }, 0),
+  };
+  for (const el of $$('[data-art]')) {
+    ART[el.dataset.art!]?.(el, gsap.timeline({ defaults: { ease: OUT, duration: 0.9 }, scrollTrigger: { trigger: el, start: 'top 85%', once: true } }));
+  }
+
+  // proof figures count up to their number
+  for (const f of $$('.fig')) {
+    const m = /^([\d,]+)(.*)$/.exec(f.textContent!.trim()), end = m ? Number(m[1].replace(/,/g, '')) : 0;
+    if (!m || end < 10) continue;
+    const o = { v: 0 };
+    gsap.to(o, { v: end, duration: 1.8, ease: OUT, onUpdate: () => { f.textContent = fmt(o.v) + m[2]; }, scrollTrigger: { trigger: f, start: 'top 90%', once: true } });
+  }
+
+  // a section on its way out dims and lifts, so the next one reads as a new slide
+  for (const w of $$('.sec>.wrap')) {
+    gsap.to(w, { opacity: 0.25, y: -40, ease: 'none', scrollTrigger: { trigger: w.parentElement, start: 'bottom 40%', end: 'bottom top', scrub: true } });
+  }
+
+  document.fonts?.ready.then(() => ScrollTrigger.refresh());
 }
 
 /* ---------- the calculator ---------- */

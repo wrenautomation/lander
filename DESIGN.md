@@ -1,6 +1,6 @@
 ---
 name: Wren Automation
-description: Pitch pages set like a partner's letter. White paper, black ink, one clean sans, small rust marks.
+description: Pitch pages set like a partner's letter, told in pictures. White paper, black ink, General Sans, faces and diagrams, small rust marks.
 colors:
   paper: "#FFFFFF"
   paper-2: "#F4F4F2"
@@ -12,44 +12,49 @@ colors:
   rust: "#C24E1C"
 typography:
   display:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.6rem, 1.2rem + 4.8vw, 5.9rem)"
-    fontWeight: 360
-    lineHeight: 1.02
-    letterSpacing: "-0.022em"
+    fontFamily: "General Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2.5rem, 1.2rem + 4.4vw, 5.4rem)"
+    fontWeight: 500
+    lineHeight: 1.04
+    letterSpacing: "-0.035em"
   headline:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.1rem, 1.4rem + 2.4vw, 3.6rem)"
-    fontWeight: 380
-    lineHeight: 1.02
-    letterSpacing: "-0.022em"
+    fontFamily: "General Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2rem, 1.4rem + 2.2vw, 3.4rem)"
+    fontWeight: 500
+    lineHeight: 1.04
+    letterSpacing: "-0.035em"
   title:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(21px, 1.2rem + .4vw, 26px)"
-    fontWeight: 400
-    lineHeight: 1.18
-    letterSpacing: "-0.01em"
+    fontFamily: "General Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(20px, 1.15rem + .35vw, 24px)"
+    fontWeight: 500
+    lineHeight: 1.2
+    letterSpacing: "-0.02em"
   lede:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "General Sans, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(18px, .95rem + .5vw, 23px)"
     fontWeight: 400
     lineHeight: 1.45
   body:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "General Sans, ui-sans-serif, system-ui, sans-serif"
     fontSize: "17px"
     fontWeight: 400
     lineHeight: 1.6
+  small:
+    fontFamily: "General Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "14px"
+    fontWeight: 400
+    lineHeight: 1.45
   label:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "General Sans, ui-sans-serif, system-ui, sans-serif"
     fontSize: "12.5px"
     fontWeight: 600
     letterSpacing: "0.09em"
   figure:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "General Sans, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(2.9rem, 1.8rem + 3.2vw, 4.9rem)"
-    fontWeight: 320
+    fontWeight: 500
     lineHeight: 1
-    letterSpacing: "-0.025em"
+    letterSpacing: "-0.04em"
     fontFeature: "'lnum', 'tnum'"
 rounded:
   none: "0"
@@ -82,20 +87,23 @@ components:
 
 ## Overview
 
-**Creative North Star: "The Partner's Letter"**
+**Creative North Star: "The Partner's Letter, told in pictures"**
 
-The pitch pages (/ and /recruiting) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, plain white paper, black ink. One clean sans, Geist, does everything. No italics. Sections join on 1px ink rules into one continuous sheet.
+The pitch pages (/ and /recruiting) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, plain white paper, black ink. One sans, General Sans, does everything. No italics. Sections join on 1px ink rules into one continuous sheet.
 
-White screen, black text, everywhere. No dark blocks: the form panel is set off by a single black rule, and the closing screen by another. Rust appears only as small marks. The page is light only.
+Most readers only look at headings and pictures, so the pictures carry the story: faces for trust, an example thread in the first screen, a photo per half, and a small diagram under every step. Diagrams are drawn in code and always shown whole. Motion brings things in as you scroll; it never hides anything behind a click.
 
-It rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no cards, no eyebrows above headings.
+White screen, black text, everywhere. No dark blocks. Rust appears only as small marks. Light only.
+
+It rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no eyebrows above headings, no stock photos.
 
 **Key Characteristics:**
-- Geist throughout, medium-weight headings with tight tracking. No italics.
-- Square corners everywhere.
+- General Sans throughout, medium-weight headings with tight tracking. No italics.
+- Square corners everywhere. Circles only for faces, dots and nodes.
 - The form sits in the first screen, set off by one black rule.
-- One authored motion: contacts and the steps rule fill rust as you scroll.
-- Portraits in greyscale.
+- Pictures before paragraphs: faces, image slots, step diagrams.
+- Motion as a slideshow: things arrive as they're reached; sections dim as they leave.
+- All photos greyscale.
 
 Scope: this records `src/styles/pitch.css`. The privacy and 404 pages still use `global.css`, the previous system.
 
@@ -104,35 +112,36 @@ Scope: this records `src/styles/pitch.css`. The privacy and 404 pages still use 
 Black on white, with small rust marks.
 
 ### Primary
-- **Rust** (rust): marks only. Woken contacts in the dots field, the steps rule and nodes, the selected-answer dot, slot dots, small tags, error text, focus rings, button hover. Never a fill for a block or a button at rest.
+- **Rust** (rust): marks only. Woken contacts, the steps rule and nodes, the selected-answer dot, slot dots, the reply rule in the example thread, the hot row and hot bar in a diagram, the flow's last node and runner, ticker dots, tags, errors, focus rings, button hover. Never a fill for a block or a button at rest.
 
 ### Neutral
 - **Paper** (paper): the page and the form panel. Pure white.
-- **Second Stock** (paper-2): row hover. Never a card.
-- **Ink** (ink): text, buttons, section rules, the checked answer row.
+- **Second Stock** (paper-2): image tiles, call tiles, face backgrounds, row hover.
+- **Ink** (ink): text, buttons, section rules, diagram lines and bars, the checked answer row, the file chip.
 - **Grey** (ink-2): secondary text. 7.4:1 on white.
 - **Mark Grey** (ink-3): dormant dots and scrollbar only.
 - **Hairline** (rule): rules inside a section.
 - **Field Line** (line): field underlines; ink on focus.
 
 ### Named Rules
-**The Small Mark Rule.** Rust never fills anything bigger than a dot, a line or a tag. If it covers an area, it is wrong.
+**The Small Mark Rule.** Rust never fills anything bigger than a dot, a line, a thin bar or a tag. If it covers an area, it is wrong.
 **The White Page Rule.** No dark sections. Separation comes from black rules, never from a black block.
 
 ## Typography
 
-**Font:** Geist, one family for everything, with the system sans as fallback.
+**Font:** General Sans (Fontshare, 400/500/600), one family for everything, with the system sans as fallback.
 
-**Character:** Clean and plain. Hierarchy comes from size and weight, not style.
+**Character:** Clean with a little warmth. Hierarchy comes from size and weight, not style.
 
 ### Hierarchy
-- **Display** (500, clamp 2.5–5.4rem, 1.04, −0.035em): the hero headline only.
-- **Headline** (500, clamp 2–3.4rem, 1.04, −0.035em): section heads and the closing screen.
+- **Display** (500, clamp 2.5–5.4rem, 1.04, −0.035em): the hero headline only. Rises in word by word.
+- **Headline** (500, clamp 2–3.4rem, 1.04, −0.035em): section heads and the closing screen. Rise in word by word.
 - **Title** (500, 20–24px, 1.2): items, steps, terms, form questions, FAQ questions.
 - **Lede** (400, 18–23px, 1.45): the hero paragraph, max 31em. Its bold opener is ink, weight 500.
 - **Body** (400, 17px, 1.6): text, max about 36em.
-- **Label** (600, 11.5–13.5px, +0.09em, uppercase): table keys, step timing, tags, buttons. Never above a heading.
-- **Figure** (500, −0.04em, tabular): proof figures and calculator results.
+- **Small** (400–500, 12.5–15px): the example thread, diagram text, captions.
+- **Label** (600, 11.5–13.5px, +0.09em, uppercase): step timing, tags, buttons, the thread's label. Never above a heading.
+- **Figure** (500, −0.04em, tabular): proof figures (count up) and calculator results.
 
 ### Named Rules
 **The Plain Punch Rule.** A heading's `*punch*` renders plain: same ink, same style. No italic, no grey, no color.
@@ -142,7 +151,34 @@ Black on white, with small rust marks.
 
 A 12-column grid, max 1320px, gutter 16–48px. Sections: text head in columns 1–5, body in 7–12 from 900px, heads sticky where the body is long. Section padding 72–148px, joined by a 1px ink rule.
 
-Hero from 1024px: copy in columns 1–7, the form panel in 8–12 behind a full-height black rule. Below 1024px it stacks: headline, lede, then the panel under a full-width black rule. Under 720px the bar, headline, lede and panel tighten so question 1 and its first answer show in the first iPhone 13 screen. The float button appears on phones once the hero leaves view.
+Hero from 1024px: copy in columns 1–7 with the example thread under it, the form panel in 8–12 behind a full-height black rule. Below 1024px it stacks: headline, lede, the panel under a full-width black rule, then the thread under another. Under 720px the bar, headline, lede and panel tighten so question 1 and its first answer show in the first iPhone 13 screen. The float button appears on phones once the hero leaves view.
+
+## Imagery
+
+Pictures carry the page. Three kinds, all greyscale:
+
+- **Real photo:** William's headshot (hero byline, about, closing screen, the call diagram).
+- **Image slots:** each has a `file` and the `prompt` that makes it, in the pitch yaml. The picture lives at `src/assets/img/<file>` and Astro resizes it. Until it exists the slot draws a hatched paper-2 tile with a faint bird mark (a face: initials). `?prompts` on the URL prints each prompt on its tile; `npm run images` lists what's missing. Pictures are generated (Higgsfield), never stock.
+- **Diagrams:** drawn in code (Art.astro), one per step: `call` (two video tiles, a file chip), `rows` (a cleaned list with marks: ok, moved, out, hot), `flow` (nodes on a wire, a rust runner), `bars` (thin bars, one rust). Always whole on the page.
+
+Prompt style: black-and-white editorial photography, natural light, fine grain, no text or logos. Faces: head and shoulders, light grey backdrop, 85mm, square. Scenes: candid, 4:3.
+
+## Motion
+
+GSAP + ScrollTrigger (`src/scripts/pitch.ts`), on only with `html.js` (off for `?static` and reduced motion; everything then renders whole and still).
+
+- **First screen:** the headline rises word by word; lede and byline follow. The form panel never waits.
+- **Example thread:** a message, the other side typing, the reply, the tag.
+- **Headings:** rise word by word as they enter.
+- **Blocks:** rise in, a few at a time, in reading order.
+- **Pictures:** wipe open from alternate sides, settle from a zoom, then drift slightly against the scroll.
+- **Diagrams:** assemble once on entry (tiles, then the chip; rows with marks popping; the wire draws, then a dot runs; bars grow).
+- **Proof figures:** count up.
+- **Leaving:** a section dims and lifts as its bottom passes, so the next reads as a new slide.
+- **Signature:** the dormant list (grey contacts filling rust) and the steps rule filling as you read.
+- **Ticker:** the ATS list scrolls slowly; pauses on hover.
+
+Easing: expo out for entrances. No pinning, no click-through.
 
 ## Elevation & Depth
 
@@ -153,7 +189,7 @@ Flat. Depth comes from rules alone. The only shadow is under the phone float but
 
 ## Shapes
 
-Square corners throughout (0). Circles only for radio buttons, dots, step nodes, slider thumbs and slot marks. Boxes come from rules, not four-sided borders.
+Square corners throughout (0). Circles for faces, radio buttons, dots, step and flow nodes, slider thumbs and slot marks. Boxes come from rules or paper-2 tiles, not four-sided borders.
 
 ## Components
 
@@ -168,26 +204,33 @@ Square corners throughout (0). Circles only for radio buttons, dots, step nodes,
 - **Fields:** underline only, ink on focus. Invalid turns the line rust with a rust note.
 - **After sending:** the header and form hide. A fit with a calendar takes the whole first screen.
 
+### Example thread (hero)
+- A label, then two messages between hairlines: face, name, role, time, text. The reply is indented behind a rust rule. A rust-dot tag says what it means.
+
 ### Navigation
-- Sticky white bar, 64px (56px on phones), ink rule below. Bird mark and serif name left, text links, ink button right. Links hide under 820px.
+- Sticky white bar, 64px (56px on phones), ink rule below. Bird mark and name left, text links, ink button right. Links hide under 820px.
 
 ### Dots field (signature)
-- Grey outlined dots, the dormant past clients. As you scroll, some fill rust and grow. Reduced motion shows them filled.
+- Grey outlined dots, the dormant past clients. As you scroll, some fill rust and grow.
 
 ### Steps timeline
-- A hairline rail that fills rust as you scroll. Round nodes turn rust as the fill passes. Step timing sits beside the step name as a label.
+- A hairline rail that fills rust as you scroll. Round nodes turn rust as the fill passes. Step timing beside the step name. A diagram under each step's text.
+
+### Closing screen
+- The ask on the left, William's portrait and name on the right (a small face beside the name on phones).
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** set everything in Geist; headings 500 with tight tracking.
-- **Don't** use italics or a serif.
-- **Do** keep rust to dots, lines and tags.
-- **Do** separate with 1px rules, not boxes.
+- **Do** set everything in General Sans; headings 500 with tight tracking.
+- **Do** lead with a picture, a face or a diagram where a paragraph would go.
+- **Do** keep diagrams whole; motion only brings them in.
+- **Do** keep rust to dots, lines, thin bars and tags.
 - **Do** keep question 1 in the first phone screen.
 
 ### Don't:
+- **Don't** use stock photos. Generate them from the slot's prompt.
+- **Don't** pin sections or hide content behind clicks.
 - **Don't** add eyebrows or kickers above headings.
-- **Don't** use cards, rounded corners, glow, gradients or glass.
-- **Don't** fill a block or a resting button with rust.
+- **Don't** use italics, a serif, rounded corners, glow, gradients or glass.
 - **Don't** add a dark theme or a dark section.

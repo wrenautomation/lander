@@ -32,8 +32,11 @@
 - D9 (2026-09-26). Still not high ticket enough. Type and color reworked, layout kept: Newsreader serif for headings (italic punch, no grey two-tone) with Hanken Grotesk for text; bond paper and warm ink; the form panel and closing screen are ink, not rust. Rust darkened to oxide and cut to small marks (woken dots, steps rule, tags). Portraits greyscale. Step timing moved beside the step name so nothing sits above a heading.
 - D10 (2026-09-26). Mostly black and white: white screen, black text reads most premium. No dark blocks; the form panel and closing screen are white, set off by one black rule. Buttons black, hover rust. Rust (#C24E1C) only for small marks: woken dots, steps rule, selected dot, slot dots, errors. Fields are underlines.
 - D11 (2026-09-27). Font cleaner, less stylized: Geist for everything, headings 500 with tight tracking, no italics anywhere. Replaces Newsreader + Hanken Grotesk.
+- D12 (2026-09-27). Too much text; readers skim headings and pictures. Font to General Sans (Geist read basic). Pictures carry the story: an example thread with faces in the first screen (replaces the facts table), a photo per half, a code-drawn diagram under every step (call, rows, flow, bars), William's portrait on the closing screen, the ATS list as a ticker. No stock photos: each slot holds its file and prompt in the yaml; the file goes in `src/assets/img/`, a hatched tile shows until then. Motion as a slideshow, never pinned or click-through: diagrams are whole on first view and only assemble on entry.
 
 ## Next
+
+- William: generate the 9 image slots with Higgsfield (via autobrowse). `npm run images` lists file, shape and prompt; save each at the path shown, rebuild, deploy. `?prompts` shows them on the page.
 
 - wren: pull applications from D1 into deals (authenticated `/api/export`); `BookingSync` reads bookings through the `calcom` site and joins on `metadata.application`.
 - wren: a recruiting niche whose arm pitches `recruiting-reactivation-pilot` and links `/recruiting`.
