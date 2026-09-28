@@ -20,7 +20,7 @@ Wren Automation is William's one-engineer firm. It builds both halves: systems t
 
 ## Positioning
 
-An engineer, not an agency. Every pitch page sells one named offer from wren's registry (`wren/packages/offers`). Recruiting: a free 30-day dead lead reactivation pilot, 3 firms at a time, in exchange for a case study, introductions and real numbers. The paid ladder after it is shown, never priced on the page except where the offer says so. ICP for the ladder: firms that can pay $10-15k upfront and $5-10k/mo.
+An engineer, not an agency. Every pitch page sells one named offer from wren's registry (`wren/packages/offers`). Recruiting: a free 30-day dead lead reactivation pilot, 3 firms at a time, in exchange for a case study, introductions and real numbers. After it, the AI integration build in four stages (figure out, fix, connect, put AI to work), shown with its weeks, never priced on the page. ICP: owner-led firms of 10-50 people that can pay $10-15k upfront and $5-10k/mo.
 
 ## Operating Context
 
@@ -28,7 +28,7 @@ wren's recruiting campaign links to `/recruiting`. `/` tells the general story a
 
 ## Capabilities and Constraints
 
-- Pitch sections in order: hero (copy, facts, byline, and the form beside it behind a black rule), ATS strip, dormant-list field, value calculator, the two halves, industries, steps, the deal, the ladder, proof, about, FAQ, closing call, footer. Any optional section can be left out.
+- Pitch sections in order: hero (copy, facts, byline, and the form beside it behind a black rule), ATS strip, dormant-list field, value calculator, the two halves, industries, steps (the pilot's days), the deal, the build (four stages on a week chart), proof, about, FAQ, closing call, footer. Any optional section can be left out.
 - Terms, slots, days, questions, fit rule and booking link come from the offer snapshot, never the yaml. The build fails on a mismatch.
 - All copy lives in yaml. William edits prose himself.
 - Pitch pages are light only, set as a partner's letter (white screen, black text, General Sans only, no italics, the pfp's rust in set places only: the stamp, buttons, the guarantee seal, the rust back cover). See DESIGN.md. Readers skim headings and pictures, so pictures carry the story: faces, an example thread, image slots, a code-drawn diagram per step. Photos are generated from each slot's prompt (Higgsfield), never stock.

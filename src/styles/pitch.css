@@ -381,6 +381,27 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.25)}
 .bars i{display:block;height:8px;width:var(--w);background:var(--ink);transform-origin:left}
 .bars .hot i{background:var(--acc)}
 .bars .hot span{color:var(--acc)}
+/* merge: scattered sources wired into one place */
+.merge{display:grid;grid-template-columns:auto 1fr auto;align-items:stretch}
+.merge ul{display:grid;grid-auto-rows:1fr}
+.merge li{margin-block:4px;padding:8px 12px;border:1px solid var(--rule);font-weight:500;background:var(--paper)}
+.merge svg{width:100%;height:0;min-height:100%;min-width:40px;overflow:visible}
+.merge path{fill:none;stroke:var(--ink-3);stroke-width:1.25;vector-effect:non-scaling-stroke}
+.merge .into{align-self:center;display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--ink);color:var(--paper);font-weight:600}
+.merge .into i{width:8px;height:8px;border-radius:50%;background:var(--acc)}
+/* the build's weeks: one bar per stage, overlapping; the one with no end runs off the chart */
+.gantt{margin-top:32px;max-width:30rem;font-size:13px;line-height:1.2}
+.g-axis,.g-row{display:grid;grid-template-columns:7.5em repeat(var(--weeks),1fr);align-items:center}
+.g-axis{color:var(--ink-3);font-size:11.5px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+.g-axis i{font-style:normal;text-align:center}
+.g-row{padding-block:9px;border-bottom:1px solid var(--rule)}
+.g-row span{font-weight:500;color:var(--ink-2);transition:color .5s var(--out)}
+.g-row b{grid-row:1;height:10px;background:var(--ink-3);transform-origin:left;transition:background-color .5s var(--out)}
+.g-row.lit span,html:not(.js) .g-row span{color:var(--ink)}
+.g-row.lit b,html:not(.js) .g-row b{background:var(--ink)}
+.g-row b.on{position:relative;background:linear-gradient(90deg,var(--acc) 55%,transparent)!important}
+.g-row b.on em{position:absolute;right:0;bottom:calc(100% + 6px);font-style:normal;font-size:11.5px;color:var(--acc);font-weight:600;white-space:nowrap}
+.g-row:has(b.on){padding-top:26px}
 @media (max-width:719px){.art{font-size:13.5px}.call .tile{aspect-ratio:1}.call .chip{padding:6px 9px;font-size:12px}.bars li{grid-template-columns:7.5em 1fr}.rows-art li{grid-template-columns:18px 1fr;row-gap:0}.rows-art em{grid-column:2;text-align:left;font-size:13px}}
 
 /* the deal */
@@ -409,13 +430,6 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.25)}
   .guarantee p{margin-top:16px}
   .why{grid-template-columns:1fr}
 }
-
-/* after the pilot */
-.rungs li{padding-block:26px;border-top:1px solid var(--rule)}
-.rungs li:last-child{border-bottom:1px solid var(--rule)}
-.rungs .tag{font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);margin-top:6px}
-.rungs .now .tag{color:var(--acc)}
-.rungs p:last-child{color:var(--ink-2);margin-top:8px;max-width:38em}
 
 /* proof: the figure is the loudest thing on the line */
 .figs{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink)}

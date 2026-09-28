@@ -283,10 +283,10 @@
     },
     {
       "id": "ops-automation-build",
-      "name": "Operations automation build",
+      "name": "AI integration build",
       "status": "live",
-      "audience": "Firms whose admin grows with every client they sign.",
-      "promise": "The admin that grows with every new client, built to run on its own inside your tools.",
+      "audience": "Owner-led firms, about 10 to 50 people, whose work lives in people's heads and data sits in five places.",
+      "promise": "I figure out how your firm runs, fix what leaks, connect your data into one CRM, then put AI to work on it.",
       "price": {
         "kind": "fixed",
         "upfront": {
@@ -301,11 +301,13 @@
       "slots": null,
       "days": null,
       "youGet": [
-        "The jobs with the most repeated hours, automated inside the tools you already pay for.",
-        "Milestones agreed in writing, each one running before the next starts.",
-        "Monitoring, fixes and new automations every month on the retainer."
+        "Figure out: every core process written down as a plain SOP, from watching a normal week.",
+        "Fix: the steps that leak time or deals cut, with one agreed way to do each thing.",
+        "Connect: your ATS or CRM, inboxes, calendars and spreadsheets cleaned into one CRM.",
+        "Put AI to work: AI jobs on that data, watched and fixed, one new one every month on the retainer."
       ],
       "youGive": [
+        "An hour with you and 45 minutes with three or four of your team in the first two weeks.",
         "Access to the tools involved.",
         "A weekly 20-minute check-in."
       ],

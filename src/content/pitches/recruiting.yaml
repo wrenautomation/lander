@@ -12,7 +12,7 @@ form_value: recruiting
 nav:
   - { label: The pilot, to: "#how" }
   - { label: The deal, to: "#deal" }
-  - { label: About, to: "#about" }
+  - { label: After the pilot, to: "#build" }
 nav_cta: Apply
 
 hero:
@@ -91,7 +91,7 @@ halves:
         - { name: Intake to ATS, text: "Job orders, resumes and notes land in the ATS without anyone typing them." }
         - { name: Scheduling and status, text: "Interviews booked, candidates and clients updated, nobody chasing." }
         - { name: Reports and invoices, text: "Placements to invoices, the pipeline report on Monday, built by themselves." }
-  bridge: The pilot fills the desk. When the new business lands, the admin grows with it. That's the second build.
+  bridge: The pilot runs the front, on an export. The build runs both, on all your data.
 
 steps:
   h2: '{days} days, *start to numbers.*'
@@ -106,9 +106,9 @@ steps:
         face: { file: recruiting/face-owner.jpg, prompt: "Head-and-shoulders portrait of the owner of a midsize recruiting firm, a woman in her early 50s, on a video call, attentive, slight smile, plain light grey backdrop, soft window light, 85mm, black and white editorial photography, natural light, fine grain, no text, no logos, square crop" }
         chip: past-clients.csv
         mins: 30 min
-    - when: Days 1–7
+    - when: Days 1–10
       name: Build
-      text: I clean the list, check every address, and set up a new domain in your recruiter's name. You read and approve the emails.
+      text: I clean the list, check every address, and set up a new domain in your recruiter's name. It warms up while you read and approve the emails.
       art:
         kind: rows
         rows:
@@ -116,13 +116,13 @@ steps:
           - { text: Mark Osei, note: Address checked, mark: ok }
           - { text: j.lee@oldco.com, note: Bounces. Removed, mark: out }
           - { text: Lena Park, note: Promoted. New budget, mark: hot }
-    - when: Days 8–30
+    - when: Days 11–30
       name: Run
       text: Emails go out in small daily batches. Replies are sorted every day. The warm ones reach your recruiter the same day, with the history.
       art: { kind: flow, nodes: [Sent, Replied, Sorted, Your recruiter] }
     - when: Day 30
       name: Numbers
-      text: We sit down with replies, meetings, job orders and fees. You decide what's next. Walking away is fine.
+      text: We sit down with replies, meetings, job orders and fees. Job orders that land later count too, so I check back at day 60. Walking away is fine.
       art:
         kind: bars
         bars:
@@ -143,13 +143,59 @@ deal:
     - q: Why only {slots}?
       a: I do the work myself. {slots} firms is what one engineer runs well in {days} days.
 
-ladder:
-  h2: If it works, *what's next.*
-  intro: Nothing is automatic. Each one is its own yes.
-  now: Now
-  names:
-    recruiting-candidate-reactivation: Optional, paid
-    ops-automation-build: The second build
+build:
+  id: build
+  h2: After the pilot, *AI across the whole firm.*
+  intro: The pilot runs one AI job on a spreadsheet export. The build makes AI part of how the firm runs, in four stages. One fixed price up front, then a monthly retainer. Only if the pilot earned it.
+  week: Week
+  weeks: 8
+  ongoing: then monthly
+  stages:
+    - when: Weeks 1–2
+      from: 1
+      to: 2
+      name: Figure out
+      text: I watch a normal week with you and three or four recruiters. Every process gets written down as a plain SOP, from intake to invoice. Most of them live in one person's head today.
+      art:
+        kind: rows
+        rows:
+          - { text: Job order intake, note: Written down, mark: ok }
+          - { text: Submittals, note: Three ways. One kept, mark: moved }
+          - { text: Monday report, note: Only Sarah knows it, mark: hot }
+          - { text: Weekly spreadsheet, note: Nobody reads it, mark: out }
+    - when: Weeks 2–4
+      name: Fix
+      from: 2
+      to: 4
+      text: We cut the steps that leak hours or deals, biggest first. You sign off on every change, and your team gets one way to do each thing.
+      art:
+        kind: bars
+        bars:
+          - { label: Retyping into the ATS, w: 100, hot: true }
+          - { label: Chasing interview times, w: 64 }
+          - { label: Building reports, w: 42 }
+          - { label: Finding old resumes, w: 28 }
+    - when: Weeks 3–7
+      name: Connect
+      from: 3
+      to: 7
+      text: Your ATS, inboxes, calendars and spreadsheets, cleaned into one CRM. Duplicates merged, dead contacts flagged, every client with its full history. The longest stage, because the data is the work.
+      art:
+        kind: merge
+        sources: [Your ATS, Inboxes, Calendars, Spreadsheets]
+        into: One clean CRM
+    - when: Week 6 on
+      name: Put AI to work
+      from: 6
+      to: null
+      text: The first AI job runs on the data already connected, around week 6. Then one new job every month on the retainer, watched and fixed as it runs.
+      art:
+        kind: rows
+        rows:
+          - { text: Dana Whitfield, note: Past client. Replied, mark: hot }
+          - { text: New job order, note: Answered in 2 min, mark: ok }
+          - { text: Lena Park, note: Matched to 2 open roles, mark: moved }
+          - { text: Monday report, note: Sent 7:00 am, mark: ok }
 
 proof:
   h2: An engineer, *not an agency.*
@@ -188,7 +234,7 @@ faq:
     - q: What happens to our data?
       a: It's used for your campaign only. Deleted at the end unless you continue.
     - q: What does it cost after {days} days?
-      a: Nothing, unless you want more. Anything after is its own offer and its own yes.
+      a: Nothing, unless you want the build. That's one fixed price up front, then a monthly retainer. You see both before you say yes.
     - q: What if nobody replies?
       a: Then we both learn something. You keep the cleaned list, the copy and the domain.
 

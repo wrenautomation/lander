@@ -1,0 +1,16 @@
+---
+// The build's weeks, one bar per stage. Stages overlap on purpose: fixing starts before figuring out ends.
+// A stage with no end runs past the chart (the retainer). Sits in the sticky heading, so while you read a
+// stage below, its bar lights (pitch.ts, by data-bar).
+type Stage = { name: string; from: number; to: number | null };
+const { week, weeks, ongoing, stages } = Astro.props as { week: string; weeks: number; ongoing: string; stages: Stage[] };
+---
+<figure class="gantt" data-art="gantt" style={`--weeks:${weeks}`} aria-label={stages.map((s) => `${s.name}: ${week} ${s.from}${s.to === null ? ` on, ${ongoing}` : s.to > s.from ? ` to ${s.to}` : ''}`).join('. ')}>
+  <div class="g-axis" aria-hidden="true"><span>{week}</span>{Array.from({ length: weeks }, (_, k) => <i>{k + 1}</i>)}</div>
+  {stages.map((s, k) => (
+    <div class="g-row" aria-hidden="true" data-bar={k}>
+      <span>{s.name}</span>
+      <b class:list={{ on: s.to === null }} style={`grid-column:${s.from + 1} / ${s.to === null ? -1 : s.to + 2}`}>{s.to === null && <em>{ongoing}</em>}</b>
+    </div>
+  ))}
+</figure>

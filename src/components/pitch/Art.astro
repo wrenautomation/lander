@@ -3,7 +3,7 @@
 // its parts come in when it scrolls into view (pitch.ts, by data-art).
 import type { CollectionEntry } from 'astro:content';
 import Face from './Face.astro';
-type Art = NonNullable<CollectionEntry<'pitches'>['data']['steps']['items'][number]['art']>;
+type Art = NonNullable<NonNullable<CollectionEntry<'pitches'>['data']['steps']>['items'][number]['art']>;
 const { a, me } = Astro.props as { a: Art; me: { name: string; photo: string } };
 ---
 {a.kind === 'call' && (
@@ -29,4 +29,13 @@ const { a, me } = Astro.props as { a: Art; me: { name: string; photo: string } }
   <ul class="art bars" data-art="bars" aria-hidden="true">
     {a.bars.map((b) => <li class:list={{ hot: b.hot }}><span>{b.label}</span><i style={`--w:${b.w}%`}></i></li>)}
   </ul>
+)}
+{a.kind === 'merge' && (
+  <div class="art merge" data-art="merge" aria-hidden="true">
+    <ul>{a.sources.map((x) => <li>{x}</li>)}</ul>
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      {a.sources.map((_, k) => { const y = ((k + 0.5) / a.sources.length) * 100; return <path d={`M0 ${y} C 55 ${y}, 45 50, 100 50`} />; })}
+    </svg>
+    <span class="into"><i></i>{a.into}</span>
+  </div>
 )}

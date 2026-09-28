@@ -1,15 +1,16 @@
 # wrenautomation.com/. The general story for anyone who lands here without an industry link:
-# more business in, less busywork out, both built by one engineer. Industry pages carry the offers.
+# AI integration from the ground up, in four stages: figure out, fix, connect, put AI to work.
+# What AI does at the end: more business in, less busywork out. Industry pages carry the free pilots.
 # Reader: an owner or executive of a service firm.
 title: Wren Automation
-description: Systems that bring your firm new business, and automations that handle the work it creates.
+description: I figure out how your firm runs, fix what leaks, connect your data into one CRM, then put AI to work on it.
 path: /
 offer: ops-automation-build
 form_value: general
 
 nav:
-  - { label: What I build, to: "#halves" }
   - { label: How it works, to: "#how" }
+  - { label: What AI does, to: "#halves" }
   - { label: About, to: "#about" }
 nav_cta: Get in touch
 
@@ -18,7 +19,7 @@ hero:
   lede: |
     **For owners of service firms.** New clients depend on one or two people, and each one adds admin your team has no time for.
 
-    I build the systems that bring in the business, and the automations that handle the work it creates.
+    I figure out how your firm runs, fix what leaks, connect your data into one CRM, then put AI to work on it.
   second: "Recruiting firm? See the free pilot"
   second_to: /recruiting
   by: I'm an engineer. The person who scopes it builds it.
@@ -38,8 +39,8 @@ hero:
     tag: Answered in two minutes, booked before anyone else called back.
 
 halves:
-  h2: Two halves of *one system.*
-  intro: Most firms hire for growth and drown in the admin that follows. I build both ends, so the second doesn't eat the first.
+  h2: What AI does *on clean data.*
+  intro: Most firms hire for growth and drown in the admin that follows. Once your data is in one place, AI works both ends.
   sides:
     - tag: Front of house
       h3: More business in
@@ -63,7 +64,7 @@ halves:
         - { name: Intake and onboarding, text: "Forms, contracts and documents land in your systems without retyping." }
         - { name: Scheduling and follow-up, text: "Meetings booked, clients updated, nobody chasing." }
         - { name: Reports and invoices, text: "The numbers your partners ask for, built by themselves." }
-  bridge: Growth first, because it pays for the rest. Then the admin it creates, automated before it needs a hire.
+  bridge: None of it works on messy data. That's why the build starts with how your firm runs, not with AI.
 
 industries:
   h2: Pick *your firm.*
@@ -83,41 +84,59 @@ industries:
       to: "#apply"
       go: Tell me about it
 
-steps:
-  h2: From one call to *a system that runs.*
-  intro: You see the plan and the price before anything starts.
-  items:
-    - when: Week 0
-      name: Call
-      text: Thirty minutes. Walk me through a normal week, where the business comes from and where the hours go.
+build:
+  id: how
+  h2: Four stages. *AI last, on purpose.*
+  intro: It starts with a 30-minute call and a written plan. Then one fixed price up front for the build, and a monthly retainer once AI is running.
+  week: Week
+  weeks: 8
+  ongoing: then monthly
+  stages:
+    - when: Weeks 1–2
+      name: Figure out
+      from: 1
+      to: 2
+      text: I watch a normal week with you and a few of your team. Every process gets written down as a plain SOP. Most of them live in one person's head today.
       art:
-        kind: call
-        them: You
-        face: { file: home/face-owner.jpg, prompt: "Head-and-shoulders portrait of the owner of a small professional services firm, a man in his late 40s, on a video call, attentive, slight smile, plain light grey backdrop, soft window light, 85mm, black and white editorial photography, natural light, fine grain, no text, no logos, square crop" }
-        chip: A normal week
-        mins: 30 min
-    - when: Week 1
-      name: Plan
-      text: One page back. What to build first, what it's worth, what it costs. Yours to keep either way.
+        kind: rows
+        rows:
+          - { text: Client intake, note: Written down, mark: ok }
+          - { text: Proposals, note: Three versions. One kept, mark: moved }
+          - { text: Monday report, note: Only one person knows it, mark: hot }
+          - { text: Weekly spreadsheet, note: Nobody reads it, mark: out }
+    - when: Weeks 2–4
+      name: Fix
+      from: 2
+      to: 4
+      text: We cut the steps that leak hours or clients, biggest first. You sign off on every change, and your team gets one way to do each thing.
       art:
         kind: bars
         bars:
-          - { label: Speed to lead, w: 100, hot: true }
-          - { label: Intake to CRM, w: 64 }
-          - { label: Monday report, w: 38 }
-    - when: Weeks 2–6
-      name: Build
-      text: Built inside your tools, one milestone at a time. Each one runs before the next starts.
-      art: { kind: flow, nodes: [Web form, CRM, Calendar, Invoice] }
-    - when: After
-      name: Run
-      text: I watch it, fix it and add to it every month. You get the numbers.
+          - { label: Retyping client details, w: 100, hot: true }
+          - { label: Chasing meeting times, w: 62 }
+          - { label: Building reports, w: 40 }
+          - { label: Finding old files, w: 26 }
+    - when: Weeks 3–7
+      name: Connect
+      from: 3
+      to: 7
+      text: Your inboxes, calendars, spreadsheets and old tools, cleaned into one CRM. Duplicates merged, every client with its full history. The longest stage, because the data is the work.
+      art:
+        kind: merge
+        sources: [Inboxes, Calendars, Spreadsheets, Old CRM]
+        into: One clean CRM
+    - when: Week 6 on
+      name: Put AI to work
+      from: 6
+      to: null
+      text: The first AI job runs on the data already connected, around week 6. Then one new job every month on the retainer, watched and fixed as it runs.
       art:
         kind: rows
         rows:
           - { text: New inquiry, note: Answered in 2 min, mark: hot }
+          - { text: Past client, note: Written to. Replied, mark: ok }
+          - { text: Signed contract, note: In the CRM. Nobody typed it, mark: ok }
           - { text: Monday report, note: Sent 7:00 am, mark: ok }
-          - { text: Calendar sync, note: Fixed the same day, mark: moved }
 
 proof:
   h2: An engineer, *not an agency.*
@@ -147,7 +166,11 @@ faq:
     - q: Do we have to change our tools?
       a: No. I build inside what you already use. If a tool is the problem, I'll say so and why.
     - q: What does it cost?
-      a: It starts with a free call and a one-page plan. You see the price before anything is built.
+      a: The call and the plan are free. The build is one fixed price, paid up front. Then a monthly retainer once AI is running. You see both before anything starts.
+    - q: How long does it take?
+      a: About seven weeks to a firm that runs on one clean CRM. The first AI job runs around week 6.
+    - q: Why not start with the AI?
+      a: AI on messy data makes mistakes faster. Written processes and one clean CRM are what make it work.
     - q: What if something breaks?
       a: If something I built breaks because of my mistake, I fix it free.
     - q: Who do we deal with?
@@ -170,6 +193,6 @@ ask:
   thanks: I'll reply within one business day, from william@wrenautomation.com.
 
 close:
-  h2: One call. *A plan you keep either way.*
-  text: Thirty minutes, then one page back with what to build first and what it costs.
+  h2: Week 1 starts with *how your firm runs.*
+  text: Thirty minutes on a call, then a written plan and one fixed price. The plan is yours either way.
   cta: Tell me about your firm

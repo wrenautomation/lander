@@ -29,13 +29,9 @@ export async function loadPitch(entry: CollectionEntry<'pitches'>) {
   };
   const p = fill({ ...raw, industries }, terms(offer), where);
 
-  const next = await Promise.all(offer.next.map((id) => liveOffer(id, `${where} ladder`)));
-  if (p.ladder) {
-    const named = Object.keys(p.ladder.names);
-    const missing = offer.next.filter((id) => !named.includes(id));
-    const extra = named.filter((id) => !offer.next.includes(id));
-    if (missing.length || extra.length) {
-      throw new Error(`${where}: ladder.names must name exactly the offer's next offers (missing: ${missing.join(', ') || 'none'}; extra: ${extra.join(', ') || 'none'})`);
+  for (const s of p.build?.stages ?? []) {
+    if (s.from > p.build!.weeks || (s.to !== null && (s.to < s.from || s.to > p.build!.weeks))) {
+      throw new Error(`${where}: build stage '${s.name}' weeks ${s.from}-${s.to} don't fit a ${p.build!.weeks}-week chart`);
     }
   }
   if (p.deal && offer.price.kind !== 'free') throw new Error(`${where}: the deal section explains a free trade; '${offer.id}' is not free`);
@@ -45,7 +41,7 @@ export async function loadPitch(entry: CollectionEntry<'pitches'>) {
   if (offer.application) { need(a.steps, 'steps'); need(a.nofit_h && a.nofit, 'nofit_h and ask.nofit'); }
   if (offer.booking) need(a.book_h && a.book, 'book_h and ask.book');
 
-  return { p, offer, next };
+  return { p, offer };
 }
 
 /** Every pitch, with its URL slug for [...slug].astro ('/' is undefined). */

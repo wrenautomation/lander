@@ -12,13 +12,14 @@ import Arrow from '../components/pitch/Arrow.astro';
 import Calc from '../components/pitch/Calc.astro';
 import Scene from '../components/pitch/Scene.astro';
 import Shot from '../components/pitch/Shot.astro';
-import Art from '../components/pitch/Art.astro';
+import Steps from '../components/pitch/Steps.astro';
+import Gantt from '../components/pitch/Gantt.astro';
 import Apply from '../components/pitch/Apply.astro';
 import { loadPitch } from '../lib/pitch';
 import { bare, rich, richParas } from '../lib/text';
 
 const { entry } = Astro.props as { entry: CollectionEntry<'pitches'> };
-const { p, offer, next } = await loadPitch(entry);
+const { p, offer } = await loadPitch(entry);
 const site = (await getEntry('site', 'site'))!.data;
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 const year = new Date().getFullYear();
@@ -128,20 +129,7 @@ const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
   </section>
 )}
 
-<section class="sec steps" id="how">
-  <div class="wrap grid">
-    <div class="head sticky">
-      <h2 set:html={rich(p.steps.h2)} />
-      <p class="intro">{p.steps.intro}</p>
-    </div>
-    <ol class="timeline" data-timeline>
-      <span class="rail" aria-hidden="true"><i data-rail></i></span>
-      {p.steps.items.map((s) => (
-        <li data-stop><span class="node" aria-hidden="true"></span><h3>{s.name} <span class="when">{s.when}</span></h3><p>{s.text}</p>{s.art && <Art a={s.art} me={me} />}</li>
-      ))}
-    </ol>
-  </div>
-</section>
+{p.steps && <Steps id="how" h2={p.steps.h2} intro={p.steps.intro} items={p.steps.items} me={me} />}
 
 {p.deal && (
   <section class="sec deal" id="deal">
@@ -169,21 +157,10 @@ const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
   </section>
 )}
 
-{p.ladder && next.length > 0 && (
-  <section class="sec ladder">
-    <div class="wrap grid">
-      <div class="head">
-        <h2 set:html={rich(p.ladder.h2)} />
-        <p class="intro">{p.ladder.intro}</p>
-      </div>
-      <ol class="rungs">
-        <li class="now"><h3>{offer.name}</h3><p class="tag">{p.ladder.now}</p><p>{offer.promise}</p></li>
-        {next.map((o) => (
-          <li><h3>{o.name}</h3><p class="tag">{p.ladder!.names[o.id]}</p><p>{o.promise}</p></li>
-        ))}
-      </ol>
-    </div>
-  </section>
+{p.build && (
+  <Steps id={p.build.id} h2={p.build.h2} intro={p.build.intro} items={p.build.stages} me={me}>
+    <Gantt week={p.build.week} weeks={p.build.weeks} ongoing={p.build.ongoing} stages={p.build.stages} />
+  </Steps>
 )}
 
 <section class="sec proof">

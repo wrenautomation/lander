@@ -25,12 +25,15 @@ if (float && hero) {
 }
 
 /* ---------- the steps: the rule fills as you read; each stop lights when the rule reaches it ---------- */
-const rail = $('[data-rail]'), line = $('[data-timeline]');
-if (motion && rail && line) {
-  gsap.fromTo(rail, { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: line, start: 'top 60%', end: 'bottom 60%', scrub: 0.6 } });
-  for (const li of $$('[data-stop]', line)) ScrollTrigger.create({ trigger: li, start: 'top 60%', end: 'max', onToggle: (s) => li.classList.toggle('on', s.isActive) });
-} else {
-  for (const li of $$('[data-stop]')) li.classList.add('on');
+/* the build's week chart lights its stage's bar with it */
+for (const line of $$('[data-timeline]')) {
+  const rail = $('[data-rail]', line), bars = $$('[data-bar]', line.closest('.sec')!);
+  $$('[data-stop]', line).forEach((li, k) => {
+    const light = (on: boolean) => { li.classList.toggle('on', on); bars[k]?.classList.toggle('lit', on); };
+    if (motion) ScrollTrigger.create({ trigger: li, start: 'top 60%', end: 'max', onToggle: (s) => light(s.isActive) });
+    else light(true);
+  });
+  if (motion && rail) gsap.fromTo(rail, { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: line, start: 'top 60%', end: 'bottom 60%', scrub: 0.6 } });
 }
 
 /* ---------- the dormant list: grey dots, a few of which light up as you scroll ---------- */
@@ -133,7 +136,7 @@ if (motion) {
   }
 
   // blocks rise in, in reading order, a few at a time
-  const ups = $$('.sec .intro, .legend, .dots, .calc-body>*, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .terms>div, .guarantee, .why>div, .rungs li, .figs>div, .about .photo, .about .para, .sign, .qa details, .close p, .close .btn, .me');
+  const ups = $$('.sec .intro, .legend, .dots, .calc-body>*, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .terms>div, .guarantee, .why>div, .figs>div, .about .photo, .about .para, .sign, .qa details, .close p, .close .btn, .me');
   gsap.set(ups, { opacity: 0, y: 48 });
   ScrollTrigger.batch(ups, { start: 'top 90%', once: true, onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: OUT, stagger: 0.08, overwrite: true }) });
 
@@ -163,6 +166,13 @@ if (motion) {
     bars: (el, tl) => tl
       .fromTo($$('i', el), { scaleX: 0 }, { scaleX: 1, duration: 1.3, stagger: 0.14 })
       .fromTo($$('span', el), { opacity: 0 }, { opacity: 1, stagger: 0.14 }, 0),
+    merge: (el, tl) => tl
+      .fromTo($$('li', el), { opacity: 0, x: -20 }, { opacity: 1, x: 0, stagger: 0.12 })
+      .fromTo($('svg', el), { clipPath: 'inset(-10% 100% -10% 0)' }, { clipPath: 'inset(-10% 0% -10% 0)', duration: 1.2, ease: 'expo.inOut' }, 0.3)
+      .fromTo($('.into', el), { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, ease: 'back.out(2)' }, '-=0.5'),
+    gantt: (el, tl) => tl
+      .fromTo($$('.g-axis i', el), { opacity: 0 }, { opacity: 1, stagger: 0.04, duration: 0.4 })
+      .fromTo($$('b', el), { scaleX: 0 }, { scaleX: 1, duration: 1.1, stagger: 0.18 }, 0.2),
   };
   for (const el of $$('[data-art]')) {
     ART[el.dataset.art!]?.(el, gsap.timeline({ defaults: { ease: OUT, duration: 0.9 }, scrollTrigger: { trigger: el, start: 'top 85%', once: true } }));

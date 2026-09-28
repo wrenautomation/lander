@@ -180,7 +180,10 @@ const art = z.discriminatedUnion('kind', [
   z.strictObject({ kind: z.literal('flow'), nodes: z.array(z.string()).min(2).max(5) }),
   // relative sizes, no numbers: w is 1-100
   z.strictObject({ kind: z.literal('bars'), bars: z.array(z.strictObject({ label: z.string(), w: z.number().min(1).max(100), hot: z.boolean().optional() })).min(2).max(5) }),
+  // scattered sources wired into one place
+  z.strictObject({ kind: z.literal('merge'), sources: z.array(z.string()).min(2).max(5), into: z.string() }),
 ]);
+const step = z.strictObject({ when: z.string(), name: z.string(), text: z.string(), art: art.optional() });
 const pitches = defineCollection({
   loader: one('pitches'),
   schema: z.strictObject({
@@ -223,16 +226,23 @@ const pitches = defineCollection({
       h2: z.string(),
       items: z.array(z.strictObject({ name: z.string(), text: z.string(), to: z.string(), go: z.string(), badge: z.string().optional(), offer: z.string().optional() })),
     }).optional(),
-    steps: z.strictObject({
-      ...head,
-      items: z.array(z.strictObject({ when: z.string(), name: z.string(), text: z.string(), art: art.optional() })).min(3).max(5),
-    }),
+    // the offer's own timeline (the pilot's days), when it has one
+    steps: z.strictObject({ ...head, items: z.array(step).min(3).max(5) }).optional(),
     // The terms come from the offer; these are the headings around them.
     deal: z.strictObject({
       h2: z.string(), get: z.string(), give: z.string(), we_get: z.string(),
       guarantee: z.string(), why: qa,
     }).optional(),
-    ladder: z.strictObject({ ...head, now: z.string(), names: z.record(z.string(), z.string()) }).optional(),
+    // The four stages of the build: figure out, fix, connect, put AI to work. Each has weeks [from, to] on a
+    // chart drawn above the list; to = null runs on past the chart (the retainer). `when` is the label beside it.
+    build: z.strictObject({
+      ...head,
+      id: z.string(),                   // the anchor: how on /, build on /recruiting
+      week: z.string(),                 // the chart's axis label
+      weeks: z.number().int().min(4).max(16),
+      ongoing: z.string(),              // on the bar that runs past the chart
+      stages: z.array(step.extend({ from: z.number().int().min(1), to: z.number().int().min(1).nullable() })).min(3).max(5),
+    }).optional(),
     proof: z.strictObject({
       ...head,
       items: z.array(z.strictObject({ fig: z.string(), label: z.string(), text: z.string() })).min(2).max(4),

@@ -235,6 +235,8 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 
 ### Steps timeline
 - A hairline rail that fills rust as you scroll. Round nodes turn rust as the fill passes. Step timing beside the step name. A diagram under each step's text.
+- The build uses the same timeline, with a week chart in the sticky heading: one bar per stage, overlapping; a bar lights ink as you reach its stage; the ongoing stage runs off the chart in rust.
+- Diagrams: call, rows, flow, bars, merge (source boxes wired by curves into one ink block).
 
 ### Back cover (closing screen and footer)
 - One rust block, cream text, like the pfp and the banners.
