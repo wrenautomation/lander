@@ -246,7 +246,7 @@ const pitches = defineCollection({
       h2: z.string(), intro: z.string(),
       slots: z.string().optional(),     // beside the slot bars, when the offer has slots
       submit: z.string(), sending: z.string(),
-      name: z.string(), email: z.string(), firm: z.string(), note: z.string().optional(),
+      name: z.string(), email: z.string(), phone: z.string(), firm: z.string(), note: z.string().optional(),
       required: z.string(), bad_email: z.string(), error: z.string(),
       thanks_h: z.string(), thanks: z.string(),
       book_h: z.string().optional(), book: z.string().optional(),

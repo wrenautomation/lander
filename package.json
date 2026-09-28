@@ -11,7 +11,7 @@
     "db:migrate": "wrangler d1 execute wren-leads --remote --file schema.sql",
     "db:alter": "wrangler d1 execute wren-leads --remote --command \"alter table leads add column name text; alter table leads add column questions text\"",
     "leads": "wrangler d1 execute wren-leads --remote --command \"select ts, niche, name, email, phone, utm_campaign, country, note, questions from leads order by ts desc limit 50\"",
-    "applications": "wrangler d1 execute wren-leads --remote --command \"select ts, offer, fit, name, email, firm, utm_campaign, answers, note from applications order by ts desc limit 50\"",
+    "applications": "wrangler d1 execute wren-leads --remote --command \"select ts, offer, fit, name, email, phone, firm, utm_campaign, answers, note from applications order by ts desc limit 50\"",
     "hits": "wrangler d1 execute wren-leads --remote --command \"select page, count(*) views, sum(w < 840) mobile, round(avg(depth)) depth, round(avg(secs)) secs, sum(cta) cta, sum(touched) touched from hits where secs >= 2 group by page order by views desc\"",
     "hits:campaign": "wrangler d1 execute wren-leads --remote --command \"select utm_campaign, count(*) views, round(avg(depth)) depth, sum(cta) cta, sum(touched) touched from hits where secs >= 2 group by utm_campaign order by views desc\"",
     "forget": "wrangler d1 execute wren-leads --remote --command \"delete from leads where email = '$EMAIL'\"",

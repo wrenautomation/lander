@@ -29,12 +29,12 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const o = origin(form, request);
   if (!(await human(env, form, o.ip))) return reply(403, { ok: false, error: 'turnstile' });
 
-  const row = { name: clip(form.get('name'), 120), firm: clip(form.get('firm'), 200), note: clip(form.get('note'), 4000), fit: fits(offer, answers) };
+  const row = { name: clip(form.get('name'), 120), phone: clip(form.get('phone'), 40), firm: clip(form.get('firm'), 200), note: clip(form.get('note'), 4000), fit: fits(offer, answers) };
   const saved = await env.DB.prepare(
-    `insert into applications (ts, offer, name, email, firm, note, answers, fit, page, utm_source, utm_medium, utm_campaign, utm_content, ref, country, ip, ua)
-     values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    `insert into applications (ts, offer, name, email, phone, firm, note, answers, fit, page, utm_source, utm_medium, utm_campaign, utm_content, ref, country, ip, ua)
+     values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   ).bind(
-    new Date().toISOString(), offer.id, row.name, email, row.firm, row.note, JSON.stringify(answers), row.fit ? 1 : 0, o.page,
+    new Date().toISOString(), offer.id, row.name, email, row.phone, row.firm, row.note, JSON.stringify(answers), row.fit ? 1 : 0, o.page,
     o.utm_source, o.utm_medium, o.utm_campaign, o.utm_content, o.ref, o.country, o.ip, o.ua,
   ).run();
 
@@ -49,7 +49,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   await notify(env, {
     title: `${row.fit ? 'Fit' : 'Not a fit'} · ${offer.name}: ${email}`,
     lines: [
-      `${row.name ? `${row.name} · ` : ''}${email}${row.firm ? ` · ${row.firm}` : ''}`,
+      `${row.name ? `${row.name} · ` : ''}${email}${row.phone ? ` · ${row.phone}` : ''}${row.firm ? ` · ${row.firm}` : ''}`,
       `${o.page}${o.utm_campaign ? ` · ${o.utm_campaign}` : ''}${o.country ? ` · ${o.country}` : ''}`,
     ],
     body: [...said, row.note].filter(Boolean).join('\n') || '(no answers)',

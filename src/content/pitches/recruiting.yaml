@@ -200,6 +200,7 @@ ask:
   sending: Sending…
   name: Your name
   email: Work email
+  phone: Phone
   firm: Firm website
   required: Required
   bad_email: Enter an email I can reply to.

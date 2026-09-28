@@ -160,6 +160,7 @@ ask:
   sending: Sending…
   name: Your name
   email: Work email
+  phone: Phone
   firm: Company website
   note: What's going on?
   required: Required
