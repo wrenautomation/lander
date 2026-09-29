@@ -450,6 +450,38 @@ label.field small{font-size:12px;margin-left:6px}
   .book{grid-template-areas:"inbox" "cal" "count"}
 }
 
+/* how a firm starts: three panels left to right, joined by a wire */
+.first3{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;margin-top:clamp(28px,3vw,44px)}
+.first3 .fn+.fn::before{content:"";position:absolute;right:100%;top:50%;width:52px;height:1.25px;background:var(--ink-3)}
+.first3 .fn+.fn::after{content:"";position:absolute;left:-4px;top:calc(50% - 3px);width:7px;height:7px;border-radius:50%;background:var(--paper);box-shadow:0 0 0 1.25px var(--ink-3)}
+.first3 .hd{justify-content:flex-start}
+.first3 .hd b{color:var(--acc)}
+.first3 .hd span{margin-left:auto;color:var(--ink-3)}
+.first3 .ln{display:grid;gap:6px;margin-bottom:12px;font-size:12px;color:var(--ink-2)}
+.first3 .ln em{font-style:normal}
+.first3 .ln i{height:1px;background:var(--rule);margin-top:10px}
+.first3 .pips{display:flex;gap:4px;width:110px;margin:4px 0 14px}
+.first3 .pips.on2 i:nth-child(-n+2){background:var(--ink)}
+.first3 .mini{display:inline-block;padding:7px 12px;background:var(--acc);color:var(--cream);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.first3 .from{display:flex;align-items:center;gap:10px}
+.first3 .from p{display:grid}
+.first3 .from span{font-size:12px;color:var(--ink-2)}
+.first3 .slot{margin-top:14px;padding:8px 10px;background:var(--ink);color:var(--paper);font-weight:500}
+.first3 .fit{display:flex;align-items:center;gap:8px;margin-top:12px;color:var(--ink-2)}
+.first3 .fit svg{width:15px;height:15px;fill:none;stroke:var(--acc);stroke-width:1.6}
+.first3 .file{font-weight:600;margin-bottom:6px}
+.rows3 li{display:grid;padding:7px 0;border-top:1px solid var(--rule)}
+.rows3 span{font-size:12px;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.first3 .tail{margin-top:8px;font-size:12px;color:var(--ink-3)}
+.start .say{margin-top:clamp(28px,3vw,44px)}
+.start .say p{margin:0;max-width:34em}
+.start .say p em{font-style:normal;color:var(--ink)}
+@media (max-width:719px){
+  .start .flow{margin-inline:calc(-1 * var(--gut));grid-template-columns:1fr}
+  .first3 .fn+.fn::before{right:auto;left:50%;top:-28px;width:1.25px;height:28px}
+  .first3 .fn+.fn::after{left:calc(50% - 3px);top:-4px}
+}
+
 /* the two halves */
 .split{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--ink)}
 .side{padding-top:32px}

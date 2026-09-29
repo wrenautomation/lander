@@ -14,6 +14,7 @@ import Problem from '../components/pitch/Problem.astro';
 import Benefits from '../components/pitch/Benefits.astro';
 import Shot from '../components/pitch/Shot.astro';
 import Steps from '../components/pitch/Steps.astro';
+import Start from '../components/pitch/Start.astro';
 import Gantt from '../components/pitch/Gantt.astro';
 import Apply from '../components/pitch/Apply.astro';
 import { loadPitch } from '../lib/pitch';
@@ -137,6 +138,8 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
   </div>
 </section>
 )}
+
+{p.start && <Start s={p.start} />}
 
 <section class="sec faq" id="faq">
   <div class="wrap grid">

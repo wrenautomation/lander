@@ -267,6 +267,8 @@ const pitches = defineCollection({
       nofit_h: z.string().optional(), nofit: z.string().optional(),
     }),
     // The last screen: one line and a button back up to the form.
+    // how a firm starts: three steps as panels, then why it's low risk
+    start: z.strictObject({ id: z.string(), h2: z.string(), steps: z.array(z.string()).length(3), text: z.string(), cta: z.string() }).optional(),
     close: z.strictObject({
       h2: z.string(), text: z.string(), cta: z.string(),
       // optional recap: one last reason, then the benefits as two firms side by side, the one that acts and the one that waits

@@ -1,0 +1,38 @@
+---
+// How a firm starts, as three small panels in the flows' style, joined left to right: the form, the call, the export.
+// Pictures, not data: the names and numbers are made up. The words under the panels carry the point (low risk).
+import { rich } from '../../lib/text';
+import Arrow from './Arrow.astro';
+const { s } = Astro.props as { s: { id: string; h2: string; steps: string[]; text: string; cta: string } };
+const file = [['Cobalt Freight', 'dana@cobaltfreight.com'], ['Alder Health', 'm.wu@alderhealth.org'], ['Juniper Labs', 'ops@juniperlabs.io']];
+---
+<section class="sec start" id={s.id}>
+  <div class="wrap">
+    <div class="head wide"><h2 set:html={rich(s.h2)} /></div>
+    <figure class="flow first3" aria-hidden="true">
+      <div class="fn">
+        <p class="hd"><b>01</b>{s.steps[0]}<span>2 min</span></p>
+        <p class="ln"><em>Your name</em><i></i></p>
+        <p class="ln"><em>Work email</em><i></i></p>
+        <p class="pips on2"><i></i><i></i><i></i><i></i><i></i></p>
+        <span class="mini">Next</span>
+      </div>
+      <div class="fn">
+        <p class="hd"><b>02</b>{s.steps[1]}<span>30 min</span></p>
+        <div class="from"><span class="av">WJ</span><p><b>William Jin</b><span>Video call</span></p></div>
+        <p class="slot">Thu 2:00 pm</p>
+        <p class="fit"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" /></svg>See if it's a fit</p>
+      </div>
+      <div class="fn">
+        <p class="hd"><b>03</b>{s.steps[2]}<span>CSV</span></p>
+        <p class="file">past_clients.csv</p>
+        <ul class="rows3">{file.map(([n, e]) => <li><b>{n}</b><span>{e}</span></li>)}</ul>
+        <p class="tail">+ 1,240 contacts and old outreach</p>
+      </div>
+    </figure>
+    <div class="say">
+      <p set:html={rich(s.text)} />
+      <a class="btn" href="#apply" data-cta><span>{s.cta}</span><Arrow /></a>
+    </div>
+  </div>
+</section>

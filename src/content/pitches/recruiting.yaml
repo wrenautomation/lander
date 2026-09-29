@@ -74,6 +74,13 @@ about:
   sign: William Jin · Toronto
   cta: Get in touch
 
+start:
+  id: start
+  h2: Getting started takes *three small steps.*
+  steps: [Fill out the form, Hop on a call, Send your lead history]
+  text: That's all you do. We build the rest. If it's not a fit, *you've lost 30 minutes, not a budget.*
+  cta: I'm ready to win back my clients
+
 faq:
   h2: Questions you *should be asking.*
   items:

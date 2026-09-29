@@ -63,6 +63,10 @@ The FAQ swaps technical questions for the real objections: tried this before, wh
 
 The close stops repeating "10 new clients in 90 days" and promises time instead: "a 2-minute form away from reliable client outreach." (was "getting your week back") The form gets its progress back as bars only, under the title on the left, one per step, filled up to the current one. No "Step 1 of 5" text (D19 still holds for the words).
 
+### D33 (2026-09-29): Three steps to start, as risk reversal
+
+A section above the FAQ shows everything the owner does: fill out the form, hop on a call, send the lead history. Three panels in the flows' style (dotted canvas, white nodes, numbered headers, a wire between them, made-up data), stacked with a vertical wire on phones. Under them, one line carries the risk reversal: "That's all you do. We build the rest. If it's not a fit, you've lost 30 minutes, not a budget." Then the CTA. `start` is optional in the pitch schema; Start.astro owns the pictures.
+
 ## Next
 
 - The VSL, once the file exists: in the hero under the subhead, beside the form on desktop, above it on phones.
