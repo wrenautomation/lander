@@ -352,7 +352,14 @@ label.field small{font-size:12px;margin-left:6px}
 .ch i.li{background:#0A66C2;border-color:#0A66C2;color:#fff}
 .ch i.xx{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .ch i.xx svg{width:13px;height:13px;stroke-width:1.2}
-.ch.on i{border-color:var(--acc);color:var(--acc);outline-color:rgba(168,59,18,.35)}
+.ch.on i{outline-color:rgba(168,59,18,.35)}
+/* every channel gets its own fill, white mark on top; the one that fires (job posts) is the brand's rust */
+.ch i:is(.ic-jobs,.ic-fund,.ic-news,.ic-email,.ic-text){color:#fff;border-color:transparent}
+.ch i.ic-jobs{background:var(--acc)}
+.ch i.ic-fund{background:#0E8A74}
+.ch i.ic-news{background:#6E49C9}
+.ch i.ic-email{background:#D93A2B}
+.ch i.ic-text{background:#2FA84F}
 .ch.on span{color:var(--acc)}
 .ch.quiet{opacity:.5}
 :is(.edges,.joins) .faint{opacity:.35}

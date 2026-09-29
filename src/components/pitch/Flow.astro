@@ -54,7 +54,7 @@ const busy = [[1, 2, 4], [2, 5, 7], [3, 3, 4], [4, 2, 3], [5, 6, 8], [1, 7, 8], 
     </ol>
   </div>
   <div class="chs">
-    {srcs.map((c) => <div class:list={['fn ch', { on: c.on, quiet: !c.on }]} data-node={c.key} data-quiet={c.on ? undefined : ''}><i class:list={[{ li: c.icon === 'in', xx: c.icon === 'x' }]}>{c.icon === 'in' ? <b>in</b> : <svg viewBox="0 0 16 16"><path d={I[c.icon as keyof typeof I]} /></svg>}</i><span>{c.label}</span></div>)}
+    {srcs.map((c) => <div class:list={['fn ch', { on: c.on, quiet: !c.on }]} data-node={c.key} data-quiet={c.on ? undefined : ''}><i class:list={[`ic-${c.key}`, { li: c.icon === 'in', xx: c.icon === 'x' }]}>{c.icon === 'in' ? <b>in</b> : <svg viewBox="0 0 16 16"><path d={I[c.icon as keyof typeof I]} /></svg>}</i><span>{c.label}</span></div>)}
   </div>
   <div class="fn alert" data-node="alert" data-out>
     <i class="bell"><svg viewBox="0 0 16 16"><path d={I.bell} /></svg></i>
@@ -83,7 +83,7 @@ const busy = [[1, 2, 4], [2, 5, 7], [3, 3, 4], [4, 2, 3], [5, 6, 8], [1, 7, 8], 
     <svg class="ptr" viewBox="0 0 16 16"><path d="M3 1.5l10 6-4.4 1.2L6.6 13z" /></svg>
   </div>
   <div class="chs">
-    {outs.map((c) => <div class:list={['fn ch', { on: c.on }]} data-node={c.key} data-out={c.out ? '' : undefined}><i class:list={[{ li: c.icon === 'in', xx: c.icon === 'x' }]}>{c.icon === 'in' ? <b>in</b> : <svg viewBox="0 0 16 16"><path d={I[c.icon as keyof typeof I]} /></svg>}</i><span>{c.label}</span></div>)}
+    {outs.map((c) => <div class:list={['fn ch', { on: c.on }]} data-node={c.key} data-out={c.out ? '' : undefined}><i class:list={[`ic-${c.key}`, { li: c.icon === 'in', xx: c.icon === 'x' }]}>{c.icon === 'in' ? <b>in</b> : <svg viewBox="0 0 16 16"><path d={I[c.icon as keyof typeof I]} /></svg>}</i><span>{c.label}</span></div>)}
   </div>
 </figure>
 )}
