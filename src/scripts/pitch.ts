@@ -318,11 +318,17 @@ if (flowsBox) {
       },
     };
     const done = new Map<HTMLElement, Promise<void>>();
+    const tls: gsap.core.Timeline[] = [];
     for (const f of flows) {
       const ws = wires.get(f)!;
       gsap.set(nodes(f), { opacity: 0, y: 16 });
       const tl = gsap.timeline({ defaults: { ease: OUT, duration: 0.7 }, scrollTrigger: { trigger: $('[data-in]', f) ?? f, start: 'top 70%', once: true } });
       PLAY[f.dataset.flow!]?.(f, tl, ws);
+      // one diagram plays at a time, in story order: a fast scroll starts the next one, and any earlier one still
+      // playing fast-forwards to its end, so the story never runs out of order
+      const earlier = [...tls];
+      tls.push(tl);
+      tl.eventCallback('onStart', () => earlier.forEach((t) => { if (t.progress() < 1) t.timeScale(6).play(); }));
       // once whole, a dot keeps running through its wires while it's on screen
       // a fan runs at once: wires share a stage when they leave the same node, or meet at the same one
       const loop = gsap.timeline({ repeat: -1, repeatDelay: 1.6, paused: true });
@@ -337,7 +343,11 @@ if (flowsBox) {
       });
       let whole = false;
       done.set(f, new Promise((r) => tl.eventCallback('onComplete', () => { whole = true; loop.play(); r(); })));
-      ScrollTrigger.create({ trigger: f, start: 'top bottom', end: 'bottom top', onToggle: (s) => { if (whole) s.isActive ? loop.play() : loop.pause(); } });
+      // scrolled off screen mid-play, it finishes there: scrolling back never finds half a story
+      ScrollTrigger.create({ trigger: f, start: 'top bottom', end: 'bottom top', onToggle: (s) => {
+        if (!s.isActive && tl.progress() > 0 && tl.progress() < 1) tl.progress(1, false);
+        if (whole) s.isActive ? loop.play() : loop.pause();
+      } });
     }
     // the line between diagrams draws as you scroll, from one's last node into the next one's first. It waits for
     // its diagram to finish playing; scrolled past early, it catches up to the scroll once the diagram is whole.

@@ -85,6 +85,11 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   (`public/_redirects`, query kept) until the family has its own page. Hyphens, not underscores.
   Also fixed: canonical and og:url pointed at `/x.html`, a URL Pages redirects away from.
 
+- **D37 (2026-09-29): one diagram plays at a time.** A fast scroll fired all three flow timelines at
+  once, so the story ran out of order. Now a diagram starting fast-forwards any earlier one still
+  playing (6x), and a diagram that leaves the screen mid-play finishes there. Scrolling back always
+  finds a whole story.
+
 ## Next
 
 - The VSL, once the file exists: in the hero under the subhead, beside the form on desktop, above it on phones.
