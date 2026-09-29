@@ -1,8 +1,9 @@
 ---
 // The hub, /: Wren as a whole. Copy from src/content/hub/home.yaml, the form's terms from its offer (lib/pitch.ts).
-// The first screen says what Wren builds and shows it (the firm map); every section after points into the services,
-// and each service goes to its own page once it has one, else to the form at the bottom.
-// Same type, colour and motion as the pitch pages (pitch.css, pitch.ts); hub.css adds the hub's own parts.
+// Laid out on the B2B landing template, one screen per section, each ending on a button to the form:
+// hero (words left, form right), proof, the pain, two builds, three benefits (diagrams), William, the comparison,
+// how it starts, questions, the recap. Same type, colour and motion as the pitch pages (pitch.css, pitch.ts);
+// hub.css adds the hub's own parts.
 import '../styles/pitch.css';
 import '../styles/hub.css';
 import '../styles/cursor.css';
@@ -11,10 +12,9 @@ import { getEntry } from 'astro:content';
 import Head from '../components/Head.astro';
 import Analytics from '../components/Analytics.astro';
 import Arrow from '../components/pitch/Arrow.astro';
-import Steps from '../components/pitch/Steps.astro';
-import Gantt from '../components/pitch/Gantt.astro';
 import Apply from '../components/pitch/Apply.astro';
-import FirmMap from '../components/pitch/FirmMap.astro';
+import Benefits from '../components/pitch/Benefits.astro';
+import Start from '../components/pitch/Start.astro';
 import Top from '../components/pitch/Top.astro';
 import End from '../components/pitch/End.astro';
 import { loadHub } from '../lib/pitch';
@@ -24,8 +24,7 @@ const { entry } = Astro.props as { entry: CollectionEntry<'hub'> };
 const { p, offer } = await loadHub(entry);
 const site = (await getEntry('site', 'site'))!.data;
 const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap';
-// a link into the form counts as a CTA click (hit.ts); links to other pages don't
-const cta = (to: string) => (to === '#apply' ? '' : undefined);
+const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
 ---
 <!doctype html>
 <html lang="en" class="pitch hub" data-niche={p.form_value}>
@@ -39,98 +38,72 @@ const cta = (to: string) => (to === '#apply' ? '' : undefined);
 </head>
 <body>
 
-<Top nav={p.nav} cta={p.nav_cta} hub />
+<Top nav={p.nav} cta={p.nav_cta} hub contact={site.email} />
 
 <main>
 <section class="hero" id="top">
-  <div class="wrap hub-grid">
+  <div class="wrap hero-grid hub-hero">
     <div class="copy">
+      <p class="kicker"><i></i>{p.hero.proof}</p>
       <h1 set:html={rich(p.hero.h1)} />
       <div class="lede" set:html={richParas(p.hero.lede)} />
+      <ul class="checks big">{p.hero.checks.map((c) => <li set:html={rich(c)} />)}</ul>
       <p class="ctas">
-        <a class="btn" href={p.hero.cta_to} data-cta={cta(p.hero.cta_to)}><span>{p.hero.cta}</span><Arrow /></a>
-        <a class="second" href={p.hero.second_to} data-cta={cta(p.hero.second_to)}>{p.hero.second}</a>
+        <a class="btn" href="#apply" data-cta><span>{p.hero.cta}</span><Arrow /></a>
+        <span class="friction">{p.hero.friction}</span>
       </p>
     </div>
-    <FirmMap m={p.hero.map} />
-    <p class="by">
-      <img src={p.about.photo} alt="" width="96" height="96">
-      <span><b>{p.about.sign}</b>{p.hero.by}</span>
-    </p>
+    <Apply a={p.ask} offer={offer} email={site.email} path={p.path} />
   </div>
 </section>
-
-<section class="sec svc" id={p.services.id}>
-  <div class="wrap">
-    <div class="head wide">
-      <h2 set:html={rich(p.services.h2)} />
-      <p class="intro">{p.services.intro}</p>
-    </div>
-    <div class="split">
-      {p.services.groups.map((g) => (
-        <div class="side">
-          <h3 set:html={rich(g.h3)} />
-          <p class="sub">{g.text}</p>
-          <ul>
-            {g.items.map((it) => (
-              <li><a href={it.to} data-cta={cta(it.to)} class:list={{ live: !it.to.startsWith('#') }}>
-                <span class="name">{it.name}{it.badge && <span class="badge">{it.badge}</span>}</span>
-                <span class="text">{it.text}</span>
-                <span class="go">{it.go}<Arrow /></span>
-              </a></li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
-<section class="sec industries" id={p.industries.id}>
-  <div class="wrap">
-    <div class="head wide"><h2 set:html={rich(p.industries.h2)} /></div>
-    <ul class="rows">
-      {p.industries.items.map((it) => (
-        <li><a href={it.to} data-cta={cta(it.to)}>
-          <span class="name">{it.name}{it.badge && <span class="badge">{it.badge}</span>}</span>
-          <span class="text">{it.text}</span>
-          <span class="go">{it.go}<Arrow /></span>
-        </a></li>
-      ))}
-    </ul>
-  </div>
-</section>
-
-<Steps id={p.build.id} h2={p.build.h2} intro={p.build.intro} items={p.build.stages}>
-  <Gantt week={p.build.week} weeks={p.build.weeks} ongoing={p.build.ongoing} stages={p.build.stages} />
-  <a class="btn" href={p.build.cta_to} data-cta={cta(p.build.cta_to)}><span>{p.build.cta}</span><Arrow /></a>
-</Steps>
 
 <section class="sec proof">
   <div class="wrap">
-    <div class="head wide">
-      <h2 set:html={rich(p.proof.h2)} />
-      <p class="intro">{p.proof.intro}</p>
-    </div>
-    <div class="figs">
+    <div class="head wide"><h2 set:html={rich(p.proof.h2)} /></div>
+    <div class="figs cards">
       {p.proof.items.map((f) => (
         <div><b class="fig">{f.fig}</b><p class="lbl">{f.label}</p><p>{f.text}</p></div>
       ))}
     </div>
-    <a class="btn" href={p.proof.cta_to} data-cta={cta(p.proof.cta_to)}><span>{p.proof.cta}</span><Arrow /></a>
+    <a class="btn" href="#apply" data-cta><span>{p.proof.cta}</span><Arrow /></a>
   </div>
 </section>
 
-<section class="sec faq" id="faq">
+<section class="sec pain-sec" id={p.pain.id}>
   <div class="wrap grid">
-    <div class="head sticky"><h2 set:html={rich(p.faq.h2)} /></div>
-    <div class="qa">
-      {p.faq.items.map((x) => (
-        <div><h3>{x.q}</h3><p>{x.a}</p></div>
-      ))}
+    <div class="head">
+      <h2 set:html={rich(p.pain.h2)} />
+      <div class="intro" set:html={richParas(p.pain.text)} />
+      <a class="btn" href="#apply" data-cta><span>{p.pain.cta}</span><Arrow /></a>
     </div>
+    <figure class="window" aria-hidden="true">
+      <p class="hd">{p.pain.chart.h}</p>
+      <ul class="art bars" data-art="bars">
+        {p.pain.chart.bars.map((b) => <li class:list={{ hot: b.hot }}><span>{b.label}</span><i style={`--w:${b.w}%`}></i></li>)}
+      </ul>
+    </figure>
   </div>
 </section>
+
+<section class="sec cases">
+  <div class="wrap">
+    <div class="head wide"><h2 set:html={rich(p.cases.h2)} /></div>
+    <div class="case-list">
+      {p.cases.items.map((c) => (
+        <article class="case">
+          <p class="who"><b>{c.client}</b><span>{c.kind}</span></p>
+          <dl>
+            <div class="was"><dt>{p.cases.before}</dt><dd>{c.before}</dd></div>
+            <div class="now"><dt>{p.cases.after}</dt><dd>{c.after}</dd></div>
+          </dl>
+        </article>
+      ))}
+    </div>
+    <a class="btn" href="#apply" data-cta><span>{p.cases.cta}</span><Arrow /></a>
+  </div>
+</section>
+
+<Benefits s={p.benefits} />
 
 <section class="sec about" id="about">
   <div class="wrap grid">
@@ -144,13 +117,55 @@ const cta = (to: string) => (to === '#apply' ? '' : undefined);
   </div>
 </section>
 
-<section class="sec ask">
+<section class="sec compare" id={p.compare.id}>
+  <div class="wrap">
+    <div class="head wide"><h2 set:html={rich(p.compare.h2)} /></div>
+    <div class="table" tabindex="0" role="region" aria-label="Comparison">
+      <table>
+        <thead><tr><th scope="col"><span class="sr">Feature</span></th><th scope="col" class="us">{p.compare.us}</th>{p.compare.them.map((t) => <th scope="col">{t}</th>)}</tr></thead>
+        <tbody>
+          {p.compare.rows.map((r) => (
+            <tr>
+              <th scope="row">{r.feature}</th>
+              {r.marks.map((m, k) => (
+                <td class:list={{ us: k === 0 }}><i class={m}><svg viewBox="0 0 16 16" aria-hidden="true"><path d={m === 'yes' ? YES : NO} /></svg><span class="sr">{m === 'yes' ? 'Yes' : 'No'}</span></i></td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <a class="btn" href="#apply" data-cta><span>{p.compare.cta}</span><Arrow /></a>
+  </div>
+</section>
+
+<Start s={p.start} />
+
+<section class="sec faq" id="faq">
+  <div class="wrap grid">
+    <div class="head sticky"><h2 set:html={rich(p.faq.h2)} /></div>
+    <div class="qa">
+      {p.faq.items.map((x) => (
+        <div><h3>{x.q}</h3><p>{x.a}</p></div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="close">
   <div class="wrap grid">
     <div class="head">
       <h2 set:html={rich(p.close.h2)} />
-      <p class="intro">{p.close.text}</p>
+      {p.close.reason && <p class="reason" set:html={rich(p.close.reason)} />}
+      <p>{p.close.text}</p>
     </div>
-    <Apply a={p.ask} offer={offer} email={site.email} path={p.path} />
+    {p.close.vs && (
+      <div class="vs">
+        <p class="hd win">{p.close.vs.win}</p><p class="hd lose">{p.close.vs.lose}</p>
+        {p.close.vs.rows.map(([w, l]) => <><p class="win">{w}</p><p class="lose">{l}</p></>)}
+      </div>
+    )}
+    <a class="btn" href="#apply" data-cta><span>{p.close.cta}</span><Arrow /></a>
   </div>
 </section>
 </main>

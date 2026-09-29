@@ -49,7 +49,7 @@ const OUT = 'expo.out';
 
 if (motion) {
   // the first screen arrives all at once: headline and copy rise together. The form panel is never held back.
-  gsap.fromTo($$('.hero :is(h1,.lede,.promise,.more,.ctas,.by)'), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: OUT, delay: 0.05 });
+  gsap.fromTo($$('.hero :is(.kicker,h1,.lede,.promise,.checks,.more,.ctas,.by)'), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: OUT, delay: 0.05 });
 
   // the example thread plays out: a message, the other side typing, the reply, what it means
   const scene = $('[data-scene]');
@@ -72,7 +72,7 @@ if (motion) {
   }
 
   // blocks rise in, in reading order, a few at a time
-  const ups = $$('.sec .intro, .qs li, .pain>*, .target, .problem .btn, .agitate .btn, .say p, .say .btn, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .about .photo, .about .para, .sign, .qa>div, .first3 .st, .start .say>*, .close .head>p, .close .btn, .vs p, .proof .wrap>.btn, .ask .head>p');
+  const ups = $$('.sec .intro, .qs li, .pain>*, .target, .problem .btn, .agitate .btn, .say p, .say .btn, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .case, .window, .table, .about .photo, .about .para, .sign, .qa>div, .first3 .st, .start .say>*, .close .head>p, .close .btn, .vs p, .sec .wrap>.btn, .sec .head>.btn');
   gsap.set(ups, { opacity: 0, y: 48 });
   ScrollTrigger.batch(ups, { start: 'top 90%', once: true, onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: OUT, stagger: 0.08, overwrite: true }) });
 
@@ -217,7 +217,7 @@ if (flowsBox) {
       const a = boxIn($('[data-out]', A)!, flowsBox), b = boxIn($('[data-in]', B)!, flowsBox);
       if (phone.matches) {
         const gap = (B.closest('.bn') as HTMLElement).offsetTop - (A.closest('.bn') as HTMLElement).offsetTop - (A.closest('.bn') as HTMLElement).offsetHeight;
-        shape(w, rail(a.x + a.w / 2, a.y + a.h, b.x + b.w / 2, b.y, fa.y + fa.h + gap / 3, fb.y - 16, fa.x + 7));
+        shape(w, rail(a.x + a.w / 2, a.y + a.h, b.x + b.w / 2, b.y, fa.y + fa.h + gap / 3, fb.y - 16, fa.x - 8));
       } else shape(w, elbow(a.x + a.w / 2, a.y + a.h, b.x + b.w / 2, b.y, (fa.y + fa.h + fb.y) / 2));
     });
   };
@@ -240,6 +240,17 @@ if (flowsBox) {
     const from = (f: HTMLElement, ws: Wire[], n: string) => ws.filter((_, k) => edges(f)[k][0] === n);
     const into = (f: HTMLElement, ws: Wire[], n: string) => ws.filter((_, k) => edges(f)[k][1] === n);
     const nodes = (f: HTMLElement) => $$('.fn', f);
+    // a message that types itself: the typed part shows, the rest holds its space so nothing reflows
+    const typer = (body: HTMLElement) => {
+      const full = body.textContent!.trim(), shown = document.createElement('span'), rest = document.createElement('span');
+      shown.className = 'shown'; rest.className = 'rest'; rest.textContent = full; body.replaceChildren(shown, rest);
+      return (tl: gsap.core.Timeline, pos: number, duration: number) => {
+        const o = { n: 0 };
+        tl.call(() => body.classList.add('writing'), [], pos)
+          .to(o, { n: full.length, duration, ease: 'none', onUpdate: () => { const k = Math.round(o.n); shown.textContent = full.slice(0, k); rest.textContent = full.slice(k); } }, pos)
+          .call(() => body.classList.remove('writing'), [], pos + duration + 0.1);
+      };
+    };
     const PLAY: Record<string, Play> = {
       // the list sits grey; it fans out to every source; job posts fire, the rest go quiet; that client lights and jumps to the top; the others are ruled out; the alert
       watch: (f, tl, ws) => {
@@ -270,20 +281,16 @@ if (flowsBox) {
       },
       // what the message is written from shows first, then it types itself in the recruiter's name; you approve; it branches out to email, LinkedIn and text
       reach: (f, tl, ws) => {
-        const msg = node(f, 'msg'), ok = node(f, 'ok'), body = $('[data-type]', msg)!, full = body.textContent!.trim();
-        const shown = document.createElement('span'), rest = document.createElement('span');
-        shown.className = 'shown'; rest.className = 'rest'; rest.textContent = full; body.replaceChildren(shown, rest);
-        const ptr = $('.ptr', ok), chs = $$('.ch', f), o = { n: 0 };
+        const msg = node(f, 'msg'), ok = node(f, 'ok'), type = typer($('[data-type]', msg)!);
+        const ptr = $('.ptr', ok), chs = $$('.ch', f);
         ok.classList.remove('done'); chs.forEach((c) => c.classList.add('wait'));
         gsap.set($('.voice', msg), { opacity: 0 });
         gsap.set($$('.why li', msg), { opacity: 0, x: -8 });
         gsap.set(ptr, { opacity: 0, x: 40, y: 26 });
         tl.to(msg, { opacity: 1, y: 0 }, 0)
-          .to($$('.why li', msg), { opacity: 1, x: 0, duration: 0.4, stagger: 0.15 }, 0.25)
-          .call(() => body.classList.add('writing'), [], 0.4)
-          .to(o, { n: full.length, duration: 2.4, ease: 'none', onUpdate: () => { const k = Math.round(o.n); shown.textContent = full.slice(0, k); rest.textContent = full.slice(k); } }, 0.4)
-          .call(() => body.classList.remove('writing'), [], 2.9)
-          .to($('.voice', msg), { opacity: 1, duration: 0.4 }, 2.9);
+          .to($$('.why li', msg), { opacity: 1, x: 0, duration: 0.4, stagger: 0.15 }, 0.25);
+        type(tl, 0.4, 2.4);
+        tl.to($('.voice', msg), { opacity: 1, duration: 0.4 }, 2.9);
         wire(tl, into(f, ws, 'ok'), 3.1);
         tl.to(ok, { opacity: 1, y: 0 }, 3.5)
           .to(ptr, { opacity: 1, x: 0, y: 0, duration: 0.8, ease: 'power2.out' }, 3.8)
@@ -316,6 +323,40 @@ if (flowsBox) {
         wire(tl, ws[1], 3.8);
         tl.to(node(f, 'count'), { opacity: 1, y: 0 }, 4.2)
           .to(c, { n: end, duration: 2, ease: 'power2.out', onUpdate: () => { const n = Math.round(c.n); num.textContent = String(n); segs.forEach((s, k) => s.classList.toggle('off', k >= n)); } }, 4.4);
+      },
+      // the hub's late inquiry: it lands, the reply types itself, a time is picked, the calendar takes it
+      inbound: (f, tl, ws) => {
+        const inq = node(f, 'inq'), reply = node(f, 'reply'), cal = node(f, 'cal'), type = typer($('[data-type]', reply)!);
+        const times = $$('.times i', reply), pick = $('[data-pick]', reply)!;
+        pick.classList.remove('pick');
+        gsap.set($('.fast', reply), { opacity: 0 });
+        gsap.set(times, { opacity: 0, y: 6 });
+        gsap.set($('.note', cal), { opacity: 0 });
+        tl.to(inq, { opacity: 1, y: 0 }, 0);
+        wire(tl, into(f, ws, 'reply'), 0.6);
+        tl.to(reply, { opacity: 1, y: 0 }, 1.0);
+        type(tl, 1.2, 2.0);
+        tl.to(times, { opacity: 1, y: 0, duration: 0.4, stagger: 0.1 }, 3.3)
+          .call(() => pick.classList.add('pick'), [], 3.9)
+          .to($('.fast', reply), { opacity: 1, duration: 0.4 }, 4.0);
+        wire(tl, into(f, ws, 'cal'), 4.2);
+        tl.to(cal, { opacity: 1, y: 0 }, 4.7)
+          .to($('.note', cal), { opacity: 1, duration: 0.4 }, 5.1);
+      },
+      // the hub's paperwork: the contract is signed, the record fills itself, then the invoice, kickoff and report go
+      admin: (f, tl, ws) => {
+        const doc = node(f, 'doc'), rec = node(f, 'crm'), rows = $$('li', rec), chs = $$('.ch', f);
+        chs.forEach((c) => c.classList.add('wait'));
+        gsap.set($('.sig em', doc), { opacity: 0, scale: 0.8 });
+        gsap.set(rows, { opacity: 0, x: -10 });
+        tl.to(doc, { opacity: 1, y: 0 }, 0)
+          .to($('.sig em', doc), { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(3)' }, 0.6);
+        wire(tl, into(f, ws, 'crm'), 1.0);
+        tl.to(rec, { opacity: 1, y: 0 }, 1.4)
+          .to(rows, { opacity: 1, x: 0, duration: 0.4, stagger: 0.22 }, 1.6);
+        wire(tl, from(f, ws, 'crm'), 2.7);
+        tl.to(chs, { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 }, 3.1);
+        chs.forEach((c, k) => tl.call(() => c.classList.remove('wait'), [], 3.5 + k * 0.3));
       },
       // the hub's firm map: the tools come in and wire into one CRM, its records fill, then both halves light with results
       map: (f, tl, ws) => {

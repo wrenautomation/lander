@@ -224,6 +224,25 @@ const ask = z.strictObject({
 // Every page names its URL and the live offer whose `page` it is; form_value is what the D1 row says the page was.
 const page = { title: z.string(), description: z.string(), path: z.string(), offer: z.string(), form_value: z.string(), nav, nav_cta: z.string() };
 
+// How a firm starts: three steps as pictures, then what follows, then why it's low risk. pics name each step's
+// picture (Start.astro); the recruiting page keeps the default form, call, file, then meetings.
+const pic = z.enum(['form', 'call', 'file', 'plan']);
+const start = z.strictObject({
+  id: z.string(), h2: z.string(),
+  pics: z.array(pic).length(3).default(['form', 'call', 'file']),
+  steps: z.array(z.strictObject({ name: z.string(), time: z.string() })).length(3),
+  then: z.strictObject({ name: z.string(), time: z.string() }),
+  then_pic: z.enum(['meet', 'live']).default('meet'),
+  text: z.string(), cta: z.string(),
+});
+// The last screen: the ask, and optionally one last reason and the benefits as two firms side by side, the one
+// that acts and the one that waits. Then a button back up to the form.
+const close = z.strictObject({
+  h2: z.string(), text: z.string(), cta: z.string(),
+  reason: z.string().optional(),
+  vs: z.strictObject({ win: z.string(), lose: z.string(), rows: z.array(z.tuple([z.string(), z.string()])).length(3) }).optional(),
+});
+
 const pitches = defineCollection({
   loader: one('pitches'),
   schema: z.strictObject({
@@ -274,45 +293,59 @@ const pitches = defineCollection({
     faq,
     ask,
     // how a firm starts: three steps as panels, then why it's low risk
-    start: z.strictObject({ id: z.string(), h2: z.string(), steps: z.array(z.strictObject({ name: z.string(), time: z.string() })).length(3), then: z.strictObject({ name: z.string(), time: z.string() }), text: z.string(), cta: z.string() }).optional(),
+    start: start.optional(),
     // The last screen: one line and a button back up to the form.
-    close: z.strictObject({
-      h2: z.string(), text: z.string(), cta: z.string(),
-      // optional recap: one last reason, then the benefits as two firms side by side, the one that acts and the one that waits
-      reason: z.string().optional(),
-      vs: z.strictObject({ win: z.string(), lose: z.string(), rows: z.array(z.tuple([z.string(), z.string()])).length(3) }).optional(),
-    }),
+    close,
   }),
 });
 
-// The hub (/): Wren as a whole, for anyone who lands without a service link. Every section points into the
-// services; each service links to its own page once it has one, else to the form at the bottom.
-// Sections render in this order: hero, services, industries, build, proof, faq, about, then the form beside close.
+// The hub (/): Wren as a whole, for anyone who lands without a service link. Laid out on the B2B landing template:
+// hero (proof line, dream outcome, checks, button) with the form beside it, proof cards, the pain, two case studies,
+// three benefits (diagrams), about, a comparison table, how it works, FAQ, the recap. One button per section.
+const mark = z.enum(['yes', 'no']);
 const hub = defineCollection({
   loader: one('hub'),
   schema: z.strictObject({
     ...page,
     hero: z.strictObject({
+      proof: z.string(),                // one real line above the headline
       h1: z.string(),
-      lede: z.string(),                 // blank line = paragraph
-      cta: z.string(), cta_to: z.string(),       // the button
-      second: z.string(), second_to: z.string(), // the quiet link beside it
-      by: z.string(),                   // one line beside William's photo
-      map: z.strictObject({             // the firm map beside the words: scattered tools, one clean CRM, the jobs AI runs on it
+      lede: z.string(),
+      checks: z.array(z.string()).length(3),
+      cta: z.string(),
+      friction: z.string(),             // one line under the button that takes the risk out
+    }),
+    proof: proof.omit({ intro: true }).extend({ cta: z.string() }),
+    // the biggest pain, with a chart of where the week goes beside it (relative bars, no numbers)
+    pain: z.strictObject({
+      id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
+      chart: z.strictObject({ h: z.string(), bars: z.array(z.strictObject({ label: z.string(), w: z.number().min(1).max(100), hot: z.boolean().optional() })).min(2).max(5) }),
+    }),
+    // real builds only, as before and now
+    cases: z.strictObject({
+      h2: z.string(), cta: z.string(), before: z.string(), after: z.string(),
+      items: z.array(z.strictObject({ client: z.string(), kind: z.string(), before: z.string(), after: z.string() })).min(1).max(3),
+    }),
+    // three rows, a diagram each (inbound, admin: HubFlow.astro; map: FirmMap.astro), sides swapping
+    benefits: z.strictObject({
+      id: z.string(),
+      items: z.array(z.strictObject({ flow: z.enum(['inbound', 'admin', 'map']), h2: z.string(), text: z.string(), cta: z.string().optional() })).length(3),
+      map: z.strictObject({             // the firm map: scattered tools, one clean CRM, what that buys
         from: z.strictObject({ h: z.string(), items: z.array(z.string()).min(3).max(4) }),
         crm: z.strictObject({ h: z.string(), rows: z.array(z.strictObject({ name: z.string(), note: z.string() })).min(2).max(4) }),
         to: z.array(z.strictObject({ h: z.string(), items: z.array(z.string()).length(2) })).length(2),
       }),
     }),
-    // two groups: more business in, less busywork out. Each item is a card.
-    services: z.strictObject({ id: z.string(), h2: z.string(), intro: z.string(), groups: z.array(z.strictObject({ h3: z.string(), text: z.string(), items: z.array(card).min(1) })).length(2) }),
-    industries: industries.extend({ id: z.string() }),
-    build: build.extend({ cta: z.string(), cta_to: z.string() }),
-    proof: proof.extend({ cta: z.string(), cta_to: z.string() }),
+    // Wren against the alternatives: marks[0] is Wren's, then one per `them`
+    compare: z.strictObject({
+      id: z.string(), h2: z.string(), cta: z.string(), us: z.string(), them: z.array(z.string()).min(2).max(4),
+      rows: z.array(z.strictObject({ feature: z.string(), marks: z.array(mark) })).min(3).max(7),
+    }),
+    start,
     faq,
     about,
+    close,
     ask,
-    close: z.strictObject({ h2: z.string(), text: z.string() }), // beside the form, at the bottom
   }),
 });
 

@@ -60,6 +60,9 @@ typography:
     fontFeature: "'lnum', 'tnum'"
 rounded:
   none: "0"
+  card: "18px"
+  window: "22px"
+  pill: "999px"
 spacing:
   gutter: "clamp(16px, 4vw, 48px)"
   column-gap: "clamp(16px, 2vw, 24px)"
@@ -70,10 +73,10 @@ components:
   button:
     backgroundColor: "{colors.rust}"
     textColor: "{colors.cream}"
-    rounded: "{rounded.none}"
+    rounded: "{rounded.pill}"
     padding: "1.15em 1.6em"
   button-hover:
-    backgroundColor: "{colors.ink}"
+    backgroundColor: "#8A2F0D"
   button-on-rust:
     backgroundColor: "{colors.cream}"
     textColor: "{colors.ink}"
@@ -101,11 +104,11 @@ components:
 
 **Creative North Star: "The Partner's Letter, told in pictures"**
 
-The hub (/) and the pitch pages (/recruiting/lead-reactivation) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, plain white paper, black ink. One sans, General Sans, does everything. No italics. Sections join on 1px ink rules into one continuous sheet.
+The hub (/) and the pitch pages (/recruiting/lead-reactivation) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, plain white paper, black ink. One sans, General Sans, does everything. No italics. Sections join on hairline rules into one sheet. Cards are softly rounded; diagrams sit in dark windows.
 
 Most readers only look at headings and pictures, so the pictures carry the story: faces for trust, an example thread in the first screen, a photo per half, and a small diagram under every step. Diagrams are drawn in code and always shown whole. Motion brings things in as you scroll; it never hides anything behind a click.
 
-White screen, black text. The brand's rust, the one on the pfp and banners, fills only a few set places so it reads as a signature, not a theme: the stamp, the buttons and the back cover. Everywhere else it is a small mark. No black blocks. Light only.
+White screen, black text. The brand's rust, the one on the pfp and banners, fills only a few set places so it reads as a signature, not a theme: the stamp, the buttons and the back cover. Everywhere else it is a small mark. Light page; the only dark areas are the diagram windows.
 
 It rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no eyebrows above headings, no stock photos.
 
@@ -203,30 +206,30 @@ Easing: expo out for entrances. No pinning, no click-through.
 Flat. Depth comes from rules alone. No shadows.
 
 ### Named Rules
-**The Flat Sheet Rule.** No shadows on anything that sits in the page.
+**The Soft Lift Rule.** One soft shadow (`--lift`) for cards that float: the form, the photo, the compare table. Dark windows get a deeper one. Nothing else casts a shadow.
 
 ## Shapes
 
-Square corners throughout (0). Circles for faces, radio buttons, dots, step and flow nodes, slider thumbs and slot marks. Boxes come from rules or paper-2 tiles, not four-sided borders.
+Rounded (D39): cards 18px, dark windows 22px, nodes 14px, inputs 10px, buttons and chips pills. Circles for faces, dots, ports and check marks. Borders are hairlines (`--rule`), never ink.
 
 ## Components
 
 ### Buttons
-- **Shape:** square (0). Small uppercase label, arrow after it.
-- Rust, cream text. Hover turns ink. On rust (the back cover) the button is cream with ink text.
+- **Shape:** pill. Sentence case, 15.5px 600, arrow after it, soft rust shadow.
+- Rust, cream text. Hover turns a deeper rust. On rust (the back cover) the button is cream with ink text.
 
 ### Application panel
-- **Style:** white, black text, set off by a 1px black rule (left on desktop, top on phone).
-- **Choices:** full-width rows split by rules. A checked row turns ink with white text and a rust dot.
+- **Style:** a floating white card (hairline border, 22px corners, soft lift).
+- **Choices:** rounded tiles with a small gap. A checked row turns ink with white text and a rust dot.
 - **Progress:** "Question 1 of 5" label plus thin segments that fill ink.
-- **Fields:** underline only, ink on focus. Invalid turns the line rust with a rust note.
+- **Fields:** boxed (hairline, 10px corners), a soft rust ring on focus. Invalid turns the line rust with a rust note.
 - **After sending:** the header and form hide. A fit with a calendar takes the whole first screen.
 
 ### Example thread (hero)
 - A label, then two messages between hairlines: face, name, role, time, text. The reply is indented behind a rust rule. A rust-dot tag says what it means.
 
 ### Navigation
-- Sticky white bar, 64px (56px on phones), ink rule below. The stamp (the pfp: a cream bird on a 32px rust square, 28px on phones) and the name left, text links, the rust button right. Links hide under 820px.
+- Sticky translucent white bar with a blur, 64px (56px on phones), hairline below. The hub shows the email beside the button from 1180px. The stamp (the pfp: a cream bird on a 32px rust square, 28px on phones) and the name left, text links, the rust button right. Links hide under 820px.
 
 ### Problem (problem, agitate)
 - Two screens, each read without scrolling on a laptop. First, full width: three unmarked questions and the fix line at one size (up to 46px, balanced lines), an ink rule between, then the goal. Second, one column: the pain, then the button.
@@ -235,10 +238,10 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 
 ### How it works (benefits, flows)
 - Three rows: a flow diagram (7 of 12 columns) beside the headline, text and button; sides swap each row. Phones: text above the diagram.
-- A flow is a paper-2 canvas with a 16px dot grid; white square nodes with an uppercase header over a rule; ink-3 curves with open ports between them. Rust marks only what matters (the lit row, the bell, the booked dot).
+- A flow is a dark window (near-black, a faint rust glow top right); dark rounded nodes with an uppercase header over a rule; faint white curves with open ports between them. Rust marks only what matters (the lit row, the bell, the booked dot).
 - Branches: a node that fans out to several small nodes (icon + name), one per source or channel, drawn as a fan of curves. Brand icons keep their colors (LinkedIn blue, X black); rust rings the one that fires.
 - Importance by size and tone, not more boxes: what's ruled out is crossed through with its reason, smaller and grey; branches that didn't fire fade, their wires faint.
-- One line joins the three: out the bottom of one diagram, an elbow through the gap, into the top of the next. Hidden on phones.
+- One line joins the three: out the bottom of one diagram, an elbow through the gap, into the top of the next. On phones it runs down the left gutter, clear of the text.
 
 ### Steps timeline
 - A hairline rail that fills rust as you scroll. Round nodes turn rust as the fill passes. Step timing beside the step name. A diagram under each step's text.

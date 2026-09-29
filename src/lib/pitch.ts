@@ -60,10 +60,10 @@ export async function loadHub(entry: CollectionEntry<'hub'>) {
   const where = `hub/${entry.id}.yaml`;
   const raw = entry.data;
   const offer = await pageOffer(raw, where);
-  const groups = await Promise.all(raw.services.groups.map(async (g) => ({ ...g, items: await cards(g.items, `${where} services`) })));
-  const industries = { ...raw.industries, items: await cards(raw.industries.items, `${where} industries`) };
-  const p = fill({ ...raw, services: { ...raw.services, groups }, industries }, terms(offer), where);
-  checkBuild(p.build, where);
+  const p = fill(raw, terms(offer), where);
+  for (const r of p.compare.rows) {
+    if (r.marks.length !== p.compare.them.length + 1) throw new Error(`${where}: compare row '${r.feature}' has ${r.marks.length} marks, needs ${p.compare.them.length + 1} (${p.compare.us} first)`);
+  }
   checkAsk(p.ask, offer, where);
   return { p, offer };
 }

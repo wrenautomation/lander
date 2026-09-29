@@ -1,7 +1,7 @@
 ---
-// The hub's picture: a firm's scattered tools wired into one clean CRM, and the jobs AI runs on it, more business
-// in and less busywork out. Drawn as a flow (the same canvas, nodes and wires as the recruiting page's diagrams);
-// pitch.ts wires it and plays it in (PLAY.map). Names are made up. The markup is the finished state.
+// The hub's third benefit: a firm's scattered tools wired into one clean CRM, and what that buys. A flow like the
+// recruiting page's diagrams, inside the benefits' data-flows box (the line from the diagram above enters at the
+// first tool). pitch.ts wires it and plays it in (PLAY.map). Names are made up. The markup is the finished state.
 type Map = { from: { h: string; items: string[] }; crm: { h: string; rows: { name: string; note: string }[] }; to: { h: string; items: string[] }[] };
 const { m } = Astro.props as { m: Map };
 // one plain line icon per tool, by position: inbox, sheet, old database, calendar
@@ -15,13 +15,11 @@ const src = m.from.items.map((label, k) => ({ key: `s${k}`, label, d: ICONS[k % 
 const goals = m.to.map((g, k) => ({ key: `g${k}`, ...g }));
 const edges = [...src.map((s) => `${s.key}>crm`), ...goals.map((g) => `crm>${g.key}`)].join(' ');
 ---
-<div class="map-box" data-flows>
-  <svg class="joins" aria-hidden="true" data-joins></svg>
-  <figure class="flow map" data-flow="map" data-edges={edges} aria-hidden="true">
+<figure class="flow map" data-flow="map" data-edges={edges} aria-hidden="true">
     <svg class="edges" data-edges-svg></svg>
     <div class="chs">
       <p class="cap">{m.from.h}</p>
-      {src.map((s) => <div class="fn ch" data-node={s.key}><i><svg viewBox="0 0 16 16"><path d={s.d} /></svg></i><span>{s.label}</span></div>)}
+      {src.map((s, k) => <div class="fn ch" data-node={s.key} data-in={k ? undefined : ''}><i><svg viewBox="0 0 16 16"><path d={s.d} /></svg></i><span>{s.label}</span></div>)}
     </div>
     <div class="fn crm" data-node="crm">
       <p class="hd">{m.crm.h}<i class="stamp"></i></p>
@@ -35,5 +33,4 @@ const edges = [...src.map((s) => `${s.key}>crm`), ...goals.map((g) => `crm>${g.k
         </div>
       ))}
     </div>
-  </figure>
-</div>
+</figure>

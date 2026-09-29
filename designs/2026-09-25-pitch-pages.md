@@ -100,6 +100,17 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   that name an offer must link to its page, checked at build. Header and footer are shared
   components now (`Top`, `End`).
 
+- **D39 (2026-09-29): Hub on the B2B template; both pages restyled sleek.** The hub follows
+  William's "B2B landing page V2" order: hero with the form, proof, pain, two builds, three
+  benefits, about, a comparison table, three steps, FAQ, recap. One button per section, labels
+  vary. Proof is real only (GoC, UAlberta, William); no phone yet, so the header shows the email.
+  New diagrams in code: inbound (late inquiry, reply typed, booked) and admin (signed contract
+  fills the CRM, then invoice, kickoff, report). The dotted canvas is gone on both pages: pill
+  buttons, a blurred header, the form as a floating card with boxed fields, rounded cards, and
+  every diagram in a dark window. The recruiting guarantee is a card with ink check circles.
+  Copy on the recruiting page unchanged. Earlier unlogged tweaks: bigger, tighter benefit
+  headings; the custom cursor; the typing fix; `h1_tail`. Photos stay deferred (Higgsfield).
+
 ## Next
 
 - The VSL, once the file exists: in the hero under the subhead, beside the form on desktop, above it on phones.

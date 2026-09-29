@@ -4,8 +4,14 @@
 import { rich } from '../../lib/text';
 import Arrow from './Arrow.astro';
 import Flow from './Flow.astro';
+import HubFlow from './HubFlow.astro';
+import FirmMap from './FirmMap.astro';
+import type { CollectionEntry } from 'astro:content';
 
-interface Props { s: { id: string; items: { flow: 'watch' | 'reach' | 'book'; h2: string; text: string; cta?: string }[] } }
+// recruiting: watch, reach, book (Flow). The hub: inbound, admin (HubFlow), then the firm map (FirmMap, drawn from s.map).
+type Map = CollectionEntry<'hub'>['data']['benefits']['map'];
+type Kind = 'watch' | 'reach' | 'book' | 'inbound' | 'admin' | 'map';
+interface Props { s: { id: string; items: { flow: Kind; h2: string; text: string; cta?: string }[]; map?: Map } }
 const { s } = Astro.props;
 ---
 <section class="sec benefits" id={s.id}>
@@ -13,7 +19,7 @@ const { s } = Astro.props;
     <svg class="joins" aria-hidden="true" data-joins></svg>
     {s.items.map((b, k) => (
       <div class:list={['bn', { flip: k % 2 }]}>
-        <Flow kind={b.flow} />
+        {b.flow === 'map' ? <FirmMap m={s.map!} /> : b.flow === 'inbound' || b.flow === 'admin' ? <HubFlow kind={b.flow} /> : <Flow kind={b.flow} />}
         <div class="say">
           <h2 set:html={rich(b.h2)} />
           <p set:html={rich(b.text)} />

@@ -1,38 +1,48 @@
 ---
-// How a firm starts, as nodes on the flows' dotted canvas, joined left to right: a form, a video call, a file, then
-// meetings on the calendar. Each card is a picture you read at a glance; the caption under it says the step.
-// The names are made up. The words under the canvas carry the point (low risk).
+// How a firm starts, as picture cards joined left to right: three steps (s.pics picks each picture: a form, a video
+// call, a file, a written plan), then what follows (s.then_pic: meetings on the calendar, or the system at work).
+// Each card is a picture you read at a glance; the caption under it says the step. The names are made up. The
+// words under the cards carry the point (low risk).
 import { rich } from '../../lib/text';
 import Arrow from './Arrow.astro';
 type Step = { name: string; time: string };
-const { s } = Astro.props as { s: { id: string; h2: string; steps: Step[]; then: Step; text: string; cta: string } };
-const booked = [['Thu 2:00', 'Cobalt Freight'], ['Fri 10:30', 'Alder Health'], ['Mon 9:00', 'Juniper Labs']];
+type Pic = 'form' | 'call' | 'file' | 'plan';
+const { s } = Astro.props as { s: { id: string; h2: string; pics: Pic[]; steps: Step[]; then: Step; then_pic: 'meet' | 'live'; text: string; cta: string } };
+const rows = s.then_pic === 'live'
+  ? [['11:50 pm', 'Inquiry answered'], ['9:04 am', 'Contract filed'], ['Mon 7:00', 'Report sent']]
+  : [['Thu 2:00', 'Cobalt Freight'], ['Fri 10:30', 'Alder Health'], ['Mon 9:00', 'Juniper Labs']];
 ---
 <section class="sec start" id={s.id}>
   <div class="wrap">
     <div class="head wide"><h2 set:html={rich(s.h2)} /></div>
     <figure class="flow first3" aria-hidden="true">
-      <div class="st">
-        <div class="fn pic form"><i></i><b></b><i></i><b></b><span>Send</span></div>
-        <p class="cap"><em>01</em>{s.steps[0].name}<small>{s.steps[0].time}</small></p>
-      </div>
-      <div class="st">
-        <div class="fn pic call">
-          <div class="tiles"><span><b class="av">WJ</b></span><span><b class="av">You</b></span></div>
-          <div class="ctl"><i></i><i></i><i class="end"></i></div>
+      {s.steps.map((st, k) => (
+        <div class="st">
+          {s.pics[k] === 'form' && <div class="fn pic form"><i></i><b></b><i></i><b></b><span>Send</span></div>}
+          {s.pics[k] === 'call' && (
+            <div class="fn pic call">
+              <div class="tiles"><span><b class="av">WJ</b></span><span><b class="av">You</b></span></div>
+              <div class="ctl"><i></i><i></i><i class="end"></i></div>
+            </div>
+          )}
+          {s.pics[k] === 'file' && (
+            <div class="fn pic file">
+              <svg viewBox="0 0 48 60"><path d="M4 2h28l12 12v44H4z" /><path d="M32 2v12h12" /></svg>
+              <b class="tag">CSV</b>
+              <p>past_clients.csv</p>
+            </div>
+          )}
+          {s.pics[k] === 'plan' && (
+            <div class="fn pic plan">
+              <p class="t">Your plan</p>
+              <ol><li><i></i><b></b></li><li><i></i><b></b></li><li><i></i><b></b></li></ol>
+            </div>
+          )}
+          <p class="cap"><em>0{k + 1}</em>{st.name}<small>{st.time}</small></p>
         </div>
-        <p class="cap"><em>02</em>{s.steps[1].name}<small>{s.steps[1].time}</small></p>
-      </div>
-      <div class="st">
-        <div class="fn pic file">
-          <svg viewBox="0 0 48 60"><path d="M4 2h28l12 12v44H4z" /><path d="M32 2v12h12" /></svg>
-          <b class="tag">CSV</b>
-          <p>past_clients.csv</p>
-        </div>
-        <p class="cap"><em>03</em>{s.steps[2].name}<small>{s.steps[2].time}</small></p>
-      </div>
+      ))}
       <div class="st then">
-        <div class="fn pic meet"><ul>{booked.map(([t, n]) => <li><b>{t}</b>{n}</li>)}</ul></div>
+        <div class="fn pic meet"><ul>{rows.map(([t, n]) => <li><b>{t}</b>{n}</li>)}</ul></div>
         <p class="cap"><em>Then</em>{s.then.name}<small>{s.then.time}</small></p>
       </div>
     </figure>
