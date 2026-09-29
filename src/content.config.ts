@@ -162,7 +162,7 @@ const offers = defineCollection({
   }),
 });
 
-// Pitch pages (/ and /recruiting/lead-reactivation): one yaml each, the copy for a page that sells one offer.
+// Pitch pages (/recruiting/lead-reactivation, more to come): one yaml each, the copy for a page that sells one offer.
 // Sections render in a fixed order; leave an optional one out and it doesn't render. *words* in a heading
 // are the punch (rendered plain); **word** in body text turns it ink. No labels above headings.
 const qa = z.array(z.strictObject({ q: z.string(), a: z.string() }));
@@ -184,16 +184,50 @@ const art = z.discriminatedUnion('kind', [
   z.strictObject({ kind: z.literal('merge'), sources: z.array(z.string()).min(2).max(5), into: z.string() }),
 ]);
 const step = z.strictObject({ when: z.string(), name: z.string(), text: z.string(), art: art.optional() });
+// The parts / and the pitch pages share: nav, the build, proof, about, the FAQ and the form.
+const nav = z.array(z.strictObject({ label: z.string(), to: z.string() }));
+// A card that links to a page: when it names an offer, that offer must be live and its page must be `to`,
+// and {slots} and {days} in the card fill from it.
+const card = z.strictObject({ name: z.string(), text: z.string(), to: z.string(), go: z.string(), badge: z.string().optional(), offer: z.string().optional() });
+const industries = z.strictObject({ h2: z.string(), items: z.array(card) });
+// The four stages of the build: figure out, fix, connect, put AI to work. Each has weeks [from, to] on a
+// chart drawn above the list; to = null runs on past the chart (the retainer). `when` is the label beside it.
+const build = z.strictObject({
+  ...head,
+  id: z.string(),                   // the anchor
+  week: z.string(),                 // the chart's axis label
+  weeks: z.number().int().min(4).max(16),
+  ongoing: z.string(),              // on the bar that runs past the chart
+  stages: z.array(step.extend({ from: z.number().int().min(1), to: z.number().int().min(1).nullable() })).min(3).max(5),
+});
+const proof = z.strictObject({
+  ...head,
+  items: z.array(z.strictObject({ fig: z.string(), label: z.string(), text: z.string() })).min(2).max(4),
+});
+const about = z.strictObject({ h2: z.string(), paras: z.array(z.string()), photo: z.string(), sign: z.string(), cta: z.string().optional() });
+const faq = z.strictObject({ h2: z.string(), items: qa });
+// The form: the offer's application when it has one (steps, nofit), else a short contact form. After a fit:
+// book_h/book with the calendar when the offer has a booking link, thanks_h/thanks without. The build refuses a
+// page missing the copy its offer needs.
+const ask = z.strictObject({
+  h2: z.string(), intro: z.string().optional(),
+  assure: z.string().optional(),    // one line under the form's button, on every step
+  submit: z.string(), sending: z.string(),
+  cta: z.string().optional(),       // the first step's button (contact details), when the form steps
+  name: z.string(), email: z.string(), phone: z.string(), sms_consent: z.string(), firm: z.string().optional(), note: z.string().optional(),
+  required: z.string(), bad_email: z.string(), error: z.string(),
+  thanks_h: z.string(), thanks: z.string(),
+  book_h: z.string().optional(), book: z.string().optional(),
+  steps: z.strictObject({ next: z.string(), back: z.string(), pick_one: z.string(), contact_h: z.string().optional() }).optional(),
+  nofit_h: z.string().optional(), nofit: z.string().optional(),
+});
+// Every page names its URL and the live offer whose `page` it is; form_value is what the D1 row says the page was.
+const page = { title: z.string(), description: z.string(), path: z.string(), offer: z.string(), form_value: z.string(), nav, nav_cta: z.string() };
+
 const pitches = defineCollection({
   loader: one('pitches'),
   schema: z.strictObject({
-    title: z.string(),
-    description: z.string(),
-    path: z.string(),                   // the URL: '/' or '/recruiting/lead-reactivation'. Must equal the offer's page.
-    offer: z.string(),                  // an id in offers.json, live, whose `page` is this path
-    form_value: z.string(),             // what the D1 row says this page was
-    nav: z.array(z.strictObject({ label: z.string(), to: z.string() })),
-    nav_cta: z.string(),
+    ...page,
     // The first screen: who it's for and the pain (lede), what Wren does, then the form beside it (ask).
     hero: z.strictObject({
       h1: z.string(),
@@ -232,44 +266,15 @@ const pitches = defineCollection({
       })).length(2),
       bridge: z.string(),
     }).optional(),
-    industries: z.strictObject({
-      h2: z.string(),
-      items: z.array(z.strictObject({ name: z.string(), text: z.string(), to: z.string(), go: z.string(), badge: z.string().optional(), offer: z.string().optional() })),
-    }).optional(),
-    // The four stages of the build: figure out, fix, connect, put AI to work. Each has weeks [from, to] on a
-    // chart drawn above the list; to = null runs on past the chart (the retainer). `when` is the label beside it.
-    build: z.strictObject({
-      ...head,
-      id: z.string(),                   // the anchor: how on /, build on /recruiting/lead-reactivation
-      week: z.string(),                 // the chart's axis label
-      weeks: z.number().int().min(4).max(16),
-      ongoing: z.string(),              // on the bar that runs past the chart
-      stages: z.array(step.extend({ from: z.number().int().min(1), to: z.number().int().min(1).nullable() })).min(3).max(5),
-    }).optional(),
-    proof: z.strictObject({
-      ...head,
-      items: z.array(z.strictObject({ fig: z.string(), label: z.string(), text: z.string() })).min(2).max(4),
-    }).optional(),
-    about: z.strictObject({ h2: z.string(), paras: z.array(z.string()), photo: z.string(), sign: z.string(), cta: z.string().optional() }),
-    faq: z.strictObject({ h2: z.string(), items: qa }),
-    // The form, in the first screen beside the hero: the offer's application when it has one (steps, nofit),
-    // else a short contact form. After a fit: book_h/book with the calendar when the offer has a booking
-    // link, thanks_h/thanks without. The build refuses a page missing the copy its offer needs.
-    ask: z.strictObject({
-      h2: z.string(), intro: z.string().optional(),
-      assure: z.string().optional(),    // one line under the form's button, on every step
-      submit: z.string(), sending: z.string(),
-      cta: z.string().optional(),       // the first step's button (contact details), when the form steps
-      name: z.string(), email: z.string(), phone: z.string(), sms_consent: z.string(), firm: z.string().optional(), note: z.string().optional(),
-      required: z.string(), bad_email: z.string(), error: z.string(),
-      thanks_h: z.string(), thanks: z.string(),
-      book_h: z.string().optional(), book: z.string().optional(),
-      steps: z.strictObject({ next: z.string(), back: z.string(), pick_one: z.string(), contact_h: z.string().optional() }).optional(),
-      nofit_h: z.string().optional(), nofit: z.string().optional(),
-    }),
-    // The last screen: one line and a button back up to the form.
+    industries: industries.optional(),
+    build: build.optional(),
+    proof: proof.optional(),
+    about,
+    faq,
+    ask,
     // how a firm starts: three steps as panels, then why it's low risk
     start: z.strictObject({ id: z.string(), h2: z.string(), steps: z.array(z.strictObject({ name: z.string(), time: z.string() })).length(3), then: z.strictObject({ name: z.string(), time: z.string() }), text: z.string(), cta: z.string() }).optional(),
+    // The last screen: one line and a button back up to the form.
     close: z.strictObject({
       h2: z.string(), text: z.string(), cta: z.string(),
       // optional recap: one last reason, then the benefits as two firms side by side, the one that acts and the one that waits
@@ -279,4 +284,35 @@ const pitches = defineCollection({
   }),
 });
 
-export const collections = { niches, cases, site, offers, pitches };
+// The hub (/): Wren as a whole, for anyone who lands without a service link. Every section points into the
+// services; each service links to its own page once it has one, else to the form at the bottom.
+// Sections render in this order: hero, services, industries, build, proof, faq, about, then the form beside close.
+const hub = defineCollection({
+  loader: one('hub'),
+  schema: z.strictObject({
+    ...page,
+    hero: z.strictObject({
+      h1: z.string(),
+      lede: z.string(),                 // blank line = paragraph
+      cta: z.string(), cta_to: z.string(),       // the button
+      second: z.string(), second_to: z.string(), // the quiet link beside it
+      by: z.string(),                   // one line beside William's photo
+      map: z.strictObject({             // the firm map beside the words: scattered tools, one clean CRM, the jobs AI runs on it
+        from: z.strictObject({ h: z.string(), items: z.array(z.string()).min(3).max(4) }),
+        crm: z.strictObject({ h: z.string(), rows: z.array(z.strictObject({ name: z.string(), note: z.string() })).min(2).max(4) }),
+        to: z.array(z.strictObject({ h: z.string(), items: z.array(z.string()).length(2) })).length(2),
+      }),
+    }),
+    // two groups: more business in, less busywork out. Each item is a card.
+    services: z.strictObject({ id: z.string(), h2: z.string(), intro: z.string(), groups: z.array(z.strictObject({ h3: z.string(), text: z.string(), items: z.array(card).min(1) })).length(2) }),
+    industries: industries.extend({ id: z.string() }),
+    build: build.extend({ cta: z.string(), cta_to: z.string() }),
+    proof: proof.extend({ cta: z.string(), cta_to: z.string() }),
+    faq,
+    about,
+    ask,
+    close: z.strictObject({ h2: z.string(), text: z.string() }), // beside the form, at the bottom
+  }),
+});
+
+export const collections = { niches, cases, site, offers, pitches, hub };

@@ -1,6 +1,6 @@
 // Pitch pages: the motion (the hero coming in, headings rising word by word, blocks and pictures entering as you
 // scroll, each step's diagram assembling, the steps rule filling) and the stepped form,
-// which works without motion too. html.js is set in Pitch.astro's head when motion is on;
+// which works without motion too. html.js is set in the layout's head (Pitch.astro, Hub.astro) when motion is on;
 // without it everything renders whole and still. Diagrams are always complete: motion only brings their parts in.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -49,7 +49,7 @@ const OUT = 'expo.out';
 
 if (motion) {
   // the first screen arrives all at once: headline and copy rise together. The form panel is never held back.
-  gsap.fromTo($$('.hero :is(h1,.lede,.promise,.more,.by)'), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: OUT, delay: 0.05 });
+  gsap.fromTo($$('.hero :is(h1,.lede,.promise,.more,.ctas,.by)'), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: OUT, delay: 0.05 });
 
   // the example thread plays out: a message, the other side typing, the reply, what it means
   const scene = $('[data-scene]');
@@ -72,7 +72,7 @@ if (motion) {
   }
 
   // blocks rise in, in reading order, a few at a time
-  const ups = $$('.sec .intro, .qs li, .pain>*, .target, .problem .btn, .agitate .btn, .say p, .say .btn, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .about .photo, .about .para, .sign, .qa>div, .first3 .st, .start .say>*, .close .head>p, .close .btn, .vs p');
+  const ups = $$('.sec .intro, .qs li, .pain>*, .target, .problem .btn, .agitate .btn, .say p, .say .btn, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .about .photo, .about .para, .sign, .qa>div, .first3 .st, .start .say>*, .close .head>p, .close .btn, .vs p, .proof .wrap>.btn, .ask .head>p');
   gsap.set(ups, { opacity: 0, y: 48 });
   ScrollTrigger.batch(ups, { start: 'top 90%', once: true, onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: OUT, stagger: 0.08, overwrite: true }) });
 
@@ -316,6 +316,23 @@ if (flowsBox) {
         wire(tl, ws[1], 3.8);
         tl.to(node(f, 'count'), { opacity: 1, y: 0 }, 4.2)
           .to(c, { n: end, duration: 2, ease: 'power2.out', onUpdate: () => { const n = Math.round(c.n); num.textContent = String(n); segs.forEach((s, k) => s.classList.toggle('off', k >= n)); } }, 4.4);
+      },
+      // the hub's firm map: the tools come in and wire into one CRM, its records fill, then both halves light with results
+      map: (f, tl, ws) => {
+        const crm = node(f, 'crm'), rows = $$('li', crm), goals = $$('.goal', f), ticks = $$('.goal li', f), checks = $$('.goal li i', f);
+        gsap.set($('.cap', f), { opacity: 0 });
+        gsap.set(rows, { opacity: 0, x: -12 });
+        gsap.set(ticks, { opacity: 0 });
+        gsap.set(checks, { scale: 0 });
+        tl.to($('.cap', f), { opacity: 1, duration: 0.4 }, 0)
+          .to($$('.ch', f), { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 }, 0.1);
+        wire(tl, into(f, ws, 'crm'), 0.8, 0.8);
+        tl.to(crm, { opacity: 1, y: 0 }, 1.5)
+          .to(rows, { opacity: 1, x: 0, duration: 0.5, stagger: 0.25 }, 1.8);
+        wire(tl, from(f, ws, 'crm'), 2.8, 0.8);
+        tl.to(goals, { opacity: 1, y: 0, stagger: 0.2 }, 3.5)
+          .to(ticks, { opacity: 1, duration: 0.3, stagger: 0.2 }, 3.8)
+          .to(checks, { scale: 1, duration: 0.5, stagger: 0.2, ease: 'back.out(3)' }, 3.8);
       },
     };
     const done = new Map<HTMLElement, Promise<void>>();

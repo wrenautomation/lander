@@ -24,7 +24,8 @@ All words live in `src/content/`.
 
 | Want to change | File |
 |---|---|
-| Any words on `/` or `/recruiting/lead-reactivation` | `pitches/home.yaml`, `pitches/recruiting/lead-reactivation.yaml` |
+| Any words on `/` (the hub) | `hub/home.yaml` |
+| Any words on `/recruiting/lead-reactivation` | `pitches/recruiting.yaml` |
 | Any words on `/agencies` | `niches/agencies.yaml`, plus `site/site.yaml` for the shared parts |
 | A case study on a niche page | `case-studies/<name>.yaml` |
 | Footer, 404, email, city | `site/site.yaml` |
@@ -115,6 +116,7 @@ None. A Meta / LinkedIn / Google pixel sets cookies, which breaks the footer pro
 ## Layout
 
 ```
+src/content/hub/           the hub's copy (/)
 src/content/pitches/       pitch page copy (one yaml per page)
 src/content/niches/        niche page copy
 src/content.config.ts      what each yaml must contain

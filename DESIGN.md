@@ -101,7 +101,7 @@ components:
 
 **Creative North Star: "The Partner's Letter, told in pictures"**
 
-The pitch pages (/ and /recruiting/lead-reactivation) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, plain white paper, black ink. One sans, General Sans, does everything. No italics. Sections join on 1px ink rules into one continuous sheet.
+The hub (/) and the pitch pages (/recruiting/lead-reactivation) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, plain white paper, black ink. One sans, General Sans, does everything. No italics. Sections join on 1px ink rules into one continuous sheet.
 
 Most readers only look at headings and pictures, so the pictures carry the story: faces for trust, an example thread in the first screen, a photo per half, and a small diagram under every step. Diagrams are drawn in code and always shown whole. Motion brings things in as you scroll; it never hides anything behind a click.
 

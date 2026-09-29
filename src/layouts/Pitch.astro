@@ -1,5 +1,5 @@
 ---
-// A page that sells one offer: / and /recruiting/lead-reactivation. Copy from src/content/pitches, terms from the offer
+// A page that sells one offer: /recruiting/lead-reactivation (the hub, /, is Hub.astro). Copy from src/content/pitches, terms from the offer
 // (src/data/offers.json via lib/pitch.ts). The first screen holds who it's for, the pain, what Wren does and
 // the form. Sections below render in this order; an optional one left out of the yaml doesn't render.
 // Reads fully with JS off; src/scripts/pitch.ts adds the scroll motion and the one-question-at-a-time form.
@@ -17,14 +17,14 @@ import Steps from '../components/pitch/Steps.astro';
 import Start from '../components/pitch/Start.astro';
 import Gantt from '../components/pitch/Gantt.astro';
 import Apply from '../components/pitch/Apply.astro';
+import Top from '../components/pitch/Top.astro';
+import End from '../components/pitch/End.astro';
 import { loadPitch } from '../lib/pitch';
 import { bare, rich, richParas } from '../lib/text';
 
 const { entry } = Astro.props as { entry: CollectionEntry<'pitches'> };
 const { p, offer } = await loadPitch(entry);
 const site = (await getEntry('site', 'site'))!.data;
-const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
-const year = new Date().getFullYear();
 const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap';
 ---
 <!doctype html>
@@ -40,13 +40,7 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
 </head>
 <body>
 
-<header class="top" data-nav>
-  <div class="wrap bar">
-    <a class="home" href="#top" aria-label="Wren Automation, top of page"><span class="brand"><i class="stamp" aria-hidden="true"></i><span class="name">Wren Automation</span></span></a>
-    <nav class="links" aria-label="Page">{p.nav.map((n) => <a href={n.to}>{n.label}</a>)}</nav>
-    <a class="btn ink sm" href="#apply" data-cta><span>{p.nav_cta}</span><Arrow /></a>
-  </div>
-</header>
+<Top nav={p.nav} cta={p.nav_cta} />
 
 <main>
 <section class="hero" id="top">
@@ -182,13 +176,7 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
 </section>
 </main>
 
-<footer class="foot">
-  <div class="wrap">
-    <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
-    <p class="fine">© {year} Wren Automation · {site.city} · {site.fine}{turnstile && <> {site.fine_turnstile} <a href="https://www.cloudflare.com/turnstile-privacy-policy/">{site.fine_turnstile_link}</a>.</>} <a href="/privacy">{site.fine_privacy}</a></p>
-    <a class="sign-off" href="#top" aria-label="Wren Automation, top of page"><i class="bird" aria-hidden="true"></i><span>Wren Automation</span></a>
-  </div>
-</footer>
+<End site={site} />
 
 
 <script src="../scripts/pitch.ts"></script>

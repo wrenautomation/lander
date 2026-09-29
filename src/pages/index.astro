@@ -1,0 +1,6 @@
+---
+// The hub, /: src/content/hub/home.yaml in layouts/Hub.astro.
+import { getEntry } from 'astro:content';
+import Hub from '../layouts/Hub.astro';
+---
+<Hub entry={(await getEntry('hub', 'home'))!} />

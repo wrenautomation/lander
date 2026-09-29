@@ -1,0 +1,13 @@
+---
+// The bar on every pitch page and the hub: the logo, the page's links, one button. The logo goes to the hub (/);
+// on the hub itself, to the top.
+import Arrow from './Arrow.astro';
+const { nav, cta, to = '#apply', hub = false } = Astro.props as { nav: { label: string; to: string }[]; cta: string; to?: string; hub?: boolean };
+---
+<header class="top" data-nav>
+  <div class="wrap bar">
+    <a class="home" href={hub ? '#top' : '/'} aria-label={hub ? 'Wren Automation, top of page' : 'Wren Automation, home'}><span class="brand"><i class="stamp" aria-hidden="true"></i><span class="name">Wren Automation</span></span></a>
+    <nav class="links" aria-label="Page">{nav.map((n) => <a href={n.to}>{n.label}</a>)}</nav>
+    <a class="btn ink sm" href={to} data-cta={to === '#apply' ? '' : undefined}><span>{cta}</span><Arrow /></a>
+  </div>
+</header>

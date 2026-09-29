@@ -1,0 +1,204 @@
+# wrenautomation.com/. The hub: Wren as a whole, for anyone who lands without a service link.
+# The big picture: one clean system underneath the firm, and AI put to work on both ends of it,
+# more business in and less busywork out. Each service is built once, proven in one industry, then
+# brought to the next. Every section points into the services. Reader: an owner or executive of a service firm.
+# Prices stay off the page.
+title: Wren Automation
+description: Wren builds the systems service firms run on. One clean CRM underneath, AI on top, more business in and less busywork out.
+path: /
+offer: ops-automation-build
+form_value: general
+
+nav:
+  - { label: Services, to: "#services" }
+  - { label: Industries, to: "#industries" }
+  - { label: How it works, to: "#how" }
+  - { label: About, to: "#about" }
+nav_cta: Get in touch
+
+hero:
+  h1: Wren builds the systems *your firm runs on.*
+  lede: |
+    More clients in. Less busywork out. One system underneath.
+
+    Most service firms run on a few people's memory and tools that don't talk to each other. We connect it all into one clean CRM, then put AI to work on it.
+  cta: Explore services
+  cta_to: "#services"
+  second: Or tell me about your firm
+  second_to: "#apply"
+  by: I'm an engineer. The person who scopes it builds it.
+  map:
+    from:
+      h: Today
+      items: [Inboxes, Spreadsheets, Old CRM, Calendars]
+    crm:
+      h: One clean CRM
+      rows:
+        - { name: Cobalt Freight, note: Hiring again }
+        - { name: New inquiry, note: "Answered, 11:50 pm" }
+        - { name: Alder Health, note: Invoice sent }
+    to:
+      - h: More business in
+        items: [Meeting booked, Past client won back]
+      - h: Less busywork out
+        items: [Contract filed, Monday report sent]
+
+services:
+  id: services
+  h2: Six systems. *One foundation.*
+  intro: Each one runs on your data, inside the tools you already use. Start with one. The rest plug into the same CRM.
+  groups:
+    - h3: More business in
+      text: A pipeline that doesn't hang on one rainmaker.
+      items:
+        - name: Lead reactivation
+          text: Past clients and old leads, caught the moment they need you again, then booked.
+          to: /recruiting/lead-reactivation
+          go: See how it works
+          offer: reactivation
+          badge: Live for recruiting
+        - { name: Speed to lead, text: "Every inquiry answered in minutes, day or night.", to: "#apply", go: Ask about it }
+        - { name: Outbound, text: "The companies you want, found, checked and written to.", to: "#apply", go: Ask about it }
+    - h3: Less busywork out
+      text: Admin that stops growing with headcount.
+      items:
+        - { name: Intake and onboarding, text: "Forms, contracts and documents land in your systems without retyping.", to: "#apply", go: Ask about it }
+        - { name: Scheduling and follow-up, text: "Meetings booked, clients updated, nobody chasing.", to: "#apply", go: Ask about it }
+        - { name: Reports and invoices, text: "The numbers your partners ask for, built by themselves.", to: "#apply", go: Ask about it }
+
+industries:
+  id: industries
+  h2: Built for *your industry.*
+  items:
+    - name: Recruiting and staffing
+      text: The past clients in your ATS, turned into new job orders.
+      to: /recruiting/lead-reactivation
+      go: Win back your past clients
+      offer: reactivation  # {slots} in this card comes from this offer
+      badge: "{slots} firms at a time"
+    - name: Agencies
+      text: Client onboarding, reporting and the busywork between, automated.
+      to: /agencies
+      go: See the agency page
+      offer: ops-audit
+    - name: Another industry
+      text: Same systems, your tools. Tell me what a normal week looks like.
+      to: "#apply"
+      go: Tell me about it
+
+build:
+  id: how
+  h2: Four stages. *AI last, on purpose.*
+  intro: Every system starts the same way. It starts with a 30-minute call and a written plan, then the build.
+  cta: Pick where to start
+  cta_to: "#services"
+  week: Week
+  weeks: 8
+  ongoing: then monthly
+  stages:
+    - when: Weeks 1-2
+      name: Figure out
+      from: 1
+      to: 2
+      text: I watch a normal week with you and a few of your team. Every process gets written down as a plain SOP. Most of them live in one person's head today.
+      art:
+        kind: rows
+        rows:
+          - { text: Client intake, note: Written down, mark: ok }
+          - { text: Proposals, note: Three versions. One kept, mark: moved }
+          - { text: Monday report, note: Only one person knows it, mark: hot }
+          - { text: Weekly spreadsheet, note: Nobody reads it, mark: out }
+    - when: Weeks 2-4
+      name: Fix
+      from: 2
+      to: 4
+      text: We cut the steps that leak hours or clients, biggest first. You sign off on every change, and your team gets one way to do each thing.
+      art:
+        kind: bars
+        bars:
+          - { label: Retyping client details, w: 100, hot: true }
+          - { label: Chasing meeting times, w: 62 }
+          - { label: Building reports, w: 40 }
+          - { label: Finding old files, w: 26 }
+    - when: Weeks 3-7
+      name: Connect
+      from: 3
+      to: 7
+      text: Your inboxes, calendars, spreadsheets and old tools, cleaned into one CRM. Duplicates merged, every client with its full history. The longest stage, because the data is the work.
+      art:
+        kind: merge
+        sources: [Inboxes, Calendars, Spreadsheets, Old CRM]
+        into: One clean CRM
+    - when: Week 6 on
+      name: Put AI to work
+      from: 6
+      to: null
+      text: The first AI job runs on the data already connected, around week 6. Then one new job every month, watched and fixed as it runs.
+      art:
+        kind: rows
+        rows:
+          - { text: New inquiry, note: Answered in 2 min, mark: hot }
+          - { text: Past client, note: Written to. Replied, mark: ok }
+          - { text: Signed contract, note: In the CRM. Nobody typed it, mark: ok }
+          - { text: Monday report, note: Sent 7:00 am, mark: ok }
+
+proof:
+  h2: An engineer, *not an agency.*
+  intro: I write the code myself, so it holds up after the demo.
+  cta: Browse the services
+  cta_to: "#services"
+  items:
+    - fig: "17,000"
+      label: Government of Canada staff
+      text: use a policy search I built instead of reading 220+ directives by hand.
+    - fig: "200+ hrs"
+      label: University of Alberta lab
+      text: of manual lookups cut across 7,000+ records of messy research data.
+    - fig: "1"
+      label: Engineer on your build
+      text: who scopes it, builds it and answers when it breaks. No handoffs.
+
+faq:
+  h2: Questions you *should be asking.*
+  items:
+    - q: Which system should we start with?
+      a: The one closest to revenue. For most firms that's past clients going cold or new inquiries waiting too long. On the call I'll tell you which.
+    - q: Do we have to change our tools?
+      a: No. I build inside what you already use. If a tool is the problem, I'll say so and why.
+    - q: Why not start with the AI?
+      a: AI on messy data makes mistakes faster. Written processes and one clean CRM are what make it work.
+    - q: How long does it take?
+      a: About seven weeks to a firm that runs on one clean CRM. The first AI job runs around week 6.
+    - q: What if something breaks?
+      a: If something I built breaks because of my mistake, I fix it free.
+
+about:
+  h2: Hi, I'm *William.*
+  paras:
+    - I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
+    - My internships were data pipelines, systems that talk to each other, and CRMs. Now I build the systems that bring firms business, and the automations that handle what comes with it.
+    - Build each system once, prove it in one industry, then bring it to the next. Recruiting is first.
+  photo: /headshot.png
+  sign: William Jin · Toronto
+  cta: Get in touch
+
+close:
+  h2: Week 1 starts with *how your firm runs.*
+  text: Thirty minutes on a call, then a written plan. The plan is yours either way.
+
+ask:
+  h2: Tell me about your firm.
+  intro: What you do, where the hours go, what you want more of. I reply within one business day.
+  submit: Send
+  sending: Sending…
+  name: Your name
+  email: Work email
+  phone: Phone
+  sms_consent: Text me about my request. Msg & data rates may apply. Reply STOP to opt out. [Terms](/terms), [Privacy](/privacy).
+  firm: Company website
+  note: What's going on?
+  required: Required
+  bad_email: Enter an email I can reply to.
+  error: "That didn't send. Email me instead:"
+  thanks_h: Got it. *Talk soon.*
+  thanks: I'll reply within one business day, from william@wrenautomation.com.

@@ -91,6 +91,15 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   A replay button (rust, it's an action; green stays for results) sits over each diagram's first
   node once it's whole. Target line stays green: it's the result, and it matches the client count.
 
+- **D38 (2026-09-29): / is the hub, niche-agnostic.** The logo on every page goes to `/`. The
+  hub sells Wren as a whole: one clean CRM underneath, AI on both ends, more business in and less
+  busywork out. First screen: the words left, a firm map right (tools, one CRM, the two halves,
+  played in like the other diagrams). Then six services in two lists (live ones link to their
+  page, the rest to the form), industries, the build, proof, FAQ, about, form. A CTA per screen,
+  most pointing into the services. Copy in `src/content/hub/home.yaml` (its own collection); cards
+  that name an offer must link to its page, checked at build. Header and footer are shared
+  components now (`Top`, `End`).
+
 ## Next
 
 - The VSL, once the file exists: in the hero under the subhead, beside the form on desktop, above it on phones.

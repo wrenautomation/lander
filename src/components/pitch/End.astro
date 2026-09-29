@@ -1,0 +1,13 @@
+---
+// The footer on every pitch page and the hub: the email, the fine print, the lockup back to the top.
+const { site } = Astro.props as { site: { email: string; city: string; fine: string; fine_turnstile: string; fine_turnstile_link: string; fine_privacy: string } };
+const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const year = new Date().getFullYear();
+---
+<footer class="foot">
+  <div class="wrap">
+    <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
+    <p class="fine">© {year} Wren Automation · {site.city} · {site.fine}{turnstile && <> {site.fine_turnstile} <a href="https://www.cloudflare.com/turnstile-privacy-policy/">{site.fine_turnstile_link}</a>.</>} <a href="/privacy">{site.fine_privacy}</a></p>
+    <a class="sign-off" href="#top" aria-label="Wren Automation, top of page"><i class="bird" aria-hidden="true"></i><span>Wren Automation</span></a>
+  </div>
+</footer>
