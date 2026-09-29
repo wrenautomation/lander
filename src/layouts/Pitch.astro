@@ -9,7 +9,6 @@ import { getEntry } from 'astro:content';
 import Head from '../components/Head.astro';
 import Analytics from '../components/Analytics.astro';
 import Arrow from '../components/pitch/Arrow.astro';
-import Calc from '../components/pitch/Calc.astro';
 import Scene from '../components/pitch/Scene.astro';
 import Story from '../components/pitch/Story.astro';
 import Shot from '../components/pitch/Shot.astro';
@@ -25,7 +24,6 @@ const site = (await getEntry('site', 'site'))!.data;
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 const year = new Date().getFullYear();
 const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap';
-const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
 ---
 <!doctype html>
 <html lang="en" class="pitch" data-niche={p.form_value}>
@@ -76,24 +74,7 @@ const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
 
 {p.story && <Story s={p.story} />}
 
-{p.field && (
-  <section class="sec field" id="field">
-    <div class="wrap grid">
-      <div class="head">
-        <h2 set:html={rich(p.field.h2)} />
-        <div class="intro" set:html={richParas(p.field.text)} />
-        <ul class="legend">
-          <li><i class="dim"></i>{p.field.dormant}</li>
-          <li><i class="lit"></i>{p.field.awake}</li>
-        </ul>
-      </div>
-      <div class="dots"><canvas data-field aria-hidden="true"></canvas></div>
-    </div>
-  </section>
-)}
-
-{p.calc && <Calc c={p.calc} />}
-
+{p.halves && (
 <section class="sec halves" id="halves">
   <div class="wrap">
     <div class="head wide">
@@ -117,6 +98,7 @@ const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
     <p class="bridge" set:html={rich(p.halves.bridge)} />
   </div>
 </section>
+)}
 
 {p.industries && (
   <section class="sec industries" id="industries">
@@ -135,40 +117,13 @@ const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
   </section>
 )}
 
-{p.steps && <Steps id="how" h2={p.steps.h2} intro={p.steps.intro} items={p.steps.items} me={me} />}
-
-{p.deal && (
-  <section class="sec deal" id="deal">
-    <div class="wrap">
-      <div class="head wide">
-        <h2 set:html={rich(p.deal.h2)} />
-        <p class="intro">{offer.promise}</p>
-      </div>
-      <div class="terms">
-        {[
-          { h: p.deal.get, items: offer.youGet },
-          { h: p.deal.give, items: offer.youGive },
-          { h: p.deal.we_get, items: offer.weGet },
-        ].map((t) => (
-          <div><h3>{t.h}</h3><ul>{t.items.map((x) => <li>{x}</li>)}</ul></div>
-        ))}
-      </div>
-      {offer.guarantee && (
-        <div class="guarantee"><span><i class="bird" aria-hidden="true"></i>{p.deal.guarantee}</span><p>{offer.guarantee}</p></div>
-      )}
-      <div class="why">
-        {p.deal.why.map((w) => <div><h3>{w.q}</h3><p>{w.a}</p></div>)}
-      </div>
-    </div>
-  </section>
-)}
-
 {p.build && (
-  <Steps id={p.build.id} h2={p.build.h2} intro={p.build.intro} items={p.build.stages} me={me}>
+  <Steps id={p.build.id} h2={p.build.h2} intro={p.build.intro} items={p.build.stages}>
     <Gantt week={p.build.week} weeks={p.build.weeks} ongoing={p.build.ongoing} stages={p.build.stages} />
   </Steps>
 )}
 
+{p.proof && (
 <section class="sec proof">
   <div class="wrap">
     <div class="head wide">
@@ -182,6 +137,7 @@ const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
     </div>
   </div>
 </section>
+)}
 
 <section class="sec about" id="about">
   <div class="wrap grid">
@@ -194,7 +150,7 @@ const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
   </div>
 </section>
 
-<section class="sec faq">
+<section class="sec faq" id="faq">
   <div class="wrap grid">
     <div class="head sticky"><h2 set:html={rich(p.faq.h2)} /></div>
     <div class="qa">

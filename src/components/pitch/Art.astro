@@ -2,28 +2,13 @@
 // A step's diagram, drawn in code (the `art` union in content.config.ts). Always whole on the page; with motion,
 // its parts come in when it scrolls into view (pitch.ts, by data-art).
 import type { CollectionEntry } from 'astro:content';
-import Face from './Face.astro';
-type Art = NonNullable<NonNullable<CollectionEntry<'pitches'>['data']['steps']>['items'][number]['art']>;
-const { a, me } = Astro.props as { a: Art; me: { name: string; photo: string } };
+type Art = NonNullable<NonNullable<CollectionEntry<'pitches'>['data']['build']>['stages'][number]['art']>;
+const { a } = Astro.props as { a: Art };
 ---
-{a.kind === 'call' && (
-  <div class="art call" data-art="call" aria-hidden="true">
-    <div class="tile"><Face name={me.name} photo={me.photo} /><span>{me.name}</span></div>
-    <div class="tile"><Face name={a.them} face={a.face} /><span>{a.them}</span></div>
-    <span class="chip" data-chip><i></i>{a.chip}</span>
-    <span class="mins"><i></i>{a.mins}</span>
-  </div>
-)}
 {a.kind === 'rows' && (
   <ul class="art rows-art" data-art="rows" aria-hidden="true">
     {a.rows.map((r) => <li class={r.mark}><i class="mk"></i><span>{r.text}</span><em>{r.note}</em></li>)}
   </ul>
-)}
-{a.kind === 'flow' && (
-  <div class="art flow" data-art="flow" aria-hidden="true" style={`--n:${a.nodes.length}`}>
-    <span class="wire"><b></b></span>
-    <ol>{a.nodes.map((n) => <li><i></i><span>{n}</span></li>)}</ol>
-  </div>
 )}
 {a.kind === 'bars' && (
   <ul class="art bars" data-art="bars" aria-hidden="true">

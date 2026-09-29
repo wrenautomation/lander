@@ -1,6 +1,6 @@
 // Pitch pages: the motion (the hero coming in, headings rising word by word, blocks and pictures entering as you
-// scroll, each step's diagram assembling, the dormant list waking, the steps rule filling) and the two things that
-// work without motion too (the calculator, the stepped form). html.js is set in Pitch.astro's head when motion is on;
+// scroll, each step's diagram assembling, the example reel looping, the steps rule filling) and the stepped form,
+// which works without motion too. html.js is set in Pitch.astro's head when motion is on;
 // without it everything renders whole and still. Diagrams are always complete: motion only brings their parts in.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -34,56 +34,6 @@ for (const line of $$('[data-timeline]')) {
     else light(true);
   });
   if (motion && rail) gsap.fromTo(rail, { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: line, start: 'top 60%', end: 'bottom 60%', scrub: 0.6 } });
-}
-
-/* ---------- the dormant list: grey dots, a few of which light up as you scroll ---------- */
-const canvas = $<HTMLCanvasElement>('[data-field]');
-if (canvas) {
-  const box = canvas.parentElement!, ctx = canvas.getContext('2d')!;
-  const css = getComputedStyle(root);
-  const acc = css.getPropertyValue('--acc').trim() || '#C24E1C', dim = css.getPropertyValue('--ink-3').trim() || '#8A8A85';
-  let rng = 7;
-  const rand = () => { rng = (rng * 16807) % 2147483647; return rng / 2147483647; }; // seeded: the same field every visit
-  type Dot = { x: number; y: number; r: number }; // r = when it lights (0..1), or 2 = stays dormant
-  let dots: Dot[] = [], W = 0, H = 0, p = motion ? 0 : 1;
-  const AWAKE = 0.075, R = 2.6;
-  const build = () => {
-    const dpr = Math.min(2, devicePixelRatio || 1);
-    W = box.clientWidth; H = box.clientHeight;
-    canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const gap = W < 520 ? 15 : 19, cols = Math.floor(W / gap), rows = Math.floor(H / gap);
-    const ox = (W - (cols - 1) * gap) / 2, oy = (H - (rows - 1) * gap) / 2;
-    rng = 7;
-    const hubs = Array.from({ length: 4 }, () => ({ x: rand() * W, y: rand() * H }));
-    const raw: { x: number; y: number; t: number }[] = [];
-    for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) {
-      const x = ox + i * gap, y = oy + j * gap;
-      const d = Math.min(...hubs.map((h) => Math.hypot(h.x - x, h.y - y))) / Math.max(W, H);
-      raw.push({ x, y, t: rand() * 0.55 + d * 1.6 }); // low t = likely awake, clustered near a hub
-    }
-    const cut = [...raw].sort((a, b) => a.t - b.t)[Math.floor(raw.length * AWAKE)]?.t ?? 0;
-    const awake = raw.filter((d) => d.t < cut).sort(() => rand() - 0.5);
-    const order = new Map(awake.map((d, k) => [d, k / awake.length]));
-    dots = raw.map((d) => ({ x: d.x, y: d.y, r: order.get(d) ?? 2 }));
-  };
-  // dormant: an outline in grey. Woken: the outline fills rust and grows a little, once, as the scroll reaches it.
-  const draw = () => {
-    ctx.clearRect(0, 0, W, H);
-    ctx.lineWidth = 1; ctx.strokeStyle = dim;
-    for (const d of dots) {
-      const k = d.r > 1 ? 0 : Math.max(0, Math.min(1, (p - d.r) * 10));
-      if (k === 0) { ctx.beginPath(); ctx.arc(d.x, d.y, R, 0, 7); ctx.stroke(); continue; }
-      ctx.fillStyle = acc; ctx.beginPath(); ctx.arc(d.x, d.y, R + 1.4 * k, 0, 7); ctx.fill();
-    }
-  };
-  build(); draw();
-  new ResizeObserver(() => { build(); draw(); }).observe(box);
-  if (motion) {
-    ScrollTrigger.create({
-      trigger: box, start: 'top 75%', end: 'bottom 35%', scrub: true,
-      onUpdate: (s) => { p = s.progress; draw(); },
-    });
-  }
 }
 
 /* ---------- entrances: nothing waits on a click, everything arrives as it's reached ---------- */
@@ -144,7 +94,7 @@ if (motion) {
   }
 
   // blocks rise in, in reading order, a few at a time
-  const ups = $$('.sec .intro, .legend, .dots, .calc-body>*, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .terms>div, .guarantee, .why>div, .figs>div, .about .photo, .about .para, .sign, .qa>div, .close p, .close .btn');
+  const ups = $$('.sec .intro, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .about .photo, .about .para, .sign, .qa>div, .close p, .close .btn');
   gsap.set(ups, { opacity: 0, y: 48 });
   ScrollTrigger.batch(ups, { start: 'top 90%', once: true, onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: OUT, stagger: 0.08, overwrite: true }) });
 
@@ -159,18 +109,9 @@ if (motion) {
 
   // each step's diagram assembles itself once, then the flow keeps a dot running through it
   const ART: Record<string, (el: HTMLElement, tl: gsap.core.Timeline) => unknown> = {
-    call: (el, tl) => tl
-      .fromTo($$('.tile', el), { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.14 })
-      .fromTo($$('.face', el), { scale: 0.6 }, { scale: 1, stagger: 0.14, ease: 'back.out(2)' }, 0.15)
-      .fromTo($('.mins', el), { opacity: 0 }, { opacity: 1 }, 0.5)
-      .fromTo($('[data-chip]', el), { opacity: 0, x: () => el.clientWidth / 4 }, { opacity: 1, x: 0, duration: 1.2 }, 0.7),
     rows: (el, tl) => tl
       .fromTo($$('li', el), { opacity: 0, x: -24 }, { opacity: 1, x: 0, stagger: 0.14 })
       .fromTo($$('.mk', el), { scale: 0 }, { scale: 1, stagger: 0.14, duration: 0.6, ease: 'back.out(3)' }, 0.4),
-    flow: (el, tl) => tl
-      .fromTo($('.wire', el), { scaleX: 0 }, { scaleX: 1, duration: 1.4, ease: 'expo.inOut' })
-      .fromTo($$('li', el), { opacity: 0, y: 14 }, { opacity: 1, y: 0, stagger: 0.2 }, 0)
-      .call(() => el.classList.add('run')),
     bars: (el, tl) => tl
       .fromTo($$('i', el), { scaleX: 0 }, { scaleX: 1, duration: 1.3, stagger: 0.14 })
       .fromTo($$('span', el), { opacity: 0 }, { opacity: 1, stagger: 0.14 }, 0),
@@ -204,25 +145,6 @@ if (motion) {
   }
 
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
-}
-
-/* ---------- the calculator ---------- */
-const calc = $('[data-calc]');
-if (calc) {
-  const ins = $$<HTMLInputElement>('[data-in]', calc);
-  const money = (x: number) => `$${x >= 1000 ? `${fmt(x / 1000)}k` : fmt(x)}`;
-  const show = (i: HTMLInputElement) => {
-    const v = Number(i.value), u = i.dataset.unit;
-    i.style.setProperty('--p', `${((v - Number(i.min)) / (Number(i.max) - Number(i.min))) * 100}%`);
-    $(`[data-out="${i.dataset.in}"]`, calc)!.textContent = u === 'usd' ? money(v) : u === 'percent' ? `${v}%` : fmt(v);
-  };
-  const run = () => {
-    const v = Object.fromEntries(ins.map((i) => [i.dataset.in, Number(i.value)]));
-    const orders = (v.contacts * v.rate) / 100, fees = orders * (v.fill / 100) * v.fee;
-    $('[data-res="orders"]', calc)!.textContent = fmt(orders);
-    $('[data-res="fees"]', calc)!.textContent = money(fees);
-  };
-  for (const i of ins) i.addEventListener('input', () => { show(i); run(); });
 }
 
 /* ---------- the form: contact details, then one question at a time, then fetch ---------- */

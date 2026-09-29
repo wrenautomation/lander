@@ -172,12 +172,8 @@ const face = z.strictObject({ file: z.string(), prompt: z.string() });
 const msg = z.strictObject({ name: z.string(), role: z.string(), when: z.string(), text: z.string(), face: face.optional() });
 // A step's diagram, drawn in code. Always shown whole; motion only brings the parts in.
 const art = z.discriminatedUnion('kind', [
-  // a video call: William's tile and theirs, with what they bring passing across
-  z.strictObject({ kind: z.literal('call'), them: z.string(), face: face.optional(), chip: z.string(), mins: z.string() }),
   // a list being worked: ok = checked, hot = worth a call, moved = changed, out = removed
   z.strictObject({ kind: z.literal('rows'), rows: z.array(z.strictObject({ text: z.string(), note: z.string(), mark: z.enum(['ok', 'hot', 'moved', 'out']) })).min(2).max(5) }),
-  // a chain of tools or stages, with a mark running along it
-  z.strictObject({ kind: z.literal('flow'), nodes: z.array(z.string()).min(2).max(5) }),
   // relative sizes, no numbers: w is 1-100
   z.strictObject({ kind: z.literal('bars'), bars: z.array(z.strictObject({ label: z.string(), w: z.number().min(1).max(100), hot: z.boolean().optional() })).min(2).max(5) }),
   // scattered sources wired into one place
@@ -217,16 +213,6 @@ const pitches = defineCollection({
         z.strictObject({ kind: z.literal('meet'), step: z.string(), when: z.string(), text: z.string(), status: z.string() }),
       ])).min(3).max(6),
     }).optional(),
-    field: z.strictObject({ h2: z.string(), text: z.string(), dormant: z.string(), awake: z.string() }).optional(),
-    calc: z.strictObject({
-      ...head,
-      inputs: z.array(z.strictObject({
-        key: z.enum(['contacts', 'fee', 'rate', 'fill']), label: z.string(),
-        min: z.number(), max: z.number(), step: z.number(), value: z.number(),
-        unit: z.enum(['count', 'usd', 'percent']),
-      })).length(4),
-      out_orders: z.string(), out_fees: z.string(), fine: z.string(),
-    }).optional(),
     halves: z.strictObject({
       ...head,
       sides: z.array(z.strictObject({
@@ -234,17 +220,10 @@ const pitches = defineCollection({
         items: z.array(z.strictObject({ name: z.string(), text: z.string(), badge: z.string().optional() })),
       })).length(2),
       bridge: z.string(),
-    }),
+    }).optional(),
     industries: z.strictObject({
       h2: z.string(),
       items: z.array(z.strictObject({ name: z.string(), text: z.string(), to: z.string(), go: z.string(), badge: z.string().optional(), offer: z.string().optional() })),
-    }).optional(),
-    // the offer's own timeline (the pilot's days), when it has one
-    steps: z.strictObject({ ...head, items: z.array(step).min(3).max(5) }).optional(),
-    // The terms come from the offer; these are the headings around them.
-    deal: z.strictObject({
-      h2: z.string(), get: z.string(), give: z.string(), we_get: z.string(),
-      guarantee: z.string(), why: qa,
     }).optional(),
     // The four stages of the build: figure out, fix, connect, put AI to work. Each has weeks [from, to] on a
     // chart drawn above the list; to = null runs on past the chart (the retainer). `when` is the label beside it.
@@ -259,7 +238,7 @@ const pitches = defineCollection({
     proof: z.strictObject({
       ...head,
       items: z.array(z.strictObject({ fig: z.string(), label: z.string(), text: z.string() })).min(2).max(4),
-    }),
+    }).optional(),
     about: z.strictObject({ h2: z.string(), paras: z.array(z.string()), photo: z.string(), sign: z.string() }),
     faq: z.strictObject({ h2: z.string(), items: qa }),
     // The form, in the first screen beside the hero: the offer's application when it has one (steps, nofit),
@@ -268,7 +247,6 @@ const pitches = defineCollection({
     ask: z.strictObject({
       h2: z.string(), intro: z.string(),
       assure: z.string().optional(),    // one line under the form's button, on every step
-      slots: z.string().optional(),     // beside the slot bars, when the offer has slots
       submit: z.string(), sending: z.string(),
       cta: z.string().optional(),       // the first step's button (contact details), when the form steps
       name: z.string(), email: z.string(), phone: z.string(), firm: z.string().optional(), note: z.string().optional(),

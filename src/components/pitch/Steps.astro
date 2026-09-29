@@ -4,7 +4,7 @@
 import Art from './Art.astro';
 import { rich } from '../../lib/text';
 type Item = { when: string; name: string; text: string; art?: Parameters<typeof Art>[0]['a'] };
-const { id, h2, intro, items, me } = Astro.props as { id: string; h2: string; intro: string; items: Item[]; me: { name: string; photo: string } };
+const { id, h2, intro, items } = Astro.props as { id: string; h2: string; intro: string; items: Item[] };
 ---
 <section class="sec steps" id={id}>
   <div class="wrap grid">
@@ -16,7 +16,7 @@ const { id, h2, intro, items, me } = Astro.props as { id: string; h2: string; in
     <ol class="timeline" data-timeline>
       <span class="rail" aria-hidden="true"><i data-rail></i></span>
       {items.map((s) => (
-        <li data-stop><span class="node" aria-hidden="true"></span><h3>{s.name} <span class="when">{s.when}</span></h3><p>{s.text}</p>{s.art && <Art a={s.art} me={me} />}</li>
+        <li data-stop><span class="node" aria-hidden="true"></span><h3>{s.name} <span class="when">{s.when}</span></h3><p>{s.text}</p>{s.art && <Art a={s.art} />}</li>
       ))}
     </ol>
   </div>

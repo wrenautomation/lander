@@ -34,7 +34,6 @@ export async function loadPitch(entry: CollectionEntry<'pitches'>) {
       throw new Error(`${where}: build stage '${s.name}' weeks ${s.from}-${s.to} don't fit a ${p.build!.weeks}-week chart`);
     }
   }
-  if (p.deal && offer.price.kind !== 'free') throw new Error(`${where}: the deal section explains a free trade; '${offer.id}' is not free`);
 
   const a = p.ask;
   const need = (ok: unknown, what: string) => { if (!ok) throw new Error(`${where}: ask.${what} is required for offer '${offer.id}'`); };

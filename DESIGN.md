@@ -105,7 +105,7 @@ The pitch pages (/ and /recruiting) read like a letter from a partner at a serio
 
 Most readers only look at headings and pictures, so the pictures carry the story: faces for trust, an example thread in the first screen, a photo per half, and a small diagram under every step. Diagrams are drawn in code and always shown whole. Motion brings things in as you scroll; it never hides anything behind a click.
 
-White screen, black text. The brand's rust, the one on the pfp and banners, fills only a few set places so it reads as a signature, not a theme: the stamp, the buttons, the guarantee seal and the back cover. Everywhere else it is a small mark. No black blocks. Light only.
+White screen, black text. The brand's rust, the one on the pfp and banners, fills only a few set places so it reads as a signature, not a theme: the stamp, the buttons and the back cover. Everywhere else it is a small mark. No black blocks. Light only.
 
 It rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no eyebrows above headings, no stock photos.
 
@@ -126,7 +126,7 @@ Scope: this records `src/styles/pitch.css`. The privacy and 404 pages still use 
 Black on white, with the brand's rust in set places. The rust and cream are sampled from the pfp (`public/brand/wren-pfp.png`).
 
 ### Primary
-- **Rust** (rust, #A83B12, 6.4:1 on white): fills the stamp, buttons, the guarantee seal and the back cover (closing screen and footer); text selection. Elsewhere marks only: woken contacts, the steps rule and nodes, the selected-answer dot, slot dots, the reply rule in the example thread, the hot row and hot bar in a diagram, the flow's last node and runner, ticker dots, tags, errors, focus rings.
+- **Rust** (rust, #A83B12, 6.4:1 on white): fills the stamp, buttons and the back cover (closing screen and footer); text selection. Elsewhere marks only: the steps rule and nodes, the selected-answer dot, the reply rule in the example thread, the hot row and hot bar in a diagram, ticker dots, tags, errors, focus rings.
 - **Cream** (cream, #FAF7F2): the pfp's bird. Text, marks and buttons on rust only (5.9:1).
 - **Cream Grey** (cream-2): secondary text on rust (4.8:1).
 
@@ -135,12 +135,12 @@ Black on white, with the brand's rust in set places. The rust and cream are samp
 - **Second Stock** (paper-2): image tiles, call tiles, face backgrounds, row hover. Slightly warm, toward the cream.
 - **Ink** (ink): text, button hover, section rules, diagram lines and bars, the checked answer row, the file chip.
 - **Grey** (ink-2): secondary text. 7.4:1 on white.
-- **Mark Grey** (ink-3): dormant dots and scrollbar only.
+- **Mark Grey** (ink-3): chart axis and scrollbar only.
 - **Hairline** (rule): rules inside a section.
 - **Field Line** (line): field underlines; ink on focus.
 
 ### Named Rules
-**The Set Places Rule.** Rust fills exactly four things: the stamp, buttons, the guarantee seal and the back cover. Anything else rust is a dot, a line, a thin bar or a tag. A new rust area needs a reason as strong as those.
+**The Set Places Rule.** Rust fills exactly three things: the stamp, buttons and the back cover. Anything else rust is a dot, a line, a thin bar or a tag. A new rust area needs a reason as strong as those.
 **The White Page Rule.** No black blocks. Separation comes from black rules. The only colored blocks are the seal and the back cover.
 
 ## Typography
@@ -157,7 +157,7 @@ Black on white, with the brand's rust in set places. The rust and cream are samp
 - **Body** (400, 17px, 1.6): text, max about 36em.
 - **Small** (400–500, 12.5–15px): the example thread, diagram text, captions.
 - **Label** (600, 11.5–13.5px, +0.09em, uppercase): step timing, tags, buttons, the thread's label. Never above a heading.
-- **Figure** (500, −0.04em, tabular): proof figures (count up) and calculator results.
+- **Figure** (500, −0.04em, tabular): proof figures (count up).
 
 ### Named Rules
 **The Plain Punch Rule.** A heading's `*punch*` renders plain: same ink, same style. No italic, no grey, no color.
@@ -192,7 +192,7 @@ GSAP + ScrollTrigger (`src/scripts/pitch.ts`), on only with `html.js` (off for `
 - **Diagrams:** assemble once on entry (tiles, then the chip; rows with marks popping; the wire draws, then a dot runs; bars grow).
 - **Proof figures:** count up.
 - **Leaving:** a section dims and lifts as its bottom passes, so the next reads as a new slide.
-- **Signature:** the dormant list (grey contacts filling rust) and the steps rule filling as you read.
+- **Signature:** the example reel lighting beat by beat and the steps rule filling as you read.
 - **Ticker:** the ATS list scrolls slowly; pauses on hover.
 
 Easing: expo out for entrances. No pinning, no click-through.
@@ -227,11 +227,8 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 ### Navigation
 - Sticky white bar, 64px (56px on phones), ink rule below. The stamp (the pfp: a cream bird on a 32px rust square, 28px on phones) and the name left, text links, the rust button right. Links hide under 820px.
 
-### Guarantee seal
-- The offer's one promise in a rust block, cream text: the bird and the label left, the promise large on the right. Full bleed on phones.
-
-### Dots field (signature)
-- Grey outlined dots, the dormant past clients. As you scroll, some fill rust and grow.
+### Example reel (signature)
+- One past client, start to finish: the dormant row, the hiring signal, the email, the reply, the booked meeting. Beats light rust in order and loop while on screen; still, all are lit.
 
 ### Steps timeline
 - A hairline rail that fills rust as you scroll. Round nodes turn rust as the fill passes. Step timing beside the step name. A diagram under each step's text.

@@ -20,9 +20,6 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   <div class="ask">
     <h2>{a.h2}</h2>
     <p class="intro">{a.intro}</p>
-    {offer.slots && a.slots && (
-      <p class="slots">{Array.from({ length: offer.slots }, () => <i aria-hidden="true"></i>)}<span>{a.slots}</span></p>
-    )}
   </div>
   <form method="post" action="/api/apply" data-lead>
     {qs.length > 0 && a.steps && (
