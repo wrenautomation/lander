@@ -184,7 +184,7 @@ ask:
   name: Your name
   email: Work email
   phone: Phone
-  sms_consent: Text me about my request. Up to 4 texts a month. Msg & data rates may apply. Reply STOP to opt out, HELP for help. See [Terms](/terms) and [Privacy](/privacy).
+  sms_consent: Text me about my request. Msg & data rates may apply. Reply STOP to opt out. [Terms](/terms), [Privacy](/privacy).
   firm: Company website
   note: What's going on?
   required: Required

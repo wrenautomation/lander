@@ -51,20 +51,21 @@ problem:
 
 benefits:
   id: how
-  cta: I'm ready to win back my clients
   items:
     - flow: watch
       h2: Catch every past client the day they start hiring & never lose another job order to a competitor
       text: Our system watches every past client for job posts, funding, new leaders, and contacts who moved to a new company. The day one starts hiring, you know.
+      cta: See if my firm is a fit
     - flow: reach
       h2: Reach every past client in your brand voice, under your recruiters' names, with zero extra hours from your team
       text: We write every message, you approve it, and it goes out by email, LinkedIn and text. Nothing sends without your OK.
     - flow: book
       h2: Walk into warm, booked meetings with the full client history in hand, no chasing and no guesswork
       text: We sort every reply, handle the back and forth, and put the call on your calendar. Your recruiter only sees the ones ready to talk.
+      cta: Start booking meetings
 
 about:
-  h2: Hi, I'm *William.*
+  h2: A little bit *about me.*
   paras:
     - I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
     - Two of my internships are close to what I'd build for you. At the Government of Canada, I built an AI assistant that lets 17,000+ officers and staff get straight answers from 220+ policy documents.
@@ -77,9 +78,13 @@ about:
 start:
   id: start
   h2: Getting started takes *three small steps.*
-  steps: [Fill out the form, Hop on a call, Send your lead history]
-  text: That's all you do. We build the rest. If it's not a fit, *you've lost 30 minutes, not a budget.*
-  cta: I'm ready to win back my clients
+  steps:
+    - { name: Fill out the form, time: 2 minutes }
+    - { name: Hop on a call, time: 30 minutes }
+    - { name: Send your lead history, time: One export }
+  then: { name: Leads land on your calendar, time: We do the rest }
+  text: That's all you do. If it's not a fit, *you've lost 30 minutes, not a budget.*
+  cta: Take step one
 
 faq:
   h2: Questions you *should be asking.*
@@ -102,7 +107,7 @@ ask:
   name: Your name
   email: Work email
   phone: Phone
-  sms_consent: Text me about my request. Up to 4 texts a month. Msg & data rates may apply. Reply STOP to opt out, HELP for help. See [Terms](/terms) and [Privacy](/privacy).
+  sms_consent: Text me about my request. Msg & data rates may apply. Reply STOP to opt out. [Terms](/terms), [Privacy](/privacy).
   required: Required
   bad_email: Enter an email I can reply to.
   error: "That didn't send. Email me instead:"

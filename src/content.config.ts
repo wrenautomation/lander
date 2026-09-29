@@ -217,11 +217,11 @@ const pitches = defineCollection({
     }).optional(),
     // Three benefits, one row each: a flow diagram beside the headline, sides swapping row to row. The diagrams
     // are one flow (watch, reach, book) drawn in code (components/pitch/Flow.astro), joined by one line down the
-    // section. Each row ends on the button.
+    // section. A long scroll gets a button at its start and its end, not one per row: `cta` on the rows that carry one,
+    // each worded differently.
     benefits: z.strictObject({
       id: z.string(),
-      cta: z.string(),
-      items: z.array(z.strictObject({ flow: z.enum(['watch', 'reach', 'book']), h2: z.string(), text: z.string() })).length(3),
+      items: z.array(z.strictObject({ flow: z.enum(['watch', 'reach', 'book']), h2: z.string(), text: z.string(), cta: z.string().optional() })).length(3),
     }).optional(),
     halves: z.strictObject({
       ...head,
@@ -268,7 +268,7 @@ const pitches = defineCollection({
     }),
     // The last screen: one line and a button back up to the form.
     // how a firm starts: three steps as panels, then why it's low risk
-    start: z.strictObject({ id: z.string(), h2: z.string(), steps: z.array(z.string()).length(3), text: z.string(), cta: z.string() }).optional(),
+    start: z.strictObject({ id: z.string(), h2: z.string(), steps: z.array(z.strictObject({ name: z.string(), time: z.string() })).length(3), then: z.strictObject({ name: z.string(), time: z.string() }), text: z.string(), cta: z.string() }).optional(),
     close: z.strictObject({
       h2: z.string(), text: z.string(), cta: z.string(),
       // optional recap: one last reason, then the benefits as two firms side by side, the one that acts and the one that waits

@@ -67,6 +67,14 @@ The close stops repeating "10 new clients in 90 days" and promises time instead:
 
 A section above the FAQ shows everything the owner does: fill out the form, hop on a call, send the lead history. Three panels in the flows' style (dotted canvas, white nodes, numbered headers, a wire between them, made-up data), stacked with a vertical wire on phones. Under them, one line carries the risk reversal: "That's all you do. We build the rest. If it's not a fit, you've lost 30 minutes, not a budget." Then the CTA. `start` is optional in the pitch schema; Start.astro owns the pictures.
 
+### D34 (2026-09-29): Picture nodes, fewer and varied CTAs, shorter SMS consent
+
+The start cards became pictures you read at a glance, with the step as a caption under each: a bare form (two fields, Send), a video call (two faces, controls), a CSV file, then an ink card of booked meetings ("Leads land on your calendar, we do the rest"). The About heading is "A little bit about me."
+
+CTA rule: a section you see in one screen gets one button; a long scroll (the benefits) gets one at its start and one at its end, not one per row. No two neighbours share a label: Book a consultation, I'm ready to win back my clients, See if my firm is a fit, Start booking meetings, Take step one, Get in touch, and the close repeats the main one.
+
+SMS consent is down to: rates, STOP, Terms and Privacy. Frequency and HELP stay on /terms.
+
 ## Next
 
 - The VSL, once the file exists: in the hero under the subhead, beside the form on desktop, above it on phones.
