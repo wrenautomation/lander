@@ -325,8 +325,8 @@ label.field small{font-size:12px;margin-left:6px}
 .bn .say{grid-column:8/13;grid-row:1;padding-left:clamp(0px,1.6vw,28px)}
 .bn.flip .flow{grid-column:6/13}
 .bn.flip .say{grid-column:1/6;padding:0 clamp(0px,1.6vw,28px) 0 0}
-.say h2{font-size:clamp(26px,1rem + 1.3vw,40px);letter-spacing:-.025em;line-height:1.12}
-.say p{margin-top:1rem;font-size:18px;line-height:1.5;color:var(--ink-2);max-width:30em}
+.say h2{font-size:clamp(28px,1.1875rem + 1.3vw,43px);letter-spacing:-.03em;line-height:1.05}
+.say p{margin-top:.7rem;font-size:18px;line-height:1.5;color:var(--ink-2);max-width:30em}
 .say .btn{margin-top:clamp(20px,2.4vw,30px)}
 .joins{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:2}
 @media (max-width:899px){
