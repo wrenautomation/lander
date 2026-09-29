@@ -1,7 +1,7 @@
 # Wren Automation lander
 
 wrenautomation.com. Two kinds of page:
-- **Pitch pages** sell one offer: `/` (the general story, more business in and less busywork out) and `/recruiting/lead-reactivation` (the free reactivation pilot). The wren recruiting emails link to `/recruiting/lead-reactivation`.
+- **Pitch pages** sell one offer: `/` (the general story, more business in and less busywork out) and `/recruiting/lead-reactivation` (lead reactivation). The wren recruiting emails link to `/recruiting/lead-reactivation`.
 - **Niche pages**, the older design: `/agencies`. `/ria` and `/insurance` are gone and 301 to `/` (`public/_redirects`).
 
 Specs: `designs/2026-09-25-pitch-pages.md` (pitch pages), `designs/2026-09-14-lander-spec.md` (niche pages). Offers: `wren/designs/2026-09-25-offers.md`.

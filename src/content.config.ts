@@ -143,6 +143,7 @@ const offers = defineCollection({
       z.strictObject({ kind: z.literal('free') }),
       z.strictObject({ kind: z.literal('quoted') }),
       z.strictObject({ kind: z.literal('fixed'), upfront: range, monthly: range }),
+      z.strictObject({ kind: z.literal('performance'), upfront: z.number(), perUnit: z.number(), unit: z.string(), cap: z.number().nullable() }),
     ]),
     slots: z.number().nullable(),
     days: z.number().nullable(),

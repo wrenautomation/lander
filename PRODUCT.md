@@ -20,7 +20,7 @@ Wren Automation is William's one-engineer firm. It builds both halves: systems t
 
 ## Positioning
 
-An engineer, not an agency. Every pitch page sells one named offer from wren's registry (`wren/packages/offers`). Recruiting: a free 30-day dead lead reactivation pilot, 3 firms at a time, in exchange for a case study, introductions and real numbers. After it, the AI integration build in four stages (figure out, fix, connect, put AI to work), shown with its weeks, never priced on the page. ICP: owner-led firms of 10-50 people that can pay $10-15k upfront and $5-10k/mo.
+An engineer, not an agency. Every pitch page sells one named offer from wren's registry (`wren/packages/offers`). Recruiting: lead reactivation, 3 firms at a time, paid per meeting booked after a setup fee. After it, the AI integration build in four stages (figure out, fix, connect, put AI to work), shown with its weeks, never priced on the page. ICP: owner-led firms of 10-50 people that can pay $10-15k upfront and $5-10k/mo.
 
 ## Operating Context
 
@@ -43,7 +43,7 @@ wren's recruiting campaign links to `/recruiting/lead-reactivation`. `/` tells t
 ## Evidence on Hand
 
 - Government of Canada policy search (17,000 staff, 220+ directives). University of Alberta lab (200+ hours of lookups cut across 7,000+ records).
-- No client case studies, testimonials, logos or press yet. The pilot exists to make the first ones.
+- No client case studies, testimonials, logos or press yet. The first reactivation clients make the first ones.
 - Headshot at `public/headshot.png`.
 
 ## Product Principles

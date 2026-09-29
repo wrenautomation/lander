@@ -1,6 +1,6 @@
 # wrenautomation.com/. The general story for anyone who lands here without an industry link:
 # AI integration from the ground up, in four stages: figure out, fix, connect, put AI to work.
-# What AI does at the end: more business in, less busywork out. Industry pages carry the free pilots.
+# What AI does at the end: more business in, less busywork out. Industry pages carry their own offers.
 # Reader: an owner or executive of a service firm.
 title: Wren Automation
 description: I figure out how your firm runs, fix what leaks, connect your data into one CRM, then put AI to work on it.
@@ -73,8 +73,8 @@ industries:
       text: The past clients in your ATS, turned into new job orders.
       to: /recruiting/lead-reactivation
       go: Win back your past clients
-      offer: recruiting-reactivation-pilot  # {slots} and {days} in this card come from this offer
-      badge: "Free pilot · {slots} firms"
+      offer: reactivation  # {slots} and {days} in this card come from this offer
+      badge: "{slots} firms at a time"
     - name: Agencies
       text: Client onboarding, reporting and the busywork between, automated.
       to: /agencies
