@@ -185,7 +185,8 @@ const art = z.discriminatedUnion('kind', [
 ]);
 const step = z.strictObject({ when: z.string(), name: z.string(), text: z.string(), art: art.optional() });
 // The parts / and the pitch pages share: nav, the build, proof, about, the FAQ and the form.
-const nav = z.array(z.strictObject({ label: z.string(), to: z.string() }));
+// an item with a `menu` opens a small list of links (the hub's services: every service, and each niche's page)
+const nav = z.array(z.strictObject({ label: z.string(), to: z.string(), menu: z.array(z.strictObject({ label: z.string(), note: z.string().optional(), to: z.string() })).min(1).optional() }));
 // A card that links to a page: when it names an offer, that offer must be live and its page must be `to`,
 // and {slots} and {days} in the card fill from it.
 const card = z.strictObject({ name: z.string(), text: z.string(), to: z.string(), go: z.string(), badge: z.string().optional(), offer: z.string().optional() });
@@ -303,6 +304,7 @@ const pitches = defineCollection({
 // hero (proof line, dream outcome, checks, button) with the form beside it, proof cards, the pain, two case studies,
 // three benefits (diagrams), about, a comparison table, how it works, FAQ, the recap. One button per section.
 const mark = z.enum(['yes', 'no']);
+const svcEnd = z.strictObject({ icon: z.enum(['person', 'mail', 'doc', 'cal', 'invoice', 'check', 'stack', 'record', 'search']), label: z.string(), note: z.string() });
 const hub = defineCollection({
   loader: one('hub'),
   schema: z.strictObject({
@@ -335,6 +337,16 @@ const hub = defineCollection({
         crm: z.strictObject({ h: z.string(), rows: z.array(z.strictObject({ name: z.string(), note: z.string() })).min(2).max(4) }),
         to: z.array(z.strictObject({ h: z.string(), items: z.array(z.string()).length(2) })).length(2),
       }),
+    }),
+    // every service as a list, grouped by who it's for. Each row: the name, what it runs on, and a small diagram of
+    // one thing going in and the result coming out (Catalog.astro). A group's `link` must be a pitch page's path.
+    catalog: z.strictObject({
+      id: z.string(), h2: z.string(), cta: z.string(),
+      groups: z.array(z.strictObject({
+        for: z.string(),
+        link: z.strictObject({ label: z.string(), to: z.string() }).optional(),
+        items: z.array(z.strictObject({ name: z.string(), runs: z.string(), in: svcEnd, out: svcEnd })).min(1).max(4),
+      })).min(1).max(3),
     }),
     // Wren against the alternatives: marks[0] is Wren's, then one per `them`
     compare: z.strictObject({

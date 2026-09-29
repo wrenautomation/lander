@@ -1,7 +1,7 @@
 ---
 // The hub, /: Wren as a whole. Copy from src/content/hub/home.yaml, the form's terms from its offer (lib/pitch.ts).
 // Laid out on the B2B landing template, one screen per section, each ending on a button to the form:
-// hero (words left, form right), proof, the pain, two builds, three benefits (diagrams), William, the comparison,
+// hero (words left, form right), proof, the pain, two builds, three benefits (diagrams), every service, William, the comparison,
 // how it starts, questions, the recap. Same type, colour and motion as the pitch pages (pitch.css, pitch.ts);
 // hub.css adds the hub's own parts.
 import '../styles/pitch.css';
@@ -14,6 +14,7 @@ import Analytics from '../components/Analytics.astro';
 import Arrow from '../components/pitch/Arrow.astro';
 import Apply from '../components/pitch/Apply.astro';
 import Benefits from '../components/pitch/Benefits.astro';
+import Catalog from '../components/pitch/Catalog.astro';
 import Start from '../components/pitch/Start.astro';
 import Top from '../components/pitch/Top.astro';
 import End from '../components/pitch/End.astro';
@@ -104,6 +105,8 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
 </section>
 
 <Benefits s={p.benefits} />
+
+<Catalog s={p.catalog} />
 
 <section class="sec about" id="about">
   <div class="wrap grid">

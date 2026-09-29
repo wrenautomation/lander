@@ -97,6 +97,24 @@ if (motion) {
       .fromTo($$('li', el), { opacity: 0, x: -20 }, { opacity: 1, x: 0, stagger: 0.12 })
       .fromTo($('svg', el), { clipPath: 'inset(-10% 100% -10% 0)' }, { clipPath: 'inset(-10% 0% -10% 0)', duration: 1.2, ease: 'expo.inOut' }, 0.3)
       .fromTo($('.into', el), { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, ease: 'back.out(2)' }, '-=0.5'),
+    // the service list: row by row, the name, then the thing going in, the wire, a dot along it, the result
+    catalog: (el, tl) => {
+      let t = 0;
+      for (const g of $$('.grp', el)) {
+        tl.fromTo($('.grp-hd', g), { opacity: 0 }, { opacity: 1, duration: 0.5 }, t);
+        for (const r of $$('.svc', g)) {
+          const dot = $('.wire i', r)!;
+          tl.fromTo($$('.n, .what', r), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.6 }, t)
+            .fromTo($('.nd.in', r), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.5 }, t + 0.15)
+            .fromTo($('.wire', r), { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: 'power2.inOut' }, t + 0.5)
+            .fromTo(dot, { left: '0%', opacity: 1 }, { left: '100%', duration: 0.45, ease: 'power1.inOut', immediateRender: false }, t + 0.85)
+            .set(dot, { opacity: 0 }, t + 1.3)
+            .fromTo($('.nd.out', r), { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2)' }, t + 1.2);
+          t += 0.55;
+        }
+      }
+      return tl;
+    },
     gantt: (el, tl) => tl
       .fromTo($$('.g-axis i', el), { opacity: 0 }, { opacity: 1, stagger: 0.04, duration: 0.4 })
       .fromTo($$('b', el), { scaleX: 0 }, { scaleX: 1, duration: 1.1, stagger: 0.18 }, 0.2),
@@ -459,6 +477,16 @@ try {
     (document.fonts?.ready ?? Promise.resolve()).then(() => (document.readyState === 'complete' ? back() : addEventListener('load', back, { once: true })));
   }
 } catch {}
+
+/* ---------- a nav menu: hover and focus open it in CSS; a tap toggles it, Escape or a tap outside closes it ---------- */
+for (const m of $$('[data-menu]')) {
+  const btn = $<HTMLButtonElement>('button', m)!;
+  const set = (on: boolean) => { m.classList.toggle('open', on); btn.setAttribute('aria-expanded', String(on)); };
+  btn.addEventListener('click', () => set(!m.classList.contains('open')));
+  document.addEventListener('click', (e) => { if (!m.contains(e.target as Node)) set(false); });
+  m.addEventListener('keydown', (e) => { if (e.key === 'Escape') { set(false); btn.focus(); } });
+  for (const a of $$('a', m)) a.addEventListener('click', () => { set(false); (document.activeElement as HTMLElement | null)?.blur(); });
+}
 
 /* ---------- the form: contact details, then one question at a time, then fetch ---------- */
 const box = $('[data-apply]');

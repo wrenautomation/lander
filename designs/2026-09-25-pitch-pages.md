@@ -114,6 +114,15 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   Windows went black, then light gray (#F3F1EC, white nodes, no glows) the same day: black on
   white read too harsh.
 
+- **D40 (2026-09-29): A service catalog on the hub, a Services menu, colored marks.** William
+  wants every service listed, not just the three benefits, and a way from / to the recruiting
+  page. After the benefits: every service as a numbered list grouped by who it's for
+  (recruiting firms, any service firm), each row with a small in-and-out diagram that plays
+  in row by row; the recruiting group links to its page. The header's Services menu opens
+  on hover or tap: all services, and lead reactivation for recruiting firms. Links out of
+  the hub must land on a pitch page, checked at build. Checks are green circles everywhere
+  (hero, guarantee, compare); the compare table's no is a red cross.
+
 ## Next
 
 - The VSL, once the file exists: in the hero under the subhead, beside the form on desktop, above it on phones.

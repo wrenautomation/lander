@@ -64,6 +64,10 @@ export async function loadHub(entry: CollectionEntry<'hub'>) {
   for (const r of p.compare.rows) {
     if (r.marks.length !== p.compare.them.length + 1) throw new Error(`${where}: compare row '${r.feature}' has ${r.marks.length} marks, needs ${p.compare.them.length + 1} (${p.compare.us} first)`);
   }
+  // links from the hub to other pages (the services menu, the catalog's groups) must land on a pitch page
+  const paths = new Set((await getCollection('pitches')).map((x) => x.data.path));
+  const out = [...p.nav.flatMap((n) => n.menu ?? []), ...p.catalog.groups.flatMap((g) => (g.link ? [g.link] : []))];
+  for (const l of out) if (l.to.startsWith('/') && !paths.has(l.to)) throw new Error(`${where}: '${l.label}' links to ${l.to}, which is no pitch page`);
   checkAsk(p.ask, offer, where);
   return { p, offer };
 }

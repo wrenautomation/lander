@@ -108,7 +108,7 @@ The hub (/) and the pitch pages (/recruiting/lead-reactivation) read like a lett
 
 Most readers only look at headings and pictures, so the pictures carry the story: faces for trust, an example thread in the first screen, a photo per half, and a small diagram under every step. Diagrams are drawn in code and always shown whole. Motion brings things in as you scroll; it never hides anything behind a click.
 
-White screen, black text. The brand's rust, the one on the pfp and banners, fills only a few set places so it reads as a signature, not a theme: the stamp, the buttons and the back cover. Everywhere else it is a small mark. Light page, no dark areas. Diagram windows are light gray (#F3F1EC) with white nodes; black windows on white read too harsh (William, 2026-09-29).
+White screen, black text. The brand's rust, the one on the pfp and banners, fills only a few set places so it reads as a signature, not a theme: the stamp, the buttons and the back cover. Everywhere else it is a small mark. Checks are green circles; a no in the comparison is a red cross. Light page, no dark areas. Diagram windows are light gray (#F3F1EC) with white nodes; black windows on white read too harsh (William, 2026-09-29).
 
 It rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no eyebrows above headings, no stock photos.
 

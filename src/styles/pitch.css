@@ -88,6 +88,19 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 .links{display:flex;gap:30px;margin-left:auto;font-size:14.5px;color:var(--ink-2)}
 .links a{transition:color .25s}
 .links a:hover{color:var(--ink)}
+/* a nav item with a menu: opens on hover, keyboard focus or tap (.open, pitch.ts) */
+.menu{position:relative}
+.menu>button{display:inline-flex;align-items:center;gap:5px;background:none;border:0;padding:0;color:inherit;cursor:var(--cur-on);transition:color .25s}
+.menu>button svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--out)}
+.menu:is(:hover,:focus-within,.open)>button{color:var(--ink)}
+.menu:is(:hover,:focus-within,.open)>button svg{transform:rotate(180deg)}
+.drop{position:absolute;top:calc(100% + 18px);left:-18px;display:grid;min-width:250px;padding:8px;background:var(--paper);border:1px solid var(--rule);border-radius:14px;box-shadow:var(--lift);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .25s var(--out),transform .25s var(--out),visibility 0s .25s}
+.drop::before{content:"";position:absolute;inset:-20px 0 100%}
+.menu:is(:hover,:focus-within,.open) .drop{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.drop a{display:grid;gap:2px;padding:10px 12px;border-radius:9px;transition:background-color .2s}
+.drop a:hover,.drop a:focus-visible{background:var(--paper-2)}
+.drop b{font-weight:600;color:var(--ink)}
+.drop span{font-size:13px;color:var(--ink-2)}
 .top .btn{margin-left:auto}
 .links+.btn,.links+.contact{margin-left:0}
 .top .contact{font-size:14.5px;font-weight:500;padding-left:clamp(16px,2.4vw,32px);border-left:1px solid var(--rule)}
@@ -118,7 +131,7 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 .promise .label{font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--acc)}
 .promise ul{display:grid;gap:9px;margin-top:12px}
 .promise li{display:flex;gap:12px;align-items:flex-start;font-size:16px;font-weight:500;line-height:1.4}
-.promise li::before{content:"";flex:none;width:20px;height:20px;margin-top:.02em;border-radius:50%;background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4l2.6 2.6L12 5.6' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+.promise li::before{content:"";flex:none;width:20px;height:20px;margin-top:.02em;border-radius:50%;background:var(--win) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4l2.6 2.6L12 5.6' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
 .by{display:flex;align-items:center;gap:14px;font-size:14px;line-height:1.45;color:var(--ink-2)}
 .by img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:var(--paper-2);filter:grayscale(1) contrast(1.06)}
 .by b{display:block;color:var(--ink);font-weight:600}

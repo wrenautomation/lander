@@ -10,6 +10,11 @@ offer: ops-automation-build
 form_value: general
 
 nav:
+  - label: Services
+    to: "#services"
+    menu:
+      - { label: All services, note: Everything I build, to: "#services" }
+      - { label: Lead reactivation, note: For recruiting firms, to: /recruiting/lead-reactivation }
   - { label: How it works, to: "#how" }
   - { label: Compare, to: "#compare" }
   - { label: Questions, to: "#faq" }
@@ -100,6 +105,41 @@ benefits:
         items: [Every thread kept, Clients handed over]
       - h: Someone asks
         items: ["Full history, one place", Same answer for everyone]
+
+catalog:
+  id: services
+  h2: Every system I build, *and who it's for.*
+  cta: Ask what fits your firm
+  groups:
+    - for: Recruiting firms
+      link: { label: See the recruiting system, to: /recruiting/lead-reactivation }
+      items:
+        - name: Lead reactivation
+          runs: Runs on your ATS, inbox and LinkedIn.
+          in: { icon: person, label: Past client, note: 3 new roles posted }
+          out: { icon: cal, label: Meeting booked, note: Thu 2:00 pm }
+        - name: Candidate reactivation
+          runs: Runs on your ATS and open roles.
+          in: { icon: person, label: Past candidate, note: Fits an open role }
+          out: { icon: check, label: Interested, note: Handed to your recruiter }
+    - for: Any service firm
+      items:
+        - name: Inquiry replies
+          runs: Runs on your site form, inbox and calendar.
+          in: { icon: mail, label: New inquiry, note: 11:48 pm }
+          out: { icon: cal, label: Call booked, note: 11:53 pm }
+        - name: Contract to invoice
+          runs: Runs on your e-signature, CRM and billing.
+          in: { icon: doc, label: Contract signed, note: 9:02 am }
+          out: { icon: invoice, label: Invoice sent, note: CRM filled }
+        - name: One clean CRM
+          runs: Runs on your inboxes, spreadsheets and old tools.
+          in: { icon: stack, label: 4 scattered tools, note: "One client, 3 spellings" }
+          out: { icon: record, label: One record, note: Full history }
+        - name: Document answers
+          runs: Runs on your policies, contracts and manuals.
+          in: { icon: search, label: A question, note: What's our notice period? }
+          out: { icon: doc, label: The answer, note: With the page it came from }
 
 compare:
   id: compare
