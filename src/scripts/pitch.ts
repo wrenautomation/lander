@@ -390,9 +390,11 @@ if (box) {
     if (s.dataset.kind === 'text') return !!$<HTMLTextAreaElement>('textarea', s)?.value.trim();
     return !!$('input:checked', s);
   };
+  const pips = $$('.pips i', box); // one bar per step, filled up to the current one
   const show = (i: number, focus = true) => {
     cur = i;
     steps.forEach((s, j) => s.classList.toggle('on', j === i));
+    pips.forEach((p, j) => p.classList.toggle('on', j <= i));
     if (back) back.hidden = i === 0;
     const last = i === steps.length - 1;
     if (next) {
@@ -414,6 +416,7 @@ if (box) {
   };
   if (steps.length > 1 && next) {
     form.classList.add('stepping');
+    box.classList.add('stepping');
     show(0, false);
     next.addEventListener('click', advance);
     back?.addEventListener('click', () => show(Math.max(0, cur - 1)));

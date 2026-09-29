@@ -234,7 +234,11 @@ label.field small{font-size:12px;margin-left:6px}
 .nav-steps{margin-top:1.4rem}
 .nav-steps :is(.back,[data-next]){display:none}
 
-/* stepping (pitch.ts): one question at a time */
+/* stepping (pitch.ts): one question at a time, a bar per step under the title */
+.pips{display:none}
+.stepping .pips{display:flex;gap:4px;width:160px;margin-top:.9rem}
+.pips i{flex:1;height:3px;background:var(--rule);transition:background-color .4s var(--out)}
+.pips i.on{background:var(--ink)}
 .stepping .step{display:none}
 .stepping .step.on{display:block;animation:step-in .55s var(--out) both}
 .stepping .step+.step{margin-top:0}

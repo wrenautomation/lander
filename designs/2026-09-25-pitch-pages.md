@@ -59,6 +59,10 @@ About moves below the FAQ, so the reader meets the person after objections are h
 
 The FAQ swaps technical questions for the real objections: tried this before, what if no meetings, team time, email domain. The close becomes the recap: "a 2-minute form away" headline, one last reason (stop chasing dead ends with cold outreach), then the three benefits set as two firms side by side, the one that starts now and the one that waits. The CTA comes last, so on phones it follows the comparison. `close.reason` and `close.vs` are optional, so other pitches keep the short close.
 
+### D32 (2026-09-29): Close promises time, step bars return
+
+The close stops repeating "10 new clients in 90 days" and promises time instead: "a 2-minute form away from getting your week back." The form gets its progress back as bars only, under the title on the left, one per step, filled up to the current one. No "Step 1 of 5" text (D19 still holds for the words).
+
 ## Next
 
 - The VSL, once the file exists: in the hero under the subhead, beside the form on desktop, above it on phones.

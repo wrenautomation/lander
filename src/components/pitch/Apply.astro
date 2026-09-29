@@ -18,6 +18,7 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 <div class="panel" id="apply" data-apply>
   <div class="ask">
     <h2>{a.h2}</h2>
+    {stepped && <p class="pips" aria-hidden="true">{Array.from({ length: qs.length + 1 }, () => <i></i>)}</p>}
     {a.intro && <p class="intro">{a.intro}</p>}
   </div>
   <form method="post" action="/api/apply" data-lead>
