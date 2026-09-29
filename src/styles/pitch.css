@@ -570,7 +570,7 @@ label.field small{font-size:12px;margin-left:6px}
 .close{padding-block:clamp(80px,10vw,152px) clamp(40px,4vw,64px)}
 .close h2{font-size:clamp(2.6rem,1.4rem + 4vw,5rem);max-width:15ch}
 .close p{font-size:18px;color:var(--cream-2);margin-top:1.5rem;max-width:36em}
-.close .btn{justify-self:start;margin-top:2.2rem;background:var(--cream);color:var(--ink)}
+.close .btn{grid-column:1/-1;justify-self:start;margin-top:2.2rem;background:var(--cream);color:var(--ink)}
 .close .btn:hover{background:var(--ink);color:var(--cream)}
 .close :focus-visible,.foot :focus-visible{outline-color:var(--cream)}
 @media (min-width:900px){.close .grid>.head{grid-column:1/9}}
