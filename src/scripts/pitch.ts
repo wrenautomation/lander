@@ -166,6 +166,12 @@ if (flowsBox) {
     if (!s || r < 2) return `M${x1} ${y1}C${x1} ${ym} ${x2} ${ym} ${x2} ${y2}`;
     return `M${x1} ${y1}V${ym - r}Q${x1} ${ym} ${x1 + s * r} ${ym}H${x2 - s * r}Q${x2} ${ym} ${x2} ${ym + r}V${y2}`;
   };
+  // phones: the rows stack with the words between diagrams, so the line takes the left margin: out of one diagram,
+  // into the gap, left to the margin, down past the words, across the gap above the next diagram, into it
+  const rail = (x1: number, y1: number, x2: number, y2: number, ya: number, yb: number, xg: number) => {
+    const r = Math.max(2, Math.min(14, (ya - y1) / 2, (yb - ya) / 2, (y2 - yb) / 2, (x1 - xg) / 2, (x2 - xg) / 2));
+    return `M${x1} ${y1}V${ya - r}Q${x1} ${ya} ${x1 - r} ${ya}H${xg + r}Q${xg} ${ya} ${xg} ${ya + r}V${yb - r}Q${xg} ${yb} ${xg + r} ${yb}H${x2 - r}Q${x2} ${yb} ${x2} ${yb + r}V${y2}`;
+  };
   const make = (svg: SVGSVGElement): Wire => {
     const el = <T extends SVGElement>(tag: string, cls = '') => { const e = document.createElementNS(NS, tag) as T; if (cls) e.setAttribute('class', cls); e.setAttribute('r', '3.5'); svg.append(e); return e; };
     const path = el<SVGPathElement>('path');
@@ -205,22 +211,31 @@ if (flowsBox) {
   const wires = new Map(flows.map((f) => [f, edges(f).map(() => make($<SVGSVGElement>('[data-edges-svg]', f)!))]));
   const joinSvg = $<SVGSVGElement>('[data-joins]', flowsBox)!;
   const joins = flows.slice(1).map(() => make(joinSvg));
+  const phone = matchMedia('(max-width: 899px)');
   const layout = () => {
     for (const f of flows) {
       $('[data-edges-svg]', f)!.setAttribute('viewBox', `0 0 ${f.offsetWidth} ${f.offsetHeight}`);
-      edges(f).forEach(([a, b], k) => shape(wires.get(f)![k], curve(boxIn(node(f, a), f), boxIn(node(f, b), f))));
+      edges(f).forEach(([a, b], k) => {
+        const w = wires.get(f)![k];
+        shape(w, curve(boxIn(node(f, a), f), boxIn(node(f, b), f)));
+        // wires out of a quiet node (a source that didn't fire) stay faint
+        [w.path, ...w.ends].forEach((e) => e.classList.toggle('faint', node(f, a).hasAttribute('data-quiet')));
+      });
     }
-    if (getComputedStyle(joinSvg).display === 'none') return;
     joinSvg.setAttribute('viewBox', `0 0 ${flowsBox.offsetWidth} ${flowsBox.offsetHeight}`);
     joins.forEach((w, k) => {
       const A = flows[k], B = flows[k + 1], fa = boxIn(A, flowsBox), fb = boxIn(B, flowsBox);
       const a = boxIn($('[data-out]', A)!, flowsBox), b = boxIn($('[data-in]', B)!, flowsBox);
-      shape(w, elbow(a.x + a.w / 2, a.y + a.h, b.x + b.w / 2, b.y, (fa.y + fa.h + fb.y) / 2));
+      if (phone.matches) {
+        const gap = (B.closest('.bn') as HTMLElement).offsetTop - (A.closest('.bn') as HTMLElement).offsetTop - (A.closest('.bn') as HTMLElement).offsetHeight;
+        shape(w, rail(a.x + a.w / 2, a.y + a.h, b.x + b.w / 2, b.y, fa.y + fa.h + gap / 3, fb.y - 16, fa.x + 7));
+      } else shape(w, elbow(a.x + a.w / 2, a.y + a.h, b.x + b.w / 2, b.y, (fa.y + fa.h + fb.y) / 2));
     });
   };
   layout();
   const ro = new ResizeObserver(layout);
   for (const el of [flowsBox, ...flows]) ro.observe(el);
+  phone.addEventListener('change', layout);
 
   if (motion) {
     type Play = (f: HTMLElement, tl: gsap.core.Timeline, ws: Wire[]) => void;
@@ -237,28 +252,31 @@ if (flowsBox) {
     const into = (f: HTMLElement, ws: Wire[], n: string) => ws.filter((_, k) => edges(f)[k][1] === n);
     const nodes = (f: HTMLElement) => $$('.fn', f);
     const PLAY: Record<string, Play> = {
-      // the list sits grey; it fans out to every source; job posts fire; that client lights and jumps to the top; the alert
+      // the list sits grey; it fans out to every source; job posts fire, the rest go quiet; that client lights and jumps to the top; the others are ruled out; the alert
       watch: (f, tl, ws) => {
         const rows = $$('[data-rows] li', f), hot = rows[0], chs = $$('.ch', f), hit = $('.ch.on', f)!;
         const alert = node(f, 'alert'), spark = $('.spark svg', alert);
-        hot.classList.remove('lit'); hit.classList.remove('on');
+        const outs = rows.filter((r) => r.classList.contains('out')), quiet = $$('.ch.quiet', f);
+        hot.classList.remove('lit'); hit.classList.remove('on'); outs.forEach((r) => r.classList.remove('out')); quiet.forEach((c) => c.classList.remove('quiet'));
         gsap.set(rows, { opacity: 0 });
         gsap.set(hot, { yPercent: 200 });
         gsap.set(rows.slice(1, 3), { yPercent: -100 });
         gsap.set(spark, { clipPath: 'inset(-40% 100% -40% 0)' });
-        gsap.set($$('.spark :is(.tip,p)', alert), { opacity: 0 });
+        gsap.set($$('.spark .tip', alert), { opacity: 0 });
         tl.to(node(f, 'list'), { opacity: 1, y: 0 }, 0)
           .to(rows, { opacity: 1, duration: 0.4, stagger: 0.07 }, 0.15);
         wire(tl, from(f, ws, 'list'), 0.7);
-        tl.to(chs, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 1.0)
-          .call(() => hit.classList.add('on'), [], 1.9)
+        tl.to(chs, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, clearProps: 'opacity' }, 1.0)
+          .call(() => { hit.classList.add('on'); quiet.forEach((c) => c.classList.add('quiet')); }, [], 1.9)
           .call(() => hot.classList.add('lit'), [], 2.2)
           .to([hot, ...rows.slice(1, 3)], { yPercent: 0, duration: 0.8, ease: 'power3.inOut' }, 2.5);
-        wire(tl, into(f, ws, 'alert'), 3.2);
-        tl.to(alert, { opacity: 1, y: 0 }, 3.7)
-          .fromTo($('.bell', alert), { rotate: -20 }, { rotate: 0, duration: 1, ease: 'elastic.out(1.2,0.3)' }, 3.8)
-          .to(spark, { clipPath: 'inset(-40% 0% -40% 0)', duration: 1.1, ease: 'power1.inOut' }, 4.0)
-          .to($$('.spark :is(.tip,p)', alert), { opacity: 1, duration: 0.3 }, 5.0);
+        // the rest are ruled out one by one, crossed through with the reason
+        outs.forEach((r, k) => tl.call(() => r.classList.add('out'), [], 3.3 + k * 0.25));
+        wire(tl, into(f, ws, 'alert'), 4.1);
+        tl.to(alert, { opacity: 1, y: 0 }, 4.6)
+          .fromTo($('.bell', alert), { rotate: -20 }, { rotate: 0, duration: 1, ease: 'elastic.out(1.2,0.3)' }, 4.7)
+          .to(spark, { clipPath: 'inset(-40% 0% -40% 0)', duration: 1.1, ease: 'power1.inOut' }, 4.9)
+          .to($$('.spark .tip', alert), { opacity: 1, duration: 0.3 }, 5.9);
       },
       // what the message is written from shows first, then it types itself in the recruiter's name; you approve; it branches out to email, LinkedIn and text
       reach: (f, tl, ws) => {
@@ -310,6 +328,7 @@ if (flowsBox) {
           .to(c, { n: end, duration: 2, ease: 'power2.out', onUpdate: () => { const n = Math.round(c.n); num.textContent = String(n); segs.forEach((s, k) => s.classList.toggle('off', k >= n)); } }, 4.4);
       },
     };
+    const done = new Map<HTMLElement, Promise<void>>();
     for (const f of flows) {
       const ws = wires.get(f)!;
       gsap.set(nodes(f), { opacity: 0, y: 16 });
@@ -322,20 +341,26 @@ if (flowsBox) {
       [...new Set(stage)].forEach((g) => {
         const t0 = loop.duration();
         ws.forEach((w, k) => {
-          if (stage[k] !== g) return;
+          if (stage[k] !== g || w.path.classList.contains('faint')) return;
           const o = { t: 0 };
           loop.to(o, { t: 1, duration: 0.9, ease: 'none', onUpdate: () => { w.dot.style.opacity = o.t > 0 && o.t < 1 ? '1' : '0'; at(w, o.t); } }, t0);
         });
       });
       let whole = false;
-      tl.eventCallback('onComplete', () => { whole = true; loop.play(); });
+      done.set(f, new Promise((r) => tl.eventCallback('onComplete', () => { whole = true; loop.play(); r(); })));
       ScrollTrigger.create({ trigger: f, start: 'top bottom', end: 'bottom top', onToggle: (s) => { if (whole) s.isActive ? loop.play() : loop.pause(); } });
     }
-    // the line between diagrams draws as you scroll, from one's last node into the next one's first
+    // the line between diagrams draws as you scroll, from one's last node into the next one's first. It waits for
+    // its diagram to finish playing; scrolled past early, it catches up to the scroll once the diagram is whole.
     joins.forEach((w, k) => {
       const o = { t: 0 };
+      let live = false;
       draw(w, 0);
-      gsap.to(o, { t: 1, ease: 'none', onUpdate: () => draw(w, o.t), scrollTrigger: { trigger: $('[data-out]', flows[k])!, start: 'bottom 80%', endTrigger: $('[data-in]', flows[k + 1])!, end: 'top 70%', scrub: 0.5 } });
+      done.get(flows[k])!.then(() => {
+        const c = { v: 0 };
+        gsap.to(c, { v: 1, duration: 0.6, ease: 'power1.inOut', onUpdate: () => draw(w, o.t * c.v), onComplete: () => { live = true; draw(w, o.t); } });
+      });
+      gsap.to(o, { t: 1, ease: 'none', onUpdate: () => { if (live) draw(w, o.t); }, scrollTrigger: { trigger: $('[data-out]', flows[k])!, start: 'bottom 80%', endTrigger: $('[data-in]', flows[k + 1])!, end: 'top 70%', scrub: 0.5 } });
     });
   }
 }

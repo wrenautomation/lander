@@ -190,7 +190,7 @@ GSAP + ScrollTrigger (`src/scripts/pitch.ts`), on only with `html.js` (off for `
 - **Blocks:** rise in, a few at a time, in reading order.
 - **Pictures:** wipe open from alternate sides, settle from a zoom, then drift slightly against the scroll.
 - **Diagrams:** assemble once on entry (tiles, then the chip; rows with marks popping; the wire draws, then a dot runs; bars grow).
-- **Flows (How it works):** each diagram plays once on entry: nodes in, wires draw, then a dot runs each wire while it's on screen. The line between diagrams draws with the scroll.
+- **Flows (How it works):** each diagram plays once on entry: nodes in, wires draw, then a dot runs each wire while it's on screen. The line between diagrams draws with the scroll, but never ahead of its diagram: it waits for the diagram to finish, then catches up. On phones it runs down the left margin.
 - **Proof figures:** count up.
 - **Leaving:** a section dims and lifts as its bottom passes, so the next reads as a new slide.
 - **Signature:** the steps rule filling as you read.
@@ -237,6 +237,7 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 - Three rows: a flow diagram (7 of 12 columns) beside the headline, text and button; sides swap each row. Phones: text above the diagram.
 - A flow is a paper-2 canvas with a 16px dot grid; white square nodes with an uppercase header over a rule; ink-3 curves with open ports between them. Rust marks only what matters (the lit row, the bell, the booked dot).
 - Branches: a node that fans out to several small nodes (icon + name), one per source or channel, drawn as a fan of curves. Brand icons keep their colors (LinkedIn blue, X black); rust rings the one that fires.
+- Importance by size and tone, not more boxes: what's ruled out is crossed through with its reason, smaller and grey; branches that didn't fire fade, their wires faint.
 - One line joins the three: out the bottom of one diagram, an elbow through the gap, into the top of the next. Hidden on phones.
 
 ### Steps timeline

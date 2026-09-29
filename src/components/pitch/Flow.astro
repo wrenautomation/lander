@@ -17,7 +17,8 @@ const I = {
   check: 'M3.5 8.5l3 3 6-7',
   x: 'M3.2 2.8h3l6.6 10.4h-3zM12.6 2.8 9.3 6.6M6.7 9.4l-3.3 3.8',
 };
-// a branch off a node: one source watched, or one channel a message goes out on. `on` = the one that fires.
+// a branch off a node: one source watched, or one channel a message goes out on. `on` = the one that fires;
+// the rest go quiet (faded, their wires faint). Clients with `no` are ruled out, crossed through with the reason.
 type Ch = { key: string; label: string; icon: keyof typeof I | 'in'; on?: boolean; out?: boolean };
 const srcs: Ch[] = [
   { key: 'li', label: 'LinkedIn', icon: 'in' },
@@ -33,10 +34,10 @@ const outs: Ch[] = [
 ];
 const clients = [
   { name: 'Cobalt Freight', was: 'Last hire Mar 2024', now: '3 new roles' },
-  { name: 'Alder Health', was: 'Last hire Nov 2023' },
-  { name: 'Pine & Oak Legal', was: 'Last hire Jun 2024' },
-  { name: 'Juniper Labs', was: 'Last hire Jan 2024' },
-  { name: 'Northfield Foods', was: 'Last hire Aug 2023' },
+  { name: 'Alder Health', was: 'Last hire Nov 2023', no: 'No open roles' },
+  { name: 'Pine & Oak Legal', was: 'Last hire Jun 2024', no: 'Hiring freeze' },
+  { name: 'Juniper Labs', was: 'Last hire Jan 2024', no: 'Filled in-house' },
+  { name: 'Northfield Foods', was: 'Last hire Aug 2023', no: 'Quiet since 2023' },
 ];
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 const busy = [[1, 2, 4], [2, 5, 7], [3, 3, 4], [4, 2, 3], [5, 6, 8], [1, 7, 8], [3, 8, 9]]; // [day, from row, to row]
@@ -48,12 +49,12 @@ const busy = [[1, 2, 4], [2, 5, 7], [3, 3, 4], [4, 2, 3], [5, 6, 8], [1, 7, 8], 
     <p class="hd">Past clients<span>from your ATS</span></p>
     <ol data-rows>
       {clients.map((c) => (
-        <li class:list={{ lit: c.now }}><span class="nm">{c.name}</span><span class="was">{c.was}</span>{c.now && <span class="now">{c.now}</span>}</li>
+        <li class:list={{ lit: c.now, out: c.no }}><span class="nm">{c.name}</span><span class="was">{c.was}</span><span class="now">{c.now ?? c.no}</span></li>
       ))}
     </ol>
   </div>
   <div class="chs">
-    {srcs.map((c) => <div class:list={['fn ch', { on: c.on }]} data-node={c.key} data-out={c.out ? '' : undefined}><i class:list={[{ li: c.icon === 'in', xx: c.icon === 'x' }]}>{c.icon === 'in' ? <b>in</b> : <svg viewBox="0 0 16 16"><path d={I[c.icon as keyof typeof I]} /></svg>}</i><span>{c.label}</span></div>)}
+    {srcs.map((c) => <div class:list={['fn ch', { on: c.on, quiet: !c.on }]} data-node={c.key} data-quiet={c.on ? undefined : ''}><i class:list={[{ li: c.icon === 'in', xx: c.icon === 'x' }]}>{c.icon === 'in' ? <b>in</b> : <svg viewBox="0 0 16 16"><path d={I[c.icon as keyof typeof I]} /></svg>}</i><span>{c.label}</span></div>)}
   </div>
   <div class="fn alert" data-node="alert" data-out>
     <i class="bell"><svg viewBox="0 0 16 16"><path d={I.bell} /></svg></i>
@@ -61,7 +62,6 @@ const busy = [[1, 2, 4], [2, 5, 7], [3, 3, 4], [4, 2, 3], [5, 6, 8], [1, 7, 8], 
     <div class="spark">
       <svg viewBox="0 0 200 40" preserveAspectRatio="none"><path d="M0 34 L22 33 L44 35 L66 32 L88 34 L110 31 L132 33 L154 30 L172 26 L186 12 L200 4" /></svg>
       <i class="tip"></i>
-      <p>Job posts<b>+3</b></p>
     </div>
   </div>
 </figure>
