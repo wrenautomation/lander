@@ -137,6 +137,15 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   tile, one mirrored and tilted), ink at 6%, fixed to the viewport and masked to fade out
   toward the middle, so it shows at the edges only. Cards and windows stay solid white or
   gray over it. Tile: public/brand/wren-pattern.png, made from wren-mark-512.png.
+  Fix the same day: body's own white painted over it, so html now holds the paper and body is
+  transparent. 7% ink, a quarter strength in the middle, full at the edges.
+- **D43 (2026-09-29): A load screen, and slower flows that overlap.** William asked for a fancy
+  load screen. On the first page of a visit (sessionStorage), motion on: a gray screen, the
+  mark fills rust from the feet up with a rule drawing under it, then the screen lifts at 1s
+  and the hero rises under it. Pure CSS on a clock, so a stalled script never holds the page;
+  off for ?static and reduced motion. The html class is `loading`, not `intro` (.intro is the
+  paragraph class). Flows play at 0.75x and the next starts 0.8s before the last ends; catch-up
+  is still 2x.
 
 ## Next
 

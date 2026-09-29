@@ -48,15 +48,18 @@ const words = (el: HTMLElement) => {
 const OUT = 'expo.out';
 
 if (motion) {
+  // the load screen (html.loading, CSS) lifts at 1s; the hero waits for it
+  const INTRO = document.documentElement.classList.contains('loading') ? 1 : 0;
+
   // the first screen arrives all at once: headline and copy rise together. The form panel is never held back.
-  gsap.fromTo($$('.hero :is(.kicker,h1,.lede,.promise,.checks,.more,.ctas,.by)'), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: OUT, delay: 0.05 });
+  gsap.fromTo($$('.hero :is(.kicker,h1,.lede,.promise,.checks,.more,.ctas,.by)'), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: OUT, delay: INTRO + 0.05 });
 
   // the example thread plays out: a message, the other side typing, the reply, what it means
   const scene = $('[data-scene]');
   if (scene) {
     gsap.set(scene, { opacity: 1 });
     const [a, b] = $$('.msg', scene);
-    gsap.timeline({ defaults: { ease: OUT, duration: 0.9 }, scrollTrigger: { trigger: scene, start: 'top 88%', once: true } })
+    gsap.timeline({ delay: INTRO, defaults: { ease: OUT, duration: 0.9 }, scrollTrigger: { trigger: scene, start: 'top 88%', once: true } })
       .fromTo($('.label', scene), { opacity: 0 }, { opacity: 1 }, 0.5)
       .fromTo(a, { opacity: 0, y: 24 }, { opacity: 1, y: 0 }, 0.6)
       .fromTo(b, { opacity: 0, y: 24 }, { opacity: 1, y: 0 }, 1.3)
@@ -406,8 +409,10 @@ if (flowsBox) {
       },
     };
     const done = new Map<HTMLElement, Promise<void>>();
-    // one diagram plays at a time, in story order. A fast scroll queues the next one, and any diagram with another
-    // waiting behind it plays at 2x; nothing jumps or skips.
+    // diagrams play in story order at 3/4 speed, each starting as the one before it has about a second left, so they
+    // overlap a little. A fast scroll queues the next one, and any diagram with another waiting behind it plays at
+    // 2x; nothing jumps or skips.
+    const SPEED = 0.75, LEAD = 0.8; // LEAD: seconds of the last diagram (at SPEED) the next one overlaps
     let playing: gsap.core.Timeline | null = null, waiting = 0, queue = Promise.resolve();
     // (re)build a diagram's timeline from its reset state; PLAY puts every node back where the story starts
     const build = (f: HTMLElement) => {
@@ -416,10 +421,17 @@ if (flowsBox) {
       PLAY[f.dataset.flow!]?.(f, tl, wires.get(f)!);
       return tl;
     };
-    const run = (tl: gsap.core.Timeline, speed = 1) => new Promise<void>((r) => {
+    // next: when the following diagram may start; done: when this one is whole
+    const run = (tl: gsap.core.Timeline, speed = SPEED) => {
       playing = tl;
-      tl.eventCallback('onComplete', () => { if (playing === tl) playing = null; r(); }).timeScale(speed).play(0);
-    });
+      let go = () => {};
+      const next = new Promise<void>((r) => { go = r; });
+      const done = new Promise<void>((r) => {
+        tl.eventCallback('onComplete', () => { if (playing === tl) playing = null; go(); r(); });
+      });
+      tl.call(go, [], Math.max(0, tl.duration() - LEAD * SPEED)).timeScale(speed).play(0);
+      return { next, done };
+    };
     for (const f of flows) {
       const ws = wires.get(f)!;
       let tl = build(f);
@@ -441,11 +453,15 @@ if (flowsBox) {
         ScrollTrigger.create({ trigger: $('[data-in]', f) ?? f, start: 'top 70%', once: true, onEnter: () => {
           playing?.timeScale(2);
           waiting++;
-          queue = queue.then(() => run(tl, --waiting ? 2 : 1)).then(() => { finish(); r(); });
+          queue = queue.then(() => {
+            const p = run(tl, --waiting ? 2 : SPEED);
+            p.done.then(() => { finish(); r(); });
+            return p.next;
+          });
         } });
       }));
       ScrollTrigger.create({ trigger: f, start: 'top bottom', end: 'bottom top', onToggle: (s) => { seen = s.isActive; if (whole) s.isActive ? loop.play() : loop.pause(); } });
-      // replay: the diagram plays again from the start, at full speed
+      // replay: the diagram plays again from the start, at its normal speed
       const again = document.createElement('button');
       again.type = 'button'; again.className = 'replay'; again.tabIndex = -1; // the diagram is decorative (aria-hidden)
       again.innerHTML = '<svg viewBox="0 0 16 16"><path d="M3 8a5 5 0 1 0 1.6-3.7M3 2.5v2.8h2.8" /></svg>Replay';
@@ -454,7 +470,7 @@ if (flowsBox) {
         whole = false; f.classList.remove('whole'); loop.pause(0);
         ws.forEach((w) => { w.dot.style.opacity = '0'; });
         tl.kill(); tl = build(f);
-        run(tl).then(finish);
+        run(tl).done.then(finish);
       });
       f.classList.add('replayable');
       f.prepend(again);
