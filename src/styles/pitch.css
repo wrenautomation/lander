@@ -171,6 +171,13 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
   .brand .name{font-size:18px}
   .stamp{width:28px;height:28px}
   .top .btn{padding:.95em 1.1em;font-size:12px}
+  .top .bar{justify-content:space-between}
+}
+/* a phone bar fits the stamp and the button, not the name too; the stamp is the pfp, and the name is in the byline
+   and the footer. A button that can't fit on one line wraps instead of pushing the page wide. */
+@media (max-width:459px){
+  .brand .name{display:none}
+  .btn{max-width:100%;white-space:normal;text-align:left;line-height:1.25}
   h1{font-size:clamp(2.3rem,1.5rem + 3.6vw,2.9rem)}
   .lede{font-size:17px}
   .more{display:none}

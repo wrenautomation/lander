@@ -13,7 +13,7 @@ nav:
   - { label: How it works, to: "#problem" }
   - { label: About, to: "#about" }
   - { label: Questions, to: "#faq" }
-nav_cta: Get in touch
+nav_cta: Win back my clients
 
 hero:
   h1: Win *10 new clients in 90 days* from leads you already paid for, with our personalized lead reactivation system
