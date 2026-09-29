@@ -77,12 +77,14 @@ about:
 faq:
   h2: Questions you *should be asking.*
   items:
+    - q: We tried re-engaging old clients before. Why would this work?
+      a: Before, nobody knew when to reach out. This messages them the day they start hiring.
+    - q: What if it doesn't book meetings?
+      a: You only pay for meetings that land.
+    - q: How much of my team's time does this take?
+      a: An export and a 30-minute call. After that, only approvals.
     - q: Will this hurt our email domain?
       a: No. Emails go from a new domain in your recruiter's name, warmed up and sent in small batches. Your main domain is never touched.
-    - q: Do you need access to our ATS?
-      a: No. An export is enough to start.
-    - q: What happens to our data?
-      a: It's used for your outreach only. Deleted if you stop.
 
 ask:
   h2: See if your firm is a fit.
@@ -107,6 +109,14 @@ ask:
   nofit: This works best for firms with 5+ recruiters and 500+ past contacts. I'll still read this and reply within a business day.
 
 close:
-  h2: Your old clients are hiring again. *Reach them first.*
+  h2: You're a 2-minute form away from *10 new clients in 90 days.*
+  reason: Stop wasting time chasing dead ends with cold outreach. *Win back the clients who already trust you.*
   text: Your details and four quick questions, then you pick a time. Nothing to prepare.
+  vs:
+    win: Firms that start now
+    lose: Firms that wait
+    rows:
+      - [Know the day a past client starts hiring, Find out after another firm fills the role]
+      - [Reach every past client with zero extra hours, Keep cold-messaging strangers]
+      - ["Walk into warm, booked meetings", Chase replies that never come]
   cta: I'm ready to win back my clients

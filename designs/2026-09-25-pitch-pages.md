@@ -55,6 +55,10 @@
 
 About moves below the FAQ, so the reader meets the person after objections are handled, right before the close. Nav follows: Questions, then About. Internship proof reuses the portfolio's resume numbers (17,000+ staff, 220+ policy documents, 7,000+ papers, 200+ hours) but says what the user got, not what stack was used. Close line is William's: do such a good job that you'll tell every other business owner you know.
 
+### D31 (2026-09-29): Real objections in the FAQ, a recap close
+
+The FAQ swaps technical questions for the real objections: tried this before, what if no meetings, team time, email domain. The close becomes the recap: "a 2-minute form away" headline, one last reason (stop chasing dead ends with cold outreach), then the three benefits set as two firms side by side, the one that starts now and the one that waits. The CTA comes last, so on phones it follows the comparison. `close.reason` and `close.vs` are optional, so other pitches keep the short close.
+
 ## Next
 
 - The VSL, once the file exists: in the hero under the subhead, beside the form on desktop, above it on phones.

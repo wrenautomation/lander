@@ -165,9 +165,16 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
   <div class="wrap grid">
     <div class="head">
       <h2 set:html={rich(p.close.h2)} />
+      {p.close.reason && <p class="reason" set:html={rich(p.close.reason)} />}
       <p>{p.close.text}</p>
-      <a class="btn" href="#apply" data-cta><span>{p.close.cta}</span><Arrow /></a>
     </div>
+    {p.close.vs && (
+      <div class="vs">
+        <p class="hd win">{p.close.vs.win}</p><p class="hd lose">{p.close.vs.lose}</p>
+        {p.close.vs.rows.map(([w, l]) => <><p class="win">{w}</p><p class="lose">{l}</p></>)}
+      </div>
+    )}
+    <a class="btn" href="#apply" data-cta><span>{p.close.cta}</span><Arrow /></a>
   </div>
 </section>
 </main>

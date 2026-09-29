@@ -267,7 +267,12 @@ const pitches = defineCollection({
       nofit_h: z.string().optional(), nofit: z.string().optional(),
     }),
     // The last screen: one line and a button back up to the form.
-    close: z.strictObject({ h2: z.string(), text: z.string(), cta: z.string() }),
+    close: z.strictObject({
+      h2: z.string(), text: z.string(), cta: z.string(),
+      // optional recap: one last reason, then the benefits as two firms side by side, the one that acts and the one that waits
+      reason: z.string().optional(),
+      vs: z.strictObject({ win: z.string(), lose: z.string(), rows: z.array(z.tuple([z.string(), z.string()])).length(3) }).optional(),
+    }),
   }),
 });
 

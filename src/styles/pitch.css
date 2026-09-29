@@ -570,10 +570,24 @@ label.field small{font-size:12px;margin-left:6px}
 .close{padding-block:clamp(80px,10vw,152px) clamp(40px,4vw,64px)}
 .close h2{font-size:clamp(2.6rem,1.4rem + 4vw,5rem);max-width:15ch}
 .close p{font-size:18px;color:var(--cream-2);margin-top:1.5rem;max-width:36em}
-.close .btn{margin-top:2.2rem;background:var(--cream);color:var(--ink)}
+.close .btn{justify-self:start;margin-top:2.2rem;background:var(--cream);color:var(--ink)}
 .close .btn:hover{background:var(--ink);color:var(--cream)}
 .close :focus-visible,.foot :focus-visible{outline-color:var(--cream)}
 @media (min-width:900px){.close .grid>.head{grid-column:1/9}}
+/* with the recap: the ask on the left, the two firms on the right */
+.close:has(.vs) h2{font-size:clamp(2.4rem,1.2rem + 3vw,4rem);max-width:13ch}
+.close p.reason{color:var(--cream);font-size:clamp(19px,1rem + .4vw,22px)}
+.vs{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(16px,2.4vw,40px);margin-top:clamp(40px,5vw,64px)}
+.close .vs p{margin:0;max-width:none;padding-block:16px 18px;border-top:1px solid rgba(250,247,242,.28);font-size:clamp(15px,.9rem + .25vw,18px);line-height:1.4}
+.close .vs .hd{border-top:0;padding-block:0 12px;font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.close .vs .win{color:var(--cream)}
+.close .vs .lose{color:var(--cream-2);opacity:.7}
+.close .vs p.win:not(.hd){font-weight:500}
+@media (min-width:900px){
+  .close:has(.vs) .grid>.head{grid-column:1/6;grid-row:1}
+  .vs{grid-column:7/13;grid-row:1/3;align-self:center;margin-top:0}
+  .close:has(.vs) .btn{grid-column:1/6;grid-row:2;align-self:start}
+}
 
 .foot .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:14px 32px;padding-top:36px;border-top:1px solid rgba(250,247,242,.28)}
 .foot .mail{font-weight:500;text-decoration:underline;text-decoration-color:rgba(250,247,242,.45)}
@@ -584,8 +598,6 @@ label.field small{font-size:12px;margin-left:6px}
 .sign-off{flex-basis:100%;display:flex;align-items:center;gap:.22em;margin-block:clamp(28px,4vw,56px) clamp(20px,3vw,40px);font-size:clamp(2.1rem,9.8vw,9rem);font-weight:600;letter-spacing:-.045em;line-height:1;white-space:nowrap}
 .sign-off .bird{flex:none;width:1.12em}
 .sign-off span{font-size:.5em;letter-spacing:-.03em}
-
-/* the phone's button back to the form, once the form is out of view */
 
 /* motion on: the hero's parts wait for pitch.ts to bring them in; a stalled script still shows them at 2.5s */
 .js .hero :is(h1,.lede,.promise,.more,.scene,.by){opacity:0;animation:show .01s 2.5s forwards}
