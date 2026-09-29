@@ -100,6 +100,12 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 .more .arr{transform:rotate(90deg)}
 .more:hover>.arr{transform:rotate(90deg) translate(2px,-2px)}
 .more[href^="/"] .arr,.more[href^="/"]:hover>.arr{transform:none}
+/* the bare arrow: a thin line down that bobs slowly, a nudge to keep reading rather than a button */
+.more.down{display:block;width:18px;margin-top:clamp(28px,5vh,56px);color:var(--ink-3);text-decoration:none;transition:color .3s var(--out)}
+.more.down:hover{color:var(--ink)}
+.more.down svg{display:block;width:100%;fill:none;stroke:currentColor;stroke-width:1.5}
+.js .more.down svg{animation:bob 2.4s ease-in-out 3s infinite}
+@keyframes bob{50%{transform:translateY(8px)}}
 .promise{margin-top:clamp(18px,3vh,30px);max-width:34em}
 .promise .label{font-size:11.5px;color:var(--ink-2)}
 .promise ul{display:grid;gap:6px;margin-top:10px}

@@ -19,7 +19,6 @@ hero:
   h1: Win *10 new clients in 90 days* from leads you already paid for, with our personalized lead reactivation system
   lede: |
     Your old clients are hiring again. You built those relationships. Don't hand them to a competitor. We build you a personalized lead reactivation system that watches every past client for new hiring windows, reaches out in your voice, and books the meeting. You only pay for meetings that land.
-  second: How it works
   second_to: "#problem"
   promise:
     h: My personal guarantee
@@ -66,7 +65,7 @@ about:
   sign: William Jin · Toronto
 
 faq:
-  h2: Questions.
+  h2: Questions you *should be asking.*
   items:
     - q: Will this hurt our email domain?
       a: No. Emails go from a new domain in your recruiter's name, warmed up and sent in small batches. Your main domain is never touched.

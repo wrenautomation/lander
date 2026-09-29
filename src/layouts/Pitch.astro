@@ -55,7 +55,9 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
       {p.hero.promise && (
         <div class="promise"><p class="label">{p.hero.promise.h}</p><ul>{p.hero.promise.items.map((x) => <li set:html={rich(x)} />)}</ul></div>
       )}
-      <a class="more" href={p.hero.second_to}>{p.hero.second}<Arrow /></a>
+      {p.hero.second
+        ? <a class="more" href={p.hero.second_to}>{p.hero.second}<Arrow /></a>
+        : <a class="more down" href={p.hero.second_to} aria-label="Read on"><svg viewBox="0 0 24 40" aria-hidden="true"><path d="M12 2v34M3 27l9 9 9-9" /></svg></a>}
     </div>
     <Apply a={p.ask} offer={offer} email={site.email} path={p.path} />
     {p.hero.scene && <Scene s={p.hero.scene} />}

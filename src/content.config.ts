@@ -196,7 +196,7 @@ const pitches = defineCollection({
     hero: z.strictObject({
       h1: z.string(),
       lede: z.string(),                 // blank line = paragraph. Open with the reader: **For owners of ...**
-      second: z.string(), second_to: z.string(),  // the quiet link under the lede
+      second: z.string().optional(), second_to: z.string(),  // the quiet link under the lede; with no text, a bare arrow down that invites the scroll
       by: z.string(),                   // one line beside William's photo
       // a short signed promise under the lede: a heading and a few lines, each a thing he stands behind
       promise: z.strictObject({ h: z.string(), items: z.array(z.string()).min(2).max(4) }).optional(),
