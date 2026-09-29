@@ -63,9 +63,9 @@
 .levels .head .intro{max-width:36em}
 .stairs{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(8px,1vw,14px);margin-top:clamp(28px,4vh,48px)}
 .stairs .rise{position:relative;display:flex;flex-direction:column;justify-content:flex-end;height:clamp(180px,28vh,260px)}
-.stairs .block{display:flex;align-items:flex-start;height:calc(var(--h) * 20%);padding:12px 14px;border-radius:10px 10px 0 0;background:color-mix(in srgb,var(--ink) calc(var(--h) * 17% - 12%),#F3F1EC);transform-origin:bottom;font-style:normal}
+.stairs .block{display:flex;align-items:flex-start;height:calc(var(--h) * 20%);padding:12px 14px;border-radius:10px 10px 0 0;background:color-mix(in srgb,var(--ink) calc(var(--h) * 9% - 6%),#F3F1EC);transform-origin:bottom;font-style:normal}
 .stairs .block b{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
-.stairs li:nth-child(n+3) .block b{color:#fff}
+.stairs li:nth-child(n+4) .block b{color:var(--ink)}
 .stairs .most .block{outline:1.5px solid var(--ink);outline-offset:-1.5px;background:#fff}
 .stairs .most .block b{color:var(--ink)}
 .stairs .pin{position:absolute;left:0;bottom:calc(var(--h) * 20% + 10px);padding:6px 10px;background:var(--ink);color:#fff;font-size:12.5px;font-weight:500;line-height:1.3;white-space:nowrap}

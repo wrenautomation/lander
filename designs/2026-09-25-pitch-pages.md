@@ -132,6 +132,11 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   required, no calendar (the fit message says William calls). All hub copy is bracketed
   placeholders until William writes it. Panels are flat white (no gradients); the Services
   menu lists only the niche pages.
+- **D42 (2026-09-29): A wren backdrop on every pitch page and the hub.** William wanted the
+  background subtly better, with a wren motif. The mark, tiled small (two birds per 240px
+  tile, one mirrored and tilted), ink at 6%, fixed to the viewport and masked to fade out
+  toward the middle, so it shows at the edges only. Cards and windows stay solid white or
+  gray over it. Tile: public/brand/wren-pattern.png, made from wren-mark-512.png.
 
 ## Next
 

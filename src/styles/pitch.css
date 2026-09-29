@@ -34,6 +34,9 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--bar) + 12px);-webkit-text-size-adjust:100%}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip;caret-color:var(--acc)}
+/* the backdrop: a faint wren pattern, fixed, strongest at the edges, gone in the middle where the words are */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:url(/brand/wren-pattern.png) 0 0/240px;opacity:.06;-webkit-mask:radial-gradient(ellipse 80% 85% at 50% 50%,transparent 45%,#000 100%);mask:radial-gradient(ellipse 80% 85% at 50% 50%,transparent 45%,#000 100%)}
+@media print{body::before{display:none}}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit;text-decoration:none}
 button,input,textarea{font:inherit;color:inherit}
