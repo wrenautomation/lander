@@ -106,10 +106,11 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   vary. Proof is real only (GoC, UAlberta, William); no phone yet, so the header shows the email.
   New diagrams in code: inbound (late inquiry, reply typed, booked) and admin (signed contract
   fills the CRM, then invoice, kickoff, report). The dotted canvas is gone on both pages: pill
-  buttons, a blurred header, the form as a floating card with boxed fields, rounded cards, and
+  a blurred header, the form as a floating card with boxed fields, rounded cards, and
   every diagram in a dark window. The recruiting guarantee is a card with ink check circles.
   Copy on the recruiting page unchanged. Earlier unlogged tweaks: bigger, tighter benefit
   headings; the custom cursor; the typing fix; `h1_tail`. Photos stay deferred (Higgsfield).
+  Buttons went pill, then back to square the same day: William says square looks less AI.
 
 ## Next
 

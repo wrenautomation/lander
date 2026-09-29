@@ -73,10 +73,10 @@ components:
   button:
     backgroundColor: "{colors.rust}"
     textColor: "{colors.cream}"
-    rounded: "{rounded.pill}"
+    rounded: "{rounded.none}"
     padding: "1.15em 1.6em"
   button-hover:
-    backgroundColor: "#8A2F0D"
+    backgroundColor: "{colors.ink}"
   button-on-rust:
     backgroundColor: "{colors.cream}"
     textColor: "{colors.ink}"
@@ -210,13 +210,13 @@ Flat. Depth comes from rules alone. No shadows.
 
 ## Shapes
 
-Rounded (D39): cards 18px, dark windows 22px, nodes 14px, inputs 10px, buttons and chips pills. Circles for faces, dots, ports and check marks. Borders are hairlines (`--rule`), never ink.
+Rounded (D39): cards 18px, dark windows 22px, nodes 14px, inputs 10px, chips pills. Buttons stay square: pills read as AI-made (William, 2026-09-29). Circles for faces, dots, ports and check marks. Borders are hairlines (`--rule`), never ink.
 
 ## Components
 
 ### Buttons
-- **Shape:** pill. Sentence case, 15.5px 600, arrow after it, soft rust shadow.
-- Rust, cream text. Hover turns a deeper rust. On rust (the back cover) the button is cream with ink text.
+- **Shape:** square (0). Small uppercase label, arrow after it. No shadow.
+- Rust, cream text. Hover turns ink. On rust (the back cover) the button is cream with ink text.
 
 ### Application panel
 - **Style:** a floating white card (hairline border, 22px corners, soft lift).
