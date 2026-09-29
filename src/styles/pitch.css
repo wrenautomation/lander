@@ -433,7 +433,7 @@ label.field small{font-size:12px;margin-left:6px}
 .book .inbox{grid-area:inbox}
 .book .sched{grid-area:cal;align-self:stretch;display:flex;flex-direction:column}
 .book .count{grid-area:count}
-.inbox li{display:flex;align-items:center;gap:10px;padding:8px;transition:background-color .45s var(--out),color .45s var(--out) var(--d,0s),padding .5s var(--out) var(--d,0s)}
+.inbox li{display:flex;align-items:center;gap:10px;padding:8px;transition:background-color .45s var(--out),color .45s var(--out) var(--d,0s)}
 .inbox li+li{border-top:1px solid var(--rule)}
 .inbox li p{flex:1;min-width:0}
 .inbox li b{display:block;width:fit-content;font-weight:600}
@@ -447,7 +447,7 @@ label.field small{font-size:12px;margin-left:6px}
 /* replies that aren't ready shrink and fade, then a line draws through each, one row after the other, like the
    ruled-out clients in the first diagram. Every change is a transition, so nothing jumps when .sorted lands. */
 .inbox .cold :is(b,p span){background:linear-gradient(currentColor,currentColor) no-repeat 0 55%/0 1px}
-.inbox.sorted .cold{--d:.25s;padding-block:5px;color:var(--ink-3)}
+.inbox.sorted .cold{--d:.25s;color:var(--ink-3)}
 .inbox.sorted .cold~.cold{--d:.6s}
 .inbox.sorted .cold .av{opacity:.5}
 .inbox.sorted .cold b{font-size:12.5px}
