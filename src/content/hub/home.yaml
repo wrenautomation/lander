@@ -13,7 +13,6 @@ nav:
   - label: Services
     to: "#services"
     menu:
-      - { label: All services, note: Everything I build, to: "#services" }
       - { label: Lead reactivation, note: For recruiting companies, to: /recruiting/lead-reactivation }
   - { label: How it works, to: "#how" }
   - { label: Compare, to: "#compare" }
