@@ -85,7 +85,7 @@ start:
     - { name: Hop on a call, time: 30 minutes }
     - { name: Send your lead history, time: One export }
   then: { name: Leads land on your calendar, time: We do the rest }
-  text: That's all you do. If it's not a fit, *you've lost 30 minutes, not a budget.*
+  text: That's all you do.
   cta: Take step one
 
 faq:
