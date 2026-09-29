@@ -109,11 +109,8 @@ const words = (el: HTMLElement) => {
 const OUT = 'expo.out';
 
 if (motion) {
-  // the first screen: the headline rises, then the rest. The form panel is never held back.
-  const h1 = $('.hero h1');
-  const intro = gsap.timeline({ defaults: { ease: OUT, duration: 1.1 } });
-  if (h1) { gsap.set(h1, { opacity: 1 }); intro.fromTo(words(h1), { yPercent: 110 }, { yPercent: 0, stagger: 0.06 }, 0.1); }
-  intro.fromTo($$('.hero :is(.lede,.promise,.more,.by)'), { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.12 }, 0.4);
+  // the first screen arrives all at once: headline and copy rise together. The form panel is never held back.
+  gsap.fromTo($$('.hero :is(h1,.lede,.promise,.more,.by)'), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: OUT, delay: 0.05 });
 
   // the example thread plays out: a message, the other side typing, the reply, what it means
   const scene = $('[data-scene]');

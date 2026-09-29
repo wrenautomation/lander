@@ -4,7 +4,7 @@
 # The terms (what you get, what you give, what I get, slots, days, the guarantee, the questions on
 # the form) come from the offer in wren (packages/offers), not from this file.
 title: Wren Automation for recruiting firms
-description: A free {days}-day pilot that turns the past clients in your ATS into new job orders. {slots} firms at a time.
+description: Win new clients from the past clients already in your ATS, with a personalized lead reactivation system that books the meetings.
 path: /recruiting
 offer: recruiting-reactivation-pilot
 form_value: recruiting
@@ -157,8 +157,6 @@ deal:
   why:
     - q: Why free?
       a: I'm building my recruiting case studies. You get the work, I get real numbers and, if it works, your introductions.
-    - q: Why only {slots}?
-      a: I do the work myself. {slots} firms is what one engineer runs well in {days} days.
 
 build:
   id: build
@@ -260,7 +258,6 @@ ask:
   intro: Your details, then four quick questions. If it fits, you book the call right here.
   cta: Ready to win back my clients
   assure: No new hires, no new tools, no extra work for your recruiters.
-  slots: "{slots} firms this round."
   submit: Send application
   sending: Sending…
   name: Your name
@@ -279,6 +276,6 @@ ask:
   nofit: The pilot fits firms with 5+ recruiters and 500+ past contacts. I'll still read this and reply within a business day.
 
 close:
-  h2: '{slots} firms this round. *One minute to apply.*'
-  text: Four questions, then you pick a time. Nothing to prepare.
-  cta: Apply for a pilot slot
+  h2: Your old clients are hiring again. *Reach them first.*
+  text: Your details and four quick questions, then you pick a time. Nothing to prepare.
+  cta: Ready to win back my clients
