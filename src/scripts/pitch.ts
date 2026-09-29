@@ -13,17 +13,6 @@ const $ = <T extends Element = HTMLElement>(s: string, el: ParentNode = document
 const $$ = <T extends Element = HTMLElement>(s: string, el: ParentNode = document) => [...el.querySelectorAll<T>(s)];
 const fmt = (n: number) => Math.round(n).toLocaleString('en-US');
 
-/* ---------- the phone's floating button: shown between the hero and the rust back cover, which has its own ---------- */
-const float = $('[data-float]'), hero = $('.hero');
-if (float && hero) {
-  const inView = new Set<Element>();
-  const io = new IntersectionObserver((es) => {
-    for (const e of es) e.isIntersecting ? inView.add(e.target) : inView.delete(e.target);
-    float.classList.toggle('show', inView.size === 0);
-  });
-  for (const el of [hero, $('.close'), $('.foot')]) if (el) io.observe(el);
-}
-
 /* ---------- the steps: the rule fills as you read; each stop lights when the rule reaches it ---------- */
 /* the build's week chart lights its stage's bar with it */
 for (const line of $$('[data-timeline]')) {

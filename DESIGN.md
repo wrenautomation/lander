@@ -167,7 +167,7 @@ Black on white, with the brand's rust in set places. The rust and cream are samp
 
 A 12-column grid, max 1320px, gutter 16–48px. Sections: text head in columns 1–5, body in 7–12 from 900px, heads sticky where the body is long. Section padding 72–148px, joined by a 1px ink rule.
 
-Hero from 1024px: copy in columns 1–7 with the example thread under it, the form panel in 8–12 behind a full-height black rule. Below 1024px it stacks: headline, lede, the panel under a full-width black rule, then the thread under another. Under 720px the bar, headline, lede and panel tighten so question 1 and its first answer show in the first iPhone 13 screen. The float button appears on phones once the hero leaves view.
+Hero from 1024px: copy in columns 1–7 with the example thread under it, the form panel in 8–12 behind a full-height black rule. Below 1024px it stacks: headline, lede, the panel under a full-width black rule, then the thread under another. Under 720px the bar, headline, lede and panel tighten so question 1 and its first answer show in the first iPhone 13 screen.
 
 ## Imagery
 
@@ -200,7 +200,7 @@ Easing: expo out for entrances. No pinning, no click-through.
 
 ## Elevation & Depth
 
-Flat. Depth comes from rules alone. The only shadow is under the phone float button.
+Flat. Depth comes from rules alone. No shadows.
 
 ### Named Rules
 **The Flat Sheet Rule.** No shadows on anything that sits in the page.
