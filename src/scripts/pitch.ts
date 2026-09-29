@@ -280,9 +280,9 @@ if (flowsBox) {
         gsap.set(ptr, { opacity: 0, x: 40, y: 26 });
         tl.to(msg, { opacity: 1, y: 0 }, 0)
           .to($$('.why li', msg), { opacity: 1, x: 0, duration: 0.4, stagger: 0.15 }, 0.25)
-          .call(() => body.classList.add('typing'), [], 0.4)
+          .call(() => body.classList.add('writing'), [], 0.4)
           .to(o, { n: full.length, duration: 2.4, ease: 'none', onUpdate: () => { const k = Math.round(o.n); shown.textContent = full.slice(0, k); rest.textContent = full.slice(k); } }, 0.4)
-          .call(() => body.classList.remove('typing'), [], 2.9)
+          .call(() => body.classList.remove('writing'), [], 2.9)
           .to($('.voice', msg), { opacity: 1, duration: 0.4 }, 2.9);
         wire(tl, into(f, ws, 'ok'), 3.1);
         tl.to(ok, { opacity: 1, y: 0 }, 3.5)

@@ -63,7 +63,7 @@ a:not(.btn){text-underline-offset:.24em;text-decoration-thickness:1px}
 .label,.when{font-family:var(--sans);font-size:12.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
 
 /* ---------- buttons ---------- */
-.btn{display:inline-flex;align-items:center;gap:.9em;padding:1.15em 1.6em;background:var(--acc);color:var(--cream);font-family:var(--sans);font-weight:600;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;line-height:1;white-space:nowrap;border:0;cursor:pointer;transition:background-color .35s var(--out),color .35s var(--out),transform .2s var(--out)}
+.btn{display:inline-flex;align-items:center;gap:.9em;padding:1.15em 1.6em;background:var(--acc);color:var(--cream);font-family:var(--sans);font-weight:600;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;line-height:1;white-space:nowrap;border:0;cursor:var(--cur-on);transition:background-color .35s var(--out),color .35s var(--out),transform .2s var(--out)}
 .btn:hover{background:var(--ink)}
 .btn:active{transform:translateY(1px)}
 .btn.sm{padding:1em 1.3em;font-size:12.5px}
@@ -210,9 +210,9 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 .step+.step{margin-top:2rem}
 legend{font-size:clamp(21px,1.1rem + .6vw,27px);font-weight:400;line-height:1.2;letter-spacing:-.01em;margin-bottom:1.1rem;padding:0}
 .choices{display:grid;border-bottom:1px solid var(--rule)}
-.choice{display:flex;align-items:center;gap:14px;padding:13px 14px;border-top:1px solid var(--rule);cursor:pointer;font-size:16px;transition:background-color .25s var(--out),color .25s var(--out)}
+.choice{display:flex;align-items:center;gap:14px;padding:13px 14px;border-top:1px solid var(--rule);cursor:var(--cur-on);font-size:16px;transition:background-color .25s var(--out),color .25s var(--out)}
 .choice:hover{background:var(--paper-2)}
-.choice input{appearance:none;flex:none;width:17px;height:17px;border:1px solid var(--ink-2);border-radius:50%;display:grid;place-items:center;margin:0;cursor:pointer}
+.choice input{appearance:none;flex:none;width:17px;height:17px;border:1px solid var(--ink-2);border-radius:50%;display:grid;place-items:center;margin:0;cursor:var(--cur-on)}
 .choice input[type=checkbox]{border-radius:0}
 .choice input::after{content:"";width:7px;height:7px;border-radius:inherit;background:var(--acc);transform:scale(0);transition:transform .25s var(--out)}
 .choice:has(input:checked){background:var(--ink);color:var(--paper)}
@@ -251,7 +251,7 @@ label.field small{font-size:12px;margin-left:6px}
 .stepping .nav-steps{display:flex;justify-content:space-between;align-items:center;margin-top:1.3rem}
 .stepping .nav-steps .back{display:inline-flex}
 .stepping .nav-steps [data-next]{display:inline-flex}
-.back{background:none;border:0;padding:.6rem 0;font-size:15px;color:var(--ink-2);text-decoration:underline;text-underline-offset:.24em;cursor:pointer}
+.back{background:none;border:0;padding:.6rem 0;font-size:15px;color:var(--ink-2);text-decoration:underline;text-underline-offset:.24em;cursor:var(--cur-on)}
 .back:hover{color:var(--ink)}
 .stepping .back[hidden]{display:none}
 .nav-steps .btn{margin-left:auto}
@@ -339,7 +339,7 @@ label.field small{font-size:12px;margin-left:6px}
 .flow .edges{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 /* replay: shows once a diagram is whole, lined up with its first node. Rust like every action; green stays for results. */
 .flow.replayable{padding-top:58px}
-.flow .replay{position:absolute;top:16px;left:clamp(20px,2.6vw,40px);z-index:2;display:inline-flex;align-items:center;gap:7px;padding:7px 11px 7px 9px;background:var(--paper);color:var(--acc);border:1px solid var(--acc);font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;line-height:1;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .4s var(--out),visibility 0s .4s,background-color .25s var(--out),color .25s var(--out)}
+.flow .replay{position:absolute;top:16px;left:clamp(20px,2.6vw,40px);z-index:2;display:inline-flex;align-items:center;gap:7px;padding:7px 11px 7px 9px;background:var(--paper);color:var(--acc);border:1px solid var(--acc);font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;line-height:1;cursor:var(--cur-on);opacity:0;visibility:hidden;transition:opacity .4s var(--out),visibility 0s .4s,background-color .25s var(--out),color .25s var(--out)}
 .flow.whole .replay{opacity:1;visibility:visible;transition-delay:0s}
 .flow .replay:hover{background:var(--acc);color:var(--paper)}
 .flow .replay svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
@@ -419,7 +419,8 @@ label.field small{font-size:12px;margin-left:6px}
 .draft .why b{display:block;margin-bottom:4px;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
 .draft .why li{display:flex;align-items:center;gap:7px;padding-block:2px}
 .draft .why li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--ink-3)}
-.draft .body.typing .shown::after{content:"";display:inline-block;width:1.5px;height:1.05em;margin-left:1px;vertical-align:-.15em;background:var(--ink);animation:blink 1s steps(1) infinite}
+/* the caret: a word joiner with a right border, so a half-typed word can't break onto the next line and jump back */
+.draft .body.writing .shown::after{content:"\2060";border-right:1.5px solid var(--ink);margin-right:-1.5px;animation:blink 1s steps(1) infinite}
 .ok{position:relative}
 .press{position:relative;display:block;height:40px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
 .press>span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .3s var(--out)}
