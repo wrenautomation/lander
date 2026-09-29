@@ -65,6 +65,7 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
         <button type="button" class="btn ink" data-next><span>{a.steps.next}</span><Arrow /></button>
       </div>
     )}
+    {a.assure && <p class="assure">{a.assure}</p>}
   </form>
   <div class="result" id="applied-fit" data-result="fit" tabindex="-1">
     {offer.booking ? (

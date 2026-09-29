@@ -16,12 +16,10 @@ nav:
 nav_cta: Apply
 
 hero:
-  h1: Your past clients are *your next job orders.*
+  h1: Win *10 New Clients in 90 Days* From Leads You Already Paid For, With Our Lead Reactivation System
   lede: |
-    **For owners of recruiting firms.** Hundreds of past clients sit in your ATS, gone quiet. New business still hangs on one or two people.
-
-    I write to them in your recruiter's name and hand you the replies. Free for {days} days.
-  second: How the pilot works
+    Your old clients are hiring again. You built those relationships. Don't hand them to a competitor. We build you a personalized lead reactivation system that watches every past client for new hiring windows, reaches out in your voice, and books the meeting. You only pay for meetings that land.
+  second: How it works
   second_to: "#how"
   by: I'm an engineer, and I run every pilot myself.
   scene:
@@ -239,8 +237,9 @@ faq:
       a: Then we both learn something. You keep the cleaned list, the copy and the domain.
 
 ask:
-  h2: Apply for the free {days}-day pilot.
+  h2: See if your firm is a fit.
   intro: Four quick questions, then your email. If it fits, you book the call right here.
+  assure: No new hires, no new tools, no extra work for your recruiters.
   slots: "{slots} firms this round."
   submit: Send application
   sending: Sending…

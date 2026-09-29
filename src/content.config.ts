@@ -254,6 +254,7 @@ const pitches = defineCollection({
     // link, thanks_h/thanks without. The build refuses a page missing the copy its offer needs.
     ask: z.strictObject({
       h2: z.string(), intro: z.string(),
+      assure: z.string().optional(),    // one line under the form's button, on every step
       slots: z.string().optional(),     // beside the slot bars, when the offer has slots
       submit: z.string(), sending: z.string(),
       name: z.string(), email: z.string(), phone: z.string(), firm: z.string(), note: z.string().optional(),
