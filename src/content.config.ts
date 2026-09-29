@@ -231,6 +231,7 @@ const pitches = defineCollection({
     // The first screen: who it's for and the pain (lede), what Wren does, then the form beside it (ask).
     hero: z.strictObject({
       h1: z.string(),
+      h1_tail: z.string().optional(),   // the headline's last clause, set a step smaller on its own line
       lede: z.string(),                 // blank line = paragraph. Open with the reader: **For owners of ...**
       second: z.string().optional(), second_to: z.string(),  // the quiet link under the lede; with no text, a bare arrow down that invites the scroll
       by: z.string(),                   // one line beside William's photo

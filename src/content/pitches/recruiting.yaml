@@ -16,7 +16,8 @@ nav:
 nav_cta: Win back my clients
 
 hero:
-  h1: Win *10 new clients in 90 days* from leads you already paid for, with our personalized lead reactivation system
+  h1: Win *10 new clients in 90 days* from leads you already paid for,
+  h1_tail: with our personalized lead reactivation system
   lede: |
     Your old clients are hiring again. You built those relationships. Don't hand them to a competitor.
 
