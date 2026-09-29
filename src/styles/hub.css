@@ -66,7 +66,7 @@
 .times{display:flex;flex-wrap:wrap;gap:6px;padding-top:16px}
 .times i{padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-style:normal;font-size:12px;font-weight:500;color:var(--ink-2);transition:background-color .35s var(--out),color .35s var(--out),border-color .35s var(--out)}
 .times i.pick{background:var(--acc);border-color:var(--acc);color:#fff}
-.booked .ev{padding:10px 12px;border-left:3px solid var(--acc);border-radius:6px 8px 8px 6px;background:rgba(224,96,42,.12)}
+.booked .ev{padding:10px 12px;border-radius:10px;background:rgba(224,96,42,.14);box-shadow:inset 0 0 0 1px rgba(224,96,42,.35)}
 .booked .ev b{display:block;font-weight:600}
 .booked .ev span{font-size:12px;color:var(--ink-2)}
 .booked .note{color:var(--win)}
