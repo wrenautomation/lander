@@ -5,7 +5,7 @@
 // shows with :target.
 import type { CollectionEntry } from 'astro:content';
 import { fieldName } from '../../lib/offers';
-import { rich } from '../../lib/text';
+import { linked, rich } from '../../lib/text';
 import Arrow from './Arrow.astro';
 
 type Pitch = CollectionEntry<'pitches'>['data'];
@@ -27,6 +27,7 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
         <label class="field"><span>{a.name}</span><input name="name" type="text" autocomplete="name"></label>
         <label class="field"><span>{a.email} <small>{a.required}</small></span><input name="email" type="email" autocomplete="email" required><em class="fe" data-error>{a.bad_email}</em></label>
         <label class="field"><span>{a.phone}</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel"></label>
+        <label class="consent"><input name="sms_consent" type="checkbox" value="1"><span set:html={linked(a.sms_consent)} /></label>
         {a.firm && <label class="field"><span>{a.firm} <small>{a.required}</small></span><input name="firm" type="text" autocomplete="url" inputmode="url" required><em class="fe" data-error>{a.required}</em></label>}
         {a.note && <label class="field"><span>{a.note}</span><textarea name="note" rows="3"></textarea></label>}
       </div>

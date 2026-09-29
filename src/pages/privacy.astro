@@ -7,7 +7,7 @@ import Base from '../layouts/Base.astro';
 import Mark from '../components/Mark.astro';
 import Foot from '../components/Foot.astro';
 const site = (await getEntry('site', 'site'))!.data;
-const updated = 'September 22, 2026';
+const updated = 'September 29, 2026';
 ---
 <Base title="Privacy — Wren Automation" description="What Wren Automation collects, why, and how to have it deleted." hue="rust">
 <div class="wrap">
@@ -36,11 +36,15 @@ const updated = 'September 22, 2026';
     <h2>Email I send you</h2>
     <p>I email firms who haven't asked, which is what cold outreach is. Addresses come from public sources — a company's own website and public business listings. Those messages can carry a one-pixel image that tells me the message was opened, and they carry an unsubscribe link. Unsubscribe, or reply with "stop", and the address is suppressed: I will not email it again. Reply once and you are in an ordinary conversation, nothing more.</p>
 
+    <h2>Text messages</h2>
+    <p>If you tick the texts box on the form, I store your phone number, that you ticked it, and when. I text you only about your request: replies, scheduling, reminders. Up to 4 texts a month. Reply STOP and you get no more texts; reply HELP for help. Full terms are on the <a href="/terms">terms page</a>.</p>
+    <p>No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. Text opt-in data and consent are never shared with any third party. The only company that sees your number is Telnyx, the carrier that delivers the texts.</p>
+
     <h2>Client work</h2>
     <p>When I build for a client I handle their data under the agreement we sign, only for that build, and it stays in their systems. Nothing from a client's data ever comes into this site.</p>
 
     <h2>Who else sees it</h2>
-    <p>Cloudflare hosts the site and the database. Google Workspace carries my email. Resend and Discord deliver the notification when the form is submitted. Each of them sees the data it needs to do that and nothing else. No advertising networks, no data brokers.</p>
+    <p>Cloudflare hosts the site and the database. Google Workspace carries my email. Resend and Discord deliver the notification when the form is submitted. Telnyx delivers texts. Each of them sees the data it needs to do that and nothing else. No advertising networks, no data brokers.</p>
 
     <h2>Keeping and deleting</h2>
     <p>Form submissions are kept while there's a reason to — a live conversation, a build, the records a business has to keep. Page-view rows are kept as counts. Email <a href={`mailto:${site.email}`}>{site.email}</a> and I will tell you what I hold about you, correct it, or delete it. No form, no account, no wait: one email to a person who reads it.</p>

@@ -169,6 +169,7 @@ fine_turnstile: The form is checked for bots by Cloudflare Turnstile, under its
 fine_turnstile_link: privacy addendum
 # The footer link to /privacy.
 fine_privacy: Privacy
+fine_terms: Terms
 
 # The 404 page.
 notfound_title: Not found

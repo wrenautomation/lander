@@ -109,6 +109,7 @@ const site = defineCollection({
     fine_turnstile: z.string(),
     fine_turnstile_link: z.string(),
     fine_privacy: z.string(),
+    fine_terms: z.string(),
     notfound_title: z.string(),
     notfound_h: z.string(),
     notfound: z.string(),
@@ -258,7 +259,7 @@ const pitches = defineCollection({
       assure: z.string().optional(),    // one line under the form's button, on every step
       submit: z.string(), sending: z.string(),
       cta: z.string().optional(),       // the first step's button (contact details), when the form steps
-      name: z.string(), email: z.string(), phone: z.string(), firm: z.string().optional(), note: z.string().optional(),
+      name: z.string(), email: z.string(), phone: z.string(), sms_consent: z.string(), firm: z.string().optional(), note: z.string().optional(),
       required: z.string(), bad_email: z.string(), error: z.string(),
       thanks_h: z.string(), thanks: z.string(),
       book_h: z.string().optional(), book: z.string().optional(),

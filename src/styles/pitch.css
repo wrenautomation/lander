@@ -224,6 +224,9 @@ label.field small{font-size:12px;margin-left:6px}
 .fe{display:none;font-size:14px;font-weight:600;font-style:normal;color:var(--acc);margin-top:.6rem}
 .fe::before{content:"";display:inline-block;width:10px;height:1.5px;background:currentColor;vertical-align:middle;margin-right:8px}
 .invalid>.fe,.invalid .fe{display:block}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.45;color:var(--ink-2)}
+.consent input{margin-top:3px;accent-color:var(--acc);flex:none}
+.consent a{color:var(--ink)}
 .field.invalid input{border-color:var(--acc);box-shadow:0 1px 0 var(--acc)}
 .contact .btn{margin-top:1.4rem}
 .cf-turnstile{margin-top:1rem}

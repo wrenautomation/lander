@@ -8,6 +8,8 @@ export const paras = (s: string) => s.trim().split(/\n\s*\n/).map((p) => `<p>${i
 
 // Pitch pages: *word* is the serif italic accent, **word** is ink. Headings and body alike.
 export const rich = (s: string) => inline(s).replace(/\*(.+?)\*/g, '<em>$1</em>');
+// Fine print that points at this site's own pages: [Terms](/terms). Only site paths, so copy can't link out.
+export const linked = (s: string) => rich(s).replace(/\[(.+?)\]\((\/[a-z0-9/-]*)\)/g, '<a href="$2">$1</a>');
 export const richParas = (s: string) => s.trim().split(/\n\s*\n/).map((p) => `<p>${rich(p.trim())}</p>`).join('');
 export const bare = (s: string) => s.replace(/\*+/g, '');
 

@@ -1,0 +1,43 @@
+---
+// /terms. The texts program terms carriers check before approving the 10DLC campaign, plus the site's plain terms.
+// Keep in step with the form's consent line (pitches/*.yaml ask.sms_consent) and /privacy "Text messages".
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+import Foot from '../components/Foot.astro';
+const site = (await getEntry('site', 'site'))!.data;
+const updated = 'September 29, 2026';
+---
+<Base title="Terms — Wren Automation" description="Terms for texts from Wren Automation and for using this site." hue="rust">
+<div class="wrap">
+  <nav class="nav" aria-label="Page">
+    <a href="/" aria-label="Wren Automation, front page"><Mark /></a>
+    <div class="right">
+      <button class="theme" type="button" data-theme-toggle data-to-dark={site.theme.to_dark} data-to-light={site.theme.to_light} aria-label="Switch between light and dark">{site.theme.to_dark}</button>
+    </div>
+  </nav>
+</div>
+<section class="hero">
+  <div class="wrap">
+    <h1>Terms</h1>
+    <p class="lede">Wren Automation is one person, William Jin. These are the terms for texts I send and for this site. Last updated {updated}.</p>
+  </div>
+</section>
+<section class="s">
+  <div class="wrap legal">
+    <h2>Texts from William Jin at Wren Automation</h2>
+    <p>You get texts only if you tick the texts box on the form on this site and give a phone number. The box is never ticked for you, and you don't have to tick it to send the form.</p>
+    <p>What you get: replies to your request, call scheduling, and reminders. Up to 4 texts a month. Message and data rates may apply.</p>
+    <p>Reply STOP at any time and you get one message confirming it, then no more texts. Reply START to opt back in. Reply HELP, or email <a href={`mailto:${site.email}`}>{site.email}</a>, for help.</p>
+    <p>Carriers are not liable for delayed or undelivered messages.</p>
+    <p>What I store and who sees it: see the <a href="/privacy">privacy page</a>. No mobile information is shared with third parties or affiliates for marketing or promotional purposes.</p>
+
+    <h2>This site</h2>
+    <p>The site describes what I build and lets you ask for a call. Nothing on it is a binding offer; paid work runs under a written agreement we both sign.</p>
+
+    <h2>Changes</h2>
+    <p>If this changes, the date at the top changes with it.</p>
+  </div>
+</section>
+<Foot site={site} />
+</Base>

@@ -9,6 +9,6 @@ const year = new Date().getFullYear();
   <footer>
     <div><Mark /></div>
     <div><a href={`mailto:${site.email}`}>{site.email}</a></div>
-    <div class="fine">© {year} Wren Automation · {site.city} · {site.fine}{turnstile && <> {site.fine_turnstile} <a href="https://www.cloudflare.com/turnstile-privacy-policy/">{site.fine_turnstile_link}</a>.</>} <a href="/privacy">{site.fine_privacy}</a></div>
+    <div class="fine">© {year} Wren Automation · {site.city} · {site.fine}{turnstile && <> {site.fine_turnstile} <a href="https://www.cloudflare.com/turnstile-privacy-policy/">{site.fine_turnstile_link}</a>.</>} <a href="/privacy">{site.fine_privacy}</a> · <a href="/terms">{site.fine_terms}</a></div>
   </footer>
 </div>

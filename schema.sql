@@ -48,6 +48,8 @@ create table if not exists hits (
 -- (wren packages/offers). answers = JSON {question id: choice id | [choice ids] | text}; fit = 1 when every
 -- fit gate passed. Offers without an application (the / contact form) store {} and fit 1. Added 2026-09-25;
 -- phone added 2026-09-27 (an older database: alter table applications add column phone text).
+-- sms_consent added 2026-09-29: 1 = ticked the unticked-by-default texts box with a phone (an older database:
+-- alter table applications add column sms_consent integer not null default 0).
 create table if not exists applications (
   id integer primary key autoincrement,
   ts text not null,
@@ -55,6 +57,7 @@ create table if not exists applications (
   name text,
   email text not null,
   phone text,
+  sms_consent integer not null default 0,
   firm text,
   note text,
   answers text not null,
