@@ -3,7 +3,7 @@
 # that doesn't hang on one rainmaker) and less busywork for their team.
 # The questions on the form and the fit rule come from the offer in wren (packages/offers), not from
 # this file. Prices stay off the page.
-title: Wren Automation for recruiting firms
+title: Wren Automation for recruiting companies
 description: Win new clients from the past clients already in your ATS, with a personalized lead reactivation system that books the meetings.
 path: /recruiting/lead-reactivation
 offer: reactivation
@@ -27,22 +27,22 @@ hero:
     h: My personal guarantee
     items:
       - Works with the ATS and inbox you already use.
-      - Follows how your firm already works. Nothing new to learn.
+      - Follows how your company already works. Nothing new to learn.
       - Every piece of outreach goes out in your brand voice, under your recruiters' names.
-  by: If it doesn't fit how your firm works, I change it. Not you.
+  by: If it doesn't fit how your company works, I change it. Not you.
 
 problem:
   id: problem
   questions:
     - Are your recruiters stuck in the **same cold outreach loop** every week?
     - Do clients go quiet after **one hiring season** and never come back?
-    - Have you lost a past client to another firm because you were **too busy to respond in time?**
+    - Have you lost a past client to another company because you were **too busy to respond in time?**
   answer: Our system catches past clients *the moment they're hiring again,* and books the meeting for you.
   target: Our target for you is *10 new clients in 90 days.* You only pay if you get a clear return on revenue and time saved.
   target_cta: Book a consultation
   cta: I'm ready to win back my clients
   pain:
-    - You're not alone. Most mid-size firms work this way.
+    - You're not alone. Most mid-size companies work this way.
     - "You win a client and fill the roles. Then the next job order pulls you away. It's not that you don't care. **There's just no time.** So the loop keeps going."
     - Your team spends hours messaging strangers who've never heard of you. Meanwhile, the people who **already trust you** go cold.
     - bad:
@@ -50,7 +50,7 @@ problem:
         - Nobody notices when a past client starts hiring again.
         - The CRM reminder fires months late, or never.
         - When a recruiter leaves, **their relationships leave too.**
-    - Every quarter, your past clients open new roles. If you don't reach them first, **another firm will.**
+    - Every quarter, your past clients open new roles. If you don't reach them first, **another company will.**
 
 benefits:
   id: how
@@ -58,7 +58,7 @@ benefits:
     - flow: watch
       h2: Catch every past client the day they start hiring & never lose another job order to a competitor
       text: Our system watches every past client for job posts, funding, new leaders, and contacts who moved to a new company. The day one starts hiring, you know.
-      cta: See if my firm is a fit
+      cta: See if my company is a fit
     - flow: reach
       h2: Reach every past client in your brand voice, under your recruiters' names, with zero extra hours from your team
       text: We write every message, you approve it, and it goes out by email, LinkedIn and text. Nothing sends without your OK.
@@ -102,7 +102,7 @@ faq:
       a: No. Emails go from a new domain in your recruiter's name, warmed up and sent in small batches. Your main domain is never touched.
 
 ask:
-  h2: See if your firm is a fit.
+  h2: See if your company is a fit.
   cta: I'm ready to win back my clients
   assure: No new hires, no new tools, no extra work for your recruiters.
   submit: Send
@@ -121,17 +121,17 @@ ask:
   thanks: I'll email you a few times within one business day, from william@wrenautomation.com.
   nofit_h: Thanks. *I've got it.*
   # Says the fit rule in words. Change it with the fit gates in wren's offer.
-  nofit: This works best for firms with 5+ recruiters and 500+ past contacts. I'll still read this and reply within a business day.
+  nofit: This works best for companies with 5+ recruiters and 500+ past contacts. I'll still read this and reply within a business day.
 
 close:
   h2: You're a 2-minute form away from *reliable client outreach.*
   reason: Stop wasting time chasing dead ends with cold outreach. *Win back the clients who already trust you.*
   text: Your details and four quick questions, then you pick a time. Nothing to prepare.
   vs:
-    win: Firms that start now
-    lose: Firms that wait
+    win: Companies that start now
+    lose: Companies that wait
     rows:
-      - [Know the day a past client starts hiring, Find out after another firm fills the role]
+      - [Know the day a past client starts hiring, Find out after another company fills the role]
       - [Reach every past client with zero extra hours, Keep cold-messaging strangers]
       - ["Walk into warm, booked meetings", Chase replies that never come]
   cta: I'm ready to win back my clients

@@ -4,7 +4,7 @@
 # Reader: an owner or executive of a service firm. Prices stay off the page. Proof is real only:
 # the Government of Canada and University of Alberta builds, and William himself.
 title: Wren Automation
-description: Wren connects your firm's tools into one clean system, then puts AI to work on it. More clients in, less busywork out.
+description: Wren connects your company's tools into one clean system, then puts AI to work on it. More clients in, less busywork out.
 path: /
 offer: ops-automation-build
 form_value: general
@@ -14,7 +14,7 @@ nav:
     to: "#services"
     menu:
       - { label: All services, note: Everything I build, to: "#services" }
-      - { label: Lead reactivation, note: For recruiting firms, to: /recruiting/lead-reactivation }
+      - { label: Lead reactivation, note: For recruiting companies, to: /recruiting/lead-reactivation }
   - { label: How it works, to: "#how" }
   - { label: Compare, to: "#compare" }
   - { label: Questions, to: "#faq" }
@@ -22,7 +22,7 @@ nav_cta: Get in touch
 
 hero:
   proof: Built for the Government of Canada and the University of Alberta.
-  h1: Grow your firm *without adding headcount.*
+  h1: Grow your company *without adding headcount.*
   lede: We connect your tools into one clean system, then put AI to work on it. More clients in, less busywork out.
   checks:
     - One engineer from the first call to the last fix.
@@ -47,7 +47,7 @@ proof:
 
 pain:
   id: pain
-  h2: Your firm runs on *a few people's memory.*
+  h2: Your company runs on *a few people's memory.*
   text: |
     Client details live in inboxes, spreadsheets and an old CRM. Your best people spend the week retyping them, chasing meeting times and rebuilding the same report.
 
@@ -109,9 +109,9 @@ benefits:
 catalog:
   id: services
   h2: Every system I build, *and who it's for.*
-  cta: Ask what fits your firm
+  cta: Ask what fits your company
   groups:
-    - for: Recruiting firms
+    - for: Recruiting companies
       link: { label: See the recruiting system, to: /recruiting/lead-reactivation }
       items:
         - name: Lead reactivation
@@ -122,7 +122,7 @@ catalog:
           runs: Runs on your ATS and open roles.
           in: { icon: person, label: Past candidate, note: Fits an open role }
           out: { icon: check, label: Interested, note: Handed to your recruiter }
-    - for: Any service firm
+    - for: Any service company
       items:
         - name: Inquiry replies
           runs: Runs on your site form, inbox and calendar.
@@ -143,12 +143,12 @@ catalog:
 
 compare:
   id: compare
-  h2: A system that fits your firm, *built by the person you talk to.*
+  h2: A system that fits your company, *built by the person you talk to.*
   us: Wren
   them: [Automation agency, Consultant, Off-the-shelf software, Hiring in-house]
   rows:
     - { feature: The person you talk to builds it, marks: [yes, no, no, no, yes] }
-    - { feature: Maps how your firm works before building, marks: [yes, no, yes, no, no] }
+    - { feature: Maps how your company works before building, marks: [yes, no, yes, no, no] }
     - { feature: Works inside the tools you already use, marks: [yes, yes, yes, no, yes] }
     - { feature: Cleans your data before adding AI, marks: [yes, no, no, no, no] }
     - { feature: No salary or hiring to manage, marks: [yes, yes, yes, yes, no] }
@@ -171,13 +171,13 @@ faq:
   h2: Questions you *should be asking.*
   items:
     - q: Which system should we start with?
-      a: The one closest to revenue. For most firms that's new inquiries waiting too long or past clients going cold. On the call I'll tell you which.
+      a: The one closest to revenue. For most companies that's new inquiries waiting too long or past clients going cold. On the call I'll tell you which.
     - q: Do we have to change our tools?
       a: No. I build inside what you already use. If a tool is the problem, I'll say so and why.
     - q: Why not start with the AI?
       a: AI on messy data makes mistakes faster. Written processes and one clean CRM are what make it work.
     - q: How long does it take?
-      a: About seven weeks to a firm that runs on one clean CRM. The first AI job runs around week 6.
+      a: About seven weeks to a company that runs on one clean CRM. The first AI job runs around week 6.
     - q: Who on my team needs to be involved?
       a: You for an hour, then 45 minutes with three or four of your team. After that, a 20-minute check-in each week.
     - q: What happens after the build?
@@ -187,19 +187,19 @@ about:
   h2: Hi, I'm *William.*
   paras:
     - I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
-    - My internships were data pipelines, systems that talk to each other, and CRMs. Now I build the systems that bring firms business, and the automations that handle what comes with it.
+    - My internships were data pipelines, systems that talk to each other, and CRMs. Now I build the systems that bring companies business, and the automations that handle what comes with it.
     - I build long-term relationships. I want to do such a good job that you'll tell every other business owner you know about me.
   photo: /headshot.png
   sign: William Jin · Toronto
   cta: Talk to me
 
 close:
-  h2: Your firm is one call away from *running on one system.*
+  h2: Your company is one call away from *running on one system.*
   reason: Every week without it, inquiries wait overnight and *your team retypes the same details.*
   text: Two minutes to fill out. I reply within one business day.
   vs:
-    win: Firms that start now
-    lose: Firms that wait
+    win: Companies that start now
+    lose: Companies that wait
     rows:
       - [Every inquiry answered in minutes, Inquiries wait until morning]
       - ["Contracts, invoices and reports move on their own", Your team retypes the same details]
@@ -207,7 +207,7 @@ close:
   cta: Book a consultation
 
 ask:
-  h2: Tell me about your firm.
+  h2: Tell me about your company.
   intro: What you do, where the hours go, what you want more of.
   submit: Send
   sending: Sending…

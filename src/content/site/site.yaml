@@ -127,7 +127,7 @@ photo: /headshot.png
 about:
   - I'm William. I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
   - "My work so far has been internships: data cleaning, pipelines that connect systems, and CRMs. The two builds above came out of that work."
-  - I want to get very good at this. The fastest way is to do it for firms that have the problem, and do it well enough that they tell other firms.
+  - I want to get very good at this. The fastest way is to do it for companies that have the problem, and do it well enough that they tell other companies.
 why_h3: Why me
 why:
   - I'm trained as a software engineer and I write the code myself, so it holds up after the demo. Most automation agencies hand you something beautifully packaged, with bugs and shortcuts that show up in month three.
@@ -142,7 +142,7 @@ ask_fields:
     placeholder: First name is fine
   - key: email
     label: Email
-    placeholder: you@yourfirm.com
+    placeholder: you@yourcompany.com
     required: true
     error: Enter an email address I can reply to.
   - key: phone
