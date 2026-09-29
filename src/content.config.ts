@@ -203,8 +203,8 @@ const pitches = defineCollection({
       // what the work looks like, in one picture: a message and the reply it gets. An example, labelled as one.
       scene: z.strictObject({ label: z.string(), a: msg, b: msg, tag: z.string() }).optional(),
     }),
-    // The problem, top down: three pains as questions, then the fix in one line at the same size. Then the goal and
-    // a button back to the form, then the pain in depth, then what they don't need and what they do.
+    // The problem, top down: three pains as questions, then the fix in one line at the same size, then the goal.
+    // Then the pain in depth, ending on a button back to the form.
     problem: z.strictObject({
       id: z.string(),
       questions: z.array(z.string()).length(3),
@@ -212,7 +212,6 @@ const pitches = defineCollection({
       target: z.string(),
       cta: z.string(),
       pain: prose,
-      fix: prose,
     }).optional(),
     halves: z.strictObject({
       ...head,
@@ -246,7 +245,7 @@ const pitches = defineCollection({
     // else a short contact form. After a fit: book_h/book with the calendar when the offer has a booking
     // link, thanks_h/thanks without. The build refuses a page missing the copy its offer needs.
     ask: z.strictObject({
-      h2: z.string(), intro: z.string(),
+      h2: z.string(), intro: z.string().optional(),
       assure: z.string().optional(),    // one line under the form's button, on every step
       submit: z.string(), sending: z.string(),
       cta: z.string().optional(),       // the first step's button (contact details), when the form steps
@@ -254,7 +253,7 @@ const pitches = defineCollection({
       required: z.string(), bad_email: z.string(), error: z.string(),
       thanks_h: z.string(), thanks: z.string(),
       book_h: z.string().optional(), book: z.string().optional(),
-      steps: z.strictObject({ next: z.string(), back: z.string(), pick_one: z.string(), contact_h: z.string() }).optional(),
+      steps: z.strictObject({ next: z.string(), back: z.string(), pick_one: z.string(), contact_h: z.string().optional() }).optional(),
       nofit_h: z.string().optional(), nofit: z.string().optional(),
     }),
     // The last screen: one line and a button back up to the form.

@@ -36,7 +36,7 @@ problem:
     - Have you lost a past client to another firm because you were **too busy to respond in time?**
   answer: Our system catches past clients *the moment they're hiring again,* and books the meeting for you.
   target: Our target for you is *10 new clients in 90 days.* You only pay if you get a clear return on revenue and time saved.
-  cta: Ready to win back my clients
+  cta: I'm ready to win back my clients
   pain:
     - You're not alone. Most firms your size work this way.
     - "You win a client and fill the roles. Then the next job order pulls you away. It's not that you don't care. **There's just no time.** So the loop keeps going."
@@ -47,13 +47,6 @@ problem:
         - The CRM reminder fires months late, or never.
         - When a recruiter leaves, **their relationships leave too.**
     - Every quarter, your past clients open new roles. If you don't reach them first, **another firm will.**
-  fix:
-    - "**You don't need more recruiters.** You don't need a new CRM, a BD hire, or a bigger list."
-    - You need to be there **the moment a past client starts hiring.**
-    - "That's what we build: a personalized lead reactivation system that:"
-    - - Watches every past client for new hiring windows
-      - Reaches out in your voice, under your recruiters' names
-      - Books the meeting on your calendar
 
 about:
   h2: Hi, I'm *William.*
@@ -80,8 +73,7 @@ faq:
 
 ask:
   h2: See if your firm is a fit.
-  intro: Your details, then four quick questions. If it fits, you book the call right here.
-  cta: Ready to win back my clients
+  cta: I'm ready to win back my clients
   assure: No new hires, no new tools, no extra work for your recruiters.
   submit: Send
   sending: Sending…
@@ -91,7 +83,7 @@ ask:
   required: Required
   bad_email: Enter an email I can reply to.
   error: "That didn't send. Email me instead:"
-  steps: { next: Next, back: Back, pick_one: Pick one to continue., contact_h: Where do I reach you? }
+  steps: { next: Next, back: Back, pick_one: Pick one to continue. }
   book_h: You're a fit. *Pick a time.*
   book: Thirty minutes, on video. Nothing to prepare.
   thanks_h: You're a fit. *I'll be in touch.*
@@ -103,4 +95,4 @@ ask:
 close:
   h2: Your old clients are hiring again. *Reach them first.*
   text: Your details and four quick questions, then you pick a time. Nothing to prepare.
-  cta: Ready to win back my clients
+  cta: I'm ready to win back my clients

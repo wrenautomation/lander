@@ -18,11 +18,11 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 <div class="panel" id="apply" data-apply>
   <div class="ask">
     <h2>{a.h2}</h2>
-    <p class="intro">{a.intro}</p>
+    {a.intro && <p class="intro">{a.intro}</p>}
   </div>
   <form method="post" action="/api/apply" data-lead>
     <fieldset class="step contact" data-step="0" data-contact>
-      {a.steps && <legend>{a.steps.contact_h}</legend>}
+      {a.steps?.contact_h && <legend>{a.steps.contact_h}</legend>}
       <div class="fields">
         <label class="field"><span>{a.name}</span><input name="name" type="text" autocomplete="name"></label>
         <label class="field"><span>{a.email} <small>{a.required}</small></span><input name="email" type="email" autocomplete="email" required><em class="fe" data-error>{a.bad_email}</em></label>
