@@ -51,6 +51,10 @@
 - D28 (2026-09-29). Importance by size and tone: in watch, the clients that aren't hiring get crossed through one by one with the reason (no open roles, hiring freeze, filled in-house, quiet), smaller and grey; the sources that didn't fire fade and their wires go faint. The spark loses its duplicate "Job posts +3". The line between diagrams waits for its diagram to finish, then catches up to the scroll. Phones get the line too, down the left margin past the words, into the next diagram. Phone diagrams now run full width (a desktop centering rule had shrunk them).
 - D29 (2026-09-29). The phone's floating button is gone: the sticky bar already carries the same button, every section has its own, and the float covered the diagrams and the margin line. It was the page's only shadow.
 
+### D30 (2026-09-29): About after the FAQ, business-framed proof
+
+About moves below the FAQ, so the reader meets the person after objections are handled, right before the close. Nav follows: Questions, then About. Internship proof reuses the portfolio's resume numbers (17,000+ staff, 220+ policy documents, 7,000+ papers, 200+ hours) but says what the user got, not what stack was used. Close line is William's: do such a good job that you'll tell every other business owner you know.
+
 ## Next
 
 - The VSL, once the file exists: in the hero under the subhead, beside the form on desktop, above it on phones.

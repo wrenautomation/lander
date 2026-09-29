@@ -11,8 +11,8 @@ form_value: recruiting
 
 nav:
   - { label: How it works, to: "#how" }
-  - { label: About, to: "#about" }
   - { label: Questions, to: "#faq" }
+  - { label: About, to: "#about" }
 nav_cta: Win back my clients
 
 hero:
@@ -67,9 +67,9 @@ about:
   h2: Hi, I'm *William.*
   paras:
     - I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
-    - "Two of my internships are close to what I'd build for you. At the Government of Canada, I built an internal chatbot tool used across the department, saving thousands of hours."
-    - At the University of Alberta, I turned terabytes of experiment files into one database anyone could audit, and automated citation tracking and insights. That saved the lead professor 8+ hours a week. Like you, he was the decision maker, and his time was the scarcest thing in the lab.
-    - I want long-term, rewarding relationships with everyone I work with. If I do my job well, you'll tell other owners about me.
+    - Two of my internships are close to what I'd build for you. At the Government of Canada, I built an AI assistant that lets 17,000+ officers and staff get straight answers from 220+ policy documents.
+    - At the University of Alberta, I turned terabytes of experiment files into one database anyone could audit, and automated citation tracking across 7,000+ papers. That cut 200+ hours of manual lookups and saved the lead professor 8+ hours a week. Like you, he was the decision maker, and his time was the scarcest thing in the lab.
+    - I build long-term relationships. I want to do such a good job that you'll tell every other business owner you know about me.
   photo: /headshot.png
   sign: William Jin · Toronto
   cta: Get in touch

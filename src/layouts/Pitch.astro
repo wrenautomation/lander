@@ -138,6 +138,17 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
 </section>
 )}
 
+<section class="sec faq" id="faq">
+  <div class="wrap grid">
+    <div class="head sticky"><h2 set:html={rich(p.faq.h2)} /></div>
+    <div class="qa">
+      {p.faq.items.map((x) => (
+        <div><h3>{x.q}</h3><p>{x.a}</p></div>
+      ))}
+    </div>
+  </div>
+</section>
+
 <section class="sec about" id="about">
   <div class="wrap grid">
     <img class="photo" src={p.about.photo} alt={site.name} width="640" height="640" loading="lazy">
@@ -146,17 +157,6 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
       {p.about.paras.map((x) => <p class="para">{x}</p>)}
       <p class="sign">{p.about.sign}</p>
       {p.about.cta && <a class="btn" href="#apply" data-cta><span>{p.about.cta}</span><Arrow /></a>}
-    </div>
-  </div>
-</section>
-
-<section class="sec faq" id="faq">
-  <div class="wrap grid">
-    <div class="head sticky"><h2 set:html={rich(p.faq.h2)} /></div>
-    <div class="qa">
-      {p.faq.items.map((x) => (
-        <div><h3>{x.q}</h3><p>{x.a}</p></div>
-      ))}
     </div>
   </div>
 </section>
