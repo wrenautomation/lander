@@ -228,7 +228,9 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 - Sticky white bar, 64px (56px on phones), ink rule below. The stamp (the pfp: a cream bird on a 32px rust square, 28px on phones) and the name left, text links, the rust button right. Links hide under 820px.
 
 ### Problem (problem, agitate, solve)
-- One column, top down. Three checkmarked questions and the fix line at one size, then the goal and the button, then the pain in depth (the bad things crossed out with rust X marks), then what they don't need and what they do. Marks are rust lines, not fills. Short paragraphs, lots of air.
+- One column, top down. Three unmarked questions and the fix line at one size, then the goal and the button, then the pain, then what they don't need and what they do.
+- The pain is compact and steers the eye: a big first line, a smaller grey middle with the key phrases in ink, the bad things crossed out, a big last line. Tight gaps.
+- The X is a true red (#D2281E, `--bad`), set apart from the rust. The fix's checkmarks stay rust.
 
 ### Steps timeline
 - A hairline rail that fills rust as you scroll. Round nodes turn rust as the fill passes. Step timing beside the step name. A diagram under each step's text.

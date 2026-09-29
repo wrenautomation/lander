@@ -11,14 +11,14 @@ const { s } = Astro.props;
 ---
 <section class="sec problem" id={s.id}>
   <div class="wrap col">
-    <ul class="checks qs">{s.questions.map((q) => <li set:html={rich(q)} />)}</ul>
+    <ul class="qs">{s.questions.map((q) => <li set:html={rich(q)} />)}</ul>
     <h2 set:html={rich(s.answer)} />
     <div class="target">
       <p set:html={rich(s.target)} />
       <a class="btn ink" href="#apply" data-cta><span>{s.cta}</span><Arrow /></a>
     </div>
     {[s.pain, s.fix].map((body, i) => (
-      <div class:list={['prose', { fix: i === 1 }]}>
+      <div class:list={['prose', i ? 'fix' : 'pain']}>
         {body.map((b) =>
           typeof b === 'string' ? <p set:html={rich(b)} />
           : Array.isArray(b) ? <ul class="checks">{b.map((x) => <li set:html={rich(x)} />)}</ul>
