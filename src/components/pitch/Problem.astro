@@ -6,7 +6,7 @@ import { rich } from '../../lib/text';
 import Arrow from './Arrow.astro';
 
 type Item = string | string[] | { bad: string[] };
-interface Props { s: { id: string; questions: string[]; answer: string; target: string; cta: string; pain: Item[] } }
+interface Props { s: { id: string; questions: string[]; answer: string; target: string; target_cta?: string; cta: string; pain: Item[] } }
 const { s } = Astro.props;
 ---
 <section class="sec problem" id={s.id}>
@@ -14,6 +14,7 @@ const { s } = Astro.props;
     <ul class="qs">{s.questions.map((q) => <li set:html={rich(q)} />)}</ul>
     <h2 set:html={rich(s.answer)} />
     <p class="target" set:html={rich(s.target)} />
+    {s.target_cta && <a class="btn" href="#apply" data-cta><span>{s.target_cta}</span><Arrow /></a>}
   </div>
 </section>
 <section class="sec agitate">

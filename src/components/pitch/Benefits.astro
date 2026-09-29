@@ -1,0 +1,25 @@
+---
+// The three benefits: one row each, the flow diagram on one side and the headline, a line and the button on the
+// other, swapping sides row to row. One line runs down the section from each diagram into the next (desktop).
+import { rich } from '../../lib/text';
+import Arrow from './Arrow.astro';
+import Flow from './Flow.astro';
+
+interface Props { s: { id: string; cta: string; items: { flow: 'watch' | 'reach' | 'book'; h2: string; text: string }[] } }
+const { s } = Astro.props;
+---
+<section class="sec benefits" id={s.id}>
+  <div class="wrap" data-flows>
+    <svg class="joins" aria-hidden="true" data-joins></svg>
+    {s.items.map((b, k) => (
+      <div class:list={['bn', { flip: k % 2 }]}>
+        <Flow kind={b.flow} />
+        <div class="say">
+          <h2 set:html={rich(b.h2)} />
+          <p set:html={rich(b.text)} />
+          <a class="btn" href="#apply" data-cta><span>{s.cta}</span><Arrow /></a>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

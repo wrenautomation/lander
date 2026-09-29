@@ -285,7 +285,7 @@ label.field small{font-size:12px;margin-left:6px}
 /* the problem: a full-width screen of three questions and the fix line, one size, then the goal */
 .problem .qs,.problem h2{font-size:clamp(24px,1rem + 1.9vw,46px);font-weight:500;letter-spacing:-.025em;line-height:1.18;text-wrap:balance;max-width:none}
 .problem .qs{display:grid;gap:.45em}
-.problem h2{margin-top:clamp(24px,3vw,44px);padding-top:clamp(24px,3vw,44px);border-top:1px solid var(--ink)}
+.problem h2{margin-top:clamp(22px,2.2vw,36px);padding-top:clamp(22px,2.2vw,36px);border-top:1px solid var(--ink)}
 .target{margin-top:clamp(16px,2vw,28px);font-size:clamp(18px,1rem + .3vw,21px);line-height:1.45}
 .target em{font-style:normal;font-weight:600}
 /* the pain, its own screen: big first and last lines, a smaller grey middle with the key phrases in ink, tight gaps */
@@ -299,6 +299,143 @@ label.field small{font-size:12px;margin-left:6px}
 .pain p:last-child{margin-top:.6em}
 .agitate{padding-block:clamp(56px,6vw,96px)}
 .agitate .btn{margin-top:clamp(20px,2.5vw,28px)}
+
+/* the goal's button, under the goal */
+.problem .btn{margin-top:clamp(18px,2.2vw,28px)}
+
+/* the benefits: three rows, a flow diagram beside the words, sides swapping row to row. One line runs down the
+   section from each diagram into the next (desktop only; stacked rows would cross the words). */
+.benefits{padding-block:clamp(56px,6vw,96px)}
+.benefits .wrap{position:relative}
+.bn{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--cg);align-items:center}
+.bn+.bn{margin-top:clamp(72px,8vw,120px)}
+.bn .flow{grid-column:1/8;grid-row:1}
+.bn .say{grid-column:8/13;grid-row:1;padding-left:clamp(0px,1.6vw,28px)}
+.bn.flip .flow{grid-column:6/13}
+.bn.flip .say{grid-column:1/6;padding:0 clamp(0px,1.6vw,28px) 0 0}
+.say h2{font-size:clamp(26px,1rem + 1.3vw,40px);letter-spacing:-.025em;line-height:1.12}
+.say p{margin-top:1rem;font-size:18px;line-height:1.5;color:var(--ink-2);max-width:30em}
+.say .btn{margin-top:clamp(20px,2.4vw,30px)}
+.joins{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:2}
+@media (max-width:899px){
+  .bn{display:flex;flex-direction:column-reverse;gap:32px}
+  .bn .say,.bn.flip .say{padding:0}
+  .joins{display:none}
+}
+
+/* a flow: white nodes on a dotted canvas, wired in code; rust marks the live thing */
+.flow{position:relative;display:grid;gap:40px 52px;align-items:start;padding:clamp(20px,2.6vw,40px);background:var(--paper-2) radial-gradient(rgba(14,14,14,.17) 1px,transparent 1.4px) 0 0/16px 16px;font-size:13.5px;line-height:1.35}
+.flow .edges{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+:is(.edges,.joins) path{fill:none;stroke:var(--ink-3);stroke-width:1.25}
+:is(.edges,.joins) .port{fill:var(--paper);stroke:var(--ink-3);stroke-width:1.25}
+:is(.edges,.joins) .dot{fill:var(--acc);opacity:0}
+.fn{position:relative;z-index:1;min-width:0;background:var(--paper);padding:14px 16px 16px}
+.fn .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--rule);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
+.fn .hd span{font-size:12px;font-weight:500;letter-spacing:0;text-transform:none}
+.flow i svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round}
+.av{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--paper-2);font-size:11px;font-weight:600;color:var(--ink-2)}
+
+/* watch: the client list, the signals, the alert */
+.watch{grid-template-columns:1.35fr 1fr;grid-template-areas:"list sig" "list alert"}
+.watch .list{grid-area:list;align-self:stretch}
+.watch .sig{grid-area:sig}
+.watch .alert{grid-area:alert}
+.list ol{overflow:hidden}
+.list li{position:relative;display:flex;align-items:center;gap:10px;height:46px;padding:0 10px;background:var(--paper);border-top:1px solid var(--rule);transition:background-color .45s var(--out),color .45s var(--out)}
+.list li:first-child{border-top-color:transparent}
+.list .nm{flex:1;min-width:0;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.list :is(.was,.now){font-size:12px;color:var(--ink-2);white-space:nowrap}
+.list li:not(.lit) .now,.list li.lit .was{display:none}
+.list li.lit{z-index:1;background:var(--ink);color:var(--paper)}
+.list li.lit .now{display:flex;align-items:center;gap:7px;color:var(--paper);font-weight:500}
+.list li.lit .now::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc)}
+.icons{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;font-size:11.5px;color:var(--ink-2)}
+.icons i{display:grid;place-items:center;width:32px;height:32px;margin:0 auto 6px;border-radius:50%;border:1px solid var(--rule);color:var(--ink);outline:1px solid transparent;outline-offset:3px;transition:border-color .4s var(--out),color .4s var(--out),outline-color .4s var(--out)}
+.flow i b{font-size:12.5px;font-weight:700;letter-spacing:-.03em}
+.icons .hit{color:var(--acc)}
+.icons .hit i{border-color:var(--acc);color:var(--acc);outline-color:rgba(168,59,18,.35)}
+.spark{position:relative;margin-top:14px}
+.spark svg{display:block;width:100%;height:40px;overflow:visible}
+.spark path{fill:none;stroke:var(--ink);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.spark .tip{position:absolute;right:-3.5px;top:.5px;width:7px;height:7px;border-radius:50%;background:var(--acc)}
+.spark p{display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:var(--ink-2)}
+.spark p b{color:var(--acc);font-weight:600}
+.alert{display:flex;align-items:center;gap:12px}
+.bell{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--acc);color:var(--cream)}
+.alert b{display:block;font-weight:600}
+.alert span{font-size:12px;color:var(--ink-2)}
+
+/* reach: the message, the approval, the send */
+.reach{grid-template-columns:1.35fr 1fr;grid-template-areas:"msg ok" "msg send"}
+.reach .draft{grid-area:msg;align-self:stretch;display:flex;flex-direction:column}
+.reach .ok{grid-area:ok}
+.reach .send{grid-area:send}
+.fn .hd .voice{display:inline-flex;align-items:center;gap:6px;color:var(--acc)}
+.voice::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.from{display:flex;align-items:center;gap:10px}
+.from b{display:block;font-weight:600}
+.from span{font-size:12px;color:var(--ink-2)}
+.to{margin-top:12px;padding-top:10px;border-top:1px solid var(--rule);font-size:12px;color:var(--ink-2)}
+.draft .body{margin-top:8px;font-size:14.5px;line-height:1.5}
+.draft .body .rest{visibility:hidden}
+.draft .why{margin-top:auto;padding-top:10px;border-top:1px solid var(--rule);font-size:12px;color:var(--ink-2)}
+.draft .why b{display:block;margin-bottom:4px;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
+.draft .why li{display:flex;align-items:center;gap:7px;padding-block:2px}
+.draft .why li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--ink-3)}
+.draft .body.typing .shown::after{content:"";display:inline-block;width:1.5px;height:1.05em;margin-left:1px;vertical-align:-.15em;background:var(--ink);animation:blink 1s steps(1) infinite}
+.ok{position:relative}
+.press{position:relative;display:block;height:40px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.press>span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .3s var(--out)}
+.press .a{background:var(--paper-2)}
+.press .b{background:var(--ink);color:var(--paper);opacity:0}
+.ok.done .a{opacity:0}
+.ok.done .b{opacity:1}
+.press svg{width:14px;height:14px;fill:none;stroke:var(--acc);stroke-width:1.8}
+.ptr{position:absolute;right:30%;bottom:8px;width:18px;height:18px;fill:var(--ink);stroke:var(--paper);stroke-width:1;opacity:0}
+.send li{display:flex;align-items:center;gap:10px;padding-block:6px;font-weight:500;color:var(--ink-3);transition:color .4s var(--out)}
+.send li+li{border-top:1px solid var(--rule)}
+.send li i{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;border:1px solid var(--rule);transition:border-color .4s var(--out)}
+.send li span{display:flex;align-items:center;gap:6px;margin-left:auto;font-size:12px;font-weight:400;color:var(--ink-2)}
+.send li.sent{color:var(--ink)}
+.send li.sent i{border-color:var(--ink)}
+.send li.sent span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc)}
+
+/* book: the replies, the calendar, the count */
+.book{grid-template-columns:1.25fr 1fr;grid-template-areas:"inbox cal" "count cal"}
+.book .inbox{grid-area:inbox}
+.book .sched{grid-area:cal;align-self:stretch;display:flex;flex-direction:column}
+.book .count{grid-area:count}
+.inbox li{display:flex;align-items:center;gap:10px;padding:8px;transition:background-color .45s var(--out),color .45s var(--out),opacity .45s var(--out)}
+.inbox li+li{border-top:1px solid var(--rule)}
+.inbox li p{flex:1;min-width:0}
+.inbox li b{display:block;font-weight:600}
+.inbox li p span{display:block;font-size:12px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .45s var(--out)}
+.inbox em{display:flex;align-items:center;gap:6px;font-style:normal;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
+.inbox.sorted .warm{background:var(--ink);color:var(--paper)}
+.inbox.sorted .warm :is(span,em){color:var(--paper)}
+.inbox.sorted .warm .av{background:rgba(255,255,255,.14);color:var(--paper)}
+.inbox.sorted .warm em::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc)}
+.inbox.sorted .cold{opacity:.5}
+.week{flex:1;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:auto repeat(8,minmax(17px,1fr));gap:3px}
+.day{grid-row:1;padding-bottom:4px;font-size:11px;color:var(--ink-2);text-align:center}
+.busy{background:var(--paper-2)}
+.slot{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:0 5px;background:var(--ink);color:var(--paper);font-size:10.5px;font-weight:600;line-height:1.15;transform-origin:top}
+.slot span{font-weight:500;overflow:hidden;text-overflow:ellipsis}
+.note{display:flex;align-items:center;gap:7px;margin-top:12px;font-size:12.5px;font-weight:600}
+.note i{width:7px;height:7px;border-radius:50%;background:var(--acc)}
+.cnt{display:flex;align-items:flex-end;gap:14px}
+.cnt b{min-width:1.15em;font-size:44px;font-weight:500;letter-spacing:-.04em;line-height:.85;font-variant-numeric:tabular-nums}
+.segs{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:3px;padding-bottom:3px}
+.segs i{height:10px;background:var(--ink);transition:background-color .3s var(--out)}
+.segs i.off{background:var(--paper-2)}
+
+@media (max-width:719px){
+  .bn .flow{margin-inline:calc(-1 * var(--gut))}
+  .flow{grid-template-columns:1fr;gap:28px;padding:20px var(--gut)}
+  .watch{grid-template-areas:"list" "sig" "alert"}
+  .reach{grid-template-areas:"msg" "ok" "send"}
+  .book{grid-template-areas:"inbox" "cal" "count"}
+}
 
 /* the two halves */
 .split{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--ink)}

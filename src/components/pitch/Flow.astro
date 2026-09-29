@@ -1,0 +1,112 @@
+---
+// One step of the reactivation flow, drawn as a node diagram on a dotted canvas. The three steps are one story:
+// a past client starts hiring (watch), gets a message from their old recruiter (reach), replies and lands on the
+// calendar (book). Names are made up. The markup is the finished state; pitch.ts draws the wires between nodes
+// (data-edges, "from>to") and, with motion on, plays each step in. data-out and data-in mark where the line
+// down the section leaves one diagram and enters the next.
+interface Props { kind: 'watch' | 'reach' | 'book' }
+const { kind } = Astro.props;
+
+const I = {
+  jobs: 'M2.5 5.5h11v8h-11zM6 5.5V3.5h4v2M2.5 9h11',
+  funding: 'M2 12l4-4 3 3 5-6M10.5 5H14v3.5',
+  news: 'M2.5 3h11v10h-11zM5 6h6M5 8.5h6M5 11h3.5',
+  bell: 'M4 11V7.5a4 4 0 0 1 8 0V11l1.5 1.5h-11zM6.5 14.5h3',
+  mail: 'M2 3.5h12v9H2zM2 4.5l6 4.5 6-4.5',
+  text: 'M2.5 3.5h11V11H7l-3 2.5V11H2.5z',
+  check: 'M3.5 8.5l3 3 6-7',
+};
+const clients = [
+  { name: 'Cobalt Freight', was: 'Last hire Mar 2024', now: 'Posted 3 roles today' },
+  { name: 'Alder Health', was: 'Last hire Nov 2023' },
+  { name: 'Pine & Oak Legal', was: 'Last hire Jun 2024' },
+  { name: 'Juniper Labs', was: 'Last hire Jan 2024' },
+  { name: 'Northfield Foods', was: 'Last hire Aug 2023' },
+];
+const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+const busy = [[1, 2, 4], [2, 5, 7], [3, 3, 4], [4, 2, 3], [5, 6, 8], [1, 7, 8], [3, 8, 9]]; // [day, from row, to row]
+---
+{kind === 'watch' && (
+<figure class="flow watch" data-flow="watch" data-edges="list>sig sig>alert" aria-hidden="true">
+  <svg class="edges" data-edges-svg></svg>
+  <div class="fn list" data-node="list">
+    <p class="hd">Past clients<span>from your ATS</span></p>
+    <ol data-rows>
+      {clients.map((c) => (
+        <li class:list={{ lit: c.now }}><span class="nm">{c.name}</span><span class="was">{c.was}</span>{c.now && <span class="now">{c.now}</span>}</li>
+      ))}
+    </ol>
+  </div>
+  <div class="fn sig" data-node="sig">
+    <p class="hd">Hiring signals</p>
+    <ul class="icons">
+      <li><i><b>in</b></i>LinkedIn</li>
+      <li class="hit"><i><svg viewBox="0 0 16 16"><path d={I.jobs} /></svg></i>Job posts</li>
+      <li><i><svg viewBox="0 0 16 16"><path d={I.funding} /></svg></i>Funding</li>
+      <li><i><svg viewBox="0 0 16 16"><path d={I.news} /></svg></i>News</li>
+    </ul>
+    <div class="spark">
+      <svg viewBox="0 0 200 40" preserveAspectRatio="none"><path d="M0 34 L22 33 L44 35 L66 32 L88 34 L110 31 L132 33 L154 30 L172 26 L186 12 L200 4" /></svg>
+      <i class="tip"></i>
+      <p>Cobalt Freight, job posts<b>+3</b></p>
+    </div>
+  </div>
+  <div class="fn alert" data-node="alert" data-out>
+    <i class="bell"><svg viewBox="0 0 16 16"><path d={I.bell} /></svg></i>
+    <p><b>Cobalt Freight is hiring</b><span>3 roles posted today, 9:14 am</span></p>
+  </div>
+</figure>
+)}
+
+{kind === 'reach' && (
+<figure class="flow reach" data-flow="reach" data-edges="msg>ok ok>send" aria-hidden="true">
+  <svg class="edges" data-edges-svg></svg>
+  <div class="fn draft" data-node="msg" data-in>
+    <p class="hd">New message<span class="voice">Your brand voice</span></p>
+    <div class="from"><span class="av">MP</span><p><b>Maya Patel</b><span>Senior Recruiter, your firm</span></p></div>
+    <p class="to">To: Dana Ruiz, Cobalt Freight</p>
+    <p class="body" data-type>Hi Dana, saw Cobalt just opened 3 dispatch roles. We filled your last two in under three weeks. Want a shortlist by Friday?</p>
+    <div class="why"><b>Written from</b><ul><li>Your last placements with Cobalt, 2024</li><li>3 dispatch roles posted today</li></ul></div>
+  </div>
+  <div class="fn ok done" data-node="ok">
+    <p class="hd">Your approval</p>
+    <span class="press"><span class="a">Approve</span><span class="b"><svg viewBox="0 0 16 16"><path d={I.check} /></svg>Approved</span></span>
+    <svg class="ptr" viewBox="0 0 16 16"><path d="M3 1.5l10 6-4.4 1.2L6.6 13z" /></svg>
+  </div>
+  <div class="fn send" data-node="send" data-out>
+    <p class="hd">Sent as Maya</p>
+    <ul>
+      <li class="sent"><i><svg viewBox="0 0 16 16"><path d={I.mail} /></svg></i>Email<span>Day 1</span></li>
+      <li class="sent"><i><b>in</b></i>LinkedIn<span>Day 3</span></li>
+      <li class="sent"><i><svg viewBox="0 0 16 16"><path d={I.text} /></svg></i>Text<span>Day 6</span></li>
+    </ul>
+  </div>
+</figure>
+)}
+
+{kind === 'book' && (
+<figure class="flow book" data-flow="book" data-edges="inbox>cal cal>count" aria-hidden="true">
+  <svg class="edges" data-edges-svg></svg>
+  <div class="fn inbox sorted" data-node="inbox" data-in>
+    <p class="hd">Replies, sorted</p>
+    <ul>
+      <li class="warm"><span class="av">DR</span><p><b>Dana Ruiz</b><span>Good timing. Does Thursday work?</span></p><em>Warm</em></li>
+      <li class="cold"><span class="av">TR</span><p><b>Tom Reyes</b><span>Out of office until Monday</span></p><em>Later</em></li>
+      <li class="cold"><span class="av">PS</span><p><b>Priya Shah</b><span>No new roles until spring</span></p><em>Not now</em></li>
+    </ul>
+  </div>
+  <div class="fn sched" data-node="cal">
+    <p class="hd">Your calendar</p>
+    <div class="week">
+      {days.map((d, k) => <span class="day" style={`grid-column:${k + 1}`}>{d}</span>)}
+      {busy.map(([d, a, b]) => <i class="busy" style={`grid-column:${d};grid-row:${a}/${b}`}></i>)}
+      <b class="slot" style="grid-column:4;grid-row:7/9">2:00<span>Cobalt</span></b>
+    </div>
+    <p class="note"><i></i>Thu 2:00 pm, booked</p>
+  </div>
+  <div class="fn count" data-node="count">
+    <p class="hd">New clients</p>
+    <div class="cnt"><b data-count>10</b><span class="segs">{Array.from({ length: 10 }, () => <i></i>)}</span></div>
+  </div>
+</figure>
+)}

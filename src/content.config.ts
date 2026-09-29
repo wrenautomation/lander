@@ -210,8 +210,17 @@ const pitches = defineCollection({
       questions: z.array(z.string()).length(3),
       answer: z.string(),
       target: z.string(),
+      target_cta: z.string().optional(), // a button under the goal
       cta: z.string(),
       pain: prose,
+    }).optional(),
+    // Three benefits, one row each: a flow diagram beside the headline, sides swapping row to row. The diagrams
+    // are one flow (watch, reach, book) drawn in code (components/pitch/Flow.astro), joined by one line down the
+    // section. Each row ends on the button.
+    benefits: z.strictObject({
+      id: z.string(),
+      cta: z.string(),
+      items: z.array(z.strictObject({ flow: z.enum(['watch', 'reach', 'book']), h2: z.string(), text: z.string() })).length(3),
     }).optional(),
     halves: z.strictObject({
       ...head,

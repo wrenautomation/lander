@@ -83,7 +83,7 @@ if (motion) {
   }
 
   // blocks rise in, in reading order, a few at a time
-  const ups = $$('.sec .intro, .qs li, .pain>*, .target, .agitate .btn, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .about .photo, .about .para, .sign, .qa>div, .close p, .close .btn');
+  const ups = $$('.sec .intro, .qs li, .pain>*, .target, .problem .btn, .agitate .btn, .say p, .say .btn, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .about .photo, .about .para, .sign, .qa>div, .close p, .close .btn');
   gsap.set(ups, { opacity: 0, y: 48 });
   ScrollTrigger.batch(ups, { start: 'top 90%', once: true, onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: OUT, stagger: 0.08, overwrite: true }) });
 
@@ -134,6 +134,200 @@ if (motion) {
   }
 
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
+}
+
+/* ---------- the flows: node diagrams wired in code, one line down the section through all three ---------- */
+// The wires are drawn with motion on or off; motion only plays each diagram in and runs the line as you scroll.
+type Box = { x: number; y: number; w: number; h: number };
+type Wire = { path: SVGPathElement; ends: SVGCircleElement[]; dot: SVGCircleElement };
+const flowsBox = $('[data-flows]');
+if (flowsBox) {
+  const NS = 'http://www.w3.org/2000/svg';
+  // where an element sits inside `box`, ignoring transforms: nodes move in, the wires stay where they'll land
+  const boxIn = (el: HTMLElement, box: HTMLElement): Box => {
+    let x = 0, y = 0, n: HTMLElement | null = el;
+    while (n && n !== box) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent as HTMLElement | null; }
+    return { x, y, w: el.offsetWidth, h: el.offsetHeight };
+  };
+  // side by side: out the right, in the left (or mirrored). Stacked: out the bottom, in the top.
+  const curve = (a: Box, b: Box) => {
+    const right = b.x >= a.x + a.w - 1, left = b.x + b.w <= a.x + 1;
+    if (right || left) {
+      const x1 = right ? a.x + a.w : a.x, x2 = right ? b.x : b.x + b.w, y1 = a.y + a.h / 2, y2 = b.y + b.h / 2;
+      const c = Math.max(20, Math.abs(x2 - x1) / 2) * (right ? 1 : -1);
+      return `M${x1} ${y1}C${x1 + c} ${y1} ${x2 - c} ${y2} ${x2} ${y2}`;
+    }
+    const x1 = a.x + a.w / 2, y1 = a.y + a.h, x2 = b.x + b.w / 2, y2 = b.y, c = Math.max(16, (y2 - y1) / 2);
+    return `M${x1} ${y1}C${x1} ${y1 + c} ${x2} ${y2 - c} ${x2} ${y2}`;
+  };
+  // between diagrams: down, across the gap between rows on rounded corners, down again
+  const elbow = (x1: number, y1: number, x2: number, y2: number, ym: number) => {
+    const s = Math.sign(x2 - x1), r = Math.min(18, Math.abs(x2 - x1) / 2, (y2 - y1) / 4);
+    if (!s || r < 2) return `M${x1} ${y1}C${x1} ${ym} ${x2} ${ym} ${x2} ${y2}`;
+    return `M${x1} ${y1}V${ym - r}Q${x1} ${ym} ${x1 + s * r} ${ym}H${x2 - s * r}Q${x2} ${ym} ${x2} ${ym + r}V${y2}`;
+  };
+  const make = (svg: SVGSVGElement): Wire => {
+    const el = <T extends SVGElement>(tag: string, cls = '') => { const e = document.createElementNS(NS, tag) as T; if (cls) e.setAttribute('class', cls); e.setAttribute('r', '3.5'); svg.append(e); return e; };
+    const path = el<SVGPathElement>('path');
+    path.removeAttribute('r');
+    return { path, ends: [el<SVGCircleElement>('circle', 'port'), el<SVGCircleElement>('circle', 'port')], dot: el<SVGCircleElement>('circle', 'dot') };
+  };
+  const len = (w: Wire) => { try { return w.path.getAttribute('d') ? w.path.getTotalLength() : 0; } catch { return 0; } };
+  const at = (w: Wire, t: number) => {
+    const L = len(w);
+    if (!L) return;
+    const q = w.path.getPointAtLength(L * t);
+    w.dot.setAttribute('cx', `${q.x}`); w.dot.setAttribute('cy', `${q.y}`);
+  };
+  // t = how much of the wire is drawn; the dot rides its head
+  const drawn = new WeakMap<Wire, number>();
+  const draw = (w: Wire, t: number) => {
+    drawn.set(w, t);
+    const L = len(w), p = w.path.style;
+    p.strokeDasharray = t >= 1 ? '' : `${L} ${L}`;
+    p.strokeDashoffset = t >= 1 ? '' : `${L * (1 - t)}`;
+    w.ends[0].style.opacity = t > 0 ? '' : '0';
+    w.ends[1].style.opacity = t >= 1 ? '' : '0';
+    w.dot.style.opacity = t > 0 && t < 1 ? '1' : '0';
+    at(w, t);
+  };
+  const shape = (w: Wire, d: string) => {
+    w.path.setAttribute('d', d);
+    const L = len(w);
+    if (!L) return;
+    [0, L].forEach((l, k) => { const q = w.path.getPointAtLength(l); w.ends[k].setAttribute('cx', `${q.x}`); w.ends[k].setAttribute('cy', `${q.y}`); });
+    if (drawn.has(w)) draw(w, drawn.get(w)!);
+  };
+
+  const flows = $$('[data-flow]', flowsBox);
+  const edges = (f: HTMLElement) => f.dataset.edges!.split(' ').map((e) => e.split('>'));
+  const node = (f: HTMLElement, n: string) => $(`[data-node="${n}"]`, f)!;
+  const wires = new Map(flows.map((f) => [f, edges(f).map(() => make($<SVGSVGElement>('[data-edges-svg]', f)!))]));
+  const joinSvg = $<SVGSVGElement>('[data-joins]', flowsBox)!;
+  const joins = flows.slice(1).map(() => make(joinSvg));
+  const layout = () => {
+    for (const f of flows) {
+      $('[data-edges-svg]', f)!.setAttribute('viewBox', `0 0 ${f.offsetWidth} ${f.offsetHeight}`);
+      edges(f).forEach(([a, b], k) => shape(wires.get(f)![k], curve(boxIn(node(f, a), f), boxIn(node(f, b), f))));
+    }
+    if (getComputedStyle(joinSvg).display === 'none') return;
+    joinSvg.setAttribute('viewBox', `0 0 ${flowsBox.offsetWidth} ${flowsBox.offsetHeight}`);
+    joins.forEach((w, k) => {
+      const A = flows[k], B = flows[k + 1], fa = boxIn(A, flowsBox), fb = boxIn(B, flowsBox);
+      const a = boxIn($('[data-out]', A)!, flowsBox), b = boxIn($('[data-in]', B)!, flowsBox);
+      shape(w, elbow(a.x + a.w / 2, a.y + a.h, b.x + b.w / 2, b.y, (fa.y + fa.h + fb.y) / 2));
+    });
+  };
+  layout();
+  const ro = new ResizeObserver(layout);
+  for (const el of [flowsBox, ...flows]) ro.observe(el);
+
+  if (motion) {
+    type Play = (f: HTMLElement, tl: gsap.core.Timeline, ws: Wire[]) => void;
+    const wire = (tl: gsap.core.Timeline, w: Wire, pos: number, duration = 0.6) => {
+      const o = { t: 0 };
+      draw(w, 0);
+      tl.to(o, { t: 1, duration, ease: 'power1.inOut', onUpdate: () => draw(w, o.t) }, pos);
+    };
+    const nodes = (f: HTMLElement) => $$('.fn', f);
+    const PLAY: Record<string, Play> = {
+      // the list sits grey; the signals come up, one spikes; that client lights and jumps to the top; the alert
+      watch: (f, tl, ws) => {
+        const rows = $$('[data-rows] li', f), hot = rows[0], sig = node(f, 'sig'), hit = $('.icons .hit', sig)!;
+        const spark = $('.spark svg', sig), alert = node(f, 'alert');
+        hot.classList.remove('lit'); hit.classList.remove('hit');
+        gsap.set(rows, { opacity: 0 });
+        gsap.set(hot, { yPercent: 200 });
+        gsap.set(rows.slice(1, 3), { yPercent: -100 });
+        gsap.set($$('.icons i', sig), { scale: 0 });
+        gsap.set(spark, { clipPath: 'inset(-40% 100% -40% 0)' });
+        gsap.set($$('.spark :is(.tip,p)', sig), { opacity: 0 });
+        tl.to(node(f, 'list'), { opacity: 1, y: 0 }, 0)
+          .to(rows, { opacity: 1, duration: 0.4, stagger: 0.07 }, 0.15);
+        wire(tl, ws[0], 0.7);
+        tl.to(sig, { opacity: 1, y: 0 }, 1.1)
+          .to($$('.icons i', sig), { scale: 1, duration: 0.5, stagger: 0.08, ease: 'back.out(2.5)' }, 1.25)
+          .to(spark, { clipPath: 'inset(-40% 0% -40% 0)', duration: 1.1, ease: 'power1.inOut' }, 1.6)
+          .call(() => hit.classList.add('hit'), [], 2.55)
+          .to($$('.spark :is(.tip,p)', sig), { opacity: 1, duration: 0.3 }, 2.6)
+          .call(() => hot.classList.add('lit'), [], 2.9)
+          .to([hot, ...rows.slice(1, 3)], { yPercent: 0, duration: 0.8, ease: 'power3.inOut' }, 3.3);
+        wire(tl, ws[1], 4.0);
+        tl.to(alert, { opacity: 1, y: 0 }, 4.5)
+          .fromTo($('.bell', alert), { rotate: -20 }, { rotate: 0, duration: 1, ease: 'elastic.out(1.2,0.3)' }, 4.6);
+      },
+      // what the message is written from shows first, then it types itself in the recruiter's name; you approve; it goes out email, then LinkedIn, then text
+      reach: (f, tl, ws) => {
+        const msg = node(f, 'msg'), ok = node(f, 'ok'), body = $('[data-type]', msg)!, full = body.textContent!.trim();
+        const shown = document.createElement('span'), rest = document.createElement('span');
+        shown.className = 'shown'; rest.className = 'rest'; rest.textContent = full; body.replaceChildren(shown, rest);
+        const ptr = $('.ptr', ok), lis = $$('.send li', f), o = { n: 0 };
+        ok.classList.remove('done'); lis.forEach((l) => l.classList.remove('sent'));
+        gsap.set($('.voice', msg), { opacity: 0 });
+        gsap.set($$('.why li', msg), { opacity: 0, x: -8 });
+        gsap.set(ptr, { opacity: 0, x: 40, y: 26 });
+        tl.to(msg, { opacity: 1, y: 0 }, 0)
+          .to($$('.why li', msg), { opacity: 1, x: 0, duration: 0.4, stagger: 0.15 }, 0.25)
+          .call(() => body.classList.add('typing'), [], 0.4)
+          .to(o, { n: full.length, duration: 2.4, ease: 'none', onUpdate: () => { const k = Math.round(o.n); shown.textContent = full.slice(0, k); rest.textContent = full.slice(k); } }, 0.4)
+          .call(() => body.classList.remove('typing'), [], 2.9)
+          .to($('.voice', msg), { opacity: 1, duration: 0.4 }, 2.9);
+        wire(tl, ws[0], 3.1);
+        tl.to(ok, { opacity: 1, y: 0 }, 3.5)
+          .to(ptr, { opacity: 1, x: 0, y: 0, duration: 0.8, ease: 'power2.out' }, 3.8)
+          .to(ptr, { scale: 0.8, duration: 0.12, yoyo: true, repeat: 1, ease: 'power1.inOut' }, 4.65)
+          .call(() => ok.classList.add('done'), [], 4.75)
+          .to(ptr, { opacity: 0, duration: 0.4 }, 5.2);
+        wire(tl, ws[1], 5.0);
+        tl.to(node(f, 'send'), { opacity: 1, y: 0 }, 5.4);
+        lis.forEach((l, k) => tl.call(() => l.classList.add('sent'), [], 5.8 + k * 0.45));
+      },
+      // replies land and sort themselves; the warm one goes to the calendar; the count climbs
+      book: (f, tl, ws) => {
+        const inbox = node(f, 'inbox'), cal = node(f, 'cal'), lis = $$('li', inbox), tags = $$('em', inbox);
+        const num = $('[data-count]', f)!, segs = $$('.segs i', f), end = Number(num.textContent), c = { n: 0 };
+        inbox.classList.remove('sorted');
+        gsap.set(lis, { opacity: 0, y: -12 });
+        gsap.set(tags, { opacity: 0 });
+        gsap.set($$('.busy, .note', cal), { opacity: 0 });
+        gsap.set($('.slot', cal), { scaleY: 0 });
+        num.textContent = '0'; segs.forEach((s) => s.classList.add('off'));
+        tl.to(inbox, { opacity: 1, y: 0 }, 0)
+          .to(lis, { opacity: 1, y: 0, stagger: 0.25 }, 0.2)
+          .to(tags, { opacity: 1, duration: 0.3, stagger: 0.12 }, 1.1)
+          .call(() => inbox.classList.add('sorted'), [], 1.6);
+        wire(tl, ws[0], 2.0);
+        tl.to(cal, { opacity: 1, y: 0 }, 2.4)
+          .to($$('.busy', cal), { opacity: 1, duration: 0.3, stagger: 0.05 }, 2.5)
+          .to($('.slot', cal), { scaleY: 1, duration: 0.6, ease: 'power3.out' }, 3.1)
+          .to($('.note', cal), { opacity: 1, duration: 0.4 }, 3.5);
+        wire(tl, ws[1], 3.8);
+        tl.to(node(f, 'count'), { opacity: 1, y: 0 }, 4.2)
+          .to(c, { n: end, duration: 2, ease: 'power2.out', onUpdate: () => { const n = Math.round(c.n); num.textContent = String(n); segs.forEach((s, k) => s.classList.toggle('off', k >= n)); } }, 4.4);
+      },
+    };
+    for (const f of flows) {
+      const ws = wires.get(f)!;
+      gsap.set(nodes(f), { opacity: 0, y: 16 });
+      const tl = gsap.timeline({ defaults: { ease: OUT, duration: 0.7 }, scrollTrigger: { trigger: $('[data-in]', f) ?? f, start: 'top 70%', once: true } });
+      PLAY[f.dataset.flow!]?.(f, tl, ws);
+      // once whole, a dot keeps running through its wires while it's on screen
+      const loop = gsap.timeline({ repeat: -1, repeatDelay: 1.6, paused: true });
+      for (const w of ws) {
+        const o = { t: 0 };
+        loop.to(o, { t: 1, duration: 0.9, ease: 'none', onUpdate: () => { w.dot.style.opacity = o.t > 0 && o.t < 1 ? '1' : '0'; at(w, o.t); } });
+      }
+      let whole = false;
+      tl.eventCallback('onComplete', () => { whole = true; loop.play(); });
+      ScrollTrigger.create({ trigger: f, start: 'top bottom', end: 'bottom top', onToggle: (s) => { if (whole) s.isActive ? loop.play() : loop.pause(); } });
+    }
+    // the line between diagrams draws as you scroll, from one's last node into the next one's first
+    joins.forEach((w, k) => {
+      const o = { t: 0 };
+      draw(w, 0);
+      gsap.to(o, { t: 1, ease: 'none', onUpdate: () => draw(w, o.t), scrollTrigger: { trigger: $('[data-out]', flows[k])!, start: 'bottom 80%', endTrigger: $('[data-in]', flows[k + 1])!, end: 'top 70%', scrub: 0.5 } });
+    });
+  }
 }
 
 /* ---------- a reload lands where the reader was, not at the top ---------- */

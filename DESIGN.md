@@ -190,6 +190,7 @@ GSAP + ScrollTrigger (`src/scripts/pitch.ts`), on only with `html.js` (off for `
 - **Blocks:** rise in, a few at a time, in reading order.
 - **Pictures:** wipe open from alternate sides, settle from a zoom, then drift slightly against the scroll.
 - **Diagrams:** assemble once on entry (tiles, then the chip; rows with marks popping; the wire draws, then a dot runs; bars grow).
+- **Flows (How it works):** each diagram plays once on entry: nodes in, wires draw, then a dot runs each wire while it's on screen. The line between diagrams draws with the scroll.
 - **Proof figures:** count up.
 - **Leaving:** a section dims and lifts as its bottom passes, so the next reads as a new slide.
 - **Signature:** the steps rule filling as you read.
@@ -231,6 +232,11 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 - Two screens, each read without scrolling on a laptop. First, full width: three unmarked questions and the fix line at one size (up to 46px, balanced lines), an ink rule between, then the goal. Second, one column: the pain, then the button.
 - The pain steers the eye: a big first line, a smaller grey middle with the key phrases in ink, the bad things crossed out, a big last line. Tight gaps.
 - The X is a true red (#D2281E, `--bad`), set apart from the rust.
+
+### How it works (benefits, flows)
+- Three rows: a flow diagram (7 of 12 columns) beside the headline, text and button; sides swap each row. Phones: text above the diagram.
+- A flow is a paper-2 canvas with a 16px dot grid; white square nodes with an uppercase header over a rule; ink-3 curves with open ports between them. Rust marks only what matters (the lit row, the bell, the booked dot).
+- One line joins the three: out the bottom of one diagram, an elbow through the gap, into the top of the next. Hidden on phones.
 
 ### Steps timeline
 - A hairline rail that fills rust as you scroll. Round nodes turn rust as the fill passes. Step timing beside the step name. A diagram under each step's text.

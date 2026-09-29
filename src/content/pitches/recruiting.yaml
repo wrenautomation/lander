@@ -10,7 +10,7 @@ offer: recruiting-reactivation-pilot
 form_value: recruiting
 
 nav:
-  - { label: How it works, to: "#problem" }
+  - { label: How it works, to: "#how" }
   - { label: About, to: "#about" }
   - { label: Questions, to: "#faq" }
 nav_cta: Win back my clients
@@ -18,14 +18,14 @@ nav_cta: Win back my clients
 hero:
   h1: Win *10 new clients in 90 days* from leads you already paid for, with our personalized lead reactivation system
   lede: |
-    Your old clients are hiring again. You built those relationships. Don't hand them to a competitor. We build you a personalized lead reactivation system that watches every past client for new hiring windows, reaches out in your voice, and books the meeting. You only pay for meetings that land.
+    Your old clients are hiring again. You built those relationships. Don't hand them to a competitor. We build you a personalized lead reactivation system that watches every past client for new hiring windows, reaches out in your brand voice, and books the meeting. You only pay for meetings that land.
   second_to: "#problem"
   promise:
     h: My personal guarantee
     items:
       - Works with the ATS and inbox you already use.
       - Follows how your firm already works. Nothing new to learn.
-      - Every piece of outreach goes out in your voice, under your recruiters' names.
+      - Every piece of outreach goes out in your brand voice, under your recruiters' names.
   by: If it doesn't fit how your firm works, I change it. Not you.
 
 problem:
@@ -36,6 +36,7 @@ problem:
     - Have you lost a past client to another firm because you were **too busy to respond in time?**
   answer: Our system catches past clients *the moment they're hiring again,* and books the meeting for you.
   target: Our target for you is *10 new clients in 90 days.* You only pay if you get a clear return on revenue and time saved.
+  target_cta: Book a consultation
   cta: I'm ready to win back my clients
   pain:
     - You're not alone. Most firms your size work this way.
@@ -47,6 +48,20 @@ problem:
         - The CRM reminder fires months late, or never.
         - When a recruiter leaves, **their relationships leave too.**
     - Every quarter, your past clients open new roles. If you don't reach them first, **another firm will.**
+
+benefits:
+  id: how
+  cta: I'm ready to win back my clients
+  items:
+    - flow: watch
+      h2: Catch every past client the day they start hiring & never lose another job order to a competitor
+      text: We watch every past client for job posts, funding, new leaders, and contacts who moved to a new company. The day one starts hiring, you know.
+    - flow: reach
+      h2: Reach every past client in your brand voice, under your recruiters' names, with zero extra hours from your team
+      text: We write every message, you approve it, and it goes out by email, LinkedIn and text. Nothing sends without your OK.
+    - flow: book
+      h2: Walk into warm, booked meetings with the full client history in hand, no chasing and no guesswork
+      text: We sort every reply, handle the back and forth, and put the call on your calendar. Your recruiter only sees the ones ready to talk.
 
 about:
   h2: Hi, I'm *William.*
@@ -64,10 +79,6 @@ faq:
       a: No. Emails go from a new domain in your recruiter's name, warmed up and sent in small batches. Your main domain is never touched.
     - q: Do you need access to our ATS?
       a: No. An export is enough to start.
-    - q: Who writes the outreach?
-      a: I do, in your recruiter's voice. Nothing sends until you approve it.
-    - q: Our recruiters are already busy. Who handles replies?
-      a: I sort every reply. Your recruiter only gets the warm ones, with the history attached.
     - q: What happens to our data?
       a: It's used for your outreach only. Deleted if you stop.
 

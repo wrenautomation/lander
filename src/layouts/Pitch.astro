@@ -11,6 +11,7 @@ import Analytics from '../components/Analytics.astro';
 import Arrow from '../components/pitch/Arrow.astro';
 import Scene from '../components/pitch/Scene.astro';
 import Problem from '../components/pitch/Problem.astro';
+import Benefits from '../components/pitch/Benefits.astro';
 import Shot from '../components/pitch/Shot.astro';
 import Steps from '../components/pitch/Steps.astro';
 import Gantt from '../components/pitch/Gantt.astro';
@@ -69,6 +70,8 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
 </section>
 
 {p.problem && <Problem s={p.problem} />}
+
+{p.benefits && <Benefits s={p.benefits} />}
 
 {p.halves && (
 <section class="sec halves" id="halves">
