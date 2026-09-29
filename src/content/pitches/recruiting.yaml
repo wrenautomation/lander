@@ -26,12 +26,8 @@ hero:
     items:
       - Works with the ATS and inbox you already use.
       - Follows how your firm already works. Nothing new to learn.
-      - Every email goes out in your voice, under your recruiters' names.
+      - Every piece of outreach goes out in your voice, under your recruiters' names.
   by: If it doesn't fit how your firm works, I change it. Not you.
-
-strip:
-  label: Works with
-  items: [Bullhorn, Loxo, Recruit CRM, JobAdder, Crelate, Vincere, PCRecruiter, a spreadsheet]
 
 story:
   id: story
@@ -77,7 +73,7 @@ faq:
       a: No. Emails go from a new domain in your recruiter's name, warmed up and sent in small batches. Your main domain is never touched.
     - q: Do you need access to our ATS?
       a: No. An export is enough to start.
-    - q: Who writes the emails?
+    - q: Who writes the outreach?
       a: I do, in your recruiter's voice. Nothing sends until you approve it.
     - q: Our recruiters are already busy. Who handles replies?
       a: I sort every reply. Your recruiter only gets the warm ones, with the history attached.
@@ -97,7 +93,7 @@ ask:
   required: Required
   bad_email: Enter an email I can reply to.
   error: "That didn't send. Email me instead:"
-  steps: { step: Step, of: of, next: Next, back: Back, pick_one: Pick one to continue., contact_h: Where do I reach you? }
+  steps: { next: Next, back: Back, pick_one: Pick one to continue., contact_h: Where do I reach you? }
   book_h: You're a fit. *Pick a time.*
   book: Thirty minutes, on video. Nothing to prepare.
   thanks_h: You're a fit. *I'll be in touch.*

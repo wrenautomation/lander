@@ -201,7 +201,6 @@ const pitches = defineCollection({
       // what the work looks like, in one picture: a message and the reply it gets. An example, labelled as one.
       scene: z.strictObject({ label: z.string(), a: msg, b: msg, tag: z.string() }).optional(),
     }),
-    strip: z.strictObject({ label: z.string(), items: z.array(z.string()) }).optional(),
     // how it works, as one example playing out: a dormant contact, the signal, the email, the reply, the meeting.
     // Loops while on screen; without motion every beat is simply there.
     story: z.strictObject({
@@ -253,7 +252,7 @@ const pitches = defineCollection({
       required: z.string(), bad_email: z.string(), error: z.string(),
       thanks_h: z.string(), thanks: z.string(),
       book_h: z.string().optional(), book: z.string().optional(),
-      steps: z.strictObject({ step: z.string(), of: z.string(), next: z.string(), back: z.string(), pick_one: z.string(), contact_h: z.string() }).optional(),
+      steps: z.strictObject({ next: z.string(), back: z.string(), pick_one: z.string(), contact_h: z.string() }).optional(),
       nofit_h: z.string().optional(), nofit: z.string().optional(),
     }),
     // The last screen: one line and a button back up to the form.

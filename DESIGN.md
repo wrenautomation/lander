@@ -126,7 +126,7 @@ Scope: this records `src/styles/pitch.css`. The privacy and 404 pages still use 
 Black on white, with the brand's rust in set places. The rust and cream are sampled from the pfp (`public/brand/wren-pfp.png`).
 
 ### Primary
-- **Rust** (rust, #A83B12, 6.4:1 on white): fills the stamp, buttons and the back cover (closing screen and footer); text selection. Elsewhere marks only: the steps rule and nodes, the selected-answer dot, the reply rule in the example thread, the hot row and hot bar in a diagram, ticker dots, tags, errors, focus rings.
+- **Rust** (rust, #A83B12, 6.4:1 on white): fills the stamp, buttons and the back cover (closing screen and footer); text selection. Elsewhere marks only: the steps rule and nodes, the selected-answer dot, the reply rule in the example thread, the hot row and hot bar in a diagram, tags, errors, focus rings.
 - **Cream** (cream, #FAF7F2): the pfp's bird. Text, marks and buttons on rust only (5.9:1).
 - **Cream Grey** (cream-2): secondary text on rust (4.8:1).
 

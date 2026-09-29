@@ -12,19 +12,15 @@ type Pitch = CollectionEntry<'pitches'>['data'];
 type Offer = CollectionEntry<'offers'>['data'];
 const { a, offer, email, path } = Astro.props as { a: Pitch['ask']; offer: Offer; email: string; path: string };
 const qs = offer.application?.questions ?? [];
-const total = qs.length + 1;
 const stepped = qs.length > 0 && !!a.steps;
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
-<div class="panel" id="apply" data-apply data-total={total}>
+<div class="panel" id="apply" data-apply>
   <div class="ask">
     <h2>{a.h2}</h2>
     <p class="intro">{a.intro}</p>
   </div>
   <form method="post" action="/api/apply" data-lead>
-    {qs.length > 0 && a.steps && (
-      <p class="progress" aria-hidden="true"><span>{a.steps.step} <b data-at>1</b> {a.steps.of} {total}</span><span class="segs">{Array.from({ length: total }, () => <i></i>)}</span></p>
-    )}
     <fieldset class="step contact" data-step="0" data-contact>
       {a.steps && <legend>{a.steps.contact_h}</legend>}
       <div class="fields">

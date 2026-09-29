@@ -153,7 +153,6 @@ if (box) {
   const form = $<HTMLFormElement>('form', box)!;
   const steps = $$('.step', form);
   const next = $<HTMLButtonElement>('[data-next]', form), back = $<HTMLButtonElement>('[data-back]', form);
-  const segs = $$('.segs i', form), at = $('[data-at]', form);
   const submit = $<HTMLButtonElement>('[data-submit]', form)!;
   let cur = 0;
   form.noValidate = true;
@@ -172,8 +171,6 @@ if (box) {
   const show = (i: number, focus = true) => {
     cur = i;
     steps.forEach((s, j) => s.classList.toggle('on', j === i));
-    segs.forEach((g, j) => g.classList.toggle('on', j <= i));
-    if (at) at.textContent = String(i + 1);
     if (back) back.hidden = i === 0;
     const last = i === steps.length - 1;
     if (next) {

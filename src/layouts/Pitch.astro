@@ -66,12 +66,6 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
   </div>
 </section>
 
-{p.strip && (
-  <section class="strip" aria-label={p.strip.label}>
-    <div class="wrap"><p>{p.strip.label}</p><div class="marq"><ul>{p.strip.items.map((x) => <li>{x}</li>)}</ul><ul aria-hidden="true">{p.strip.items.map((x) => <li>{x}</li>)}</ul></div></div>
-  </section>
-)}
-
 {p.story && <Story s={p.story} />}
 
 {p.halves && (
