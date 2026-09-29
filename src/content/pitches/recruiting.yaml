@@ -67,8 +67,9 @@ about:
   h2: Hi, I'm *William.*
   paras:
     - I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
-    - My internships were data pipelines, systems that talk to each other, and CRMs. Now I build the systems that bring firms business, and the automations that handle what comes with it.
-    - I want every firm I work with to do well enough that you tell other owners. That's the whole plan.
+    - "Two of my internships are close to what I'd build for you. At the Government of Canada, I built an internal chatbot tool used across the department, saving thousands of hours."
+    - At the University of Alberta, I turned terabytes of experiment files into one database anyone could audit, and automated citation tracking and insights. That saved the lead professor 8+ hours a week. Like you, he was the decision maker, and his time was the scarcest thing in the lab.
+    - I want long-term, rewarding relationships with everyone I work with. If I do my job well, you'll tell other owners about me.
   photo: /headshot.png
   sign: William Jin · Toronto
   cta: Get in touch
