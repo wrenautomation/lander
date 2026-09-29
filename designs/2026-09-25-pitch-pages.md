@@ -61,7 +61,7 @@ The FAQ swaps technical questions for the real objections: tried this before, wh
 
 ### D32 (2026-09-29): Close promises time, step bars return
 
-The close stops repeating "10 new clients in 90 days" and promises time instead: "a 2-minute form away from getting your week back." The form gets its progress back as bars only, under the title on the left, one per step, filled up to the current one. No "Step 1 of 5" text (D19 still holds for the words).
+The close stops repeating "10 new clients in 90 days" and promises time instead: "a 2-minute form away from reliable client outreach." (was "getting your week back") The form gets its progress back as bars only, under the title on the left, one per step, filled up to the current one. No "Step 1 of 5" text (D19 still holds for the words).
 
 ## Next
 
