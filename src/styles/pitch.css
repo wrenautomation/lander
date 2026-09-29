@@ -1,9 +1,9 @@
 /* Pitch pages (/recruiting/lead-reactivation) and the hub (/, plus hub.css): the partner's letter, told in pictures. White page, black text, hairline rules on
    a 12-column grid. One sans throughout (General Sans), no italics. The form sits in the first screen on a white card.
    Pictures carry the story: faces, image slots (a plain tile until the file exists), and a diagram per step drawn in
-   code, each in a dark product window (.flow, .window). Rounded corners, pill buttons. Rust is the brand's (the pfp's
+   code, each in a light gray window (.flow, .window). Rounded corners, square buttons. Rust is the brand's (the pfp's
    rust, the bird's cream on it), used in few places so it carries: the stamp, the buttons and the back cover (closing
-   screen and footer); marks elsewhere. A light page; only the diagram windows are dark.
+   screen and footer); marks elsewhere. A light page; diagrams sit in light gray windows.
    html.js = motion on (set in Pitch.astro's head); without it everything renders whole and still. */
 
 :root{
@@ -341,23 +341,21 @@ label.field small{font-size:12px;margin-left:6px}
   .bn .say,.bn.flip .say{padding:0}
 }
 
-/* a flow: a dark product window, its nodes wired in code; rust marks the live thing. The palette flips inside it
-   (the tokens are redefined), so every node rule reads the same on either ground. */
-.flow,.window{--paper:#1A1A18;--paper-2:#252522;--ink:#F3F1EC;--ink-2:#A9A79F;--ink-3:#65645E;--rule:rgba(255,255,255,.085);--acc:#E0602A;--cream:#FFF6EF;color:var(--ink);background:radial-gradient(90% 70% at 100% 0%,rgba(224,96,42,.16),transparent 60%),radial-gradient(70% 60% at 0% 100%,rgba(255,255,255,.035),transparent 60%),#0F0F0E;border-radius:calc(var(--r) + 4px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),0 1px 2px rgba(14,14,14,.1),0 40px 80px -40px rgba(14,14,14,.6)}
+/* a flow: a light gray product window with white nodes, wired in code; rust marks the live thing. The tokens are
+   redefined inside it, so every node rule reads the same on either ground. */
+.flow,.window{--paper-2:#F3F1EC;--rule:rgba(14,14,14,.09);background:#F3F1EC;border-radius:calc(var(--r) + 4px);box-shadow:inset 0 0 0 1px rgba(14,14,14,.05)}
 .flow{position:relative;display:grid;gap:40px 52px;align-items:start;padding:clamp(20px,2.6vw,40px);font-size:13.5px;line-height:1.35}
 .flow .edges{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 /* replay: shows once a diagram is whole, lined up with its first node. Rust like every action; green stays for results. */
 .flow.replayable{padding-top:58px}
-.flow .replay{position:absolute;top:16px;left:clamp(20px,2.6vw,40px);z-index:2;display:inline-flex;align-items:center;gap:7px;padding:7px 13px 7px 10px;background:rgba(255,255,255,.05);color:var(--ink-2);border:1px solid rgba(255,255,255,.12);border-radius:999px;font-family:var(--sans);font-weight:500;font-size:12.5px;line-height:1;cursor:var(--cur-on);opacity:0;visibility:hidden;transition:opacity .4s var(--out),visibility 0s .4s,background-color .25s var(--out),color .25s var(--out),border-color .25s var(--out)}
+.flow .replay{position:absolute;top:16px;left:clamp(20px,2.6vw,40px);z-index:2;display:inline-flex;align-items:center;gap:7px;padding:7px 13px 7px 10px;background:var(--paper);color:var(--ink-2);border:1px solid var(--rule);border-radius:999px;font-family:var(--sans);font-weight:500;font-size:12.5px;line-height:1;cursor:var(--cur-on);opacity:0;visibility:hidden;transition:opacity .4s var(--out),visibility 0s .4s,background-color .25s var(--out),color .25s var(--out),border-color .25s var(--out)}
 .flow.whole .replay{opacity:1;visibility:visible;transition-delay:0s}
 .flow .replay:hover{background:var(--acc);border-color:var(--acc);color:#fff}
 .flow .replay svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 :is(.edges,.joins) path{fill:none;stroke:var(--ink-3);stroke-width:1.25}
 :is(.edges,.joins) .port{fill:var(--paper);stroke:var(--ink-3);stroke-width:1.25}
-:is(.edges,.joins) .dot{fill:var(--acc);opacity:0;filter:drop-shadow(0 0 5px var(--acc))}
-.edges path{stroke:rgba(255,255,255,.22)}
-.edges .port{fill:#0F0F0E;stroke:rgba(255,255,255,.3)}
-.fn{position:relative;z-index:1;min-width:0;background:linear-gradient(180deg,#1E1E1C,#191917);padding:14px 16px 16px;border-radius:14px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),inset 0 1px 0 rgba(255,255,255,.06),0 12px 30px -14px rgba(0,0,0,.7)}
+:is(.edges,.joins) .dot{fill:var(--acc);opacity:0}
+.fn{position:relative;z-index:1;min-width:0;background:var(--paper);padding:14px 16px 16px;border-radius:14px;box-shadow:inset 0 0 0 1px rgba(14,14,14,.07),0 1px 2px rgba(14,14,14,.04)}
 .fn .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--rule);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
 .fn .hd span{font-size:12px;font-weight:500;letter-spacing:0;text-transform:none}
 .flow i svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round}
@@ -369,9 +367,9 @@ label.field small{font-size:12px;margin-left:6px}
 .ch i{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;border:1px solid var(--rule);color:var(--ink);outline:1px solid transparent;outline-offset:3px;transition:border-color .4s var(--out),color .4s var(--out),outline-color .4s var(--out)}
 .flow i b{font-size:12.5px;font-weight:700;letter-spacing:-.03em}
 .ch i.li{background:#0A66C2;border-color:#0A66C2;color:#fff}
-.ch i.xx{background:#000;border-color:rgba(255,255,255,.22);color:#fff}
+.ch i.xx{background:#000;border-color:#000;color:#fff}
 .ch i.xx svg{width:13px;height:13px;stroke-width:1.2}
-.ch.on i{outline-color:rgba(224,96,42,.45)}
+.ch.on i{outline-color:rgba(168,59,18,.45)}
 /* every channel gets its own fill, white mark on top; the one that fires (job posts) is the brand's rust */
 .ch i:is(.ic-jobs,.ic-fund,.ic-news,.ic-email,.ic-text){color:#fff;border-color:transparent}
 .ch i.ic-jobs{background:var(--acc)}
@@ -387,7 +385,7 @@ label.field small{font-size:12px;margin-left:6px}
 .watch{grid-template-columns:1.45fr auto 1fr;column-gap:36px;align-items:center}
 .watch .list{align-self:stretch}
 .list ol{overflow:hidden}
-.list li{position:relative;display:flex;align-items:center;gap:10px;height:46px;padding:0 10px;border-radius:8px;background:#1C1C1A;border-top:1px solid var(--rule);transition:background-color .45s var(--out),color .45s var(--out)}
+.list li{position:relative;display:flex;align-items:center;gap:10px;height:46px;padding:0 10px;border-radius:8px;background:var(--paper);border-top:1px solid var(--rule);transition:background-color .45s var(--out),color .45s var(--out)}
 .list li:first-child{border-top-color:transparent}
 .list .nm{flex:1;min-width:0;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .list :is(.was,.now){font-size:12px;color:var(--ink-2);white-space:nowrap}
@@ -399,7 +397,7 @@ label.field small{font-size:12px;margin-left:6px}
 .list li.out .now{margin-left:auto;font-size:11.5px;color:var(--ink-3)}
 @keyframes strike{from{transform:scaleX(0)}}
 .list li.lit .nm{font-size:14.5px;font-weight:600}
-.list li.lit{z-index:1;background:#38251B;border-top-color:transparent;box-shadow:inset 0 0 0 1px rgba(224,96,42,.35)}
+.list li.lit{z-index:1;background:rgba(168,59,18,.07);border-top-color:transparent;box-shadow:inset 0 0 0 1px rgba(168,59,18,.3)}
 .list li.lit .now{display:flex;align-items:center;gap:7px;color:var(--ink);font-weight:500}
 .list li.lit .now::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc)}
 .spark{position:relative;margin-top:14px}
@@ -454,9 +452,9 @@ label.field small{font-size:12px;margin-left:6px}
 .inbox li p span{display:block;width:fit-content;max-width:100%;font-size:12px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .inbox li :is(b,p span,em,.av){transition:color .45s var(--out) var(--d,0s),font-size .5s var(--out) var(--d,0s),opacity .5s var(--out) var(--d,0s),background-size .45s var(--out) calc(var(--d,0s) + .3s)}
 .inbox em{display:flex;align-items:center;gap:6px;font-style:normal;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
-.inbox.sorted .warm{background:rgba(224,96,42,.15);box-shadow:inset 0 0 0 1px rgba(224,96,42,.35)}
+.inbox.sorted .warm{background:rgba(168,59,18,.07);box-shadow:inset 0 0 0 1px rgba(168,59,18,.3)}
 .inbox.sorted .warm :is(span,em){color:var(--ink)}
-.inbox.sorted .warm .av{background:rgba(255,255,255,.14);color:var(--paper)}
+.inbox.sorted .warm .av{background:var(--acc);color:#fff}
 .inbox.sorted .warm em::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc)}
 /* replies that aren't ready shrink and fade, then a line draws through each, one row after the other, like the
    ruled-out clients in the first diagram. Every change is a transition, so nothing jumps when .sorted lands. */
@@ -469,8 +467,8 @@ label.field small{font-size:12px;margin-left:6px}
 .inbox.sorted .cold :is(b,p span){background-size:100% 1px}
 .week{flex:1;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:auto repeat(8,minmax(17px,1fr));gap:3px}
 .day{grid-row:1;padding-bottom:4px;font-size:11px;color:var(--ink-2);text-align:center}
-.busy{border-radius:3px;background:rgba(255,255,255,.07)}
-.slot{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:0 5px;border-radius:4px;background:var(--acc);color:#fff;box-shadow:0 0 18px -2px rgba(224,96,42,.6);font-size:10.5px;font-weight:600;line-height:1.15;transform-origin:top}
+.busy{border-radius:3px;background:var(--paper-2)}
+.slot{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:0 5px;border-radius:4px;background:var(--acc);color:#fff;font-size:10.5px;font-weight:600;line-height:1.15;transform-origin:top}
 .slot span{font-weight:500;overflow:hidden;text-overflow:ellipsis}
 .note{display:flex;align-items:center;gap:7px;margin-top:12px;font-size:12.5px;font-weight:600}
 .note i{width:7px;height:7px;border-radius:50%;background:var(--acc)}
@@ -479,7 +477,7 @@ label.field small{font-size:12px;margin-left:6px}
 .segs{flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:3px;padding-bottom:3px}
 .segs i{height:10px;border-radius:2px;background:var(--ink);transition:background-color .3s var(--out)}
 .segs i.off{background:rgba(255,255,255,.25)}
-.fn.count{background:linear-gradient(160deg,#1E9A4B,#15783A);color:#fff}
+.fn.count{background:var(--win);color:#fff}
 .fn.count .hd{color:#fff;border-color:rgba(255,255,255,.3)}
 .segs i{background:#fff}
 
@@ -504,16 +502,16 @@ label.field small{font-size:12px;margin-left:6px}
 .cap small{font-size:13px;font-weight:400;letter-spacing:0;color:var(--ink-2)}
 /* a form: two fields and a button, no words but the button */
 .pic.form{place-content:center stretch;gap:6px;padding-inline:26px}
-.pic.form i{width:38%;height:6px;border-radius:3px;background:rgba(255,255,255,.12)}
-.pic.form b{height:22px;border:1px solid rgba(255,255,255,.14);border-radius:6px;margin-bottom:6px}
+.pic.form i{width:38%;height:6px;border-radius:3px;background:var(--rule)}
+.pic.form b{height:22px;border:1px solid var(--rule);border-radius:6px;margin-bottom:6px}
 .pic.form span{justify-self:start;padding:7px 14px;border-radius:999px;background:var(--acc);color:#fff;font-size:11.5px;font-weight:600}
 /* a video call: two faces, the controls */
 .pic.call{gap:10px}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.tiles span{display:grid;place-items:center;width:78px;height:62px;border-radius:8px;background:#2B2B28}
-.tiles .av{width:30px;height:30px;font-size:10px;background:#3C3C38;color:var(--ink)}
+.tiles span{display:grid;place-items:center;width:78px;height:62px;border-radius:8px;background:var(--ink)}
+.tiles .av{width:30px;height:30px;font-size:10px;background:var(--paper);color:var(--ink)}
 .ctl{display:flex;justify-content:center;gap:8px}
-.ctl i{width:16px;height:16px;border-radius:50%;border:1px solid rgba(255,255,255,.18)}
+.ctl i{width:16px;height:16px;border-radius:50%;border:1px solid var(--rule)}
 .ctl i.end{background:var(--acc);border-color:var(--acc)}
 /* a file */
 .pic.file{position:relative;justify-items:center;gap:10px}
@@ -526,11 +524,11 @@ label.field small{font-size:12px;margin-left:6px}
 .pic.plan ol{display:grid;gap:10px}
 .pic.plan li{display:flex;align-items:center;gap:8px}
 .pic.plan li i{flex:none;width:14px;height:14px;border-radius:50%;background:var(--acc)}
-.pic.plan li b{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.14)}
+.pic.plan li b{flex:1;height:6px;border-radius:3px;background:var(--rule)}
 .pic.plan li:nth-child(2) b{flex:.75}
 .pic.plan li:nth-child(3) b{flex:.55}
-/* then: the outcome, on a light card, the one bright thing in the window */
-.then .pic{background:#F4F2EE;color:#0E0E0E;place-content:center stretch}
+/* then: the outcome, ringed in rust */
+.then .pic{place-content:center stretch;box-shadow:inset 0 0 0 1px rgba(168,59,18,.35),0 1px 2px rgba(14,14,14,.04)}
 .pic.meet ul{display:grid;gap:8px}
 .pic.meet li{display:flex;align-items:center;gap:10px;font-size:12.5px;white-space:nowrap;overflow:hidden}
 .pic.meet li::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--acc)}

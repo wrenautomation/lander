@@ -111,6 +111,8 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   Copy on the recruiting page unchanged. Earlier unlogged tweaks: bigger, tighter benefit
   headings; the custom cursor; the typing fix; `h1_tail`. Photos stay deferred (Higgsfield).
   Buttons went pill, then back to square the same day: William says square looks less AI.
+  Windows went black, then light gray (#F3F1EC, white nodes, no glows) the same day: black on
+  white read too harsh.
 
 ## Next
 

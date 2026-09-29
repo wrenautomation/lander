@@ -104,11 +104,11 @@ components:
 
 **Creative North Star: "The Partner's Letter, told in pictures"**
 
-The hub (/) and the pitch pages (/recruiting/lead-reactivation) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, plain white paper, black ink. One sans, General Sans, does everything. No italics. Sections join on hairline rules into one sheet. Cards are softly rounded; diagrams sit in dark windows.
+The hub (/) and the pitch pages (/recruiting/lead-reactivation) read like a letter from a partner at a serious firm. A strict 12-column grid, hairline rules, plain white paper, black ink. One sans, General Sans, does everything. No italics. Sections join on hairline rules into one sheet. Cards are softly rounded; diagrams sit in light gray windows.
 
 Most readers only look at headings and pictures, so the pictures carry the story: faces for trust, an example thread in the first screen, a photo per half, and a small diagram under every step. Diagrams are drawn in code and always shown whole. Motion brings things in as you scroll; it never hides anything behind a click.
 
-White screen, black text. The brand's rust, the one on the pfp and banners, fills only a few set places so it reads as a signature, not a theme: the stamp, the buttons and the back cover. Everywhere else it is a small mark. Light page; the only dark areas are the diagram windows.
+White screen, black text. The brand's rust, the one on the pfp and banners, fills only a few set places so it reads as a signature, not a theme: the stamp, the buttons and the back cover. Everywhere else it is a small mark. Light page, no dark areas. Diagram windows are light gray (#F3F1EC) with white nodes; black windows on white read too harsh (William, 2026-09-29).
 
 It rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no eyebrows above headings, no stock photos.
 
@@ -206,11 +206,11 @@ Easing: expo out for entrances. No pinning, no click-through.
 Flat. Depth comes from rules alone. No shadows.
 
 ### Named Rules
-**The Soft Lift Rule.** One soft shadow (`--lift`) for cards that float: the form, the photo, the compare table. Dark windows get a deeper one. Nothing else casts a shadow.
+**The Soft Lift Rule.** One soft shadow (`--lift`) for cards that float: the form, the photo, the compare table. Gray windows get none, only a faint inset ring. Nothing else casts a shadow.
 
 ## Shapes
 
-Rounded (D39): cards 18px, dark windows 22px, nodes 14px, inputs 10px, chips pills. Buttons stay square: pills read as AI-made (William, 2026-09-29). Circles for faces, dots, ports and check marks. Borders are hairlines (`--rule`), never ink.
+Rounded (D39): cards 18px, windows 22px, nodes 14px, inputs 10px, chips pills. Buttons stay square: pills read as AI-made (William, 2026-09-29). Circles for faces, dots, ports and check marks. Borders are hairlines (`--rule`), never ink.
 
 ## Components
 
@@ -238,7 +238,7 @@ Rounded (D39): cards 18px, dark windows 22px, nodes 14px, inputs 10px, chips pil
 
 ### How it works (benefits, flows)
 - Three rows: a flow diagram (7 of 12 columns) beside the headline, text and button; sides swap each row. Phones: text above the diagram.
-- A flow is a dark window (near-black, a faint rust glow top right); dark rounded nodes with an uppercase header over a rule; faint white curves with open ports between them. Rust marks only what matters (the lit row, the bell, the booked dot).
+- A flow is a light gray window (#F3F1EC, faint inset ring, no glow); white rounded nodes with an uppercase header over a rule; faint gray curves with open ports between them. Rust marks only what matters (the lit row, the bell, the booked dot).
 - Branches: a node that fans out to several small nodes (icon + name), one per source or channel, drawn as a fan of curves. Brand icons keep their colors (LinkedIn blue, X black); rust rings the one that fires.
 - Importance by size and tone, not more boxes: what's ruled out is crossed through with its reason, smaller and grey; branches that didn't fire fade, their wires faint.
 - One line joins the three: out the bottom of one diagram, an elbow through the gap, into the top of the next. On phones it runs down the left gutter, clear of the text.
@@ -267,5 +267,5 @@ Rounded (D39): cards 18px, dark windows 22px, nodes 14px, inputs 10px, chips pil
 - **Don't** use stock photos. Generate them from the slot's prompt.
 - **Don't** pin sections or hide content behind clicks.
 - **Don't** add eyebrows or kickers above headings.
-- **Don't** use italics, a serif, rounded corners, glow, gradients or glass.
+- **Don't** use italics, a serif, rounded buttons, glow, dark windows or glass.
 - **Don't** add a dark theme, a black section, or a rust section beyond the seal and the back cover.

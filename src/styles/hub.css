@@ -27,15 +27,15 @@
 .sec .wrap>.btn{margin-top:clamp(32px,3.6vw,52px)}
 .sec .head>.btn{margin-top:clamp(22px,2.6vw,32px)}
 
-/* ---------- the pain: the words left, where the week goes right, in a dark window ---------- */
+/* ---------- the pain: the words left, where the week goes right, in a gray window ---------- */
 .pain-sec .grid{align-items:center}
 .pain-sec .intro b{color:var(--ink)}
 .window{padding:clamp(24px,2.6vw,38px)}
 .window .hd{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--rule);font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
 .window .art{margin:0;max-width:none;font-size:15px}
 .window .bars li{grid-template-columns:11em 1fr;padding-block:13px}
-.window .bars i{height:10px;border-radius:5px;background:rgba(255,255,255,.85)}
-.window .bars .hot i{background:var(--acc);box-shadow:0 0 16px -2px rgba(224,96,42,.7)}
+.window .bars i{height:10px;border-radius:5px;background:var(--ink)}
+.window .bars .hot i{background:var(--acc)}
 @media (max-width:899px){.window .bars li{grid-template-columns:1fr;gap:8px;padding-block:9px}}
 
 /* ---------- the builds: before and now, one card each ---------- */
@@ -52,7 +52,6 @@
 @media (max-width:760px){.case-list{grid-template-columns:1fr}}
 
 /* ---------- inbound: the late inquiry, the reply, the booking ---------- */
-.flow{--win:#3DBE6C}
 .inbound{grid-template-columns:1fr 1.15fr;grid-template-areas:"inq reply" "cal reply"}
 .inbound .inq{grid-area:inq}
 .inbound .reply{grid-area:reply;align-self:center;display:flex;flex-direction:column}
@@ -66,7 +65,7 @@
 .times{display:flex;flex-wrap:wrap;gap:6px;padding-top:16px}
 .times i{padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-style:normal;font-size:12px;font-weight:500;color:var(--ink-2);transition:background-color .35s var(--out),color .35s var(--out),border-color .35s var(--out)}
 .times i.pick{background:var(--acc);border-color:var(--acc);color:#fff}
-.booked .ev{padding:10px 12px;border-radius:10px;background:rgba(224,96,42,.14);box-shadow:inset 0 0 0 1px rgba(224,96,42,.35)}
+.booked .ev{padding:10px 12px;border-radius:10px;background:rgba(168,59,18,.07);box-shadow:inset 0 0 0 1px rgba(168,59,18,.3)}
 .booked .ev b{display:block;font-weight:600}
 .booked .ev span{font-size:12px;color:var(--ink-2)}
 .booked .note{color:var(--win)}
@@ -78,12 +77,12 @@
 .admin .rec{grid-area:rec}
 .admin .chs{grid-area:chs;flex-direction:row;gap:8px}
 .admin .ch{flex:1;flex-direction:column;gap:6px;padding:10px 4px 9px;border-radius:14px;font-size:12px}
-.admin .ch i{background:rgba(224,96,42,.14);border-color:transparent;color:var(--acc)}
+.admin .ch i{background:rgba(168,59,18,.09);border-color:transparent;color:var(--acc)}
 .admin .ch.wait{opacity:.45}
 .doc .title{font-size:16px;font-weight:600;letter-spacing:-.01em}
 .doc .party{margin-top:2px;font-size:12.5px;color:var(--ink-2)}
 .doc .lines{display:grid;gap:8px;margin-block:16px 0}
-.doc .lines i{height:5px;border-radius:3px;background:rgba(255,255,255,.1)}
+.doc .lines i{height:5px;border-radius:3px;background:var(--rule)}
 .doc .lines i:nth-child(2){width:86%}
 .doc .lines i:nth-child(3){width:64%}
 .doc .sig{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px;padding-top:12px;border-top:1px solid var(--rule)}
@@ -108,7 +107,7 @@
 .map .cap{grid-column:1/-1;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
 .map .chs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
 .map .ch{flex-direction:column;gap:8px;padding:14px 4px 12px;border-radius:14px;font-size:13.5px}
-.map .ch i{width:34px;height:34px;background:rgba(255,255,255,.04)}
+.map .ch i{width:34px;height:34px;background:var(--paper-2)}
 .map .ch i svg{width:17px;height:17px;stroke-linecap:round}
 .crm{padding:18px 22px 14px}
 .crm ul,.goal ul{display:grid;gap:2px}

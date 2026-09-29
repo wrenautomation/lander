@@ -32,7 +32,7 @@ wren's recruiting campaign links to `/recruiting/lead-reactivation`. `/` tells t
 - Hub (/) sections in order, on the B2B template: hero (proof pill, headline, three checks, button and friction line, the form beside it), proof figures, the pain, two builds, three benefits (inbound, admin, firm map diagrams), about, a comparison table, three steps, FAQ, the recap (start now vs wait), footer. One button per section.
 - Terms, slots, days, questions, fit rule and booking link come from the offer snapshot, never the yaml. The build fails on a mismatch.
 - All copy lives in yaml. William edits prose himself.
-- Pitch pages are light only, set as a partner's letter (white screen, black text, General Sans only, no italics, rounded cards, diagrams in dark windows, the pfp's rust in set places only: the stamp, buttons, the rust back cover). See DESIGN.md. Readers skim headings and pictures, so pictures carry the story: faces, an example thread, image slots, a code-drawn diagram per step. Photos are generated from each slot's prompt (Higgsfield), never stock.
+- Pitch pages are light only, set as a partner's letter (white screen, black text, General Sans only, no italics, rounded cards, diagrams in light gray windows, the pfp's rust in set places only: the stamp, buttons, the rust back cover). See DESIGN.md. Readers skim headings and pictures, so pictures carry the story: faces, an example thread, image slots, a code-drawn diagram per step. Photos are generated from each slot's prompt (Higgsfield), never stock.
 - Motion is presentation-grade and never hijacks scroll. `?static` and reduced motion turn it off. Pages read fully with JS off.
 - No invented numbers, testimonials, logos or results. Illustrations are labelled as illustrations.
 
