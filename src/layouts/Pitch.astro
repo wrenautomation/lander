@@ -145,6 +145,7 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
       <h2 set:html={rich(p.about.h2)} />
       {p.about.paras.map((x) => <p class="para">{x}</p>)}
       <p class="sign">{p.about.sign}</p>
+      {p.about.cta && <a class="btn" href="#apply" data-cta><span>{p.about.cta}</span><Arrow /></a>}
     </div>
   </div>
 </section>

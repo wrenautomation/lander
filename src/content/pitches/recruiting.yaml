@@ -39,7 +39,7 @@ problem:
   target_cta: Book a consultation
   cta: I'm ready to win back my clients
   pain:
-    - You're not alone. Most firms your size work this way.
+    - You're not alone. Most mid-size firms work this way.
     - "You win a client and fill the roles. Then the next job order pulls you away. It's not that you don't care. **There's just no time.** So the loop keeps going."
     - Your team spends hours messaging strangers who've never heard of you. Meanwhile, the people who **already trust you** go cold.
     - bad:
@@ -55,7 +55,7 @@ benefits:
   items:
     - flow: watch
       h2: Catch every past client the day they start hiring & never lose another job order to a competitor
-      text: We watch every past client for job posts, funding, new leaders, and contacts who moved to a new company. The day one starts hiring, you know.
+      text: Our system watches every past client for job posts, funding, new leaders, and contacts who moved to a new company. The day one starts hiring, you know.
     - flow: reach
       h2: Reach every past client in your brand voice, under your recruiters' names, with zero extra hours from your team
       text: We write every message, you approve it, and it goes out by email, LinkedIn and text. Nothing sends without your OK.
@@ -71,6 +71,7 @@ about:
     - I want every firm I work with to do well enough that you tell other owners. That's the whole plan.
   photo: /headshot.png
   sign: William Jin · Toronto
+  cta: Get in touch
 
 faq:
   h2: Questions you *should be asking.*

@@ -224,45 +224,49 @@ if (flowsBox) {
 
   if (motion) {
     type Play = (f: HTMLElement, tl: gsap.core.Timeline, ws: Wire[]) => void;
-    const wire = (tl: gsap.core.Timeline, w: Wire, pos: number, duration = 0.6) => {
-      const o = { t: 0 };
-      draw(w, 0);
-      tl.to(o, { t: 1, duration, ease: 'power1.inOut', onUpdate: () => draw(w, o.t) }, pos);
+    // one wire, or a fan of them drawn together
+    const wire = (tl: gsap.core.Timeline, w: Wire | Wire[], pos: number, duration = 0.6) => {
+      for (const x of [w].flat()) {
+        const o = { t: 0 };
+        draw(x, 0);
+        tl.to(o, { t: 1, duration, ease: 'power1.inOut', onUpdate: () => draw(x, o.t) }, pos);
+      }
     };
+    // the wires out of a node, or into it
+    const from = (f: HTMLElement, ws: Wire[], n: string) => ws.filter((_, k) => edges(f)[k][0] === n);
+    const into = (f: HTMLElement, ws: Wire[], n: string) => ws.filter((_, k) => edges(f)[k][1] === n);
     const nodes = (f: HTMLElement) => $$('.fn', f);
     const PLAY: Record<string, Play> = {
-      // the list sits grey; the signals come up, one spikes; that client lights and jumps to the top; the alert
+      // the list sits grey; it fans out to every source; job posts fire; that client lights and jumps to the top; the alert
       watch: (f, tl, ws) => {
-        const rows = $$('[data-rows] li', f), hot = rows[0], sig = node(f, 'sig'), hit = $('.icons .hit', sig)!;
-        const spark = $('.spark svg', sig), alert = node(f, 'alert');
-        hot.classList.remove('lit'); hit.classList.remove('hit');
+        const rows = $$('[data-rows] li', f), hot = rows[0], chs = $$('.ch', f), hit = $('.ch.on', f)!;
+        const alert = node(f, 'alert'), spark = $('.spark svg', alert);
+        hot.classList.remove('lit'); hit.classList.remove('on');
         gsap.set(rows, { opacity: 0 });
         gsap.set(hot, { yPercent: 200 });
         gsap.set(rows.slice(1, 3), { yPercent: -100 });
-        gsap.set($$('.icons i', sig), { scale: 0 });
         gsap.set(spark, { clipPath: 'inset(-40% 100% -40% 0)' });
-        gsap.set($$('.spark :is(.tip,p)', sig), { opacity: 0 });
+        gsap.set($$('.spark :is(.tip,p)', alert), { opacity: 0 });
         tl.to(node(f, 'list'), { opacity: 1, y: 0 }, 0)
           .to(rows, { opacity: 1, duration: 0.4, stagger: 0.07 }, 0.15);
-        wire(tl, ws[0], 0.7);
-        tl.to(sig, { opacity: 1, y: 0 }, 1.1)
-          .to($$('.icons i', sig), { scale: 1, duration: 0.5, stagger: 0.08, ease: 'back.out(2.5)' }, 1.25)
-          .to(spark, { clipPath: 'inset(-40% 0% -40% 0)', duration: 1.1, ease: 'power1.inOut' }, 1.6)
-          .call(() => hit.classList.add('hit'), [], 2.55)
-          .to($$('.spark :is(.tip,p)', sig), { opacity: 1, duration: 0.3 }, 2.6)
-          .call(() => hot.classList.add('lit'), [], 2.9)
-          .to([hot, ...rows.slice(1, 3)], { yPercent: 0, duration: 0.8, ease: 'power3.inOut' }, 3.3);
-        wire(tl, ws[1], 4.0);
-        tl.to(alert, { opacity: 1, y: 0 }, 4.5)
-          .fromTo($('.bell', alert), { rotate: -20 }, { rotate: 0, duration: 1, ease: 'elastic.out(1.2,0.3)' }, 4.6);
+        wire(tl, from(f, ws, 'list'), 0.7);
+        tl.to(chs, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 1.0)
+          .call(() => hit.classList.add('on'), [], 1.9)
+          .call(() => hot.classList.add('lit'), [], 2.2)
+          .to([hot, ...rows.slice(1, 3)], { yPercent: 0, duration: 0.8, ease: 'power3.inOut' }, 2.5);
+        wire(tl, into(f, ws, 'alert'), 3.2);
+        tl.to(alert, { opacity: 1, y: 0 }, 3.7)
+          .fromTo($('.bell', alert), { rotate: -20 }, { rotate: 0, duration: 1, ease: 'elastic.out(1.2,0.3)' }, 3.8)
+          .to(spark, { clipPath: 'inset(-40% 0% -40% 0)', duration: 1.1, ease: 'power1.inOut' }, 4.0)
+          .to($$('.spark :is(.tip,p)', alert), { opacity: 1, duration: 0.3 }, 5.0);
       },
-      // what the message is written from shows first, then it types itself in the recruiter's name; you approve; it goes out email, then LinkedIn, then text
+      // what the message is written from shows first, then it types itself in the recruiter's name; you approve; it branches out to email, LinkedIn and text
       reach: (f, tl, ws) => {
         const msg = node(f, 'msg'), ok = node(f, 'ok'), body = $('[data-type]', msg)!, full = body.textContent!.trim();
         const shown = document.createElement('span'), rest = document.createElement('span');
         shown.className = 'shown'; rest.className = 'rest'; rest.textContent = full; body.replaceChildren(shown, rest);
-        const ptr = $('.ptr', ok), lis = $$('.send li', f), o = { n: 0 };
-        ok.classList.remove('done'); lis.forEach((l) => l.classList.remove('sent'));
+        const ptr = $('.ptr', ok), chs = $$('.ch', f), o = { n: 0 };
+        ok.classList.remove('done'); chs.forEach((c) => c.classList.add('wait'));
         gsap.set($('.voice', msg), { opacity: 0 });
         gsap.set($$('.why li', msg), { opacity: 0, x: -8 });
         gsap.set(ptr, { opacity: 0, x: 40, y: 26 });
@@ -272,15 +276,15 @@ if (flowsBox) {
           .to(o, { n: full.length, duration: 2.4, ease: 'none', onUpdate: () => { const k = Math.round(o.n); shown.textContent = full.slice(0, k); rest.textContent = full.slice(k); } }, 0.4)
           .call(() => body.classList.remove('typing'), [], 2.9)
           .to($('.voice', msg), { opacity: 1, duration: 0.4 }, 2.9);
-        wire(tl, ws[0], 3.1);
+        wire(tl, into(f, ws, 'ok'), 3.1);
         tl.to(ok, { opacity: 1, y: 0 }, 3.5)
           .to(ptr, { opacity: 1, x: 0, y: 0, duration: 0.8, ease: 'power2.out' }, 3.8)
           .to(ptr, { scale: 0.8, duration: 0.12, yoyo: true, repeat: 1, ease: 'power1.inOut' }, 4.65)
           .call(() => ok.classList.add('done'), [], 4.75)
           .to(ptr, { opacity: 0, duration: 0.4 }, 5.2);
-        wire(tl, ws[1], 5.0);
-        tl.to(node(f, 'send'), { opacity: 1, y: 0 }, 5.4);
-        lis.forEach((l, k) => tl.call(() => l.classList.add('sent'), [], 5.8 + k * 0.45));
+        wire(tl, from(f, ws, 'ok'), 5.0);
+        tl.to(chs, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }, 5.4);
+        chs.forEach((c, k) => tl.call(() => c.classList.remove('wait'), [], 5.8 + k * 0.3));
       },
       // replies land and sort themselves; the warm one goes to the calendar; the count climbs
       book: (f, tl, ws) => {
@@ -312,11 +316,17 @@ if (flowsBox) {
       const tl = gsap.timeline({ defaults: { ease: OUT, duration: 0.7 }, scrollTrigger: { trigger: $('[data-in]', f) ?? f, start: 'top 70%', once: true } });
       PLAY[f.dataset.flow!]?.(f, tl, ws);
       // once whole, a dot keeps running through its wires while it's on screen
+      // a fan runs at once: wires share a stage when they leave the same node, or meet at the same one
       const loop = gsap.timeline({ repeat: -1, repeatDelay: 1.6, paused: true });
-      for (const w of ws) {
-        const o = { t: 0 };
-        loop.to(o, { t: 1, duration: 0.9, ease: 'none', onUpdate: () => { w.dot.style.opacity = o.t > 0 && o.t < 1 ? '1' : '0'; at(w, o.t); } });
-      }
+      const E = edges(f), stage = E.map(([a, b]) => (E.filter((e) => e[0] === a).length > 1 ? `>${a}` : `${b}<`));
+      [...new Set(stage)].forEach((g) => {
+        const t0 = loop.duration();
+        ws.forEach((w, k) => {
+          if (stage[k] !== g) return;
+          const o = { t: 0 };
+          loop.to(o, { t: 1, duration: 0.9, ease: 'none', onUpdate: () => { w.dot.style.opacity = o.t > 0 && o.t < 1 ? '1' : '0'; at(w, o.t); } }, t0);
+        });
+      });
       let whole = false;
       tl.eventCallback('onComplete', () => { whole = true; loop.play(); });
       ScrollTrigger.create({ trigger: f, start: 'top bottom', end: 'bottom top', onToggle: (s) => { if (whole) s.isActive ? loop.play() : loop.pause(); } });

@@ -236,6 +236,7 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 ### How it works (benefits, flows)
 - Three rows: a flow diagram (7 of 12 columns) beside the headline, text and button; sides swap each row. Phones: text above the diagram.
 - A flow is a paper-2 canvas with a 16px dot grid; white square nodes with an uppercase header over a rule; ink-3 curves with open ports between them. Rust marks only what matters (the lit row, the bell, the booked dot).
+- Branches: a node that fans out to several small nodes (icon + name), one per source or channel, drawn as a fan of curves. Brand icons keep their colors (LinkedIn blue, X black); rust rings the one that fires.
 - One line joins the three: out the bottom of one diagram, an elbow through the gap, into the top of the next. Hidden on phones.
 
 ### Steps timeline

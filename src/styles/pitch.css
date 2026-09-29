@@ -338,11 +338,20 @@ label.field small{font-size:12px;margin-left:6px}
 .flow i svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round}
 .av{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--paper-2);font-size:11px;font-weight:600;color:var(--ink-2)}
 
-/* watch: the client list, the signals, the alert */
-.watch{grid-template-columns:1.35fr 1fr;grid-template-areas:"list sig" "list alert"}
-.watch .list{grid-area:list;align-self:stretch}
-.watch .sig{grid-area:sig}
-.watch .alert{grid-area:alert}
+/* branches: one node fans out to a node per source or channel (icon + name), rust ring on the one that fires */
+.chs{display:flex;flex-direction:column;justify-content:center;gap:10px}
+.ch{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;font-size:12.5px;font-weight:500;white-space:nowrap;transition:opacity .4s var(--out)}
+.ch i{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;border:1px solid var(--rule);color:var(--ink);outline:1px solid transparent;outline-offset:3px;transition:border-color .4s var(--out),color .4s var(--out),outline-color .4s var(--out)}
+.flow i b{font-size:12.5px;font-weight:700;letter-spacing:-.03em}
+.ch i.li{background:#0A66C2;border-color:#0A66C2;color:#fff}
+.ch i.xx{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.ch i.xx svg{width:13px;height:13px;stroke-width:1.2}
+.ch.on i{border-color:var(--acc);color:var(--acc);outline-color:rgba(168,59,18,.35)}
+.ch.on span{color:var(--acc)}
+
+/* watch: the client list, the sources, the alert */
+.watch{grid-template-columns:1.45fr auto 1fr;column-gap:36px;align-items:center}
+.watch .list{align-self:stretch}
 .list ol{overflow:hidden}
 .list li{position:relative;display:flex;align-items:center;gap:10px;height:46px;padding:0 10px;background:var(--paper);border-top:1px solid var(--rule);transition:background-color .45s var(--out),color .45s var(--out)}
 .list li:first-child{border-top-color:transparent}
@@ -352,27 +361,24 @@ label.field small{font-size:12px;margin-left:6px}
 .list li.lit{z-index:1;background:var(--ink);color:var(--paper)}
 .list li.lit .now{display:flex;align-items:center;gap:7px;color:var(--paper);font-weight:500}
 .list li.lit .now::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc)}
-.icons{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;font-size:11.5px;color:var(--ink-2)}
-.icons i{display:grid;place-items:center;width:32px;height:32px;margin:0 auto 6px;border-radius:50%;border:1px solid var(--rule);color:var(--ink);outline:1px solid transparent;outline-offset:3px;transition:border-color .4s var(--out),color .4s var(--out),outline-color .4s var(--out)}
-.flow i b{font-size:12.5px;font-weight:700;letter-spacing:-.03em}
-.icons .hit{color:var(--acc)}
-.icons .hit i{border-color:var(--acc);color:var(--acc);outline-color:rgba(168,59,18,.35)}
 .spark{position:relative;margin-top:14px}
 .spark svg{display:block;width:100%;height:40px;overflow:visible}
 .spark path{fill:none;stroke:var(--ink);stroke-width:1.5;vector-effect:non-scaling-stroke}
 .spark .tip{position:absolute;right:-3.5px;top:.5px;width:7px;height:7px;border-radius:50%;background:var(--acc)}
 .spark p{display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:var(--ink-2)}
 .spark p b{color:var(--acc);font-weight:600}
-.alert{display:flex;align-items:center;gap:12px}
-.bell{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--acc);color:var(--cream)}
-.alert b{display:block;font-weight:600}
-.alert span{font-size:12px;color:var(--ink-2)}
+.bell{flex:none;display:grid;place-items:center;width:34px;height:34px;margin-bottom:10px;border-radius:50%;background:var(--acc);color:var(--cream)}
+.alert>p b{display:block;font-weight:600}
+.alert>p span{font-size:12px;color:var(--ink-2)}
+@media (min-width:900px) and (max-width:1199px){.watch .ch{padding-right:6px}.watch .ch span{display:none}}
 
 /* reach: the message, the approval, the send */
-.reach{grid-template-columns:1.35fr 1fr;grid-template-areas:"msg ok" "msg send"}
+.reach{grid-template-columns:1.35fr 1fr;grid-template-areas:"msg ok" "msg chs"}
 .reach .draft{grid-area:msg;align-self:stretch;display:flex;flex-direction:column}
 .reach .ok{grid-area:ok}
-.reach .send{grid-area:send}
+.reach .chs{grid-area:chs;flex-direction:row;justify-content:space-between;gap:8px}
+.reach .ch{flex:1;flex-direction:column;gap:6px;padding:10px 4px 8px;font-size:12px}
+.reach .ch.wait{opacity:.45}
 .fn .hd .voice{display:inline-flex;align-items:center;gap:6px;color:var(--acc)}
 .voice::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
 .from{display:flex;align-items:center;gap:10px}
@@ -395,13 +401,6 @@ label.field small{font-size:12px;margin-left:6px}
 .ok.done .b{opacity:1}
 .press svg{width:14px;height:14px;fill:none;stroke:var(--acc);stroke-width:1.8}
 .ptr{position:absolute;right:30%;bottom:8px;width:18px;height:18px;fill:var(--ink);stroke:var(--paper);stroke-width:1;opacity:0}
-.send li{display:flex;align-items:center;gap:10px;padding-block:6px;font-weight:500;color:var(--ink-3);transition:color .4s var(--out)}
-.send li+li{border-top:1px solid var(--rule)}
-.send li i{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;border:1px solid var(--rule);transition:border-color .4s var(--out)}
-.send li span{display:flex;align-items:center;gap:6px;margin-left:auto;font-size:12px;font-weight:400;color:var(--ink-2)}
-.send li.sent{color:var(--ink)}
-.send li.sent i{border-color:var(--ink)}
-.send li.sent span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc)}
 
 /* book: the replies, the calendar, the count */
 .book{grid-template-columns:1.25fr 1fr;grid-template-areas:"inbox cal" "count cal"}
@@ -435,8 +434,9 @@ label.field small{font-size:12px;margin-left:6px}
 @media (max-width:719px){
   .bn .flow{margin-inline:calc(-1 * var(--gut))}
   .flow{grid-template-columns:1fr;gap:28px;padding:20px var(--gut)}
-  .watch{grid-template-areas:"list" "sig" "alert"}
-  .reach{grid-template-areas:"msg" "ok" "send"}
+  .reach{grid-template-areas:"msg" "ok" "chs"}
+  .watch .chs,.reach .chs{flex-direction:row;justify-content:space-between;gap:6px}
+  .watch .ch{flex:1;flex-direction:column;gap:6px;padding:10px 2px 8px;font-size:11.5px}
   .book{grid-template-areas:"inbox" "cal" "count"}
 }
 
@@ -549,8 +549,9 @@ label.field small{font-size:12px;margin-left:6px}
 .about .para{font-size:18px;color:var(--ink-2);margin-top:1.1rem;max-width:34em}
 .about h2+.para{margin-top:1.6rem}
 .sign{margin-top:1.8rem;font-size:18px;font-weight:600}
-@media (min-width:900px){.about .grid>.photo{grid-column:1/6}.about .grid>.head{grid-column:7/13;align-self:end}}
-@media (max-width:899px){.about .photo{max-width:420px;margin-bottom:32px}}
+@media (min-width:900px){.about .grid>.photo{grid-column:2/5}.about .grid>.head{grid-column:6/13;align-self:center}}
+@media (max-width:899px){.about .photo{max-width:220px;margin-bottom:28px}}
+.about .btn{margin-top:clamp(20px,2.4vw,30px)}
 
 /* questions */
 .qa{border-bottom:1px solid var(--rule)}

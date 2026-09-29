@@ -249,7 +249,7 @@ const pitches = defineCollection({
       ...head,
       items: z.array(z.strictObject({ fig: z.string(), label: z.string(), text: z.string() })).min(2).max(4),
     }).optional(),
-    about: z.strictObject({ h2: z.string(), paras: z.array(z.string()), photo: z.string(), sign: z.string() }),
+    about: z.strictObject({ h2: z.string(), paras: z.array(z.string()), photo: z.string(), sign: z.string(), cta: z.string().optional() }),
     faq: z.strictObject({ h2: z.string(), items: qa }),
     // The form, in the first screen beside the hero: the offer's application when it has one (steps, nofit),
     // else a short contact form. After a fit: book_h/book with the calendar when the offer has a booking
