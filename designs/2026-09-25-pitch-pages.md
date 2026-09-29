@@ -79,6 +79,12 @@ SMS consent is down to: rates, STOP, Terms and Privacy. Frequency and HELP stay 
 
 Each block now looks like its job, so the eye goes heading, then answer, then proof. Hero: the hook line of the lede in ink and larger, the how below it in grey; "My personal guarantee" a heading, underlined, not a small caps label; the form's title level with the headline's first line (a shared top padding, plus .3vw for the two fonts' leading). Problem: the answer in rust and a step bigger than the questions it answers. Green (`--win`) marks the result only: "10 new clients in 90 days" in the goal line and the New clients count, which is now a green card. Replies that aren't ready (Later, Not now) shrink, fade and get struck through, like the ruled-out clients in the first diagram. No italics anywhere: `em` is upright site-wide (the close's reason line had slipped into italic).
 
+- **D36 (2026-09-29): a path per service, then the offer.** The recruiting page moves to
+  `/recruiting/lead-reactivation`. Wren's offer `page` and niche `lander` moved with it, so the
+  sign-off `{page}` and the opener's link follow on their own. `/recruiting` 302s there
+  (`public/_redirects`, query kept) until the family has its own page. Hyphens, not underscores.
+  Also fixed: canonical and og:url pointed at `/x.html`, a URL Pages redirects away from.
+
 ## Next
 
 - The VSL, once the file exists: in the hero under the subhead, beside the form on desktop, above it on phones.

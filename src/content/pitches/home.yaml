@@ -21,7 +21,7 @@ hero:
 
     I figure out how your firm runs, fix what leaks, connect your data into one CRM, then put AI to work on it.
   second: "Recruiting firm? Win back your past clients"
-  second_to: /recruiting
+  second_to: /recruiting/lead-reactivation
   by: I'm an engineer. The person who scopes it builds it.
   scene:
     label: Example
@@ -71,7 +71,7 @@ industries:
   items:
     - name: Recruiting and staffing
       text: The past clients in your ATS, turned into new job orders.
-      to: /recruiting
+      to: /recruiting/lead-reactivation
       go: Win back your past clients
       offer: recruiting-reactivation-pilot  # {slots} and {days} in this card come from this offer
       badge: "Free pilot · {slots} firms"

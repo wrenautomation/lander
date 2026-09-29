@@ -1,7 +1,7 @@
 # Wren Automation lander
 
 wrenautomation.com. Two kinds of page:
-- **Pitch pages** sell one offer: `/` (the general story, more business in and less busywork out) and `/recruiting` (the free reactivation pilot). The wren recruiting emails link to `/recruiting`.
+- **Pitch pages** sell one offer: `/` (the general story, more business in and less busywork out) and `/recruiting/lead-reactivation` (the free reactivation pilot). The wren recruiting emails link to `/recruiting/lead-reactivation`.
 - **Niche pages**, the older design: `/agencies`. `/ria` and `/insurance` are gone and 301 to `/` (`public/_redirects`).
 
 Specs: `designs/2026-09-25-pitch-pages.md` (pitch pages), `designs/2026-09-14-lander-spec.md` (niche pages). Offers: `wren/designs/2026-09-25-offers.md`.
@@ -24,7 +24,7 @@ All words live in `src/content/`.
 
 | Want to change | File |
 |---|---|
-| Any words on `/` or `/recruiting` | `pitches/home.yaml`, `pitches/recruiting.yaml` |
+| Any words on `/` or `/recruiting/lead-reactivation` | `pitches/home.yaml`, `pitches/recruiting/lead-reactivation.yaml` |
 | Any words on `/agencies` | `niches/agencies.yaml`, plus `site/site.yaml` for the shared parts |
 | A case study on a niche page | `case-studies/<name>.yaml` |
 | Footer, 404, email, city | `site/site.yaml` |
@@ -105,7 +105,7 @@ Views under 2 seconds are dropped from the summaries (bots, misclicks). Under ~1
 
 ### Links you send
 
-Put a utm on every link in an email: `https://wrenautomation.com/recruiting?utm_source=email&utm_campaign=recruiting-sep`.
+Put a utm on every link in an email: `https://wrenautomation.com/recruiting/lead-reactivation?utm_source=email&utm_campaign=recruiting-sep`.
 `utm_campaign` is the one you will group by. The first utm a visitor lands with stays with them for the tab, and it is saved on the lead or application if they submit.
 
 ### Pixels

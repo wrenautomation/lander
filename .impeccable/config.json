@@ -29,6 +29,18 @@
         ],
         "createdAt": "2026-09-15T21:05:16.113Z",
         "reason": "Claude: three hero variants share one stage, one visible at a time"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "geist",
+        "createdAt": "2026-09-29T19:20:19.941Z",
+        "reason": "agent: default fonts of the older /agencies niche design (PRODUCT.md: /agencies stays on the older design); pitch pages pass their own"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "instrument serif",
+        "createdAt": "2026-09-29T19:20:19.963Z",
+        "reason": "agent: same, older /agencies niche design"
       }
     ]
   }

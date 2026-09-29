@@ -5,7 +5,8 @@ const { title, description, image = '/brand/wren-lockup.png', noindex = false, f
   title: string; description: string; image?: string; noindex?: boolean;
   fonts?: string; theme?: string; // a layout with its own type and one fixed theme colour
 };
-const canonical = new URL(Astro.url.pathname, Astro.site);
+// build.format 'file' gives pathname "/x.html"; the served URL is "/x" (Pages redirects .html away)
+const canonical = new URL(Astro.url.pathname.replace(/(?:\/?index)?\.html$/, ''), Astro.site);
 ---
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

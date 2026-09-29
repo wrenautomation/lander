@@ -161,7 +161,7 @@ const offers = defineCollection({
   }),
 });
 
-// Pitch pages (/ and /recruiting): one yaml each, the copy for a page that sells one offer.
+// Pitch pages (/ and /recruiting/lead-reactivation): one yaml each, the copy for a page that sells one offer.
 // Sections render in a fixed order; leave an optional one out and it doesn't render. *words* in a heading
 // are the punch (rendered plain); **word** in body text turns it ink. No labels above headings.
 const qa = z.array(z.strictObject({ q: z.string(), a: z.string() }));
@@ -188,7 +188,7 @@ const pitches = defineCollection({
   schema: z.strictObject({
     title: z.string(),
     description: z.string(),
-    path: z.string(),                   // the URL: '/' or '/recruiting'. Must equal the offer's page.
+    path: z.string(),                   // the URL: '/' or '/recruiting/lead-reactivation'. Must equal the offer's page.
     offer: z.string(),                  // an id in offers.json, live, whose `page` is this path
     form_value: z.string(),             // what the D1 row says this page was
     nav: z.array(z.strictObject({ label: z.string(), to: z.string() })),
@@ -239,7 +239,7 @@ const pitches = defineCollection({
     // chart drawn above the list; to = null runs on past the chart (the retainer). `when` is the label beside it.
     build: z.strictObject({
       ...head,
-      id: z.string(),                   // the anchor: how on /, build on /recruiting
+      id: z.string(),                   // the anchor: how on /, build on /recruiting/lead-reactivation
       week: z.string(),                 // the chart's axis label
       weeks: z.number().int().min(4).max(16),
       ongoing: z.string(),              // on the bar that runs past the chart

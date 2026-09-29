@@ -1,5 +1,5 @@
 // POST /api/lead: the contact form on /agencies. Stores the row in D1, pings William, answers JSON or redirects back.
-// Pitch pages (/, /recruiting) post to /api/apply instead.
+// Pitch pages (/, /recruiting/lead-reactivation) post to /api/apply instead.
 import type { Env } from '../_shared/env';
 import { EMAIL, clip, human, isBot, origin, readForm } from '../_shared/form';
 import { notify } from '../_shared/notify';

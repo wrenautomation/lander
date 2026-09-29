@@ -24,7 +24,7 @@ An engineer, not an agency. Every pitch page sells one named offer from wren's r
 
 ## Operating Context
 
-wren's recruiting campaign links to `/recruiting`. `/` tells the general story and routes recruiting firms to `/recruiting`. `/agencies` stays on the older niche design. The form is an application: offer questions one at a time, then contact details. A fit applicant books a call on Cal.com in the page once the offer has a booking link; until then they get a reply within one business day.
+wren's recruiting campaign links to `/recruiting/lead-reactivation`. `/` tells the general story and routes recruiting firms to `/recruiting/lead-reactivation`. `/agencies` stays on the older niche design. The form is an application: offer questions one at a time, then contact details. A fit applicant books a call on Cal.com in the page once the offer has a booking link; until then they get a reply within one business day.
 
 ## Capabilities and Constraints
 

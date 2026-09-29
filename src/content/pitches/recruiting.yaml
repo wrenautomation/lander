@@ -1,11 +1,11 @@
-# wrenautomation.com/recruiting. The recruiting emails link here. Reader: the owner, CEO or MD
+# wrenautomation.com/recruiting/lead-reactivation. The recruiting emails link here. Reader: the owner, CEO or MD
 # of a midsize recruiting firm. They care about two things: more business (job orders, a pipeline
 # that doesn't hang on one rainmaker) and less busywork for their team.
 # The questions on the form and the fit rule come from the offer in wren (packages/offers), not from
 # this file. Prices stay off the page.
 title: Wren Automation for recruiting firms
 description: Win new clients from the past clients already in your ATS, with a personalized lead reactivation system that books the meetings.
-path: /recruiting
+path: /recruiting/lead-reactivation
 offer: recruiting-reactivation-pilot
 form_value: recruiting
 

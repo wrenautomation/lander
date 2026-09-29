@@ -62,7 +62,7 @@
         "recruiting-candidate-reactivation",
         "ops-automation-build"
       ],
-      "page": "/recruiting",
+      "page": "/recruiting/lead-reactivation",
       "booking": "https://cal.com/wrenautomation/pilot",
       "application": {
         "questions": [

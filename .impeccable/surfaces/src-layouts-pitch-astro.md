@@ -5,7 +5,7 @@ primary_target: "src/layouts/Pitch.astro"
 related_targets: ["src/styles/pitch.css","src/components/pitch/Apply.astro"]
 ---
 
-# Pitch pages (/ and /recruiting)
+# Pitch pages (/ and /recruiting/lead-reactivation)
 
 Mode: Persuade. Light only. Both pitch pages share Pitch.astro and pitch.css.
 

@@ -4,7 +4,7 @@
 const q = new URLSearchParams(location.search);
 if (!q.has('static') && !q.has('probe')) {
   const KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
-  // first touch: the utm on the link they clicked survives a hop from / to /recruiting within the tab
+  // first touch: the utm on the link they clicked survives a hop from / to /recruiting/lead-reactivation within the tab
   let touch: Record<string, string> = {};
   try { touch = JSON.parse(sessionStorage.getItem('wren-touch') || 'null') || {}; } catch {}
   if (KEYS.some((k) => q.has(k)) || !('ref' in touch)) {
