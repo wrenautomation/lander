@@ -1,5 +1,5 @@
 // Pitch pages: the motion (the hero coming in, headings rising word by word, blocks and pictures entering as you
-// scroll, each step's diagram assembling, the example reel looping, the steps rule filling) and the stepped form,
+// scroll, each step's diagram assembling, the steps rule filling) and the stepped form,
 // which works without motion too. html.js is set in Pitch.astro's head when motion is on;
 // without it everything renders whole and still. Diagrams are always complete: motion only brings their parts in.
 import { gsap } from 'gsap';
@@ -77,24 +77,13 @@ if (motion) {
       .fromTo($('.tag', scene), { opacity: 0, y: 12 }, { opacity: 1, y: 0 }, 2.9);
   }
 
-  // how it works: the beats light in order, hold, dim, and go again, only while the reel is on screen
-  for (const reel of $$('[data-reel]')) {
-    const beats = $$('[data-beat]', reel);
-    gsap.set(beats, { opacity: 0.2 });
-    const tl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 0.4 });
-    beats.forEach((b, k) => tl
-      .to(b, { opacity: 1, duration: 0.6, ease: OUT, onStart: () => b.classList.add('on'), onReverseComplete: () => b.classList.remove('on') }, k * 1.5));
-    tl.to(beats, { opacity: 0.2, duration: 0.6, ease: 'power2.inOut', onComplete: () => beats.forEach((b) => b.classList.remove('on')) }, beats.length * 1.5 + 2.4);
-    ScrollTrigger.create({ trigger: reel, start: 'top 80%', end: 'bottom 15%', onToggle: (s) => (s.isActive ? tl.play() : tl.pause()) });
-  }
-
   // section headings: word by word, as each comes into view
   for (const h of $$('.sec h2, .close h2')) {
     gsap.fromTo(words(h), { yPercent: 110 }, { yPercent: 0, duration: 1.1, ease: OUT, stagger: 0.05, scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
   }
 
   // blocks rise in, in reading order, a few at a time
-  const ups = $$('.sec .intro, .dear, .qs li, .letter>*, .target>*, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .about .photo, .about .para, .sign, .qa>div, .close p, .close .btn');
+  const ups = $$('.sec .intro, .qs li, .prose>*, .target>*, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .about .photo, .about .para, .sign, .qa>div, .close p, .close .btn');
   gsap.set(ups, { opacity: 0, y: 48 });
   ScrollTrigger.batch(ups, { start: 'top 90%', once: true, onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: OUT, stagger: 0.08, overwrite: true }) });
 
@@ -146,6 +135,21 @@ if (motion) {
 
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
 }
+
+/* ---------- a reload lands where the reader was, not at the top ---------- */
+// Safari restores before fonts and the pinned sections settle, then lands short or at the top. Save the spot on the
+// way out and put it back once layout is final. A link to #apply or a first visit is left alone.
+try {
+  const key = `scroll:${location.pathname}`;
+  history.scrollRestoration = 'manual';
+  addEventListener('pagehide', () => { try { sessionStorage.setItem(key, String(scrollY)); } catch {} });
+  const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+  const y = Number(sessionStorage.getItem(key));
+  if (nav?.type === 'reload' && !location.hash && y > 0) {
+    const back = () => requestAnimationFrame(() => scrollTo({ top: y, behavior: 'instant' }));
+    (document.fonts?.ready ?? Promise.resolve()).then(() => (document.readyState === 'complete' ? back() : addEventListener('load', back, { once: true })));
+  }
+} catch {}
 
 /* ---------- the form: contact details, then one question at a time, then fetch ---------- */
 const box = $('[data-apply]');

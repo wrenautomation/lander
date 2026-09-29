@@ -263,54 +263,27 @@ label.field small{font-size:12px;margin-left:6px}
   .grid>.head{margin-bottom:40px}
 }
 
-/* the letter: pains as questions, the fix in one line, the pain in depth; then the fix beside the example */
+/* the problem, top down in one column: the questions and the fix line share one size; then the goal and a
+   button; then the pain in depth (the bad things crossed out) and what we build */
+.problem .col{max-width:50rem}
 .checks{display:grid;gap:10px}
 .checks li{position:relative;padding-left:26px}
 .checks li::before{content:"";position:absolute;left:1px;top:.5em;width:10px;height:5px;border-left:1.5px solid var(--acc);border-bottom:1.5px solid var(--acc);transform:rotate(-45deg)}
-.dear{font-size:clamp(19px,1rem + .5vw,23px);font-weight:500}
-.qs{gap:14px;margin-block:1.4rem 2.4rem;font-size:clamp(18px,1rem + .35vw,21px);line-height:1.4}
-.story h2{max-width:20ch}
-.letter{max-width:34em;font-size:19px;line-height:1.55}
-.letter>*+*{margin-top:1.15em}
-.letter .checks{padding-block:.4em}
-.letter .checks li{font-size:18px;line-height:1.45}
-.solve{margin-top:clamp(72px,9vw,128px)}
-.solve .letter p:first-child{font-size:clamp(22px,1.1rem + .9vw,30px);font-weight:500;letter-spacing:-.02em;line-height:1.25}
-.target{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px 40px;margin-top:clamp(56px,7vw,96px);padding-top:32px;border-top:1px solid var(--ink)}
-.target p{font-size:clamp(22px,1.1rem + .9vw,30px);font-weight:500;letter-spacing:-.02em;line-height:1.25;max-width:26em}
-.target em{font-style:normal}
-
-/* how it works: one example, beat by beat. Motion lights the beats in order and loops; still, all are lit. */
-.reel .label{font-size:11.5px;color:var(--ink-2);padding-bottom:12px}
-.beat{display:grid;grid-template-columns:104px minmax(0,1fr);gap:18px;padding-block:20px;border-top:1px solid var(--rule)}
-.beat:last-child{border-bottom:1px solid var(--rule)}
-.beat .step{display:flex;gap:10px;padding-top:3px;font-size:12.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink);transition:color .4s var(--out)}
-.beat .step span{color:var(--ink-3);font-variant-numeric:tabular-nums}
-.beat.on .step{color:var(--acc)}
-.row{display:grid;grid-template-columns:1fr auto;gap:2px 16px;align-items:start}
-.row p{display:flex;flex-wrap:wrap;gap:0 10px;font-size:16px}
-.row p span,.row .note{color:var(--ink-2)}
-.row .note{font-size:14px}
-.row .status{grid-row:1/3;grid-column:2}
-.status{font-style:normal;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.45em .7em;border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
-.status.on{border-color:var(--acc);background:var(--acc);color:var(--cream)}
-.signal{display:flex;gap:14px;align-items:flex-start}
-.signal i{flex:none;width:9px;height:9px;margin-top:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 var(--acc)}
-.beat.on .signal i{animation:ping 1.6s var(--out) infinite}
-@keyframes ping{0%{box-shadow:0 0 0 0 rgba(168,59,18,.45)}100%{box-shadow:0 0 0 12px rgba(168,59,18,0)}}
-.signal p{font-size:16px}
-.signal p span{display:block;font-size:14px;color:var(--ink-2)}
-.signal b{font-weight:500}
-.beat .msg{padding-block:0}
-.beat .msg.in{margin-left:0}
-.meet{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center}
-.meet time{font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;padding-right:16px;border-right:1px solid var(--rule)}
-.meet p{font-size:16px}
-@media (max-width:599px){
-  .beat{grid-template-columns:1fr;gap:10px}
-  .meet{grid-template-columns:1fr auto}
-  .meet time{grid-column:1/-1;border-right:0;padding-right:0}
-}
+.crosses li::before,.crosses li::after{left:0;top:.72em;width:13px;height:0;border:0;border-top:1.5px solid var(--acc);transform:rotate(45deg)}
+.crosses li::after{content:"";position:absolute;transform:rotate(-45deg)}
+.problem .qs,.problem h2{font-size:clamp(24px,1.1rem + 1.2vw,34px);font-weight:500;letter-spacing:-.02em;line-height:1.25}
+.problem .qs{gap:18px}
+.problem .qs li{padding-left:34px}
+.problem .qs li::before{top:.45em;width:13px;height:6px}
+.problem h2{margin-top:clamp(28px,3.5vw,44px);padding-top:clamp(28px,3.5vw,44px);border-top:1px solid var(--rule)}
+.target em{font-style:normal;font-weight:600}
+.target{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px;margin-top:clamp(36px,4.5vw,56px)}
+.target p{font-size:19px;line-height:1.45;max-width:24em}
+.prose{max-width:36em;margin-top:clamp(64px,8vw,112px);font-size:19px;line-height:1.55}
+.prose>*+*{margin-top:1.15em}
+.prose .checks{padding-block:.4em}
+.prose .checks li{font-size:18px;line-height:1.45}
+.prose.fix p:first-child{font-size:clamp(22px,1.1rem + .9vw,30px);font-weight:500;letter-spacing:-.02em;line-height:1.25}
 
 /* the two halves */
 .split{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--ink)}

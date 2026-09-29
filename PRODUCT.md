@@ -28,7 +28,7 @@ wren's recruiting campaign links to `/recruiting`. `/` tells the general story a
 
 ## Capabilities and Constraints
 
-- Pitch sections in order: hero (copy, facts, byline, and the form beside it behind a black rule), example reel, the two halves, industries, the build (four stages on a week chart), proof, about, FAQ (all answers open, no clicks), closing call, footer. Any optional section can be left out.
+- Pitch sections in order: hero (copy, facts, byline, and the form beside it behind a black rule), the problem (questions, fix line, goal and button, pain, fix), the two halves, industries, the build (four stages on a week chart), proof, about, FAQ (all answers open, no clicks), closing call, footer. Any optional section can be left out.
 - Terms, slots, days, questions, fit rule and booking link come from the offer snapshot, never the yaml. The build fails on a mismatch.
 - All copy lives in yaml. William edits prose himself.
 - Pitch pages are light only, set as a partner's letter (white screen, black text, General Sans only, no italics, the pfp's rust in set places only: the stamp, buttons, the rust back cover). See DESIGN.md. Readers skim headings and pictures, so pictures carry the story: faces, an example thread, image slots, a code-drawn diagram per step. Photos are generated from each slot's prompt (Higgsfield), never stock.

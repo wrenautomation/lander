@@ -192,7 +192,7 @@ GSAP + ScrollTrigger (`src/scripts/pitch.ts`), on only with `html.js` (off for `
 - **Diagrams:** assemble once on entry (tiles, then the chip; rows with marks popping; the wire draws, then a dot runs; bars grow).
 - **Proof figures:** count up.
 - **Leaving:** a section dims and lifts as its bottom passes, so the next reads as a new slide.
-- **Signature:** the example reel lighting beat by beat and the steps rule filling as you read.
+- **Signature:** the steps rule filling as you read.
 - **Ticker:** the ATS list scrolls slowly; pauses on hover.
 
 Easing: expo out for entrances. No pinning, no click-through.
@@ -227,11 +227,8 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 ### Navigation
 - Sticky white bar, 64px (56px on phones), ink rule below. The stamp (the pfp: a cream bird on a 32px rust square, 28px on phones) and the name left, text links, the rust button right. Links hide under 820px.
 
-### Letter (problem, agitate, solve)
-- Salutation, three checkmarked questions, the fix as the heading; the pain in depth beside it. Rust checkmarks are marks, not fills. Short paragraphs, lots of air.
-
-### Example reel (signature)
-- One past client, start to finish: the dormant row, the hiring signal, the email, the reply, the booked meeting. Beats light rust in order and loop while on screen; still, all are lit.
+### Problem (problem, agitate, solve)
+- One column, top down. Three checkmarked questions and the fix line at one size, then the goal and the button, then the pain in depth (the bad things crossed out with rust X marks), then what they don't need and what they do. Marks are rust lines, not fills. Short paragraphs, lots of air.
 
 ### Steps timeline
 - A hairline rail that fills rust as you scroll. Round nodes turn rust as the fill passes. Step timing beside the step name. A diagram under each step's text.
