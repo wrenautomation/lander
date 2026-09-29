@@ -227,6 +227,9 @@ Square corners throughout (0). Circles for faces, radio buttons, dots, step and 
 ### Navigation
 - Sticky white bar, 64px (56px on phones), ink rule below. The stamp (the pfp: a cream bird on a 32px rust square, 28px on phones) and the name left, text links, the rust button right. Links hide under 820px.
 
+### Letter (problem, agitate, solve)
+- Salutation, three checkmarked questions, the fix as the heading; the pain in depth beside it. Rust checkmarks are marks, not fills. Short paragraphs, lots of air.
+
 ### Example reel (signature)
 - One past client, start to finish: the dormant row, the hiring signal, the email, the reply, the booked meeting. Beats light rust in order and loop while on screen; still, all are lit.
 

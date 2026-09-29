@@ -32,8 +32,33 @@ hero:
 story:
   id: story
   label: Example
-  h2: From a dormant contact to a *booked meeting.*
-  intro: One past client, start to finish. Your system does this for every past client in your ATS.
+  dear: Dear recruiting firm owner,
+  questions:
+    - Are your recruiters stuck in the **same cold outreach loop** every week?
+    - Do clients go quiet after **one hiring season** and never come back?
+    - Have you lost a past client to another firm because you were **too busy to respond in time?**
+  answer: Our system catches past clients *the moment they're hiring again,* and books the meeting for you.
+  pain:
+    - You're not alone. Most firms your size work this way.
+    - You win a client and fill the roles. Then the next job order pulls you away.
+    - "It's not that you don't care. **There's just no time.**"
+    - So the loop keeps going.
+    - Your team spends hours messaging strangers who've never heard of you. Meanwhile, the people who **already trust you** go cold.
+    - - Follow-ups live in someone's head, then get forgotten.
+      - Nobody notices when a past client starts hiring again.
+      - The CRM reminder fires months late, or never.
+      - When a recruiter leaves, **their relationships leave too.**
+    - Every quarter, your past clients open new roles.
+    - If you don't reach them first, **another firm will.** That's business you already earned, handed to a competitor.
+  solve:
+    - "**You don't need more recruiters.** You don't need a new CRM, a BD hire, or a bigger list."
+    - You need to be there **the moment a past client starts hiring.**
+    - "That's what we build: a personalized lead reactivation system that:"
+    - - Watches every past client for new hiring windows
+      - Reaches out in your voice, under your recruiters' names
+      - Books the meeting on your calendar
+  target: Our target for you is *10 new clients in 90 days.* You only pay for meetings that land.
+  cta: Ready to win back my clients
   beats:
     - { kind: row, step: Watch, name: Dana Whitfield, role: "VP Talent, Northwind", note: Last placement March 2024. No contact since., status: Dormant }
     - { kind: signal, step: Spot, text: Northwind posted 2 data engineer roles, meta: Seen 2 days ago on their careers page }

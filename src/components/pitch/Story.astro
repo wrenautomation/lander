@@ -1,9 +1,11 @@
 ---
-// How it works, as one example playing out beat by beat: the dormant contact, the signal that they're hiring, the
-// email in your recruiter's name, the reply, the meeting. Labelled as an example. With motion the beats light in
-// order and the reel loops while it's on screen; without, every beat is simply there.
+// The pain, then the fix, as a letter: salutation, three pains as questions, one line on what the system does (the
+// heading), the pain in depth beside it. Then what they don't need and what they do, beside one example playing
+// out beat by beat (labelled as one). Ends on the target and a button back to the form. With motion the beats
+// light in order and the reel loops while it's on screen; without, every beat is simply there.
 import type { CollectionEntry } from 'astro:content';
-import { rich, richParas } from '../../lib/text';
+import { rich } from '../../lib/text';
+import Arrow from './Arrow.astro';
 import Face from './Face.astro';
 type Story = NonNullable<CollectionEntry<'pitches'>['data']['story']>;
 const { s } = Astro.props as { s: Story };
@@ -12,8 +14,21 @@ const two = (n: number) => String(n).padStart(2, '0');
 <section class="sec story" id={s.id}>
   <div class="wrap grid">
     <div class="head sticky">
-      <h2 set:html={rich(s.h2)} />
-      <div class="intro" set:html={richParas(s.intro)} />
+      <p class="dear">{s.dear}</p>
+      <ul class="checks qs">{s.questions.map((q) => <li set:html={rich(q)} />)}</ul>
+      <h2 set:html={rich(s.answer)} />
+    </div>
+    <div class="letter">
+      {s.pain.map((b) => typeof b === 'string'
+        ? <p set:html={rich(b)} />
+        : <ul class="checks">{b.map((x) => <li set:html={rich(x)} />)}</ul>)}
+    </div>
+  </div>
+  <div class="wrap grid solve">
+    <div class="head sticky letter">
+      {s.solve.map((b) => typeof b === 'string'
+        ? <p set:html={rich(b)} />
+        : <ul class="checks">{b.map((x) => <li set:html={rich(x)} />)}</ul>)}
     </div>
     <figure class="reel" data-reel>
       <figcaption class="label">{s.label}</figcaption>
@@ -45,5 +60,9 @@ const two = (n: number) => String(n).padStart(2, '0');
         ))}
       </ol>
     </figure>
+  </div>
+  <div class="wrap target">
+    <p set:html={rich(s.target)} />
+    <a class="btn ink" href="#apply" data-cta><span>{s.cta}</span><Arrow /></a>
   </div>
 </section>

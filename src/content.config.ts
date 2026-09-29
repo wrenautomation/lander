@@ -165,6 +165,8 @@ const offers = defineCollection({
 // are the punch (rendered plain); **word** in body text turns it ink. No labels above headings.
 const qa = z.array(z.strictObject({ q: z.string(), a: z.string() }));
 const head = { h2: z.string(), intro: z.string() };
+// a letter's body: a string is a paragraph (a blank line splits it), a list is a checklist
+const letter = z.array(z.union([z.string(), z.array(z.string()).min(2)])).min(1);
 // An image slot: src/assets/img/<file> once it's generated, and the prompt that makes it. Until the file exists the
 // page draws a plain tile (a face: initials). `npm run images` lists the missing ones with their prompts.
 const shot = z.strictObject({ file: z.string(), alt: z.string(), prompt: z.string(), ratio: z.string().default('4/3') });
@@ -201,10 +203,19 @@ const pitches = defineCollection({
       // what the work looks like, in one picture: a message and the reply it gets. An example, labelled as one.
       scene: z.strictObject({ label: z.string(), a: msg, b: msg, tag: z.string() }).optional(),
     }),
-    // how it works, as one example playing out: a dormant contact, the signal, the email, the reply, the meeting.
-    // Loops while on screen; without motion every beat is simply there.
+    // The pain, then the fix, written as a letter: the salutation, three pains as questions, and one line on what
+    // the system does about them (the heading). Then the pain in depth, then what they don't need and what they do,
+    // beside one example playing out beat by beat (a dormant contact, the signal, the message, the reply, the
+    // meeting). Ends on the target and a button back to the form. Beats loop while on screen; still, all are lit.
     story: z.strictObject({
-      ...head, id: z.string(), label: z.string(),
+      id: z.string(), label: z.string(),
+      dear: z.string(),
+      questions: z.array(z.string()).length(3),
+      answer: z.string(),
+      pain: letter,
+      solve: letter,
+      target: z.string(),
+      cta: z.string(),
       beats: z.array(z.discriminatedUnion('kind', [
         z.strictObject({ kind: z.literal('row'), step: z.string(), name: z.string(), role: z.string(), note: z.string(), status: z.string() }),
         z.strictObject({ kind: z.literal('signal'), step: z.string(), text: z.string(), meta: z.string() }),
