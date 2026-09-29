@@ -335,6 +335,12 @@ label.field small{font-size:12px;margin-left:6px}
 /* a flow: white nodes on a dotted canvas, wired in code; rust marks the live thing */
 .flow{position:relative;display:grid;gap:40px 52px;align-items:start;padding:clamp(20px,2.6vw,40px);background:var(--paper-2) radial-gradient(rgba(14,14,14,.17) 1px,transparent 1.4px) 0 0/16px 16px;font-size:13.5px;line-height:1.35}
 .flow .edges{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+/* replay: shows once a diagram is whole, lined up with its first node. Rust like every action; green stays for results. */
+.flow.replayable{padding-top:58px}
+.flow .replay{position:absolute;top:16px;left:clamp(20px,2.6vw,40px);z-index:2;display:inline-flex;align-items:center;gap:7px;padding:7px 11px 7px 9px;background:var(--paper);color:var(--acc);border:1px solid var(--acc);font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;line-height:1;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .4s var(--out),visibility 0s .4s,background-color .25s var(--out),color .25s var(--out)}
+.flow.whole .replay{opacity:1;visibility:visible;transition-delay:0s}
+.flow .replay:hover{background:var(--acc);color:var(--paper)}
+.flow .replay svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 :is(.edges,.joins) path{fill:none;stroke:var(--ink-3);stroke-width:1.25}
 :is(.edges,.joins) .port{fill:var(--paper);stroke:var(--ink-3);stroke-width:1.25}
 :is(.edges,.joins) .dot{fill:var(--acc);opacity:0}
@@ -466,6 +472,7 @@ label.field small{font-size:12px;margin-left:6px}
 @media (max-width:719px){
   .bn .flow{margin-inline:calc(-1 * var(--gut))}
   .flow{grid-template-columns:1fr;gap:28px;padding:20px var(--gut)}
+  .flow .replay{left:var(--gut)}
   .reach{grid-template-areas:"msg" "ok" "chs"}
   .watch .chs,.reach .chs{flex-direction:row;justify-content:space-between;gap:6px}
   .watch .ch{flex:1;flex-direction:column;gap:6px;padding:10px 2px 8px;font-size:11.5px}

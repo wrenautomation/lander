@@ -85,10 +85,11 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   (`public/_redirects`, query kept) until the family has its own page. Hyphens, not underscores.
   Also fixed: canonical and og:url pointed at `/x.html`, a URL Pages redirects away from.
 
-- **D37 (2026-09-29): one diagram plays at a time.** A fast scroll fired all three flow timelines at
-  once, so the story ran out of order. Now a diagram starting fast-forwards any earlier one still
-  playing (6x), and a diagram that leaves the screen mid-play finishes there. Scrolling back always
-  finds a whole story.
+- **D37 (2026-09-29): one diagram plays at a time, replay on each.** A fast scroll fired all three
+  flow timelines at once, so the story ran out of order. A 6x fast-forward read as a glitch, so now:
+  diagrams queue in story order, one with another waiting plays at 2x (never faster), nothing skips.
+  A replay button (rust, it's an action; green stays for results) sits over each diagram's first
+  node once it's whole. Target line stays green: it's the result, and it matches the client count.
 
 ## Next
 

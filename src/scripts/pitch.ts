@@ -243,9 +243,10 @@ if (flowsBox) {
     const PLAY: Record<string, Play> = {
       // the list sits grey; it fans out to every source; job posts fire, the rest go quiet; that client lights and jumps to the top; the others are ruled out; the alert
       watch: (f, tl, ws) => {
-        const rows = $$('[data-rows] li', f), hot = rows[0], chs = $$('.ch', f), hit = $('.ch.on', f)!;
+        // by structure, not class: a replay rebuilds from whatever state the last run left
+        const rows = $$('[data-rows] li', f), hot = rows[0], outs = rows.slice(1), chs = $$('.ch', f);
+        const hit = chs.find((c) => !c.hasAttribute('data-quiet'))!, quiet = chs.filter((c) => c !== hit);
         const alert = node(f, 'alert'), spark = $('.spark svg', alert);
-        const outs = rows.filter((r) => r.classList.contains('out')), quiet = $$('.ch.quiet', f);
         hot.classList.remove('lit'); hit.classList.remove('on'); outs.forEach((r) => r.classList.remove('out')); quiet.forEach((c) => c.classList.remove('quiet'));
         gsap.set(rows, { opacity: 0 });
         gsap.set(hot, { yPercent: 200 });
@@ -318,17 +319,23 @@ if (flowsBox) {
       },
     };
     const done = new Map<HTMLElement, Promise<void>>();
-    const tls: gsap.core.Timeline[] = [];
+    // one diagram plays at a time, in story order. A fast scroll queues the next one, and any diagram with another
+    // waiting behind it plays at 2x; nothing jumps or skips.
+    let playing: gsap.core.Timeline | null = null, waiting = 0, queue = Promise.resolve();
+    // (re)build a diagram's timeline from its reset state; PLAY puts every node back where the story starts
+    const build = (f: HTMLElement) => {
+      const tl = gsap.timeline({ paused: true, defaults: { ease: OUT, duration: 0.7 } });
+      gsap.set(nodes(f), { opacity: 0, y: 16 });
+      PLAY[f.dataset.flow!]?.(f, tl, wires.get(f)!);
+      return tl;
+    };
+    const run = (tl: gsap.core.Timeline, speed = 1) => new Promise<void>((r) => {
+      playing = tl;
+      tl.eventCallback('onComplete', () => { if (playing === tl) playing = null; r(); }).timeScale(speed).play(0);
+    });
     for (const f of flows) {
       const ws = wires.get(f)!;
-      gsap.set(nodes(f), { opacity: 0, y: 16 });
-      const tl = gsap.timeline({ defaults: { ease: OUT, duration: 0.7 }, scrollTrigger: { trigger: $('[data-in]', f) ?? f, start: 'top 70%', once: true } });
-      PLAY[f.dataset.flow!]?.(f, tl, ws);
-      // one diagram plays at a time, in story order: a fast scroll starts the next one, and any earlier one still
-      // playing fast-forwards to its end, so the story never runs out of order
-      const earlier = [...tls];
-      tls.push(tl);
-      tl.eventCallback('onStart', () => earlier.forEach((t) => { if (t.progress() < 1) t.timeScale(6).play(); }));
+      let tl = build(f);
       // once whole, a dot keeps running through its wires while it's on screen
       // a fan runs at once: wires share a stage when they leave the same node, or meet at the same one
       const loop = gsap.timeline({ repeat: -1, repeatDelay: 1.6, paused: true });
@@ -341,13 +348,29 @@ if (flowsBox) {
           loop.to(o, { t: 1, duration: 0.9, ease: 'none', onUpdate: () => { w.dot.style.opacity = o.t > 0 && o.t < 1 ? '1' : '0'; at(w, o.t); } }, t0);
         });
       });
-      let whole = false;
-      done.set(f, new Promise((r) => tl.eventCallback('onComplete', () => { whole = true; loop.play(); r(); })));
-      // scrolled off screen mid-play, it finishes there: scrolling back never finds half a story
-      ScrollTrigger.create({ trigger: f, start: 'top bottom', end: 'bottom top', onToggle: (s) => {
-        if (!s.isActive && tl.progress() > 0 && tl.progress() < 1) tl.progress(1, false);
-        if (whole) s.isActive ? loop.play() : loop.pause();
-      } });
+      let whole = false, seen = false;
+      const finish = () => { whole = true; f.classList.add('whole'); if (seen) loop.play(); };
+      done.set(f, new Promise((r) => {
+        ScrollTrigger.create({ trigger: $('[data-in]', f) ?? f, start: 'top 70%', once: true, onEnter: () => {
+          playing?.timeScale(2);
+          waiting++;
+          queue = queue.then(() => run(tl, --waiting ? 2 : 1)).then(() => { finish(); r(); });
+        } });
+      }));
+      ScrollTrigger.create({ trigger: f, start: 'top bottom', end: 'bottom top', onToggle: (s) => { seen = s.isActive; if (whole) s.isActive ? loop.play() : loop.pause(); } });
+      // replay: the diagram plays again from the start, at full speed
+      const again = document.createElement('button');
+      again.type = 'button'; again.className = 'replay'; again.tabIndex = -1; // the diagram is decorative (aria-hidden)
+      again.innerHTML = '<svg viewBox="0 0 16 16"><path d="M3 8a5 5 0 1 0 1.6-3.7M3 2.5v2.8h2.8" /></svg>Replay';
+      again.addEventListener('click', () => {
+        if (!whole) return;
+        whole = false; f.classList.remove('whole'); loop.pause(0);
+        ws.forEach((w) => { w.dot.style.opacity = '0'; });
+        tl.kill(); tl = build(f);
+        run(tl).then(finish);
+      });
+      f.classList.add('replayable');
+      f.prepend(again);
     }
     // the line between diagrams draws as you scroll, from one's last node into the next one's first. It waits for
     // its diagram to finish playing; scrolled past early, it catches up to the scroll once the diagram is whole.
