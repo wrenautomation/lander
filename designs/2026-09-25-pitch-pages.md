@@ -122,6 +122,16 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   on hover or tap: all services, and lead reactivation for recruiting firms. Links out of
   the hub must land on a pitch page, checked at build. Checks are green circles everywhere
   (hero, guarantee, compare); the compare table's no is a red cross.
+- **D41 (2026-09-29): The hub reframed as ground up modernization, copy as placeholders.**
+  William's brief: C-suite readers at mid to big companies, five levels (SOPs, one CRM,
+  workflows, AI integration, scale and monitor), goal = a multi-step form that qualifies,
+  then William calls fast. Added: the five levels as a staircase after the pain, a pin on
+  the level most companies are on; each case study shows the levels it climbed (from, to);
+  the hub form steps through four questions (level, what's slowing you, size, role; fit =
+  10+ people and a decision role; defined on wren's ops-automation-build offer), phone
+  required, no calendar (the fit message says William calls). All hub copy is bracketed
+  placeholders until William writes it. Panels are flat white (no gradients); the Services
+  menu lists only the niche pages.
 
 ## Next
 

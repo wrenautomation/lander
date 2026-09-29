@@ -49,7 +49,36 @@
 .case dd{margin-top:4px;color:var(--ink-2)}
 .case .now dt{color:var(--win)}
 .case .now dd{color:var(--ink);font-weight:500;font-size:18px;line-height:1.45}
+.climb{display:flex;align-items:center;gap:12px;margin-top:18px;font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.climb .reached{color:var(--win)}
+.climb .track{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;flex:1;max-width:220px}
+.climb .track i{height:8px;border-radius:2px;background:var(--rule)}
+.climb .track i.was{background:var(--ink-3)}
+.climb .track i.gain{background:var(--win)}
 @media (max-width:760px){.case-list{grid-template-columns:1fr}}
+
+/* ---------- the five levels: a staircase, a pin over the level most companies are on ---------- */
+.levels .head.wide{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 40px;max-width:none}
+.levels .head h2{max-width:15em}
+.levels .head .intro{max-width:36em}
+.stairs{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(8px,1vw,14px);margin-top:clamp(28px,4vh,48px)}
+.stairs .rise{position:relative;display:flex;flex-direction:column;justify-content:flex-end;height:clamp(180px,28vh,260px)}
+.stairs .block{display:flex;align-items:flex-start;height:calc(var(--h) * 20%);padding:12px 14px;border-radius:10px 10px 0 0;background:color-mix(in srgb,var(--ink) calc(var(--h) * 17% - 12%),#F3F1EC);transform-origin:bottom;font-style:normal}
+.stairs .block b{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
+.stairs li:nth-child(n+3) .block b{color:#fff}
+.stairs .most .block{outline:1.5px solid var(--ink);outline-offset:-1.5px;background:#fff}
+.stairs .most .block b{color:var(--ink)}
+.stairs .pin{position:absolute;left:0;bottom:calc(var(--h) * 20% + 10px);padding:6px 10px;background:var(--ink);color:#fff;font-size:12.5px;font-weight:500;line-height:1.3;white-space:nowrap}
+.stairs .pin::after{content:"";position:absolute;left:16px;top:100%;border:6px solid transparent;border-top-color:var(--ink)}
+.stairs h3{margin-top:16px;font-size:17px;font-weight:600;letter-spacing:-.01em;line-height:1.3}
+.stairs p{margin-top:6px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+@media (max-width:899px){
+  .stairs{grid-template-columns:1fr;gap:20px}
+  .stairs .rise{height:auto}
+  .stairs .block{width:calc(20% + var(--h) * 16%);height:36px;align-items:center;border-radius:0 8px 8px 0;transform-origin:left}
+  .stairs .pin{position:static;align-self:flex-start;margin-bottom:10px}
+  .stairs h3{margin-top:10px}
+}
 
 /* ---------- inbound: the late inquiry, the reply, the booking ---------- */
 .inbound{grid-template-columns:1fr 1.15fr;grid-template-areas:"inq reply" "cal reply"}

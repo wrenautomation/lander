@@ -1,7 +1,9 @@
 # wrenautomation.com/. The hub: Wren as a whole, for anyone who lands without a service link.
 # Laid out on the B2B landing template: hero with the form, proof, the pain, proof, three benefits, proof,
 # a comparison, how it works, FAQ, the recap. Every section ends on one button to the form.
-# Reader: an owner or executive of a service firm. Prices stay off the page. Proof is real only:
+# Reader: C-suite and key decision-makers at mid to big companies (brief 2026-09-29). Copy is placeholder
+# until William writes it: each [bracket] says what goes there.
+# Was: an owner or executive of a service firm. Prices stay off the page. Proof is real only:
 # the Government of Canada and University of Alberta builds, and William himself.
 title: Wren Automation
 description: Wren connects your company's tools into one clean system, then puts AI to work on it. More clients in, less busywork out.
@@ -20,204 +22,215 @@ nav:
 nav_cta: Get in touch
 
 hero:
-  proof: Built for the Government of Canada and the University of Alberta.
-  h1: Grow your company *without adding headcount.*
-  lede: We connect your tools into one clean system, then put AI to work on it. More clients in, less busywork out.
+  proof: "[Proof line: the strongest real credential, one sentence]"
+  h1: "[H1: dream outcome] *[accent]*"
+  lede: "[Lede: what Wren does, ground up modernization, in two short sentences]"
   checks:
-    - One engineer from the first call to the last fix.
-    - A written plan before anything gets built.
-    - If my mistake breaks it, I fix it free.
-  cta: Book a consultation
-  friction: A 30-minute call and a written plan. Yours either way.
+    - "[Check 1: a trust point]"
+    - "[Check 2: a trust point]"
+    - "[Check 3: risk reversal]"
+  cta: "[Hero button]"
+  friction: "[One line that takes the risk out of the button]"
 
 proof:
-  h2: What the last two builds *changed.*
-  cta: See what I'd build for you
+  h2: "[Proof heading] *[accent]*"
+  cta: "[Button]"
   items:
-    - fig: "17,000"
-      label: Government of Canada staff
-      text: ask a question and get the answer, instead of reading 220 directives.
-    - fig: 6 to 7 hrs
-      label: A week back, per person
-      text: for the staff who used to do the most looking up.
-    - fig: 200 hrs
-      label: University of Alberta lab
-      text: of searching by hand that nobody does now.
+    - { fig: "[Figure]", label: "[Who or what]", text: "[What changed, one line]" }
+    - { fig: "[Figure]", label: "[Who or what]", text: "[What changed, one line]" }
+    - { fig: "[Figure]", label: "[Who or what]", text: "[What changed, one line]" }
 
 pain:
   id: pain
-  h2: Your company runs on *a few people's memory.*
+  h2: "[Pain heading: the cost of standing still] *[accent]*"
   text: |
-    Client details live in inboxes, spreadsheets and an old CRM. Your best people spend the week retyping them, chasing meeting times and rebuilding the same report.
+    [Pain paragraph: repetitive work, not enough leads, hiring and training, work nobody can track.]
 
-    When one of them leaves, **what they knew leaves too.**
-  cta: Get your week back
+    **[The line that stings.]**
+  cta: "[Button]"
   chart:
-    h: Where a normal week goes
+    h: "[Chart title: where the week goes]"
     bars:
-      - { label: Retyping client details, w: 100, hot: true }
-      - { label: Chasing meeting times, w: 64 }
-      - { label: Building reports, w: 44 }
-      - { label: Finding old files, w: 28 }
+      - { label: "[Repetitive work]", w: 100, hot: true }
+      - { label: "[Chasing leads]", w: 64 }
+      - { label: "[Hiring and training]", w: 44 }
+      - { label: "[Tracking work]", w: 28 }
+
+levels:
+  id: levels
+  h2: "[Levels heading: where is your company today?] *[accent]*"
+  text: "[One line: the audit finds your level, the build takes you up]"
+  cta: "[Button: find my level]"
+  word: Level
+  most: 1
+  most_note: "[Most companies are here]"
+  items:
+    - { name: "[SOPs and best practices]", text: "[Battle tested by manual work]" }
+    - { name: "[One clean CRM]", text: "[Salesforce, Attio, Zoho: from scattered to unified and auditable]" }
+    - { name: "[Workflows]", text: "[Admin, hiring, onboarding, lead gen run on the data]" }
+    - { name: "[AI integration]", text: "[Agents, minimal hand-holding: outreach, ads, admin, SEO]" }
+    - { name: "[Scale and monitor]", text: "[Watched, fixed, smoothed out]" }
 
 cases:
-  h2: Two builds. *Both still running.*
-  cta: Start with a 30-minute call
+  h2: "[Cases heading] *[accent]*"
+  cta: "[Button]"
   before: Before
   after: Now
   items:
-    - client: Government of Canada
-      kind: Policy search
-      before: Staff found the right directive among 220, then read it by hand. Some run to hundreds of pages.
-      after: They type the question and get the answer, with the passage it came from.
-    - client: University of Alberta
-      kind: Research lab
-      before: Someone looked up who cited each of 7,000 papers, one by one, two minutes a paper.
-      after: The lookups run on their own. The lab uses the map of who cites what in its talks.
+    - client: "[Client]"
+      kind: "[What we built]"
+      from: 1
+      to: 3
+      before: "[Where they were: the level, in their words]"
+      after: "[Where they are now: the result, a number if real]"
+    - client: "[Client]"
+      kind: "[What we built]"
+      from: 2
+      to: 4
+      before: "[Where they were: the level, in their words]"
+      after: "[Where they are now: the result, a number if real]"
 
 benefits:
   id: how
   items:
     - flow: inbound
-      h2: Answer every inquiry in minutes, *even at midnight.*
-      text: Each new inquiry gets a reply written from your services and your calendar, then a meeting. You wake up to bookings, not a backlog.
-      cta: Show me where to start
+      h2: "[Benefit 1: 10x, sustainably] *[accent]*"
+      text: "[Two sentences: how, and what it looks like day to day]"
+      cta: "[Button]"
     - flow: admin
-      h2: Paperwork that *files itself.*
-      text: A signed contract fills the CRM, sends the invoice and books the kickoff. The Monday report writes itself. Nobody retypes a thing.
+      h2: "[Benefit 2: better margins, same headcount] *[accent]*"
+      text: "[Two sentences: how, and what it looks like day to day]"
     - flow: map
-      h2: Every client in one record. *Nothing lives in one head.*
-      text: Inboxes, spreadsheets and old tools, merged into one clean CRM. When someone leaves, the history stays.
-      cta: Get in touch
+      h2: "[Benefit 3: meaningful work, better morale] *[accent]*"
+      text: "[Two sentences: how, and what it looks like day to day]"
+      cta: "[Button]"
   map:
     from:
-      h: Today
-      items: [Inboxes, Spreadsheets, Old CRM, Calendars]
+      h: "[Today]"
+      items: ["[Tool]", "[Tool]", "[Tool]", "[Tool]"]
     crm:
-      h: One clean CRM
+      h: "[One clean CRM]"
       rows:
-        - { name: Harbor Dental, note: "14 emails, 3 calls, 2 files" }
-        - { name: Cobalt Freight, note: "Owner changed, history kept" }
-        - { name: Alder Health, note: Renewal due in May }
+        - { name: "[Client]", note: "[Detail]" }
+        - { name: "[Client]", note: "[Detail]" }
+        - { name: "[Client]", note: "[Detail]" }
     to:
-      - h: Someone leaves
-        items: [Every thread kept, Clients handed over]
-      - h: Someone asks
-        items: ["Full history, one place", Same answer for everyone]
+      - h: "[Outcome]"
+        items: ["[Point]", "[Point]"]
+      - h: "[Outcome]"
+        items: ["[Point]", "[Point]"]
 
 catalog:
   id: services
-  h2: Every system I build, *and who it's for.*
-  cta: Ask what fits your company
+  h2: "[Services heading] *[accent]*"
+  cta: "[Button]"
   groups:
-    - for: Recruiting companies
-      link: { label: See the recruiting system, to: /recruiting/lead-reactivation }
+    - for: "[Niche: recruiting companies]"
+      link: { label: "[Link to the recruiting page]", to: /recruiting/lead-reactivation }
       items:
-        - name: Lead reactivation
-          runs: Runs on your ATS, inbox and LinkedIn.
-          in: { icon: person, label: Past client, note: 3 new roles posted }
-          out: { icon: cal, label: Meeting booked, note: Thu 2:00 pm }
-        - name: Candidate reactivation
-          runs: Runs on your ATS and open roles.
-          in: { icon: person, label: Past candidate, note: Fits an open role }
-          out: { icon: check, label: Interested, note: Handed to your recruiter }
-    - for: Any service company
+        - name: "[Service]"
+          runs: "[Runs on: their tools]"
+          in: { icon: person, label: "[In]", note: "[Detail]" }
+          out: { icon: cal, label: "[Out]", note: "[Result]" }
+        - name: "[Service]"
+          runs: "[Runs on: their tools]"
+          in: { icon: person, label: "[In]", note: "[Detail]" }
+          out: { icon: check, label: "[Out]", note: "[Result]" }
+    - for: "[Any company]"
       items:
-        - name: Inquiry replies
-          runs: Runs on your site form, inbox and calendar.
-          in: { icon: mail, label: New inquiry, note: 11:48 pm }
-          out: { icon: cal, label: Call booked, note: 11:53 pm }
-        - name: Contract to invoice
-          runs: Runs on your e-signature, CRM and billing.
-          in: { icon: doc, label: Contract signed, note: 9:02 am }
-          out: { icon: invoice, label: Invoice sent, note: CRM filled }
-        - name: One clean CRM
-          runs: Runs on your inboxes, spreadsheets and old tools.
-          in: { icon: stack, label: 4 scattered tools, note: "One client, 3 spellings" }
-          out: { icon: record, label: One record, note: Full history }
-        - name: Document answers
-          runs: Runs on your policies, contracts and manuals.
-          in: { icon: search, label: A question, note: What's our notice period? }
-          out: { icon: doc, label: The answer, note: With the page it came from }
+        - name: "[Service]"
+          runs: "[Runs on: their tools]"
+          in: { icon: mail, label: "[In]", note: "[Detail]" }
+          out: { icon: cal, label: "[Out]", note: "[Result]" }
+        - name: "[Service]"
+          runs: "[Runs on: their tools]"
+          in: { icon: doc, label: "[In]", note: "[Detail]" }
+          out: { icon: invoice, label: "[Out]", note: "[Result]" }
+        - name: "[Service]"
+          runs: "[Runs on: their tools]"
+          in: { icon: stack, label: "[In]", note: "[Detail]" }
+          out: { icon: record, label: "[Out]", note: "[Result]" }
+        - name: "[Service]"
+          runs: "[Runs on: their tools]"
+          in: { icon: search, label: "[In]", note: "[Detail]" }
+          out: { icon: doc, label: "[Out]", note: "[Result]" }
 
 compare:
   id: compare
-  h2: A system that fits your company, *built by the person you talk to.*
+  h2: "[Compare heading] *[accent]*"
   us: Wren
-  them: [Automation agency, Consultant, Off-the-shelf software, Hiring in-house]
+  them: ["[Alternative]", "[Alternative]", "[Alternative]", "[Alternative]"]
   rows:
-    - { feature: The person you talk to builds it, marks: [yes, no, no, no, yes] }
-    - { feature: Maps how your company works before building, marks: [yes, no, yes, no, no] }
-    - { feature: Works inside the tools you already use, marks: [yes, yes, yes, no, yes] }
-    - { feature: Cleans your data before adding AI, marks: [yes, no, no, no, no] }
-    - { feature: No salary or hiring to manage, marks: [yes, yes, yes, yes, no] }
-  cta: Book a consultation
+    - { feature: "[What only we do]", marks: [yes, no, no, no, no] }
+    - { feature: "[Point of difference]", marks: [yes, no, yes, no, no] }
+    - { feature: "[Point of difference]", marks: [yes, yes, yes, no, yes] }
+    - { feature: "[Point of difference]", marks: [yes, no, no, no, no] }
+    - { feature: "[Point of difference]", marks: [yes, yes, yes, yes, no] }
+  cta: "[Button]"
 
 start:
   id: start
-  h2: Getting started takes *three small steps.*
+  h2: "[Start heading: getting started is small] *[accent]*"
   pics: [form, call, plan]
   steps:
-    - { name: Fill out the form, time: 2 minutes }
-    - { name: Hop on a call, time: 30 minutes }
-    - { name: Get a written plan, time: Yours either way }
-  then: { name: The build starts, time: About seven weeks }
+    - { name: "[Fill out the form]", time: "[2 minutes]" }
+    - { name: "[I call you]", time: "[Minutes later]" }
+    - { name: "[The audit: your level]", time: "[Timing]" }
+  then: { name: "[The build starts]", time: "[Timing]" }
   then_pic: live
-  text: That's all you do before the build. If it's not a fit, you've lost 30 minutes, not a budget.
-  cta: Take step one
+  text: "[One line: why it's low risk]"
+  cta: "[Button]"
 
 faq:
   h2: Questions you *should be asking.*
   items:
-    - q: Which system should we start with?
-      a: The one closest to revenue. For most companies that's new inquiries waiting too long or past clients going cold. On the call I'll tell you which.
-    - q: Do we have to change our tools?
-      a: No. I build inside what you already use. If a tool is the problem, I'll say so and why.
-    - q: Why not start with the AI?
-      a: AI on messy data makes mistakes faster. Written processes and one clean CRM are what make it work.
-    - q: How long does it take?
-      a: About seven weeks to a company that runs on one clean CRM. The first AI job runs around week 6.
-    - q: Who on my team needs to be involved?
-      a: You for an hour, then 45 minutes with three or four of your team. After that, a 20-minute check-in each week.
-    - q: What happens after the build?
-      a: I watch it run and fix what breaks. Then one new AI job a month, if you want it.
+    - { q: "[Question]", a: "[Answer]" }
+    - { q: "[Question]", a: "[Answer]" }
+    - { q: "[Question]", a: "[Answer]" }
+    - { q: "[Question]", a: "[Answer]" }
+    - { q: "[Question]", a: "[Answer]" }
+    - { q: "[Question]", a: "[Answer]" }
 
 about:
-  h2: Hi, I'm *William.*
+  h2: "[About heading] *[accent]*"
   paras:
-    - I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
-    - My internships were data pipelines, systems that talk to each other, and CRMs. Now I build the systems that bring companies business, and the automations that handle what comes with it.
-    - I build long-term relationships. I want to do such a good job that you'll tell every other business owner you know about me.
+    - "[Who William is]"
+    - "[Why he builds this]"
+    - "[What working with him is like]"
   photo: /headshot.png
-  sign: William Jin · Toronto
-  cta: Talk to me
+  sign: "[Signature]"
+  cta: "[Button]"
 
 close:
-  h2: Your company is one call away from *running on one system.*
-  reason: Every week without it, inquiries wait overnight and *your team retypes the same details.*
-  text: Two minutes to fill out. I reply within one business day.
+  h2: "[Close heading: one call from the outcome] *[accent]*"
+  reason: "[The cost of waiting] *[accent]*"
+  text: "[One line: time to fill out, how fast I call]"
   vs:
-    win: Companies that start now
-    lose: Companies that wait
+    win: "[Companies that start now]"
+    lose: "[Companies that wait]"
     rows:
-      - [Every inquiry answered in minutes, Inquiries wait until morning]
-      - ["Contracts, invoices and reports move on their own", Your team retypes the same details]
-      - [Every client in one record, Relationships leave with the people]
-  cta: Book a consultation
+      - ["[Win]", "[Lose]"]
+      - ["[Win]", "[Lose]"]
+      - ["[Win]", "[Lose]"]
+  cta: "[Button]"
 
 ask:
-  h2: Tell me about your company.
-  intro: What you do, where the hours go, what you want more of.
+  h2: "[Form heading]"
+  intro: "[One line: what happens after you send]"
+  cta: "[First step button]"
   submit: Send
   sending: Sending…
   name: Your name
   email: Work email
   phone: Phone
+  phone_required: true
   sms_consent: Text me about my request. Msg & data rates may apply. Reply STOP to opt out. [Terms](/terms), [Privacy](/privacy).
   firm: Company website
-  note: What's going on?
   required: Required
   bad_email: Enter an email I can reply to.
   error: "That didn't send. Email me instead:"
-  thanks_h: Got it. *Talk soon.*
-  thanks: I'll reply within one business day, from william@wrenautomation.com.
+  thanks_h: "[Thanks heading: I'm calling you]"
+  thanks: "[When I'll call, from which number]"
+  nofit_h: "[Not a fit heading]"
+  nofit: "[Kind no, and where to go instead]"
+  steps: { next: Next, back: Back, pick_one: Pick one to go on. }

@@ -115,6 +115,17 @@ if (motion) {
       }
       return tl;
     },
+    // the five levels: each step rises, then its name; the pin drops on the level most companies are on
+    levels: (el, tl) => {
+      $$('li', el).forEach((li, i) => {
+        const flat = matchMedia('(max-width: 899px)').matches; // phones lay the steps as bars growing right
+        tl.fromTo($('.block', li), flat ? { scaleX: 0 } : { scaleY: 0 }, flat ? { scaleX: 1, duration: 0.5, ease: 'power2.out' } : { scaleY: 1, duration: 0.5, ease: 'power2.out' }, i * 0.4)
+          .fromTo($$('h3, p', li), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 }, i * 0.4 + 0.2);
+      });
+      const pin = $('.pin', el);
+      if (pin) tl.fromTo(pin, { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(2)' });
+      return tl;
+    },
     gantt: (el, tl) => tl
       .fromTo($$('.g-axis i', el), { opacity: 0 }, { opacity: 1, stagger: 0.04, duration: 0.4 })
       .fromTo($$('b', el), { scaleX: 0 }, { scaleX: 1, duration: 1.1, stagger: 0.18 }, 0.2),
@@ -501,7 +512,12 @@ if (box) {
   const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
   const fieldOk = (input: HTMLInputElement, ok: boolean) => { input.closest('.field')?.classList.toggle('invalid', !ok); return ok; };
   const email = form.elements.namedItem('email') as HTMLInputElement, firm = form.elements.namedItem('firm') as HTMLInputElement | null;
-  const contactOk = () => [fieldOk(email, EMAIL.test(email.value.trim())), !firm || fieldOk(firm, !!firm.value.trim())].every(Boolean);
+  const phone = form.elements.namedItem('phone') as HTMLInputElement | null; // required on a page that calls back
+  const contactOk = () => [
+    fieldOk(email, EMAIL.test(email.value.trim())),
+    !firm || fieldOk(firm, !!firm.value.trim()),
+    !phone?.required || fieldOk(phone, phone.value.replace(/\D/g, '').length >= 7),
+  ].every(Boolean);
 
   const answered = (s: HTMLElement) => {
     if ('contact' in s.dataset) return contactOk();

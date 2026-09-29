@@ -1,0 +1,30 @@
+---
+// The five levels a company climbs, as a staircase: each step a block that rises one higher, its name and what it
+// means below, and a pin over the level most companies are on. The words sit beside it with one button. The markup
+// is the finished state; pitch.ts (ART.levels) raises the steps one at a time, then drops the pin.
+import type { CollectionEntry } from 'astro:content';
+import { rich } from '../../lib/text';
+import Arrow from './Arrow.astro';
+
+const { s } = Astro.props as { s: CollectionEntry<'hub'>['data']['levels'] };
+---
+<section class="sec levels" id={s.id}>
+  <div class="wrap">
+    <div class="head wide">
+      <div><h2 set:html={rich(s.h2)} /><p class="intro">{s.text}</p></div>
+      <a class="btn" href="#apply" data-cta><span>{s.cta}</span><Arrow /></a>
+    </div>
+    <ol class="stairs" data-art="levels">
+      {s.items.map((x, i) => (
+        <li class:list={{ most: i + 1 === s.most }} style={`--h:${i + 1}`}>
+          <div class="rise">
+            {i + 1 === s.most && <span class="pin">{s.most_note}</span>}
+            <i class="block"><b>{s.word} {i + 1}</b></i>
+          </div>
+          <h3>{x.name}</h3>
+          <p>{x.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

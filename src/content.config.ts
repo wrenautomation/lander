@@ -215,7 +215,9 @@ const ask = z.strictObject({
   assure: z.string().optional(),    // one line under the form's button, on every step
   submit: z.string(), sending: z.string(),
   cta: z.string().optional(),       // the first step's button (contact details), when the form steps
-  name: z.string(), email: z.string(), phone: z.string(), sms_consent: z.string(), firm: z.string().optional(), note: z.string().optional(),
+  name: z.string(), email: z.string(), phone: z.string(), sms_consent: z.string(),
+  phone_required: z.boolean().optional(), // a page that calls back fast needs the number
+  firm: z.string().optional(), note: z.string().optional(),
   required: z.string(), bad_email: z.string(), error: z.string(),
   thanks_h: z.string(), thanks: z.string(),
   book_h: z.string().optional(), book: z.string().optional(),
@@ -323,10 +325,21 @@ const hub = defineCollection({
       id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
       chart: z.strictObject({ h: z.string(), bars: z.array(z.strictObject({ label: z.string(), w: z.number().min(1).max(100), hot: z.boolean().optional() })).min(2).max(5) }),
     }),
-    // real builds only, as before and now
+    // the five levels a company climbs, as steps (Levels.astro); `most` is the level most companies are on
+    levels: z.strictObject({
+      id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
+      word: z.string(),                 // "Level", before each number
+      most: z.number().int().min(1).max(5), most_note: z.string(),
+      items: z.array(z.strictObject({ name: z.string(), text: z.string() })).length(5),
+    }),
+    // real builds only, each as the level it started on, the level it reached, before and now
     cases: z.strictObject({
       h2: z.string(), cta: z.string(), before: z.string(), after: z.string(),
-      items: z.array(z.strictObject({ client: z.string(), kind: z.string(), before: z.string(), after: z.string() })).min(1).max(3),
+      items: z.array(z.strictObject({
+        client: z.string(), kind: z.string(),
+        from: z.number().int().min(1).max(5), to: z.number().int().min(1).max(5),
+        before: z.string(), after: z.string(),
+      }).refine((c) => c.to > c.from, 'a case climbs: to must be above from')).min(1).max(3),
     }),
     // three rows, a diagram each (inbound, admin: HubFlow.astro; map: FirmMap.astro), sides swapping
     benefits: z.strictObject({
