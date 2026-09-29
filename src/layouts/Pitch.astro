@@ -11,6 +11,7 @@ import Analytics from '../components/Analytics.astro';
 import Arrow from '../components/pitch/Arrow.astro';
 import Calc from '../components/pitch/Calc.astro';
 import Scene from '../components/pitch/Scene.astro';
+import Story from '../components/pitch/Story.astro';
 import Shot from '../components/pitch/Shot.astro';
 import Steps from '../components/pitch/Steps.astro';
 import Gantt from '../components/pitch/Gantt.astro';
@@ -51,8 +52,11 @@ const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
 <section class="hero" id="top">
   <div class="wrap hero-grid">
     <div class="copy">
-      <h1 set:html={rich(p.hero.h1)} />
+      <h1 class:list={{ long: p.hero.h1.length > 60 }} set:html={rich(p.hero.h1)} />
       <div class="lede" set:html={richParas(p.hero.lede)} />
+      {p.hero.promise && (
+        <div class="promise"><p class="label">{p.hero.promise.h}</p><ul>{p.hero.promise.items.map((x) => <li set:html={rich(x)} />)}</ul></div>
+      )}
       <a class="more" href={p.hero.second_to}>{p.hero.second}<Arrow /></a>
     </div>
     <Apply a={p.ask} offer={offer} email={site.email} path={p.path} />
@@ -69,6 +73,8 @@ const me = { name: p.about.sign.split(/[\s·]+/)[0], photo: p.about.photo };
     <div class="wrap"><p>{p.strip.label}</p><div class="marq"><ul>{p.strip.items.map((x) => <li>{x}</li>)}</ul><ul aria-hidden="true">{p.strip.items.map((x) => <li>{x}</li>)}</ul></div></div>
   </section>
 )}
+
+{p.story && <Story s={p.story} />}
 
 {p.field && (
   <section class="sec field" id="field">

@@ -113,7 +113,7 @@ if (motion) {
   const h1 = $('.hero h1');
   const intro = gsap.timeline({ defaults: { ease: OUT, duration: 1.1 } });
   if (h1) { gsap.set(h1, { opacity: 1 }); intro.fromTo(words(h1), { yPercent: 110 }, { yPercent: 0, stagger: 0.06 }, 0.1); }
-  intro.fromTo($$('.hero :is(.lede,.more,.by)'), { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.12 }, 0.4);
+  intro.fromTo($$('.hero :is(.lede,.promise,.more,.by)'), { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.12 }, 0.4);
 
   // the example thread plays out: a message, the other side typing, the reply, what it means
   const scene = $('[data-scene]');
@@ -128,6 +128,17 @@ if (motion) {
       .fromTo($('.typing', b), { opacity: 0 }, { opacity: 1, duration: 0.2 }, 1.5)
       .to($('.typing', b), { opacity: 0, duration: 0.2 }, 2.4)
       .fromTo($('.tag', scene), { opacity: 0, y: 12 }, { opacity: 1, y: 0 }, 2.9);
+  }
+
+  // how it works: the beats light in order, hold, dim, and go again, only while the reel is on screen
+  for (const reel of $$('[data-reel]')) {
+    const beats = $$('[data-beat]', reel);
+    gsap.set(beats, { opacity: 0.2 });
+    const tl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 0.4 });
+    beats.forEach((b, k) => tl
+      .to(b, { opacity: 1, duration: 0.6, ease: OUT, onStart: () => b.classList.add('on'), onReverseComplete: () => b.classList.remove('on') }, k * 1.5));
+    tl.to(beats, { opacity: 0.2, duration: 0.6, ease: 'power2.inOut', onComplete: () => beats.forEach((b) => b.classList.remove('on')) }, beats.length * 1.5 + 2.4);
+    ScrollTrigger.create({ trigger: reel, start: 'top 80%', end: 'bottom 15%', onToggle: (s) => (s.isActive ? tl.play() : tl.pause()) });
   }
 
   // section headings: word by word, as each comes into view
@@ -217,7 +228,7 @@ if (calc) {
   for (const i of ins) i.addEventListener('input', () => { show(i); run(); });
 }
 
-/* ---------- the form: one question at a time, then fetch ---------- */
+/* ---------- the form: contact details, then one question at a time, then fetch ---------- */
 const box = $('[data-apply]');
 if (box) {
   const form = $<HTMLFormElement>('form', box)!;
@@ -228,7 +239,13 @@ if (box) {
   let cur = 0;
   form.noValidate = true;
 
+  const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  const fieldOk = (input: HTMLInputElement, ok: boolean) => { input.closest('.field')?.classList.toggle('invalid', !ok); return ok; };
+  const email = form.elements.namedItem('email') as HTMLInputElement, firm = form.elements.namedItem('firm') as HTMLInputElement | null;
+  const contactOk = () => [fieldOk(email, EMAIL.test(email.value.trim())), !firm || fieldOk(firm, !!firm.value.trim())].every(Boolean);
+
   const answered = (s: HTMLElement) => {
+    if ('contact' in s.dataset) return contactOk();
     if (!('required' in s.dataset)) return true;
     if (s.dataset.kind === 'text') return !!$<HTMLTextAreaElement>('textarea', s)?.value.trim();
     return !!$('input:checked', s);
@@ -239,12 +256,21 @@ if (box) {
     segs.forEach((g, j) => g.classList.toggle('on', j <= i));
     if (at) at.textContent = String(i + 1);
     if (back) back.hidden = i === 0;
-    if (next) next.hidden = i === steps.length - 1;
+    const last = i === steps.length - 1;
+    if (next) {
+      next.hidden = last;
+      $('span', next)!.textContent = (i === 0 && next.dataset.first) || next.dataset.label || '';
+    }
+    submit.hidden = !last;
     if (focus) $<HTMLElement>('input, textarea', steps[i])?.focus({ preventScroll: true });
   };
   const advance = () => {
     const s = steps[cur];
-    if (!answered(s)) { s.classList.add('invalid'); return; }
+    if (!answered(s)) {
+      if ('contact' in s.dataset) $<HTMLElement>('.field.invalid input', s)?.focus();
+      else s.classList.add('invalid');
+      return;
+    }
     s.classList.remove('invalid');
     if (cur < steps.length - 1) show(cur + 1);
   };
@@ -262,13 +288,10 @@ if (box) {
     }
   }
 
-  const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-  const fieldOk = (input: HTMLInputElement, ok: boolean) => { input.closest('.field')?.classList.toggle('invalid', !ok); return ok; };
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = form.elements.namedItem('email') as HTMLInputElement, firm = form.elements.namedItem('firm') as HTMLInputElement;
-    const ok = [fieldOk(email, EMAIL.test(email.value.trim())), fieldOk(firm, !!firm.value.trim())].every(Boolean);
-    if (!ok) { $<HTMLElement>('.field.invalid input', form)?.focus(); return; }
+    if (cur < steps.length - 1) { advance(); return; } // Enter in a field before the last step moves on
+    if (!contactOk()) { if (steps.length > 1) show(0); $<HTMLElement>('.field.invalid input', form)?.focus(); return; }
     const label = $('span', submit)!, was = label.textContent;
     submit.disabled = true; label.textContent = submit.dataset.sending || was;
     let state = 'error', booking: string | null = null;

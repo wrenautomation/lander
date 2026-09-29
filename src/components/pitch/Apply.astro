@@ -1,6 +1,6 @@
 ---
-// The form, in the first screen beside the hero. An offer with an application: one question per step, then contact
-// details. Without one: a contact form. Posts to /api/apply. With JS: fetch, then the calendar, a thank-you or a
+// The form, in the first screen beside the hero. An offer with an application: contact details first (ask.cta on
+// the button), then one question per step, then send. Without one: a contact form. Posts to /api/apply. With JS: fetch, then the calendar, a thank-you or a
 // not-a-fit. Without JS: a plain POST that redirects to #applied-fit / #applied-nofit / #applied-error, which CSS
 // shows with :target.
 import type { CollectionEntry } from 'astro:content';
@@ -13,6 +13,7 @@ type Offer = CollectionEntry<'offers'>['data'];
 const { a, offer, email, path } = Astro.props as { a: Pitch['ask']; offer: Offer; email: string; path: string };
 const qs = offer.application?.questions ?? [];
 const total = qs.length + 1;
+const stepped = qs.length > 0 && !!a.steps;
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 <div class="panel" id="apply" data-apply data-total={total}>
@@ -27,8 +28,24 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     {qs.length > 0 && a.steps && (
       <p class="progress" aria-hidden="true"><span>{a.steps.step} <b data-at>1</b> {a.steps.of} {total}</span><span class="segs">{Array.from({ length: total }, () => <i></i>)}</span></p>
     )}
+    <fieldset class="step contact" data-step="0" data-contact>
+      {a.steps && <legend>{a.steps.contact_h}</legend>}
+      <div class="fields">
+        <label class="field"><span>{a.name}</span><input name="name" type="text" autocomplete="name"></label>
+        <label class="field"><span>{a.email} <small>{a.required}</small></span><input name="email" type="email" autocomplete="email" required><em class="fe" data-error>{a.bad_email}</em></label>
+        <label class="field"><span>{a.phone}</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel"></label>
+        {a.firm && <label class="field"><span>{a.firm} <small>{a.required}</small></span><input name="firm" type="text" autocomplete="url" inputmode="url" required><em class="fe" data-error>{a.required}</em></label>}
+        {a.note && <label class="field"><span>{a.note}</span><textarea name="note" rows="3"></textarea></label>}
+      </div>
+      <input type="hidden" name="offer" value={offer.id}>
+      <input type="hidden" name="page" value={path}>
+      {['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref'].map((k) => <input type="hidden" name={k} value="">)}
+      <label class="hp" aria-hidden="true">Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      {turnstile && <div class="cf-turnstile" data-sitekey={turnstile} data-size="flexible" data-theme="light"></div>}
+      {!stepped && <button class="btn ink" type="submit" data-submit data-sending={a.sending}><span>{a.submit}</span><Arrow /></button>}
+    </fieldset>
     {qs.map((q, i) => (
-      <fieldset class="step" data-step={i} data-kind={q.kind} data-required={q.required ? '' : undefined}>
+      <fieldset class="step" data-step={i + 1} data-kind={q.kind} data-required={q.required ? '' : undefined}>
         <legend>{q.ask}</legend>
         {q.kind === 'text'
           ? <textarea name={fieldName(q.id)} placeholder={q.placeholder} rows="3"></textarea>
@@ -43,26 +60,11 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
         {a.steps && <p class="fe" data-error>{a.steps.pick_one}</p>}
       </fieldset>
     ))}
-    <fieldset class="step contact" data-step={qs.length}>
-      {a.steps && <legend>{a.steps.contact_h}</legend>}
-      <div class="fields">
-        <label class="field"><span>{a.name}</span><input name="name" type="text" autocomplete="name"></label>
-        <label class="field"><span>{a.email} <small>{a.required}</small></span><input name="email" type="email" autocomplete="email" required><em class="fe" data-error>{a.bad_email}</em></label>
-        <label class="field"><span>{a.phone}</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel"></label>
-        <label class="field"><span>{a.firm} <small>{a.required}</small></span><input name="firm" type="text" autocomplete="url" inputmode="url" required><em class="fe" data-error>{a.required}</em></label>
-        {a.note && <label class="field"><span>{a.note}</span><textarea name="note" rows="3"></textarea></label>}
-      </div>
-      <input type="hidden" name="offer" value={offer.id}>
-      <input type="hidden" name="page" value={path}>
-      {['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref'].map((k) => <input type="hidden" name={k} value="">)}
-      <label class="hp" aria-hidden="true">Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
-      {turnstile && <div class="cf-turnstile" data-sitekey={turnstile} data-size="flexible" data-theme="light"></div>}
-      <button class="btn ink" type="submit" data-submit data-sending={a.sending}><span>{a.submit}</span><Arrow /></button>
-    </fieldset>
-    {qs.length > 0 && a.steps && (
+    {stepped && (
       <div class="nav-steps">
-        <button type="button" class="back" data-back>{a.steps.back}</button>
-        <button type="button" class="btn ink" data-next><span>{a.steps.next}</span><Arrow /></button>
+        <button type="button" class="back" data-back>{a.steps!.back}</button>
+        <button type="button" class="btn ink" data-next data-first={a.cta} data-label={a.steps!.next}><span>{a.cta ?? a.steps!.next}</span><Arrow /></button>
+        <button class="btn ink" type="submit" data-submit data-sending={a.sending}><span>{a.submit}</span><Arrow /></button>
       </div>
     )}
     {a.assure && <p class="assure">{a.assure}</p>}

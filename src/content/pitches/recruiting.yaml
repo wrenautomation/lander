@@ -16,31 +16,50 @@ nav:
 nav_cta: Apply
 
 hero:
-  h1: Win *10 new clients in 90 days* from leads you already paid for, with our lead reactivation system
+  h1: Win *10 new clients in 90 days* from leads you already paid for, with our personalized lead reactivation system
   lede: |
     Your old clients are hiring again. You built those relationships. Don't hand them to a competitor. We build you a personalized lead reactivation system that watches every past client for new hiring windows, reaches out in your voice, and books the meeting. You only pay for meetings that land.
   second: How it works
-  second_to: "#how"
-  by: I'm an engineer, and I run every pilot myself.
-  scene:
-    label: Example
-    a:
-      name: Sam Reyes
-      role: Your recruiter
-      when: Tue 9:14 am
-      text: "Dana, it's been a while since we filled your data team. Hiring again this quarter?"
-      face: { file: recruiting/face-recruiter.jpg, prompt: "Head-and-shoulders portrait of a friendly recruiter in his early 30s, open half-smile, button-down shirt, plain light grey backdrop, soft window light, 85mm, black and white editorial photography, natural light, fine grain, no text, no logos, square crop" }
-    b:
-      name: Dana Whitfield
-      role: VP Talent, Northwind
-      when: Tue 11:02 am
-      text: Good timing. We just opened two roles. Free Thursday?
-      face: { file: recruiting/face-client.jpg, prompt: "Head-and-shoulders portrait of a confident VP of Talent in her mid 40s, warm direct expression, blazer, plain light grey backdrop, soft window light, 85mm, black and white editorial photography, natural light, fine grain, no text, no logos, square crop" }
-    tag: A warm reply, in your recruiter's inbox the same day.
+  second_to: "#story"
+  promise:
+    h: My personal guarantee
+    items:
+      - Works with the ATS and inbox you already use.
+      - Follows how your firm already works. Nothing new to learn.
+      - Every email goes out in your voice, under your recruiters' names.
+  by: If it doesn't fit how your firm works, I change it. Not you.
 
 strip:
   label: Works from an export of
   items: [Bullhorn, Loxo, Recruit CRM, JobAdder, Crelate, Vincere, PCRecruiter, a spreadsheet]
+
+story:
+  id: story
+  label: Example
+  h2: From a dormant contact to a *booked meeting.*
+  intro: One past client, start to finish. Your system does this for every past client in your ATS.
+  beats:
+    - { kind: row, step: Watch, name: Dana Whitfield, role: "VP Talent, Northwind", note: Last placement March 2024. No contact since., status: Dormant }
+    - { kind: signal, step: Spot, text: Northwind posted 2 data engineer roles, meta: Seen 2 days ago on their careers page }
+    - kind: msg
+      step: Write
+      side: out
+      m:
+        name: Sam Reyes
+        role: Your recruiter
+        when: Tue 9:14 am
+        text: "Dana, saw Northwind is growing the data team again. We filled your last two. Want a shortlist this week?"
+        face: { file: recruiting/face-recruiter.jpg, prompt: "Head-and-shoulders portrait of a friendly recruiter in his early 30s, open half-smile, button-down shirt, plain light grey backdrop, soft window light, 85mm, black and white editorial photography, natural light, fine grain, no text, no logos, square crop" }
+    - kind: msg
+      step: Reply
+      side: in
+      m:
+        name: Dana Whitfield
+        role: VP Talent, Northwind
+        when: Tue 11:02 am
+        text: Good timing. We just opened two roles. Free Thursday?
+        face: { file: recruiting/face-client.jpg, prompt: "Head-and-shoulders portrait of a confident VP of Talent in her mid 40s, warm direct expression, blazer, plain light grey backdrop, soft window light, 85mm, black and white editorial photography, natural light, fine grain, no text, no logos, square crop" }
+    - { kind: meet, step: Book, when: Thu 2:00 pm, text: "Intro call with Dana Whitfield, Northwind", status: Booked }
 
 field:
   h2: Your best new business is *already in your ATS.*
@@ -238,7 +257,8 @@ faq:
 
 ask:
   h2: See if your firm is a fit.
-  intro: Four quick questions, then your email. If it fits, you book the call right here.
+  intro: Your details, then four quick questions. If it fits, you book the call right here.
+  cta: Ready to win back my clients
   assure: No new hires, no new tools, no extra work for your recruiters.
   slots: "{slots} firms this round."
   submit: Send application
@@ -246,11 +266,10 @@ ask:
   name: Your name
   email: Work email
   phone: Phone
-  firm: Firm website
   required: Required
   bad_email: Enter an email I can reply to.
   error: "That didn't send. Email me instead:"
-  steps: { step: Question, of: of, next: Next, back: Back, pick_one: Pick one to continue., contact_h: Where do I reach you? }
+  steps: { step: Step, of: of, next: Next, back: Back, pick_one: Pick one to continue., contact_h: Where do I reach you? }
   book_h: You're a fit. *Pick a time.*
   book: Thirty minutes, on video. Bring the export if you have it handy.
   thanks_h: You're a fit. *I'll be in touch.*

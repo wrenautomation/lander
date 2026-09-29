@@ -20,7 +20,7 @@ hero:
     **For owners of service firms.** New clients depend on one or two people, and each one adds admin your team has no time for.
 
     I figure out how your firm runs, fix what leaks, connect your data into one CRM, then put AI to work on it.
-  second: "Recruiting firm? See the free pilot"
+  second: "Recruiting firm? Win back your past clients"
   second_to: /recruiting
   by: I'm an engineer. The person who scopes it builds it.
   scene:
@@ -72,7 +72,7 @@ industries:
     - name: Recruiting and staffing
       text: The past clients in your ATS, turned into new job orders.
       to: /recruiting
-      go: See the free pilot
+      go: Win back your past clients
       offer: recruiting-reactivation-pilot  # {slots} and {days} in this card come from this offer
       badge: "Free pilot · {slots} firms"
     - name: Agencies

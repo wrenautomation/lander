@@ -99,6 +99,11 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 .more .arr{transform:rotate(90deg)}
 .more:hover>.arr{transform:rotate(90deg) translate(2px,-2px)}
 .more[href^="/"] .arr,.more[href^="/"]:hover>.arr{transform:none}
+.promise{margin-top:clamp(18px,3vh,30px);max-width:34em}
+.promise .label{font-size:11.5px;color:var(--ink-2)}
+.promise ul{display:grid;gap:6px;margin-top:10px}
+.promise li{display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:1.4}
+.promise li::before{content:"";flex:none;width:9px;height:5px;border-left:1.5px solid var(--acc);border-bottom:1.5px solid var(--acc);transform:translateY(-3px) rotate(-45deg)}
 .by{display:flex;align-items:center;gap:14px;font-size:14px;line-height:1.45;color:var(--ink-2)}
 .by img{width:48px;height:48px;object-fit:cover;background:var(--paper-2);filter:grayscale(1) contrast(1.06)}
 .by b{display:block;color:var(--ink);font-weight:600}
@@ -144,9 +149,19 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
   .by{grid-column:1/8;grid-row:3;padding-block:28px 36px}
   .panel{grid-column:8/13;grid-row:1/4;margin-right:calc(-1 * var(--bleed));padding:clamp(34px,4.4vh,56px) var(--bleed) 40px clamp(30px,2.8vw,48px);border-left:1px solid var(--ink)}
 }
+/* a long headline (one that carries the whole offer) sets smaller, so the lede and the promise still make the first screen */
+@media (min-width:720px){.hero h1.long{font-size:clamp(2.6rem,1.2rem + 3.1vw,4.4rem)}}
+/* below desktop the form follows the headline, so it's on the first screen; the lede and promise come after */
 @media (max-width:1023px){
-  .hero-grid{display:block}
-  .copy{padding-bottom:28px}
+  .hero-grid{display:flex;flex-direction:column}
+  .copy{display:contents}
+  .hero h1{order:1;padding-top:clamp(18px,4vh,40px);padding-bottom:22px}
+  .panel{order:2}
+  .lede{order:3;margin-top:28px}
+  .promise{order:4}
+  .more{order:5;align-self:flex-start}
+  .scene{order:6}
+  .by{order:7}
   .panel{margin-inline:calc(-1 * var(--gut));padding:26px var(--gut) 30px;border-top:1px solid var(--ink)}
   .scene{max-width:none;margin-inline:calc(-1 * var(--gut));padding:28px var(--gut) 0;border-top:1px solid var(--ink)}
   .by{padding-block:24px 28px}
@@ -157,8 +172,7 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
   .stamp{width:28px;height:28px}
   .top .btn{padding:.95em 1.1em;font-size:12px}
   h1{font-size:clamp(2.3rem,1.5rem + 3.6vw,2.9rem)}
-  .copy{padding:18px 0 22px}
-  .lede{font-size:17px;margin-top:16px}
+  .lede{font-size:17px}
   .more{display:none}
   .panel{padding-top:22px}
   .panel h2{font-size:1.45rem}
@@ -205,7 +219,9 @@ label.field small{font-size:12px;margin-left:6px}
 .contact .btn{margin-top:1.4rem}
 .cf-turnstile{margin-top:1rem}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.progress,.nav-steps{display:none}
+.progress{display:none}
+.nav-steps{margin-top:1.4rem}
+.nav-steps :is(.back,[data-next]){display:none}
 
 /* stepping (pitch.ts): one question at a time */
 .stepping .step{display:none}
@@ -219,9 +235,13 @@ label.field small{font-size:12px;margin-left:6px}
 .segs i{flex:1;height:2px;background:var(--rule);transition:background-color .4s var(--out)}
 .segs i.on{background:var(--ink)}
 .stepping .nav-steps{display:flex;justify-content:space-between;align-items:center;margin-top:1.3rem}
+.stepping .nav-steps .back{display:inline-flex}
+.stepping .nav-steps [data-next]{display:inline-flex}
 .back{background:none;border:0;padding:.6rem 0;font-size:15px;color:var(--ink-2);text-decoration:underline;text-underline-offset:.24em;cursor:pointer}
 .back:hover{color:var(--ink)}
-.back[hidden],.nav-steps .btn[hidden]{display:inline-flex;visibility:hidden}
+.stepping .back[hidden]{display:none}
+.nav-steps .btn{margin-left:auto}
+.nav-steps .btn[hidden]{display:none}
 
 /* after sending: JS sets data-state on the panel; without JS the redirect's #applied-* is the :target */
 .result{display:none;outline:none;margin-top:clamp(20px,3.4vh,34px);border-top:1px solid var(--rule);padding-top:24px}
@@ -280,6 +300,38 @@ html:not(.js) .marq li:last-child::after{display:none}
 .legend .lit{background:var(--acc)}
 .dots{position:relative;aspect-ratio:5/4;border-block:1px solid var(--rule)}
 .dots canvas{position:absolute;inset:0;width:100%;height:100%}
+
+/* how it works: one example, beat by beat. Motion lights the beats in order and loops; still, all are lit. */
+.reel .label{font-size:11.5px;color:var(--ink-2);padding-bottom:12px}
+.beat{display:grid;grid-template-columns:104px minmax(0,1fr);gap:18px;padding-block:20px;border-top:1px solid var(--rule)}
+.beat:last-child{border-bottom:1px solid var(--rule)}
+.beat .step{display:flex;gap:10px;padding-top:3px;font-size:12.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink);transition:color .4s var(--out)}
+.beat .step span{color:var(--ink-3);font-variant-numeric:tabular-nums}
+.beat.on .step{color:var(--acc)}
+.row{display:grid;grid-template-columns:1fr auto;gap:2px 16px;align-items:start}
+.row p{display:flex;flex-wrap:wrap;gap:0 10px;font-size:16px}
+.row p span,.row .note{color:var(--ink-2)}
+.row .note{font-size:14px}
+.row .status{grid-row:1/3;grid-column:2}
+.status{font-style:normal;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.45em .7em;border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+.status.on{border-color:var(--acc);background:var(--acc);color:var(--cream)}
+.signal{display:flex;gap:14px;align-items:flex-start}
+.signal i{flex:none;width:9px;height:9px;margin-top:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 var(--acc)}
+.beat.on .signal i{animation:ping 1.6s var(--out) infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(168,59,18,.45)}100%{box-shadow:0 0 0 12px rgba(168,59,18,0)}}
+.signal p{font-size:16px}
+.signal p span{display:block;font-size:14px;color:var(--ink-2)}
+.signal b{font-weight:500}
+.beat .msg{padding-block:0}
+.beat .msg.in{margin-left:0}
+.meet{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center}
+.meet time{font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;padding-right:16px;border-right:1px solid var(--rule)}
+.meet p{font-size:16px}
+@media (max-width:599px){
+  .beat{grid-template-columns:1fr;gap:10px}
+  .meet{grid-template-columns:1fr auto}
+  .meet time{grid-column:1/-1;border-right:0;padding-right:0}
+}
 
 /* the calculator */
 .slider{display:block;padding-block:18px;border-top:1px solid var(--rule)}
@@ -486,7 +538,7 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.25)}
 @media (min-width:821px){.float{display:none}}
 
 /* motion on: the hero's parts wait for pitch.ts to bring them in; a stalled script still shows them at 2.5s */
-.js .hero :is(h1,.lede,.more,.scene,.by){opacity:0;animation:show .01s 2.5s forwards}
+.js .hero :is(h1,.lede,.promise,.more,.scene,.by){opacity:0;animation:show .01s 2.5s forwards}
 @keyframes show{to{opacity:1}}
 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
 .w>span{display:inline-block}

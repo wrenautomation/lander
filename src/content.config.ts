@@ -200,10 +200,23 @@ const pitches = defineCollection({
       lede: z.string(),                 // blank line = paragraph. Open with the reader: **For owners of ...**
       second: z.string(), second_to: z.string(),  // the quiet link under the lede
       by: z.string(),                   // one line beside William's photo
+      // a short signed promise under the lede: a heading and a few lines, each a thing he stands behind
+      promise: z.strictObject({ h: z.string(), items: z.array(z.string()).min(2).max(4) }).optional(),
       // what the work looks like, in one picture: a message and the reply it gets. An example, labelled as one.
       scene: z.strictObject({ label: z.string(), a: msg, b: msg, tag: z.string() }).optional(),
     }),
     strip: z.strictObject({ label: z.string(), items: z.array(z.string()) }).optional(),
+    // how it works, as one example playing out: a dormant contact, the signal, the email, the reply, the meeting.
+    // Loops while on screen; without motion every beat is simply there.
+    story: z.strictObject({
+      ...head, id: z.string(), label: z.string(),
+      beats: z.array(z.discriminatedUnion('kind', [
+        z.strictObject({ kind: z.literal('row'), step: z.string(), name: z.string(), role: z.string(), note: z.string(), status: z.string() }),
+        z.strictObject({ kind: z.literal('signal'), step: z.string(), text: z.string(), meta: z.string() }),
+        z.strictObject({ kind: z.literal('msg'), step: z.string(), side: z.enum(['out', 'in']), m: msg }),
+        z.strictObject({ kind: z.literal('meet'), step: z.string(), when: z.string(), text: z.string(), status: z.string() }),
+      ])).min(3).max(6),
+    }).optional(),
     field: z.strictObject({ h2: z.string(), text: z.string(), dormant: z.string(), awake: z.string() }).optional(),
     calc: z.strictObject({
       ...head,
@@ -257,7 +270,8 @@ const pitches = defineCollection({
       assure: z.string().optional(),    // one line under the form's button, on every step
       slots: z.string().optional(),     // beside the slot bars, when the offer has slots
       submit: z.string(), sending: z.string(),
-      name: z.string(), email: z.string(), phone: z.string(), firm: z.string(), note: z.string().optional(),
+      cta: z.string().optional(),       // the first step's button (contact details), when the form steps
+      name: z.string(), email: z.string(), phone: z.string(), firm: z.string().optional(), note: z.string().optional(),
       required: z.string(), bad_email: z.string(), error: z.string(),
       thanks_h: z.string(), thanks: z.string(),
       book_h: z.string().optional(), book: z.string().optional(),
