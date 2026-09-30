@@ -22,6 +22,7 @@ const words = (html) => {
   return `${meta} ${text}`
     .replace(/\[email(?:&#160;|&nbsp;|\s)protected\]|[\w.+-]+@[\w-]+\.[\w.-]+/g, 'EMAIL')
     .replace(/\s+/g, ' ')
+    .replace(/ ([,.;:!?)])/g, '$1') // its wrapper tag also leaves a space before the next comma
     .trim();
 };
 
