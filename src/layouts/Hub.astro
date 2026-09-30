@@ -2,7 +2,7 @@
 // The hub, /: Wren as a whole. Copy from src/content/hub/home.yaml, the form's terms from its offer (lib/pitch.ts).
 // Laid out on the B2B landing template, one screen per section, each ending on a button to the form:
 // hero (words left, a line pointing at the form right), the pain (full-width headline, net margin by team size as a
-// line chart), what makes it stick (six cards, each with a small animated scene), the five levels (what each looks like, why it hurts, how I fix it; this is how it works), client builds once there are real ones (each as the levels it climbed), every
+// line chart, a bar on the gap), what moves the needle (six cards, each with a small animated scene), the five levels (building blocks: what each has and still lacks; this is how it works), client builds once there are real ones (each as the levels it climbed), every
 // service, William, the comparison (each mark with why), questions, the recap, the sources every [^n] marker points at. Same type, colour and motion as the pitch pages (pitch.css, pitch.ts);
 // hub.css adds the hub's own parts.
 import '../styles/pitch.css';
@@ -90,6 +90,7 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
               <polyline class="real" points={line((x) => x.pct)} />
               <polyline class="aim" points={line((x) => x.aim)} />
             </svg>
+            <i class="gap" style={`--x:${X(pts.length - 1)};--lo:${Y(pts.at(-1)!.pct)};--hi:${Y(pts.at(-1)!.aim)}`} aria-hidden="true"></i>
             {pts.map((x, k) => <i class="dot real" style={`--x:${X(k)};--y:${Y(x.pct)}`}><b>{x.pct}%</b></i>)}
             {pts.slice(1).map((x, k) => <i class="dot aim" style={`--x:${X(k + 1)};--y:${Y(x.aim)}`}></i>)}
           </div>
@@ -104,7 +105,7 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
 
 <Values s={p.values} />
 
-<Levels s={p.levels} face={p.about.photo} />
+<Levels s={p.levels} />
 
 {cases && (
 <section class="sec cases">

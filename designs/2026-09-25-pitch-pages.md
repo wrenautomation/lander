@@ -288,6 +288,20 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   reached, the new hire ready, invoices and payroll out, the summary with its sources), then its name, what it does in
   a sentence, and what it runs on. Each scene plays as it's reached, left to right across a row. Still one desktop
   screen. The about cards keep the in-and-out diagram.
+- **D65 (2026-09-30): Levels are building blocks.** "Most companies start at level four" confused. New h2 "Most
+  companies jump into AI without a solid foundation", a rust line under it (AI at level 4 needs the infrastructure
+  underneath), then the 88% fact. Each level is a stack, one block taller than the last (SOPs, One CRM, Workflows, AI,
+  Monitoring), its own block dark on top, the top level's green. Under the floor: checks for what now exists, crosses
+  for what's still missing, one short sentence each. The AI block drops in alone over empty outlines, shakes and falls,
+  then the stacks build bottom up. On phones each stack lies flat. About's proves line starts "Although these projects
+  aren't business automations".
+- **D66 (2026-09-30): Services are boxed, outcome last.** Each service is its own bordered box. No "I": the text is
+  the problem, then what it does, verbs first; a green arrow line gives the outcome. The "Runs on" lines are gone.
+- **D67 (2026-09-30): Values move the needle; the chart shows the gap.** h2 "Automation that actually moves the
+  needle", intro in William's words. Tighter cards, shorter scenes. The last card ranks jobs by KPI impact ("Find the
+  KPIs that matter, then start with the job that moves them most"); its green bar had collided with the global `.top`
+  nav class, now `.pick`. The margin chart draws 1.5x faster, and a bar rides the drawing edge between the two lines,
+  resting on the widest gap. Proof figures count up in 0.6s.
 
 ## Next
 

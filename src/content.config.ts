@@ -343,19 +343,19 @@ const hub = defineCollection({
       id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
       items: z.array(z.strictObject({ art: z.enum(['handled', 'messy', 'charge', 'watched', 'cost', 'first']), name: z.string(), text: z.string() })).min(3).max(6),
     }),
-    // the five levels a company climbs, as steps (Levels.astro); `most` is the level most companies jump in at, `fall`
-    // the words on it as it falls with nothing under it; `how`: how the call finds your level, under the button
+    // the five levels a company builds, block on block (Levels.astro); `most` is the level most companies jump in at,
+    // `fall` the words on its block as it falls with nothing under it; `sub`: the line under the heading; `how`: how the
+    // call finds your level, under the button
     levels: z.strictObject({
-      id: z.string(), h2: z.string(), text: z.string(), cta: z.string(), how: z.string(),
+      id: z.string(), h2: z.string(), sub: z.string(), text: z.string(), cta: z.string(), how: z.string(),
       word: z.string(),                 // "Level", before each number
       most: z.number().int().min(1).max(5), most_note: z.string(), fall: z.string(),
       gate: z.strictObject({ after: z.number().int().min(1).max(4), name: z.string() }), // the line after that level where AI has clean data
-      // scene: icons drawn in the bar, linked: joined by a line; is: what a company at this level looks like, so the
-      // reader spots their own; why: the pain in a sentence (the top level: the good news); fix: how I get you past it,
-      // in a bubble off the top of its bar. Each a sentence at most: the picture carries the rest.
+      // brick: the block this level adds to the stack, with its icon; has: what now exists (checks); lacks: what's still
+      // missing (crosses; none at the top). One short sentence each.
       items: z.array(z.strictObject({
-        name: z.string(), scene: z.array(z.enum(ICONS)).min(1).max(4), linked: z.boolean().default(false),
-        is: z.string(), why: z.string(), fix: z.string(),
+        name: z.string(), brick: z.string(), icon: z.enum(ICONS),
+        has: z.array(z.string()).min(1).max(3), lacks: z.array(z.string()).max(3).default([]),
       })).length(5),
     }),
     // real builds only, each as the level it started on, the level it reached, before and now. Left out until there are some.
@@ -368,9 +368,9 @@ const hub = defineCollection({
       }).refine((c) => c.to > c.from, 'a case climbs: to must be above from')).min(1).max(3),
     }).optional(),
     // every service, grouped by the part of the company it's for, the groups side by side (Catalog.astro). Each service:
-    // `scene`, the small scene drawn over it of what it hands you (Catalog.astro draws each one), its name, what it does
-    // in a sentence, and what it runs on. Two a group, so the section fits one screen. A group's `link` must be a pitch
-    // page's path.
+    // `scene`, the small scene drawn over it of what it hands you (Catalog.astro draws each one), its name, `text`: the
+    // problem, then what it does, verbs first, never "I"; `gets`: the outcome. Two a group, so the section fits one
+    // screen. A group's `link` must be a pitch page's path.
     catalog: z.strictObject({
       id: z.string(), h2: z.string(), cta: z.string(),
       groups: z.array(z.strictObject({
@@ -378,7 +378,7 @@ const hub = defineCollection({
         link: z.strictObject({ label: z.string(), to: z.string() }).optional(),
         items: z.array(z.strictObject({
           scene: z.enum(['email', 'inquiry', 'people', 'onboard', 'hours', 'report']),
-          name: z.string(), text: z.string(), runs: z.string(),
+          name: z.string(), text: z.string(), gets: z.string(),
         })).min(1).max(2),
       })).min(1).max(3),
     }),

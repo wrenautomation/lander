@@ -2,7 +2,7 @@
 // Every service, in three columns by the part of the company it's for, the button beside the heading so it all fits
 // one screen; a group with its own page links to it. Each service opens on a small scene of what it hands you (the
 // email sent, the call booked, the candidates reached, the hire ready, the invoices out, the summary with its
-// sources), then the name, what it does in a sentence, and the tools it runs on. Scene labels are illustration, so
+// sources), then the name, the problem and what it does, and what you get. Each service is its own box. Scene labels are illustration, so
 // they live here, not in the yaml. The markup is each scene's finished state; pitch.ts (ART.svc) plays each one as it's
 // reached.
 import type { CollectionEntry } from 'astro:content';
@@ -58,14 +58,14 @@ const { s } = Astro.props as { s: C };
                   {x.scene === 'report' && (
                     <div class="pane">
                       <p class="hd">One-page summary</p>
-                      <div class="body"><p class="ln"><u style="--w:96%"></u><u style="--w:84%"></u><u style="--w:90%"></u><u style="--w:52%"></u></p><p class="cht">{[0.45, 0.7, 0.55, 0.95].map((h) => <i style={`--h:${h}`}></i>)}</p></div>
+                      <div class="body"><p class="ln"><u style="--w:96%"></u><u style="--w:84%"></u><u style="--w:58%"></u></p><p class="cht">{[0.45, 0.7, 0.55, 0.95].map((h) => <i style={`--h:${h}`}></i>)}</p></div>
                       <p class="srcs"><span>Sources</span>{[1, 2, 3].map((n) => <b><svg viewBox="0 0 16 16"><path d={ICON.link} /></svg>{n}</b>)}</p>
                     </div>
                   )}
                 </div>
                 <h3>{x.name}</h3>
                 <p>{x.text}</p>
-                <p class="runs">{x.runs}</p>
+                <p class="gets"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h10.5M9 4l4 4-4 4" /></svg>{x.gets}</p>
               </li>
             ))}
           </ul>

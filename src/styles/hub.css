@@ -51,15 +51,15 @@
 .pain-sec .punch{margin-top:clamp(12px,1.4vw,18px);max-width:30em;font-size:clamp(1.25rem,1rem + .8vw,1.6rem);line-height:1.35;font-weight:500;color:var(--acc)}
 .pain-sec .fix{margin-top:1.1rem;font-size:18px;line-height:1.5;color:var(--ink-2)}
 .pain-sec .fix b{display:block;margin-bottom:.35rem;color:var(--ink)}
-/* ---------- what makes it stick: a centred heading, cards three across in light gray windows ---------- */
-.values .head.wide{margin-inline:auto;text-align:center}
+/* ---------- what moves the needle: a centred heading, cards three across in light gray windows ---------- */
+.values .head.wide{margin-inline:auto;margin-bottom:clamp(20px,2.4vw,32px);text-align:center}
 .values .head .intro{margin-inline:auto;max-width:40em;text-wrap:balance}
 .values .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,22px);list-style:none;margin:0;padding:0}
-.values .cards>li{padding:clamp(16px,1.6vw,20px);background:#F3F1EC;border-radius:calc(var(--r) + 4px);box-shadow:inset 0 0 0 1px rgba(14,14,14,.05);transition:transform .35s var(--out),box-shadow .35s var(--out)}
+.values .cards>li{padding:clamp(10px,1vw,12px);background:#F3F1EC;border-radius:calc(var(--r) + 4px);box-shadow:inset 0 0 0 1px rgba(14,14,14,.05);transition:transform .35s var(--out),box-shadow .35s var(--out)}
 .values .cards>li:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 1px rgba(168,59,18,.25)}
 .values h3,.values .cards>li>p{padding-inline:clamp(6px,.8vw,10px)}
 /* each card's scene: a white strip, small type, green for what worked, red for what went wrong */
-.va{position:relative;height:124px;padding:14px 16px;border-radius:10px;background:var(--paper);box-shadow:0 1px 0 rgba(14,14,14,.04);font-size:12.5px;line-height:1.2;overflow:hidden}
+.va{position:relative;height:104px;padding:12px 16px;border-radius:10px;background:var(--paper);box-shadow:0 1px 0 rgba(14,14,14,.04);font-size:12.5px;line-height:1.2;overflow:hidden}
 .va ul{display:grid;gap:8px;height:100%;align-content:center}
 .va li{display:flex;align-items:center;gap:8px;min-width:0}
 .va svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
@@ -85,17 +85,20 @@
 .va .state.fix{display:grid}
 .va .state.fix em{grid-area:1/1;font-style:normal;text-align:center}
 .va .state.fix .was{opacity:0;color:var(--bad)}
-.va.cost .cap{margin-bottom:10px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
-.va.cost ul{height:auto}
+.va.cost .cap{margin-bottom:6px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.va.cost ul{height:auto;gap:6px}
 .va.cost span{width:6.5em;font-weight:500}
 .va.cost i{height:10px;width:calc(var(--w) * (100% - 6.5em - 8px));border-radius:3px;background:var(--acc);opacity:.85;transform-origin:left}
-.va .rank{position:relative;height:100%;margin-top:6px}
-.va .rank i{position:absolute;bottom:0;left:calc(var(--at) * 20% + 3%);width:14%;height:calc(var(--h) - 14px);border-radius:4px 4px 0 0;background:rgba(14,14,14,.14)}
-.va .rank i.top{background:var(--win)}
-.va .rank em{position:absolute;bottom:calc(100% + 5px);left:0;white-space:nowrap;font-style:normal;font-size:11.5px;font-weight:600;color:var(--win)}
-.values h3{margin-top:18px;font-size:19px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
-.values .cards>li>p{margin-top:8px;padding-bottom:6px;font-size:15px;line-height:1.55;color:var(--ink-2)}
-.values .wrap>.btn{display:flex;width:max-content;margin-inline:auto}
+.va.first{display:flex;flex-direction:column;padding-bottom:0}
+.va.cost{padding-block:10px}
+.va.first .cap{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.va .rank{position:relative;flex:1;margin-top:8px;border-bottom:1.5px solid var(--rule)}
+.va .rank i{position:absolute;bottom:0;left:calc(var(--at) * 20% + 3%);width:14%;height:calc(var(--h) * .72);border-radius:4px 4px 0 0;background:rgba(14,14,14,.14)}
+.va .rank i.pick{background:var(--win)}
+.va .rank em{position:absolute;bottom:calc(100% + 4px);left:0;white-space:nowrap;font-style:normal;font-size:11.5px;font-weight:600;color:var(--win)}
+.values h3{margin-top:14px;font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.values .cards>li>p{margin-top:6px;padding-bottom:4px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.hub .values .wrap>.btn{display:flex;width:max-content;margin:clamp(20px,2vw,28px) auto 0}
 @media (max-width:899px){.values .cards{grid-template-columns:1fr 1fr}}
 @media (max-width:599px){.values .cards{grid-template-columns:1fr}.values .head.wide{text-align:left}}
 
@@ -113,6 +116,8 @@
 .margin polyline{fill:none;stroke-width:3;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
 .margin polyline.real{stroke:var(--acc)}
 .margin polyline.aim{stroke:var(--win)}
+/* the gap: a bar from the real line up to the aim, the money left on the table; it rides the lines as they draw */
+.margin .gap{position:absolute;left:calc(var(--x) * 1%);bottom:calc(var(--lo) * 1%);height:calc((var(--hi) - var(--lo)) * 1%);width:10px;translate:-50% 0;border-radius:5px;background:color-mix(in srgb,var(--acc) 16%,transparent);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--acc) 45%,transparent)}
 .margin .dot{position:absolute;left:calc(var(--x) * 1%);bottom:calc(var(--y) * 1%);width:13px;height:13px;translate:-50% 50%;border:3px solid var(--acc);border-radius:50%;background:#F3F1EC}
 .margin .dot.aim{border-color:var(--win)}
 .margin .dot b{position:absolute;top:calc(100% + 8px);left:50%;translate:-50% 0;font-size:15px;font-weight:600;font-style:normal;font-variant-numeric:tabular-nums}
@@ -146,64 +151,54 @@
 .climb .track i.gain{background:var(--win)}
 @media (max-width:760px){.case-list{grid-template-columns:1fr}}
 
-/* ---------- the five levels: a staircase, one step taller per level, a bubble off the top of each bar with how I
-   fix it, and under the floor what the level is and why it hurts; a line where AI is ready, a pin where most jump in ---------- */
+/* ---------- the five levels as building blocks: each level a stack one block taller than the last, its own block dark
+   on top of the ones it stands on; under the floor what now exists (checks) and what's still missing (crosses); a
+   line where the data is ready for AI, a pin where most companies jump in ---------- */
 .levels .head.wide{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 40px;max-width:none}
 .levels .head h2{max-width:15em}
-.levels .head .intro{max-width:40em}
+.levels .head .sub{margin-top:clamp(10px,1.2vw,16px);max-width:30em;font-size:clamp(1.15rem,1rem + .5vw,1.4rem);line-height:1.35;font-weight:500;color:var(--acc)}
+.levels .head .intro{max-width:40em;margin-top:10px}
 .levels .act{display:grid;justify-items:end;gap:10px}
-/* wide enough for the first sentence alone, so it breaks between the two */
 .levels .how{max-width:15.5em;font-size:14px;line-height:1.4;text-align:right;color:var(--ink-2)}
-/* --top: the room over the tallest bar, for its bubble */
-.stairs{--u:clamp(32px,4.8vh,46px);--top:104px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 0 repeat(2,minmax(0,1fr));list-style:none;margin:clamp(26px,3.4vh,44px) 0 0;padding:0}
+.stairs{--u:clamp(28px,4vh,38px);--gap:4px;--room:40px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 0 repeat(2,minmax(0,1fr));list-style:none;margin:clamp(22px,3vh,40px) 0 0;padding:0}
 .stairs>li:not(.gate){display:flex;flex-direction:column;min-width:0}
-.stairs .up{display:flex;flex-direction:column;justify-content:flex-end;height:calc(var(--u) * 5 + var(--top));padding-inline:1px;border-bottom:1.5px solid var(--ink)}
-/* the bubble: my words, my face, a tail pointing down at the bar */
-.stairs .fix{position:relative;display:flex;align-items:flex-start;gap:9px;margin:0 clamp(6px,.8vw,12px) 14px;padding:10px 12px 11px 10px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px var(--rule),0 6px 18px rgba(14,14,14,.06);font-size:14px;line-height:1.4;transform-origin:50% 100%}
-.stairs .fix::after{content:"";position:absolute;left:50%;bottom:-6px;width:11px;height:11px;margin-left:-5.5px;background:#fff;box-shadow:1px 1px 0 var(--rule);transform:rotate(45deg)}
-.stairs .fix img{flex:none;width:24px;height:24px;border-radius:50%;object-fit:cover;filter:grayscale(1)}
-.stairs .riser{position:relative;height:calc(var(--h) * var(--u))}
-/* the level's own outline, seen while the level is missing */
-.stairs .riser::before{content:"";position:absolute;inset:0;border:1.5px dashed rgba(14,14,14,.18);border-bottom:0;border-radius:8px 8px 0 0}
-.stairs .block{position:relative;display:flex;justify-content:center;align-items:flex-start;height:100%;padding-top:calc(var(--u) / 2 - 14px);border-radius:8px 8px 0 0;background:color-mix(in srgb,var(--ink) calc(var(--h) * 11% - 8%),#E9E6DF);color:var(--ink);transform-origin:50% 100%;font-style:normal}
-.stairs .picto{position:relative;display:flex;gap:clamp(8px,1vw,14px)}
-.stairs .picto>i{position:relative;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.9);color:var(--ink);box-shadow:0 0 0 1px rgba(14,14,14,.08)}
-.stairs .picto svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-/* joined: a line behind the icons, the tools talking to each other */
-.stairs .picto>b{position:absolute;left:14px;right:14px;top:50%;border-top:1.5px solid #fff;transform-origin:left}
-.stairs li.most .picto>b{border-color:var(--ink)}
-.stairs li.most .block{outline:1.5px solid var(--ink);outline-offset:-1.5px;background:#fff;color:var(--ink)}
-.stairs .oops{position:absolute;left:0;right:0;top:calc(var(--u) + 12px);opacity:0;font-style:normal;font-size:12.5px;font-weight:600;text-align:center;white-space:nowrap;color:var(--bad)}
-.stairs .what{padding:14px clamp(10px,1.2vw,18px) 0 2px}
+.stairs .up{display:flex;flex-direction:column;justify-content:flex-end;height:calc(var(--u) * 5 + var(--gap) * 4 + var(--room));padding:0 clamp(5px,.7vw,10px);border-bottom:1.5px solid var(--ink)}
+.stairs .riser{position:relative;display:flex;flex-direction:column-reverse;gap:var(--gap)}
+.stairs .spot{display:block;height:var(--u);border:1.5px dashed rgba(14,14,14,.18);border-radius:7px}
+.stairs .brick{display:flex;align-items:center;justify-content:center;gap:7px;height:calc(100% + 3px);margin:-1.5px;border-radius:7px;background:#ECE9E3;color:var(--ink-2);font-style:normal;font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden}
+.stairs .brick svg{flex:none;width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.stairs .brick.own{background:var(--ink);color:#fff}
+.stairs .peak .brick.own{background:var(--win)}
+.stairs .oops{position:absolute;left:0;right:0;bottom:calc(var(--u) * 1.5 - .7em);opacity:0;font-style:normal;font-size:12.5px;font-weight:600;text-align:center;white-space:nowrap;color:var(--bad)}
+.stairs .pin{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);padding:2px 8px;border-radius:4px;background:var(--acc);color:#fff;font-size:11.5px;font-weight:500;white-space:nowrap}
+.stairs .what{padding:14px clamp(8px,1vw,16px) 0 2px}
 .stairs .lv{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
-.stairs .pin{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);padding:2px 7px;background:var(--ink);color:#fff;font-size:11.5px;font-weight:500;letter-spacing:0;text-transform:none;white-space:nowrap}
-.stairs h3{margin-top:4px;font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
-.stairs .is{margin-top:4px;font-size:14.5px;line-height:1.45;color:var(--ink-2)}
-.stairs .why{position:relative;margin-top:8px;padding-left:20px;font-size:14px;line-height:1.45;color:var(--ink)}
-.stairs .bad::before,.stairs .bad::after{content:"";position:absolute;left:1px;top:.72em;width:11px;height:0;border-top:2px solid var(--bad);transform:rotate(45deg)}
-.stairs .bad::after{transform:rotate(-45deg)}
-.stairs .good::before{content:"";position:absolute;left:0;top:.18em;width:14px;height:14px;border-radius:50%;background:var(--win) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4l2.6 2.6L12 5.6' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/10px no-repeat}
-/* the AI-ready line: dashed, green, from the top of the stairs to the floor */
-.stairs .gate{position:relative;z-index:1;height:calc(var(--u) * 5 + var(--top));color:var(--win)}
-.stairs .gate::before{content:"";position:absolute;top:28px;bottom:0;left:-1px;border-left:1.5px dashed currentColor}
+.stairs h3{margin-top:3px;font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.stairs .pts{display:grid;gap:5px;margin:9px 0 0;padding:0;list-style:none}
+.stairs .pts li{position:relative;padding-left:21px;font-size:13.5px;line-height:1.4}
+.stairs .lacks{color:var(--ink-2)}
+.stairs .lacks::before,.stairs .lacks::after{content:"";position:absolute;left:2px;top:.7em;width:10px;height:0;border-top:2px solid var(--bad);transform:rotate(45deg)}
+.stairs .lacks::after{transform:rotate(-45deg)}
+.stairs .has::before{content:"";position:absolute;left:0;top:.2em;width:14px;height:14px;border-radius:50%;background:var(--win) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4l2.6 2.6L12 5.6' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/10px no-repeat}
+/* the AI-ready line: dashed, green, from above the stacks to the floor */
+.stairs .gate{position:relative;z-index:1;height:calc(var(--u) * 5 + var(--gap) * 4 + var(--room));color:var(--win)}
+.stairs .gate::before{content:"";position:absolute;top:24px;bottom:0;left:-1px;border-left:1.5px dashed currentColor}
 .stairs .gate b{position:absolute;top:0;left:0;transform:translateX(-50%);padding:3px 9px;border-radius:99px;background:var(--win);color:#fff;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+/* phones: each stack lies flat, left to right; only a level's own block keeps its name */
 @media (max-width:899px){
   .levels .act{justify-items:start}
   .levels .how{text-align:left}
-  .stairs{display:block;--u:0px}
+  .stairs{display:block;--u:32px}
   .stairs>li:not(.gate){padding-block:16px;border-top:1px solid var(--rule)}
-  .stairs .up{display:contents}
-  .stairs .riser{order:0;display:flex;flex-wrap:wrap;gap:10px;height:auto}
-  .stairs .riser::before{bottom:auto;height:36px;right:auto;width:calc(var(--h) * 16% + 20%);border:1.5px dashed rgba(14,14,14,.18);border-left:0;border-radius:0 6px 6px 0}
-  .stairs .block{flex:none;width:calc(var(--h) * 16% + 20%);height:36px;justify-content:flex-end;align-items:center;padding:0 6px 0 0;border-radius:0 6px 6px 0;transform-origin:0 50%}
-  .stairs .picto{gap:5px}
-  .stairs .picto>i{width:24px;height:24px}
-  .stairs .picto>b{left:12px;right:12px}
+  .stairs .up{display:block;height:auto;padding:0;border:0}
+  .stairs .riser{flex-direction:row;flex-wrap:wrap;align-items:center}
+  .stairs .spot{flex:none;width:40px}
+  .stairs .spot:has(.own){width:auto}
+  .stairs .brick:not(.own) span{display:none}
+  .stairs .brick.own{padding:0 12px}
   .stairs .oops{display:none}
-  .stairs .pin{position:static;transform:none;align-self:flex-start}
-  .stairs .what{order:1;padding:12px 0 0;border-top:0}
-  .stairs .fix{order:2;margin:14px 0 0;transform-origin:30px 0}
-  .stairs .fix::after{left:30px;top:-6px;bottom:auto;box-shadow:-1px -1px 0 var(--rule)}
+  .stairs .pin{position:static;transform:none;margin-left:6px}
+  .stairs .what{padding:10px 0 0}
   .stairs .gate{display:flex;align-items:center;gap:12px;height:auto;padding-block:10px}
   .stairs .gate::before,.stairs .gate::after{content:"";position:static;flex:1;border:0;border-top:1.5px dashed currentColor}
   .stairs .gate b{position:static;transform:none}
@@ -237,24 +232,27 @@
 }
 
 /* ---------- every service: the groups side by side, each service a small scene of what it hands you, then its words ---------- */
-.sec.catalog{padding-block:clamp(56px,7vw,96px)}
+.sec.catalog{padding-block:clamp(48px,6vw,80px)}
 .catalog .head.wide{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 40px;max-width:none;margin-bottom:clamp(24px,3vw,40px)}
 .catalog .head h2{max-width:14em}
 /* each group is a column; subgrid lines up the headers, first services and second services across columns */
 .catalog .groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,auto);column-gap:clamp(20px,2.6vw,36px)}
 .grp{display:grid;grid-row:span 3;grid-template-rows:subgrid}
-.grp>ul{display:grid;grid-row:span 2;grid-template-rows:subgrid}
-.grp>ul>li+li{padding-top:clamp(22px,3vh,32px)}
+.grp>ul{display:grid;grid-row:span 2;grid-template-rows:subgrid;row-gap:clamp(12px,1.6vh,16px)}
+/* each service its own box: the scene, the name, the problem and what it does, then what you get in green */
+.svc{padding:10px 10px 16px;border:1px solid var(--rule);border-radius:20px;background:#fff}
+.svc>:not(.ui){margin-inline:8px}
 .grp-hd{display:flex;flex-wrap:wrap;align-content:flex-end;align-items:baseline;justify-content:space-between;gap:6px 20px;line-height:20px;margin-bottom:clamp(14px,1.6vw,20px);padding-bottom:10px;border-bottom:1px solid var(--ink);font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
 .grp-hd a{display:inline-flex;align-items:center;gap:6px;font-size:14px;letter-spacing:0;text-transform:none;color:var(--acc);transition:color .25s}
 .grp-hd a:hover{color:var(--ink)}
 .grp-hd .arr svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.svc h3{margin-top:14px;font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.svc h3{margin-top:12px;font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
 .svc h3+p{margin-top:5px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
-.svc .runs{margin-top:6px;font-size:13px;line-height:1.4;font-weight:500;color:var(--ink)}
+.svc .gets{display:flex;align-items:center;gap:7px;margin-top:8px;font-size:14.5px;line-height:1.35;font-weight:600;color:var(--win)}
+.svc .gets svg{flex:none;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 /* a scene: a light gray window with white parts in it, small type; green for what's done, rust for what's written
    for them. The skeleton lines (u) stand for text. */
-.ui{position:relative;height:124px;padding:10px;border-radius:14px;background:#F3F1EC;box-shadow:inset 0 0 0 1px rgba(14,14,14,.05);font-size:12.5px;line-height:1.2;overflow:hidden}
+.ui{position:relative;height:112px;padding:10px;border-radius:14px;background:#F3F1EC;box-shadow:inset 0 0 0 1px rgba(14,14,14,.05);font-size:12.5px;line-height:1.2;overflow:hidden}
 .ui svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .ui u{display:block;flex:none;width:var(--w);height:7px;border-radius:4px;background:rgba(14,14,14,.1);transform-origin:left}
 .ui .pane,.ui.people li,.ui.onboard ul,.ui.hours .tools,.ui.hours .made li,.ui.inquiry .q{background:var(--paper);box-shadow:inset 0 0 0 1px rgba(14,14,14,.07),0 1px 2px rgba(14,14,14,.04)}
@@ -306,7 +304,7 @@
 .ui.report .pane{align-content:stretch;grid-template-rows:auto minmax(0,1fr) auto;gap:7px}
 .ui.report .hd{font-weight:600}
 .ui.report .body{display:grid;grid-template-columns:minmax(0,1fr) 32%;gap:14px}
-.ui.report .ln{display:grid;align-content:center;gap:6px}
+.ui.report .ln{display:grid;align-content:center;gap:5px}
 .ui.report .ln u{height:5px}
 .ui.report .cht{display:flex;align-items:flex-end;gap:5px}
 .ui.report .cht i{flex:1;height:calc(var(--h) * 100%);border-radius:3px 3px 0 0;background:rgba(14,14,14,.14);transform-origin:bottom}
@@ -335,8 +333,7 @@
 @media (max-width:899px){
   .catalog .groups{grid-template-columns:1fr;row-gap:40px}
   .grp,.grp>ul{grid-row:auto;grid-template-rows:none}
-  .grp>ul{grid-template-columns:1fr 1fr;gap:28px 20px}
-  .grp>ul>li+li{padding-top:0}
+  .grp>ul{grid-template-columns:1fr 1fr;gap:14px}
 }
 @media (max-width:599px){.grp>ul{grid-template-columns:1fr}}
 @media (max-width:520px){

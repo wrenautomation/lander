@@ -9,7 +9,7 @@ import Arrow from './Arrow.astro';
 type V = CollectionEntry<'hub'>['data']['values'];
 const { s } = Astro.props as { s: V };
 const CHECK = 'M3.5 8.5l3 3 6-7';
-// the first-job scene: bars are jobs by hours freed, drawn in a jumble, then sorted tallest first
+// the first-job scene: bars are jobs by how much they move your KPIs, drawn in a jumble, then sorted tallest first
 const JOBS = [{ h: 92, from: 2 }, { h: 70, from: 0 }, { h: 52, from: 4 }, { h: 36, from: 1 }, { h: 22, from: 3 }];
 ---
 <section class="sec values" id={s.id}>
@@ -35,9 +35,9 @@ const JOBS = [{ h: 92, from: 2 }, { h: 70, from: 0 }, { h: 52, from: 4 }, { h: 3
               <><p class="cap">Cost to run, by job</p><ul>{[['Research', 0.8], ['Follow-ups', 0.45], ['Reports', 0.3]].map(([a, w]) => <li><span>{a}</span><i style={`--w:${w}`}></i></li>)}</ul></>
             )}
             {x.art === 'first' && (
-              <div class="rank">
-                {JOBS.map((j, k) => <i class:list={{ top: k === 0 }} style={`--h:${j.h}%;--at:${k};--from:${j.from}`}>{k === 0 && <em>Start here</em>}</i>)}
-              </div>
+              <><p class="cap">Jobs by KPI impact</p><div class="rank">
+                {JOBS.map((j, k) => <i class:list={{ pick: k === 0 }} style={`--h:${j.h}%;--at:${k};--from:${j.from}`}>{k === 0 && <em>Start here</em>}</i>)}
+              </div></>
             )}
           </div>
           <h3>{x.name}</h3>

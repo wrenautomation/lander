@@ -152,9 +152,25 @@ if (motion) {
     },
     // margin by team size: both lines draw left to right, each point popping as the line reaches it, then the key
     margin: (el, tl) => {
-      const D = 2, at = (d: HTMLElement) => (D * parseFloat(d.style.getPropertyValue('--x'))) / 100; // when the line reaches it
+      const D = 4 / 3, at = (d: HTMLElement) => (D * parseFloat(d.style.getPropertyValue('--x'))) / 100; // when the line reaches it
       tl.fromTo($('svg', el), { clipPath: 'inset(-10px 100% -10px 0)' }, { clipPath: 'inset(-10px 0% -10px 0)', duration: D, ease: 'none' });
       $$('.dot', el).forEach((d) => tl.fromTo(d, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(3)' }, at(d) - 0.1));
+      // the gap rides the drawing edge, stretched between the two lines wherever it is
+      const gap = $('.gap', el);
+      if (gap) {
+        const v = (d: HTMLElement, k: string) => parseFloat(d.style.getPropertyValue(k));
+        const real = $$('.dot.real', el).map((d) => [v(d, '--x'), v(d, '--y')]), aim = [real[0]!, ...$$('.dot.aim', el).map((d) => [v(d, '--x'), v(d, '--y')])];
+        const y = (line: number[][], x: number) => {
+          const k = Math.max(1, line.findIndex(([px]) => px >= x)), [x0, y0] = line[k - 1]!, [x1, y1] = line[k]!;
+          return y0 + ((y1 - y0) * (x - x0)) / (x1 - x0);
+        };
+        gsap.set(gap, { opacity: 0 });
+        const o = { x: 0 }, first = real[0]![0]!, last = real.at(-1)![0]!;
+        tl.fromTo(o, { x: 0 }, { x: 100, duration: D, ease: 'none', onUpdate: () => {
+          const x = Math.min(o.x, last), lo = y(real, x), hi = y(aim, x);
+          gsap.set(gap, { opacity: o.x < first ? 0 : 1, '--x': x, '--lo': Math.min(lo, hi), '--hi': Math.max(lo, hi) });
+        } }, 0);
+      }
       return tl.fromTo($$('.key li', el), { opacity: 0 }, { opacity: 1, stagger: 0.15, duration: 0.4 });
     },
     bars: (el, tl) => tl
@@ -212,44 +228,36 @@ if (motion) {
       SCENE[el.dataset.ui!]?.();
       return tl;
     },
-    // the five levels, out of order then in order: the pinned level's end appears alone past empty outlines, shakes with
-    // nothing under it and falls; then each level builds from the top, its bar, then what it is, then my bubble
+    // the five levels, out of order then in order: the pinned level's own block drops in over empty outlines, shakes
+    // with nothing under it and falls; then each level builds bottom up, block on block, and says what it has and lacks
     levels: (el, tl) => {
-      // bars stand on desktop and lie flat on phones, so they grow up or across. On phones level four sits a screen
-      // below where this starts, so the jump would play unseen: the levels just build.
-      const flat = matchMedia('(max-width:899px)').matches, grow = flat ? 'scaleX' : 'scaleY';
-      const rows = $$(':scope > li:not(.gate)', el), gate = $('.gate', el), jump = $('.most .block', el), pin = $('.pin', el);
-      tl.fromTo($$('.block', el), { [grow]: 0 }, { [grow]: 0, duration: 0.01 }, 0)
-        .fromTo($$('.what', el), { opacity: 0, y: 10 }, { opacity: 0, y: 10, duration: 0.01 }, 0)
-        .fromTo($$('.fix', el), { opacity: 0, scale: 0.6 }, { opacity: 0, scale: 0.6, duration: 0.01 }, 0)
-        .fromTo($$('.picto>i', el), { scale: 0 }, { scale: 0, duration: 0.01 }, 0)
-        .fromTo($$('.picto>b', el), { scaleX: 0 }, { scaleX: 0, duration: 0.01 }, 0);
-      if (gate) tl.fromTo(gate, { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+      // stacks stand on desktop and lie flat on phones, so blocks drop in from above or slide in from the left. On
+      // phones level four sits a screen below where this starts, so the jump would play unseen: the levels just build.
+      const flat = matchMedia('(max-width:899px)').matches, off = flat ? { x: -14, y: 0 } : { x: 0, y: -26 };
+      const rows = $$(':scope > li:not(.gate)', el), gate = $('.gate', el), jump = $('.most .brick.own', el), pin = $('.pin', el);
+      const hide = (x: gsap.TweenTarget, v: gsap.TweenVars) => tl.fromTo(x, v, { ...v, duration: 0.01 }, 0);
+      hide($$('.brick', el), { opacity: 0, ...off }); hide($$('.what', el), { opacity: 0, y: 10 });
+      if (gate) hide(gate, { opacity: 0 });
+      if (pin) hide(pin, { opacity: 0 });
       let t = 0.2;
       if (jump && !flat) {
-        // only the top of the pinned level: the part most companies build first, standing on nothing
-        const oops = $('.oops', jump.parentElement!)!;
-        tl.set(jump, { [grow]: 1 }, t)
-          .set($$('.picto>i', jump), { scale: 1 }, t)
-          .set($$('.picto>b', jump), { scaleX: 1 }, t)
-          .fromTo(jump, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 75% 0% round 8px)', duration: 0.5, ease: 'power2.out' }, t);
-        if (pin) tl.fromTo(pin, { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.4 }, t + 0.3);
-        tl.to(jump, { outlineColor: 'rgb(210,40,30)', backgroundColor: 'rgb(253,238,236)', color: 'rgb(210,40,30)', duration: 0.3 }, t + 1.1)
-          .fromTo(oops, { opacity: 0 }, { opacity: 1, duration: 0.3 }, t + 1.1)
-          .to(jump, { x: 3, duration: 0.05, repeat: 7, yoyo: true, ease: 'none' }, t + 1.2)
-          .to(jump, { y: 60, rotation: 4, opacity: 0, duration: 0.5, ease: 'power2.in' }, t + 1.9)
-          .to(oops, { opacity: 0, duration: 0.3 }, t + 1.9)
-          .set(jump, { clearProps: 'clipPath,outlineColor,backgroundColor,color', x: 0, y: 0, rotation: 0, opacity: 1, [grow]: 0 }, t + 2.4);
-        t += 2.7;
+        const oops = $('.oops', el)!;
+        tl.to(jump, { opacity: 1, y: 0, duration: 0.45, ease: 'bounce.out' }, t)
+          .to(pin!, { opacity: 1, duration: 0.3 }, t + 0.3)
+          .to(jump, { backgroundColor: 'rgb(210,40,30)', duration: 0.25 }, t + 0.9)
+          .fromTo(oops, { opacity: 0 }, { opacity: 1, duration: 0.25 }, t + 0.9)
+          .to(jump, { x: 3, duration: 0.05, repeat: 7, yoyo: true, ease: 'none' }, t + 1)
+          .to(jump, { y: 3 * 40, rotation: 8, opacity: 0, duration: 0.5, ease: 'power2.in' }, t + 1.5)
+          .to(oops, { opacity: 0, duration: 0.3 }, t + 1.6)
+          .set(jump, { clearProps: 'backgroundColor', rotation: 0, ...off }, t + 2);
+        t += 2.2;
       }
       rows.forEach((li, i) => {
-        const at = t + i * 0.6;
-        tl.to($('.block', li), { [grow]: 1, duration: 0.45, ease: 'power2.out' }, at)
-          .fromTo($$('.picto>i', li), { scale: 0 }, { scale: 1, duration: 0.35, stagger: 0.08, ease: 'back.out(2.5)', immediateRender: false }, at + 0.25)
-          .fromTo($$('.picto>b', li), { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: 'power2.inOut', immediateRender: false }, at + 0.5)
-          .to($('.what', li), { opacity: 1, y: 0, duration: 0.45 }, at + 0.15)
-          .to($('.fix', li), { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(2)' }, at + 0.35);
+        const at = t + i * 0.5;
         if (gate && li.previousElementSibling === gate) tl.to(gate, { opacity: 1, duration: 0.4 }, at - 0.2);
+        tl.to($$('.brick', li), { opacity: 1, x: 0, y: 0, duration: 0.35, stagger: 0.06, ease: 'power3.out' }, at)
+          .to($('.what', li), { opacity: 1, y: 0, duration: 0.45 }, at + 0.2);
+        if (pin && li.contains(pin) && flat) tl.to(pin, { opacity: 1, duration: 0.3 }, at + 0.3);
       });
       return tl;
     },
@@ -266,7 +274,7 @@ if (motion) {
     const m = /^([\d,]+)(.*)$/.exec(f.textContent!.trim()), end = m ? Number(m[1].replace(/,/g, '')) : 0;
     if (!m || end < 10) continue;
     const o = { v: 0 };
-    gsap.to(o, { v: end, duration: 1.8, ease: OUT, onStart: () => { f.style.minWidth = `${f.getBoundingClientRect().width}px`; }, onUpdate: () => { f.textContent = fmt(o.v) + m[2]; }, scrollTrigger: { trigger: f, start: 'top 90%', once: true } });
+    gsap.to(o, { v: end, duration: 0.6, ease: 'power2.out', onStart: () => { f.style.minWidth = `${f.getBoundingClientRect().width}px`; }, onUpdate: () => { f.textContent = fmt(o.v) + m[2]; }, scrollTrigger: { trigger: f, start: 'top 90%', once: true } });
   }
 
   // a section on its way out dims and lifts, so the next one reads as a new slide

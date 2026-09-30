@@ -1,42 +1,44 @@
 ---
-// The five levels as a staircase: a bar one step taller per level with a small scene of icons in it (loose on the low
-// levels, joined once the tools talk), a bubble off the top with how I get you past it (my face on it), and under the
-// floor the level's name, what it looks like and what it costs you (red cross; the top level's good news gets a green
-// check). The button says how the call finds your level. A dashed line marks where the data is ready for AI; a pin marks the level
-// most companies jump in at. Each bar stands in a dashed outline of itself. On phones the bars lie flat, one row each.
-// The markup is the finished state; pitch.ts (ART.levels) tells the story: the top of the pinned level appears alone,
-// shakes with nothing under it and falls, then the levels build in order, each bubble popping out of its bar.
+// The five levels as building blocks: each level is a stack, one block taller than the last, its own block on top of
+// the ones it stands on (the lower ones muted, the top one dark; the top level's green). Each block sits in a dashed
+// outline of itself, seen while it's missing. Under the floor: the level's name, what now exists (checks) and what's
+// still missing (crosses). A dashed line marks where the data is ready for AI; a pin marks the level most companies
+// jump in at. The button says how the call finds your level. On phones each stack lies flat, left to right.
+// The markup is the finished state; pitch.ts (ART.levels) tells the story: the pinned level's block appears alone,
+// shakes with nothing under it and falls, then the levels build in order, block on block.
 import type { CollectionEntry } from 'astro:content';
 import { rich } from '../../lib/text';
 import { ICON } from '../../lib/icons';
 import Arrow from './Arrow.astro';
 
-const { s, face } = Astro.props as { s: CollectionEntry<'hub'>['data']['levels']; face: string };
-const last = s.items.length - 1;
+const { s } = Astro.props as { s: CollectionEntry<'hub'>['data']['levels'] };
 ---
 <section class="sec levels" id={s.id}>
   <div class="wrap">
     <div class="head wide">
-      <div><h2 set:html={rich(s.h2)} /><p class="intro" set:html={rich(s.text)} /></div>
+      <div><h2 set:html={rich(s.h2)} /><p class="sub">{s.sub}</p><p class="intro" set:html={rich(s.text)} /></div>
       <div class="act"><a class="btn" href="#apply" data-cta><span>{s.cta}</span><Arrow /></a><p class="how">{s.how}</p></div>
     </div>
     <ol class="stairs" data-art="levels" data-start="top 60%">
       {s.items.map((x, i) => (
         <>
           {i === s.gate.after && <li class="gate" role="separator" aria-label={s.gate.name}><b>{s.gate.name}</b></li>}
-          <li class:list={{ most: i + 1 === s.most }} style={`--h:${i + 1}`}>
+          <li class:list={{ most: i + 1 === s.most, peak: i === s.items.length - 1 }}>
             <div class="up">
-              <p class="fix"><img src={face} alt="" width="24" height="24" loading="lazy">{x.fix}</p>
-              <div class="riser">
-                <i class="block"><span class="picto" aria-hidden="true">{x.linked && <b class="link"></b>}{x.scene.map((k) => <i><svg viewBox="0 0 16 16"><path d={ICON[k]} /></svg></i>)}</span></i>
-                {i + 1 === s.most && <><em class="oops" aria-hidden="true">{s.fall}</em><span class="pin">{s.most_note}</span></>}
+              <div class="riser" aria-hidden="true">
+                {s.items.slice(0, i + 1).map((b, k) => (
+                  <span class="spot"><i class:list={['brick', { own: k === i }]}><svg viewBox="0 0 16 16"><path d={ICON[b.icon]} /></svg><span>{b.brick}</span></i></span>
+                ))}
+                {i + 1 === s.most && <><em class="oops">{s.fall}</em><span class="pin">{s.most_note}</span></>}
               </div>
             </div>
             <div class="what">
               <p class="lv">{s.word} {i + 1}</p>
               <h3>{x.name}</h3>
-              <p class="is">{x.is}</p>
-              <p class:list={['why', i === last ? 'good' : 'bad']}>{x.why}</p>
+              <ul class="pts">
+                {x.has.map((t) => <li class="has">{t}</li>)}
+                {x.lacks.map((t) => <li class="lacks">{t}</li>)}
+              </ul>
             </div>
           </li>
         </>

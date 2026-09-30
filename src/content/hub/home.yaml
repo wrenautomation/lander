@@ -64,8 +64,8 @@ pain:
 # No claim here may repeat the comparison, the levels or the FAQ.
 values:
   id: why
-  h2: Automation that *actually sticks.*
-  text: Most companies have paid for software their team stopped using. Here's what I do differently.
+  h2: Automation that *actually moves the needle.*
+  text: Most software doesn't actually help the team. Here's how we provide real utility.
   cta: Talk through your bottleneck
   # art: the small animated scene at the top of each card (Values.astro)
   items:
@@ -74,12 +74,13 @@ values:
     - { art: charge, name: Built around your team, text: "It fits how your team already works. You choose what runs on its own and what waits for a yes." }
     - { art: watched, name: Nothing runs unwatched, text: "Every run is logged. A failure gets caught and fixed, not found by a client weeks later." }
     - { art: cost, name: You see what it costs, text: "Each job shows what it costs to run. No guessing what you pay for." }
-    - { art: first, name: Start where it pays most, text: "The first job is the one that frees the most hours. Everything after builds on it." }
+    - { art: first, name: Start where it pays most, text: "Find the KPIs that matter, then start with the job that moves them most. Everything after builds on it." }
 
 levels:
   id: levels
-  h2: Most companies *start at level four.*
-  text: "88% of companies now use AI somewhere, yet nearly two-thirds haven't started scaling it.[^3] AI can't run on scattered data and processes nobody wrote down. Each level holds up the one above it."
+  h2: Most companies jump into AI *without a solid foundation.*
+  sub: AI at level 4 doesn't work without the infrastructure underneath to support it.
+  text: "88% of companies now use AI somewhere, yet nearly two-thirds haven't started scaling it.[^3] AI can't run on scattered data and processes nobody wrote down."
   cta: Find my level
   how: "Walk me through a normal week. I'll tell you your level."
   word: Level
@@ -87,38 +88,32 @@ levels:
   most_note: Most jump in here
   fall: Nothing under it
   gate: { after: 3, name: AI-ready }
-  # scene: the icons drawn inside the bar; linked joins them with a line (the tools talk to each other).
-  # is: what the level looks like, so the reader spots their own. why: what it costs you (the top level: the good
-  # news). fix: my bubble. One sentence each.
+  # brick: the block this level adds, on top of the ones below. has: what now exists. lacks: what's still missing.
   items:
-    - name: Manual
-      scene: [person, person, person]
-      is: "Work lives in people's heads."
-      why: "You're everyone's backup. Someone's out and deadlines slip."
-      fix: "I write down how your team actually works, so anyone can do it."
     - name: Documented
-      scene: [doc, mail, stack]
-      is: "It's written down, but your data sits in every tool."
-      why: Nobody trusts the numbers, and leads slip between tools.
-      fix: "I merge it all into one clean CRM and cut the tools you don't need."
+      brick: SOPs
+      icon: doc
+      has: [Every process written down as an SOP., Anyone can cover for anyone.]
+      lacks: [Your data sits in a dozen tools., Nobody trusts the numbers.]
+    - name: Organized
+      brick: One CRM
+      icon: stack
+      has: [One clean CRM with every client in it., Numbers you can trust.]
+      lacks: [Your team still moves data by hand., Leads wait until someone's free.]
     - name: Connected
-      scene: [doc, mail, stack]
-      linked: true
-      is: One clean record. Handoffs run on their own.
-      why: Your team still researches and writes it all. Growth means hiring.
-      fix: "I put AI on the busywork: lead research, drafts, call notes."
+      brick: Workflows
+      icon: loop
+      has: [Handoffs run on their own., Every lead gets a reply in minutes.]
+      lacks: [Your team still researches and writes everything., More clients still means more hires.]
     - name: AI-assisted
-      scene: [spark, doc, person]
-      linked: true
-      is: AI drafts. Your team checks every piece.
-      why: Your best people become editors. Headcount still climbs with volume.
-      fix: "I track what you approve unchanged and let it run on its own."
+      brick: AI
+      icon: spark
+      has: ["AI does the research, drafts and call notes.", Your team reviews instead of writing.]
+      lacks: [Someone still checks every draft., Nobody watches for what breaks.]
     - name: Self-running
-      scene: [spark, loop, check]
-      linked: true
-      is: The daily work runs itself. Your team handles clients.
-      why: "More clients, same team. No new hire for every new client."
-      fix: "I monitor your automations and fix any issues that come up."
+      brick: Monitoring
+      icon: check
+      has: [Work you've approved runs on its own., I monitor it and fix issues fast., "More clients, same team."]
 
 catalog:
   id: services
@@ -130,32 +125,32 @@ catalog:
       items:
         - name: Lead generation
           scene: email
-          text: I find companies that fit your ideal client and write each decision maker a personal first email.
-          runs: Runs on your CRM and inbox.
+          text: Prospecting eats your team's week. Find your ideal clients and email each decision maker personally.
+          gets: More calls booked, no new reps.
         - name: Speed to lead
           scene: inquiry
-          text: Every new inquiry gets a reply in minutes, day or night, with times to book a call.
-          runs: Runs on your site, inbox and calendar.
+          text: Leads go cold while they wait. Reply to every inquiry in minutes, day or night, with times to book.
+          gets: More inquiries become calls.
     - for: People
       items:
         - name: Hiring outreach
           scene: people
-          text: I find people who fit the role and reach each one with a personal note.
-          runs: Runs on your ATS and inbox.
+          text: Good candidates never see your post. Find people who fit the role and reach each one personally.
+          gets: More replies from people worth hiring.
         - name: Onboarding
           scene: onboard
-          text: A signed offer sets up their accounts, sends the paperwork and books their first week.
-          runs: Runs on your HR tools and docs.
+          text: New hires wait on accounts and paperwork. Set it all up and book their first week the moment they sign.
+          gets: Ready on day one.
     - for: Operations and research
       items:
         - name: Timesheets and invoicing
           scene: hours
-          text: Hours from every tool land in one place. Approved hours become invoices and payroll.
-          runs: Runs on your time tracker and accounting.
+          text: Hours sit in five different tools. Pull them into one place and turn approved hours into invoices and payroll.
+          gets: Every hour billed, on time.
         - name: Research and reports
           scene: report
-          text: Ask about a company, a market or your numbers. Get the answer on one page, every source linked.
-          runs: Runs on the web and your data.
+          text: Answers take hours of digging. Ask about a company, a market or your numbers and get one page back.
+          gets: Decide faster, every source linked.
 
 compare:
   id: compare
@@ -248,7 +243,7 @@ about:
         - { n: "7,000+", label: papers tracked }
         - { n: "200+", label: hours of lookups cut }
         - { n: "8+", label: hours a week back for the professor }
-  proves: "Neither project is what I'd build for you. But both prove I build software that stays fast, reliable and consistent with thousands of people using it."
+  proves: "Although these projects aren't business automations, they prove I build software that stays fast, reliable and consistent with thousands of people using it."
   photo: /headshot.png
   sign: William Jin · Toronto
   cta: Talk to me directly
