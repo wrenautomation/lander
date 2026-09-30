@@ -115,11 +115,49 @@ if (motion) {
       });
       return tl;
     },
-    // what makes it stick: the cards rise in reading order, each icon drawing itself as its card lands
+    // what makes it stick: the cards rise in reading order, then each scene plays its point, one card after another
     values: (el, tl) => {
-      $$('li', el).forEach((li, k) => tl
-        .fromTo(li, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7 }, k * 0.12)
-        .fromTo($('path', li), { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.9, ease: 'power2.inOut' }, k * 0.12 + 0.25));
+      const cards = $$(':scope > li', el);
+      tl.fromTo(cards, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 });
+      const SCENE: Record<string, (v: HTMLElement, t: number) => void> = {
+        // the to-do list empties: each task struck through, then handled
+        handled: (v, t) => $$('li', v).forEach((r, k) => tl
+          .fromTo($('s', r), { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: 'power2.in' }, t + k * 0.35)
+          .fromTo($('b', r), { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(3)' }, t + k * 0.35 + 0.25)),
+        // each thing that goes wrong turns into the thing that happened instead
+        messy: (v, t) => $$('li', v).forEach((r, k) => tl
+          .fromTo($('.bad', r), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.3 }, t + k * 0.35)
+          .fromTo($('i', r), { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: 'power1.inOut' }, t + k * 0.35 + 0.2)
+          .fromTo($('.ok', r), { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(3)' }, t + k * 0.35 + 0.45)),
+        // you set the switches: some flip on, one stays off, each saying what it means
+        charge: (v, t) => {
+          $$('li', v).forEach((r, k) => {
+            const on = $('.tg.on', r), at = t + 0.3 + k * 0.4;
+            if (on) tl.fromTo(on, { backgroundColor: 'rgba(14,14,14,.14)' }, { backgroundColor: '#17803D', duration: 0.3 }, at)
+              .fromTo($('u', on), { left: 2 }, { left: 16, duration: 0.3, ease: 'power2.inOut' }, at);
+            tl.fromTo($('em', r), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: 0.35 }, at + 0.15);
+          });
+        },
+        // the log fills in; one run fails, then gets fixed
+        watched: (v, t) => {
+          tl.fromTo($$('li', v), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.3 }, t);
+          const was = $('.was', v)!, now = $('.now', v)!, st = $('.state.fix', v)!;
+          tl.set(was, { opacity: 1 }, t + 0.3).set(now, { opacity: 0 }, t + 0.3)
+            .set(st, { backgroundColor: 'rgba(210,40,30,.08)' }, t + 0.3)
+            .to(was, { opacity: 0, duration: 0.25 }, t + 1.4).to(now, { opacity: 1, duration: 0.25 }, t + 1.5)
+            .to(st, { backgroundColor: 'rgba(23,128,61,.1)', duration: 0.3 }, t + 1.4);
+        },
+        // what each job costs, drawn as it's counted
+        cost: (v, t) => { tl.fromTo($$('i', v), { scaleX: 0 }, { scaleX: 1, duration: 0.6, stagger: 0.18, ease: 'power2.out' }, t); },
+        // the jobs, jumbled, sort themselves tallest first; the tallest turns green and is where you start
+        first: (v, t) => {
+          const bars = $$('.rank i', v), top = bars[0]!, pos = (b: HTMLElement, key: string) => `calc(${b.style.getPropertyValue(key)} * 20% + 3%)`;
+          tl.fromTo(bars, { left: (_: number, b: HTMLElement) => pos(b, '--from') }, { left: (_: number, b: HTMLElement) => pos(b, '--at'), duration: 0.8, ease: 'power2.inOut' }, t + 0.2)
+            .fromTo(top, { backgroundColor: 'rgba(14,14,14,.14)' }, { backgroundColor: '#17803D', duration: 0.3 }, t + 1)
+            .fromTo($('em', top), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.35 }, t + 1.1);
+        },
+      };
+      cards.forEach((c, k) => SCENE[c.dataset.scene!]?.($('.va', c)!, 0.5 + k * 0.35));
       return tl;
     },
     // margin by team size: both lines draw left to right, each point popping as the line reaches it, then the key

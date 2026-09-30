@@ -252,6 +252,11 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   unwatched, you see what it's worth, start where it pays most. Two FAQ sentences cut so no claim repeats.
   The pain's headline moved into the left column so words and chart sit side by side, centred. Punch line
   now "You're working harder than you need to, and keeping less for it."
+- **D58 (2026-09-30): Scenes, not icons; plain names.** Each value card opens on a small animated scene that
+  shows its point: jobs struck through and handled, messy cases fixed, toggles for what runs alone, a run log
+  catching a failure, a running-cost bar per job, the first job picked from a ranked set. Names say it
+  straight ("No extra work for you", "Built for real-world cases", "Built around your team"). The cost card
+  reports running cost only, not hours saved. Scenes carry no numbers.
 
 ## Next
 

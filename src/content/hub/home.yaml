@@ -67,13 +67,14 @@ values:
   h2: Automation that *actually sticks.*
   text: Most companies have paid for software their team stopped using. Here's what I do differently.
   cta: Talk through your bottleneck
+  # art: the small animated scene at the top of each card (Values.astro)
   items:
-    - { icon: chat, name: "No jargon, no homework", text: "You tell me the problem in plain words. I handle the APIs, the setup and the fixes. Nobody on your team has to learn how it works to use it." }
-    - { icon: shield, name: Built for the messy cases, text: "Demos show the happy path. Real work has bounced emails, duplicate contacts and replies at 2am. I build for those first, because that's where tools break." }
-    - { icon: toggle, name: Your team stays in charge, text: "AI drafts, sorts and researches. People approve what matters. You choose which jobs run on their own and which wait for a yes." }
-    - { icon: eye, name: Nothing runs unwatched, text: "Every run is logged. A failure gets caught and fixed, not found by a client weeks later." }
-    - { icon: chart, name: You see what it's worth, text: "Each job tracks the hours it saves and what it costs to run. You know what's paying off, and so do I." }
-    - { icon: sprout, name: Start where it pays most, text: "The first job is the one that frees the most hours. Everything after builds on it, one job at a time." }
+    - { art: handled, name: No extra work for you, text: "I handle the setup, the APIs and the fixes. You tell me the problem in plain words." }
+    - { art: messy, name: Built for real-world cases, text: "Bounced emails, duplicate contacts, replies at 2am. I build for the messy parts, because that's where tools break." }
+    - { art: charge, name: Built around your team, text: "It fits how your team already works. You choose what runs on its own and what waits for a yes." }
+    - { art: watched, name: Nothing runs unwatched, text: "Every run is logged. A failure gets caught and fixed, not found by a client weeks later." }
+    - { art: cost, name: You see what it costs, text: "Each job shows what it costs to run. No guessing what you pay for." }
+    - { art: first, name: Start where it pays most, text: "The first job is the one that frees the most hours. Everything after builds on it." }
 
 levels:
   id: levels

@@ -1,29 +1,45 @@
 ---
-// What makes it stick, right under the pain: a centred heading, then cards of an icon, a name and a few sentences,
-// three across on desktop. The markup is the finished state; pitch.ts (ART.values) raises the cards and draws each icon.
+// What makes it stick, right under the pain: a centred heading, then cards three across on desktop. Each card opens
+// on a small scene that shows its point, then a name and a few sentences. The markup is each scene's finished state;
+// pitch.ts (ART.values) plays them, card by card. Scene labels are illustration, so they live here, not in the yaml.
 import type { CollectionEntry } from 'astro:content';
 import { rich } from '../../lib/text';
 import Arrow from './Arrow.astro';
 
 type V = CollectionEntry<'hub'>['data']['values'];
 const { s } = Astro.props as { s: V };
-
-const ICON: Record<V['items'][number]['icon'], string> = {
-  chat: 'M2.5 3.5h11v7.5H7.2l-3.2 2.6v-2.6H2.5zM5.5 6.5h5M5.5 8.5h3',
-  shield: 'M8 1.8l5 2v4c0 3-2.2 5.2-5 6.4-2.8-1.2-5-3.4-5-6.4v-4zM5.8 8l1.6 1.6 3-3.2',
-  toggle: 'M5 4.5h6a3.5 3.5 0 0 1 0 7H5a3.5 3.5 0 0 1 0-7zM11 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
-  eye: 'M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8zM8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
-  chart: 'M2.5 2.5v11h11M5.5 10.5v-2.5M8.5 10.5v-5M11.5 10.5v-7',
-  sprout: 'M8 14V8M8 8C8 5 6.2 3.2 3 3.2 3 6.4 5 8 8 8zM8 9.8c0-2.6 1.8-4.2 4.8-4.2 0 2.8-1.9 4.2-4.8 4.2z',
-};
+const CHECK = 'M3.5 8.5l3 3 6-7';
+// the first-job scene: bars are jobs by hours freed, drawn in a jumble, then sorted tallest first
+const JOBS = [{ h: 92, from: 2 }, { h: 70, from: 0 }, { h: 52, from: 4 }, { h: 36, from: 1 }, { h: 22, from: 3 }];
 ---
 <section class="sec values" id={s.id}>
   <div class="wrap">
     <div class="head wide"><h2 set:html={rich(s.h2)} /><p class="intro" set:html={rich(s.text)} /></div>
     <ul class="cards" data-art="values">
       {s.items.map((x) => (
-        <li>
-          <i><svg viewBox="0 0 16 16" aria-hidden="true"><path d={ICON[x.icon]} pathLength="1" /></svg></i>
+        <li data-scene={x.art}>
+          <div class:list={['va', x.art]} aria-hidden="true">
+            {x.art === 'handled' && (
+              <ul>{['Setup', 'APIs and integrations', 'Fixes'].map((t) => <li><span>{t}<s></s></span><b><svg viewBox="0 0 16 16"><path d={CHECK} /></svg>Handled</b></li>)}</ul>
+            )}
+            {x.art === 'messy' && (
+              <ul>{[['Bounced email', 'Retried'], ['Duplicate contact', 'Merged'], ['Reply at 2am', 'Answered']].map(([a, b]) => <li><em class="bad">{a}</em><i></i><em class="ok">{b}</em></li>)}</ul>
+            )}
+            {x.art === 'charge' && (
+              <ul>{[['Follow-ups', 'Runs on its own', true], ['Proposals', 'Waits for your yes', false], ['Invoices', 'Runs on its own', true]].map(([a, b, on]) => <li><span>{a}</span><i class:list={['tg', { on }]}><u></u></i><em>{b}</em></li>)}</ul>
+            )}
+            {x.art === 'watched' && (
+              <ul>{[['09:02', 'Lead research', 'ok'], ['09:15', 'Invoice sync', 'fix'], ['09:31', 'Follow-ups', 'ok']].map(([t, a, k]) => <li><time>{t}</time><span>{a}</span>{k === 'fix' ? <b class="state fix"><em class="was">Failed</em><em class="now">Fixed</em></b> : <b class="state">Done</b>}</li>)}</ul>
+            )}
+            {x.art === 'cost' && (
+              <><p class="cap">Cost to run, by job</p><ul>{[['Research', 0.8], ['Follow-ups', 0.45], ['Reports', 0.3]].map(([a, w]) => <li><span>{a}</span><i style={`--w:${w}`}></i></li>)}</ul></>
+            )}
+            {x.art === 'first' && (
+              <div class="rank">
+                {JOBS.map((j, k) => <i class:list={{ top: k === 0 }} style={`--h:${j.h}%;--at:${k};--from:${j.from}`}>{k === 0 && <em>Start here</em>}</i>)}
+              </div>
+            )}
+          </div>
           <h3>{x.name}</h3>
           <p set:html={rich(x.text)} />
         </li>
