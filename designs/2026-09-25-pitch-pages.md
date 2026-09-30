@@ -182,6 +182,9 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   cards carry the Government of Canada and University of Alberta work. The catalog keeps six rows (two
   per group) so it reads on one screen; lead reactivation is the Growth group's link. The level pin
   sits on level 4, "Where most companies stall", beside McKinsey's two-thirds not yet scaling AI.
+  Hero, on his note: the proof line says the software works past the demo (he has shipped production
+  systems), and the three checks are deliverables as short Title Case tags. The guarantee moved to the
+  after-launch FAQ.
 
 ## Next
 
