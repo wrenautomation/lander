@@ -235,6 +235,14 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   the side (0 to 20% in 5s, dashed gridlines), team size along the bottom. The pain names the costs
   that pile up (CRMs, subscriptions, consultants, experts, developers). The fix line, his template:
   "We offer a complete suite of services to align your systems with profitable growth."
+- **D55 (2026-09-30): Every mark says why; a roadmap replaces "two minutes and a call".** William: the
+  checks and crosses should explain why each option is good or bad. Each cell now carries a few words.
+  Software's risks: paywalls, upcharges, wiring the APIs yourself, data locked in. An agency's: its
+  template, change orders, an account manager who didn't build it, painful offboarding. Rows went to six
+  (built around you, one system, no surprise costs, one person accountable, nothing lost if it ends, flat
+  cost). The hub's three steps became a roadmap before about: the call, then the offer's four stages,
+  each with what I do and what you get. No dates. Start.astro stays for recruiting. Open: the levels'
+  "what I build" lines overlap the roadmap; the levels analogy is still his call.
 
 ## Next
 

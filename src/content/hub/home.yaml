@@ -23,7 +23,7 @@ nav:
     to: "#services"
     menu:
       - { label: Lead reactivation, note: For recruiting companies, what: Win new business from past clients already in your ATS., to: /recruiting/lead-reactivation }
-  - { label: How it works, to: "#start" }
+  - { label: How it works, to: "#roadmap" }
   - { label: Compare, to: "#compare" }
   - { label: FAQ, to: "#faq" }
 nav_cta: Get in touch
@@ -116,25 +116,51 @@ compare:
   h2: Why not hire, buy software or *hand it to an agency?*
   us: Wren
   them: [Another hire, Off-the-shelf software, An agency, Freelancers]
+  # each cell: the mark, then why in a few words. Wren first, then `them` in order.
   rows:
-    - { feature: Built around how your company works, marks: [yes, yes, no, yes, yes] }
-    - { feature: Connects all your tools into one system, marks: [yes, no, no, no, no] }
-    - { feature: Works nights and weekends, marks: [yes, no, yes, no, no] }
-    - { feature: Cost stays flat as volume grows, marks: [yes, no, no, no, no] }
+    - feature: Built around how your company works
+      cells:
+        - [yes, Mapped from your real week]
+        - [yes, After months of learning it]
+        - [no, Built for everyone. You bend to it.]
+        - [no, Their template on every client]
+        - [yes, If you write the spec]
+    - feature: Connects all your tools into one system
+      cells:
+        - [yes, One CRM every tool feeds]
+        - [no, Copies data between tools by hand]
+        - [no, You learn the APIs and wire it yourself]
+        - [no, Only the tools they resell]
+        - [no, Loose pieces nobody owns]
+    - feature: No surprise costs
+      cells:
+        - [yes, Scoped and priced before the build]
+        - [no, "Salary, benefits, tools and turnover"]
+        - [no, Paywalled features and upcharges]
+        - [no, A change order for every new ask]
+        - [no, Hours that run over]
+    - feature: One person accountable
+      cells:
+        - [yes, The person who built it answers]
+        - [yes, Until they leave]
+        - [no, A support ticket queue]
+        - [no, An account manager who didn't build it]
+        - [no, Gone once the invoice is paid]
+    - feature: Nothing lost if it ends
+      cells:
+        - [yes, "Documented, on your own tools"]
+        - [no, Know-how walks out with them]
+        - [no, Your data locked in their platform]
+        - [no, Slow and painful offboarding]
+        - [no, Undocumented work]
+    - feature: Cost stays flat as volume grows
+      cells:
+        - [yes, "Same system, more volume"]
+        - [no, "More clients, more hires"]
+        - [no, "Per seat, per contact, per use"]
+        - [no, "Bigger scope, bigger retainer"]
+        - [no, More work billed by the hour]
   cta: See if it fits
-
-start:
-  id: start
-  h2: It starts with *two minutes and a call.*
-  pics: [form, call, plan]
-  steps:
-    - { name: Fill out the form, time: 2 minutes }
-    - { name: A call with me, time: 30 minutes }
-    - { name: "The audit: your level and your plan", time: Weeks 1 to 2 }
-  then: { name: The build starts, time: From week 2 }
-  then_pic: live
-  text: You see the plan before anything gets built.
-  cta: Start with two minutes
 
 faq:
   h2: Questions you *should be asking.*
@@ -153,6 +179,20 @@ faq:
       a: An hour with you and 45 minutes each with three or four of your people in the first two weeks. After that, a 20-minute check-in each week.
     - q: What happens after launch?
       a: I stay on. I watch what I built, keep it tuned as you grow and add one new AI job every month. If something I built breaks by my mistake, I fix it free.
+
+roadmap:
+  id: roadmap
+  h2: Your roadmap to *better margins.*
+  text: One phase at a time, each built on the one before. You see the plan before anything gets built.
+  get: You get
+  # the call, then the build's stages from the offer (wren packages/offers). No dates.
+  phases:
+    - { tag: Start, name: The call, does: You walk me through a normal week., gets: "Where your margin leaks, named." }
+    - { tag: Phase 1, name: Figure out, does: I sit in on your week and write down every core process., gets: A written plan before any build. }
+    - { tag: Phase 2, name: Fix, does: Steps that leak time or deals get cut. One agreed way to do each thing., gets: "A leaner process, before any code." }
+    - { tag: Phase 3, name: Connect, does: "Your CRM, inboxes, calendars and spreadsheets, cleaned into one CRM.", gets: Numbers you can trust. }
+    - { tag: Phase 4, name: Put AI to work, does: "AI jobs run on that data, watched and fixed. One new job every month.", gets: "More work done, same team." }
+  cta: Start with the call
 
 about:
   h2: Who you'll be *working with.*

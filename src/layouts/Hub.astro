@@ -3,7 +3,7 @@
 // Laid out on the B2B landing template, one screen per section, each ending on a button to the form:
 // hero (words left, a line pointing at the form right), the pain (full-width headline, net margin by team size as a
 // line chart), the five levels, client builds once there are real ones (each as the levels it climbed), every
-// service, William, the comparison, how it starts, questions, the recap, the sources every [^n] marker points at. Same type, colour and motion as the pitch pages (pitch.css, pitch.ts);
+// service, the roadmap (the call, then the build's phases), William, the comparison (each mark with why), questions, the recap, the sources every [^n] marker points at. Same type, colour and motion as the pitch pages (pitch.css, pitch.ts);
 // hub.css adds the hub's own parts.
 import '../styles/pitch.css';
 import '../styles/hub.css';
@@ -16,7 +16,6 @@ import Arrow from '../components/pitch/Arrow.astro';
 import Apply from '../components/pitch/Apply.astro';
 import Catalog from '../components/pitch/Catalog.astro';
 import Levels from '../components/pitch/Levels.astro';
-import Start from '../components/pitch/Start.astro';
 import Top from '../components/pitch/Top.astro';
 import Loader from '../components/pitch/Loader.astro';
 import Backdrop from '../components/pitch/Backdrop.astro';
@@ -125,6 +124,29 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
 
 <Catalog s={p.catalog} />
 
+<section class="sec roadmap" id={p.roadmap.id}>
+  <div class="wrap">
+    <div class="head wide">
+      <div><h2 set:html={rich(p.roadmap.h2)} /><p class="intro" set:html={rich(p.roadmap.text)} /></div>
+      <a class="btn" href="#apply" data-cta><span>{p.roadmap.cta}</span><Arrow /></a>
+    </div>
+    <div class="road" data-art="road" style={`--n:${p.roadmap.phases.length}`}>
+      <span class="track" aria-hidden="true"></span>
+      <ol>
+        {p.roadmap.phases.map((x) => (
+          <li>
+            <i class="stop" aria-hidden="true"></i>
+            <p class="tag">{x.tag}</p>
+            <h3>{x.name}</h3>
+            <p class="does">{x.does}</p>
+            <p class="gets"><b>{p.roadmap.get}</b>{x.gets}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
 <section class="sec about" id="about">
   <div class="wrap grid">
     <img class="photo" src={p.about.photo} alt={site.name} width="640" height="640" loading="lazy">
@@ -147,8 +169,8 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
           {p.compare.rows.map((r) => (
             <tr>
               <th scope="row">{r.feature}</th>
-              {r.marks.map((m, k) => (
-                <td class:list={{ us: k === 0 }}><i class={m}><svg viewBox="0 0 16 16" aria-hidden="true"><path d={m === 'yes' ? YES : NO} /></svg><span class="sr">{m === 'yes' ? 'Yes' : 'No'}</span></i></td>
+              {r.cells.map(([m, why], k) => (
+                <td class:list={{ us: k === 0 }}><span class="cell"><i class={m}><svg viewBox="0 0 16 16" aria-hidden="true"><path d={m === 'yes' ? YES : NO} /></svg><span class="sr">{m === 'yes' ? 'Yes.' : 'No.'}</span></i><small>{why}</small></span></td>
               ))}
             </tr>
           ))}
@@ -158,8 +180,6 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
     <a class="btn" href="#apply" data-cta><span>{p.compare.cta}</span><Arrow /></a>
   </div>
 </section>
-
-<Start s={p.start} />
 
 <section class="sec faq" id="faq">
   <div class="wrap grid">

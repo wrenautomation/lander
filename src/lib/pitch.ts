@@ -70,7 +70,7 @@ export async function loadHub(entry: CollectionEntry<'hub'>) {
   const offer = await pageOffer(raw, where);
   const p = fill(raw, terms(offer), where);
   for (const r of p.compare.rows) {
-    if (r.marks.length !== p.compare.them.length + 1) throw new Error(`${where}: compare row '${r.feature}' has ${r.marks.length} marks, needs ${p.compare.them.length + 1} (${p.compare.us} first)`);
+    if (r.cells.length !== p.compare.them.length + 1) throw new Error(`${where}: compare row '${r.feature}' has ${r.cells.length} cells, needs ${p.compare.them.length + 1} (${p.compare.us} first)`);
   }
   // links from the hub to other pages (the services menu, the catalog's groups) must land on a pitch page
   const paths = new Set((await getCollection('pitches')).map((x) => x.data.path));

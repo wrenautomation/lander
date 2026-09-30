@@ -105,6 +105,16 @@ if (motion) {
     rows: (el, tl) => tl
       .fromTo($$('li', el), { opacity: 0, x: -24 }, { opacity: 1, x: 0, stagger: 0.14 })
       .fromTo($$('.mk', el), { scale: 0 }, { scale: 1, stagger: 0.14, duration: 0.6, ease: 'back.out(3)' }, 0.4),
+    // the roadmap: the line runs through the phases in order, each node lands as the line reaches it, then its words
+    road: (el, tl) => {
+      const down = matchMedia('(max-width: 899px)').matches, lis = $$('li', el), T = 0.45;
+      tl.fromTo($('.track', el), down ? { scaleY: 0 } : { scaleX: 0 }, { ...(down ? { scaleY: 1 } : { scaleX: 1 }), duration: T * lis.length, ease: 'none' });
+      lis.forEach((li, k) => {
+        tl.fromTo($('.stop', li), { scale: 0 }, { scale: 1, duration: 0.35, ease: 'back.out(3)' }, k * T)
+          .fromTo($$('h3, p', li), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.06 }, k * T + 0.1);
+      });
+      return tl;
+    },
     // margin by team size: both lines draw left to right, each point popping as the line reaches it, then the key
     margin: (el, tl) => {
       const D = 2, at = (d: HTMLElement) => (D * parseFloat(d.style.getPropertyValue('--x'))) / 100; // when the line reaches it

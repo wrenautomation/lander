@@ -307,7 +307,7 @@ const pitches = defineCollection({
 
 // The hub (/): Wren as a whole, for anyone who lands without a service link. Laid out on the B2B landing template:
 // hero (proof line, dream outcome, checks, a line to the form) with the form beside it, the pain, the levels, case
-// studies once real, every service, about, a comparison table, how it works, FAQ, the recap, the sources.
+// studies once real, every service, the roadmap, about, a comparison table, FAQ, the recap, the sources.
 // One button per section.
 const mark = z.enum(['yes', 'no']);
 const svcEnd = z.strictObject({ icon: z.enum(['person', 'mail', 'doc', 'cal', 'invoice', 'check', 'stack', 'record', 'search']), label: z.string(), note: z.string() });
@@ -362,12 +362,17 @@ const hub = defineCollection({
         items: z.array(z.strictObject({ name: z.string(), runs: z.string(), in: svcEnd, out: svcEnd })).min(1).max(4),
       })).min(1).max(3),
     }),
-    // Wren against the alternatives: marks[0] is Wren's, then one per `them`
+    // the roadmap, before about: the call, then the build's stages; what I do, then what you get
+    roadmap: z.strictObject({
+      id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
+      get: z.string(),                  // the label before each result
+      phases: z.array(z.strictObject({ tag: z.string(), name: z.string(), does: z.string(), gets: z.string() })).min(3).max(6),
+    }),
+    // Wren against the alternatives: each cell a mark and why in a few words; cells[0] is Wren's, then one per `them`
     compare: z.strictObject({
       id: z.string(), h2: z.string(), cta: z.string(), us: z.string(), them: z.array(z.string()).min(2).max(4),
-      rows: z.array(z.strictObject({ feature: z.string(), marks: z.array(mark) })).min(3).max(7),
+      rows: z.array(z.strictObject({ feature: z.string(), cells: z.array(z.tuple([mark, z.string()])) })).min(3).max(7),
     }),
-    start,
     faq,
     about,
     close,
