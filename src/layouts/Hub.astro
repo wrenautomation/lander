@@ -67,11 +67,15 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
 
 <section class="sec pain-sec" id={p.pain.id}>
   <div class="wrap">
-    <div class="head wide"><h2 set:html={rich(p.pain.h2)} /></div>
+    <div class="head wide"><h2 set:html={rich(p.pain.h2)} /><p class="punch" set:html={rich(p.pain.punch)} /></div>
     <div class="grid">
       <div class="head">
         <div class="intro" set:html={richParas(p.pain.text)} />
-        <a class="btn" href="#apply" data-cta><span>{p.pain.cta}</span><Arrow /></a>
+        <p class="fix" set:html={rich(p.pain.fix)} />
+        <div class="act">
+          <a class="btn" href="#apply" data-cta><span>{p.pain.cta}</span><Arrow /></a>
+          <p class="assure">{p.pain.assure}</p>
+        </div>
       </div>
       <figure class="window">
         <p class="hd">{chart.h}</p>

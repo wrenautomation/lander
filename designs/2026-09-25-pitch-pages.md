@@ -243,6 +243,10 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   cost). The hub's three steps became a roadmap before about: the call, then the offer's four stages,
   each with what I do and what you get. No dates. Start.astro stays for recruiting. Open: the levels'
   "what I build" lines overlap the roadmap; the levels analogy is still his call.
+- **D56 (2026-09-30): The pain gets a punch line, the fix names any bottleneck, a risk note by the button.**
+  Under the headline, in rust: "You work harder every year to keep less of every dollar." The offer line
+  adds "Bring us *any bottleneck*" in a green highlighter. Beside the button: "Free call. If it's not a
+  fit, I'll tell you." The hub's sections run tighter (less padding, less space under headings).
 
 ## Next
 

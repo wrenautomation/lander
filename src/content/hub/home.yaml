@@ -41,11 +41,12 @@ hero:
 pain:
   id: pain
   h2: The bigger you grow, *the worse your profit margin.*
-  text: |
-    Every new client needs more people. More people need managers, support staff and meetings to stay in sync. Then come the CRMs, subscriptions, consultants, experts and developers to hold it all together. Costs climb faster than revenue, so each new dollar earns less than the one before.[^2]
-
-    **We offer a complete suite of services to align your systems with profitable growth.**
+  punch: You work harder every year to keep less of every dollar.
+  text: Every new client needs more people. More people need managers, support staff and meetings to stay in sync. Then come the CRMs, subscriptions, consultants, experts and developers to hold it all together. Costs climb faster than revenue.[^2]
+  # the offer in one line; *words* get the highlighter
+  fix: "**We offer a complete suite of services to align your systems with profitable growth.** Bring us *any bottleneck.* We make fixing it as easy as possible."
   cta: Keep more of what you earn
+  assure: "Free call. If it's not a fit, I'll tell you."
   chart:
     h: Net profit margin by team size
     axis: People on the team
