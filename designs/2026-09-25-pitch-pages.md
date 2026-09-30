@@ -146,6 +146,15 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   off for ?static and reduced motion. The html class is `loading`, not `intro` (.intro is the
   paragraph class). Flows play at 0.75x and the next starts 0.8s before the last ends; catch-up
   is still 2x.
+- **D44 (2026-09-29): The flock replaces the pattern; the load screen is for slow loads only.**
+  William couldn't see the pattern and asked for a faded parallax wren motif. Flock.astro: big
+  single wrens in faint ink (5% near, 4% mid, 3.5% far and blurred), mostly half off the edges,
+  each facing into the page, in 1600px bands that alternate two arrangements so any page length
+  gets the same density. Each lags the scroll by its depth (one custom property per frame);
+  still without motion; far birds dropped under 700px. wren-pattern.png deleted. Loader.astro:
+  both layouts include it, so every pitch page gets it. Nothing shows unless the page is still
+  loading at 400ms; then the mark creeps to 80%, finishes on load (at least 700ms shown, 6s
+  cap) and lifts; the hero rises on `window.wrenShown`. Replaces once-a-visit on a 1s clock.
 
 ## Next
 

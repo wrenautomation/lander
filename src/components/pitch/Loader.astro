@@ -1,0 +1,17 @@
+---
+// The load screen, first thing in <body> on every pitch page and the hub. Only for a slow load: nothing shows unless
+// the page is still loading at 400ms. Then a gray screen, the mark filling rust from the feet up toward 80%; when
+// the page is ready it fills the rest, and the screen lifts as the hero rises (window.wrenShown, read by pitch.ts).
+// Kept up at least 700ms once shown so it never flickers; lifts at 6s whatever is still loading. Motion only (html.js).
+---
+<div class="loader" aria-hidden="true"><i class="bird"></i><b></b></div>
+<script is:inline>
+  (function(){var h=document.documentElement,res,shown=0,done=0;window.wrenShown=new Promise(function(r){res=r});
+  if(!h.classList.contains('js'))return res();
+  h.classList.add('loading');
+  var t=setTimeout(function(){h.classList.add('slow');shown=performance.now()},400);
+  function ready(){if(done)return;done=1;clearTimeout(t);
+    if(!shown){h.classList.remove('loading');return res()}
+    setTimeout(function(){h.classList.add('ready');setTimeout(res,450);setTimeout(function(){h.classList.remove('loading','slow','ready')},1300)},Math.max(0,700-(performance.now()-shown)))}
+  if(document.readyState==='complete')ready();else addEventListener('load',ready);setTimeout(ready,6000)})();
+</script>

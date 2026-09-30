@@ -18,6 +18,8 @@ import Catalog from '../components/pitch/Catalog.astro';
 import Levels from '../components/pitch/Levels.astro';
 import Start from '../components/pitch/Start.astro';
 import Top from '../components/pitch/Top.astro';
+import Loader from '../components/pitch/Loader.astro';
+import Flock from '../components/pitch/Flock.astro';
 import End from '../components/pitch/End.astro';
 import { loadHub } from '../lib/pitch';
 import { bare, rich, richParas } from '../lib/text';
@@ -35,11 +37,12 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
   <meta name="color-scheme" content="light">
   <script is:inline>
     /* motion on: the scroll-drawn parts start undrawn. Off for ?static and reduced motion, so the page reads as-is. */
-    try{var q=new URLSearchParams(location.search),h=document.documentElement;if(!q.has('static')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){h.classList.add('js');/* the load screen plays once a visit */if(!sessionStorage.getItem('wren-loader')){h.classList.add('loading');sessionStorage.setItem('wren-loader','1')}}}catch(e){}
+    try{var q=new URLSearchParams(location.search),h=document.documentElement;if(!q.has('static')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)h.classList.add('js')}catch(e){}
   </script>
 </head>
 <body>
-<div class="loader" aria-hidden="true"><i class="bird"></i><b></b></div>
+<Loader />
+<Flock />
 
 <Top nav={p.nav} cta={p.nav_cta} hub contact={site.email} />
 

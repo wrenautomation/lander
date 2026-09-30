@@ -34,22 +34,33 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--bar) + 12px);-webkit-text-size-adjust:100%}
 html{background:var(--paper)}
-body{background:none;color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip;caret-color:var(--acc)}
-/* the backdrop: a faint wren pattern, fixed, strongest at the edges, gone in the middle where the words are */
-/* the backdrop: a faint wren pattern, strongest at the edges. body stays transparent so it shows through. */
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:url(/brand/wren-pattern.png) 0 0/240px;opacity:.07;-webkit-mask:radial-gradient(ellipse 75% 80% at 50% 45%,rgba(0,0,0,.25) 25%,#000 100%);mask:radial-gradient(ellipse 75% 80% at 50% 45%,rgba(0,0,0,.25) 25%,#000 100%)}
-@media print{body::before,.loader{display:none}}
+body{position:relative;background:none;color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip;caret-color:var(--acc)}
+@media print{.flock,.loader{display:none}}
 
-/* the load screen: first page of a visit, motion on. The mark fills rust from the feet up while a rule draws under
-   it, then the screen lifts off the page as the hero rises. CSS on a clock, so a stalled script never holds the page. */
+/* the backdrop (Flock.astro): faint wrens under the page, body transparent so they show. Each is placed so it's met
+   mid-screen at its --y (px down the page), then lags the scroll by --k (--sy is scrollY, set per frame). Far birds are fainter and soft. */
+.flock{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;--z:1}
+.flock i{position:absolute;left:var(--x);top:calc(var(--y) * (1 - var(--k)) * 1px + var(--k) * 50vh);width:calc(var(--s) * var(--z) * 1px);aspect-ratio:1048/957;background:var(--ink);opacity:.05;-webkit-mask:url(/brand/wren-mark-512.png) center/contain no-repeat;mask:url(/brand/wren-mark-512.png) center/contain no-repeat;transform:translate3d(0,calc(var(--sy,0) * var(--k) * 1px),0) rotate(var(--r)) scaleX(var(--f))}
+.flock .mid{opacity:.04}
+.flock .far{opacity:.035;filter:blur(1.5px)}
+@media (max-width:700px){.flock{--z:.55}.flock .far{display:none}}
+
+/* the load screen (Loader.astro): only while a slow load keeps going past 400ms. The mark fills rust from the feet up
+   toward 80% with a rule drawing under it; when the page is ready both finish, then the screen lifts as the hero rises.
+   html classes: loading (from the start), slow (shown), ready (finishing). */
 .loader{display:none}
-.js.loading .loader{position:fixed;inset:0;z-index:200;display:grid;place-content:center;justify-items:center;gap:20px;background:#F3F1EC;pointer-events:none;animation:lift .8s cubic-bezier(.76,0,.24,1) 1s forwards}
+.js.loading .loader{position:fixed;inset:0;z-index:200;display:grid;place-content:center;justify-items:center;gap:20px;background:#F3F1EC;pointer-events:none;opacity:0;visibility:hidden}
+.js.slow .loader{opacity:1;visibility:visible;transition:opacity .25s}
 .loader .bird{position:relative;width:84px;color:rgba(14,14,14,.08)}
-.loader .bird::after{content:"";position:absolute;inset:0;background:var(--acc);clip-path:inset(100% 0 0 0);animation:fill .8s cubic-bezier(.65,0,.35,1) .1s forwards}
+.loader .bird::after{content:"";position:absolute;inset:0;background:var(--acc);clip-path:inset(100% 0 0 0)}
 .loader b{width:84px;height:2px;background:var(--rule);overflow:hidden}
-.loader b::after{content:"";display:block;height:100%;background:var(--acc);transform:scaleX(0);transform-origin:left;animation:fill .8s cubic-bezier(.65,0,.35,1) .1s forwards}
-.loader>*{animation:away .5s var(--out) 1s forwards}
-@keyframes fill{to{clip-path:inset(0);transform:none}}
+.loader b::after{content:"";display:block;height:100%;background:var(--acc);transform:scaleX(0);transform-origin:left}
+.slow .loader .bird::after{clip-path:inset(20% 0 0 0);transition:clip-path 3s cubic-bezier(.2,.7,.3,1)}
+.slow .loader b::after{transform:scaleX(.8);transition:transform 3s cubic-bezier(.2,.7,.3,1)}
+.ready .loader .bird::after{clip-path:inset(0);transition-duration:.35s}
+.ready .loader b::after{transform:none;transition-duration:.35s}
+.js.ready .loader{animation:lift .8s cubic-bezier(.76,0,.24,1) .35s forwards}
+.ready .loader>*{animation:away .5s var(--out) .35s forwards}
 @keyframes away{to{opacity:0;transform:translateY(-28px)}}
 @keyframes lift{from{clip-path:inset(0)}to{clip-path:inset(0 0 100% 0);visibility:hidden}}
 img{display:block;max-width:100%;height:auto}
@@ -733,8 +744,10 @@ label.field small{font-size:12px;margin-left:6px}
 .sign-off .bird{flex:none;width:1.12em}
 .sign-off span{font-size:.5em;letter-spacing:-.03em}
 
-/* motion on: the hero's parts wait for pitch.ts to bring them in; a stalled script still shows them at 2.5s */
-.js .hero :is(h1,.lede,.promise,.more,.scene,.by){opacity:0;animation:show .01s 2.5s forwards}
+/* motion on: the hero's parts wait for pitch.ts to bring them in (html.arrived); a stalled script still shows them 2.5s
+   after the page (or its load screen) is up */
+.js:not(.arrived) .hero :is(h1,.lede,.promise,.more,.scene,.by){opacity:0;animation:show .01s 2.5s forwards}
+.js.loading .hero :is(h1,.lede,.promise,.more,.scene,.by,.kicker,.checks,.ctas){animation-play-state:paused}
 @keyframes show{to{opacity:1}}
 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
 .w>span{display:inline-block}

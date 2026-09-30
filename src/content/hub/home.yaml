@@ -18,7 +18,7 @@ nav:
       - { label: Lead reactivation, note: For recruiting companies, to: /recruiting/lead-reactivation }
   - { label: How it works, to: "#how" }
   - { label: Compare, to: "#compare" }
-  - { label: Questions, to: "#faq" }
+  - { label: FAQ, to: "#faq" }
 nav_cta: Get in touch
 
 hero:

@@ -48,18 +48,21 @@ const words = (el: HTMLElement) => {
 const OUT = 'expo.out';
 
 if (motion) {
-  // the load screen (html.loading, CSS) lifts at 1s; the hero waits for it
-  const INTRO = document.documentElement.classList.contains('loading') ? 1 : 0;
+  // the first screen waits for the page to be up: at load, or as a slow load's screen lifts (Loader.astro)
+  const shown = (window as { wrenShown?: Promise<void> }).wrenShown ?? Promise.resolve();
+  const hero = $$('.hero :is(.kicker,h1,.lede,.promise,.checks,.more,.ctas,.by)');
+  gsap.set(hero, { opacity: 0, y: 20 });
+  root.classList.add('arrived');
 
   // the first screen arrives all at once: headline and copy rise together. The form panel is never held back.
-  gsap.fromTo($$('.hero :is(.kicker,h1,.lede,.promise,.checks,.more,.ctas,.by)'), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: OUT, delay: INTRO + 0.05 });
+  shown.then(() => gsap.to(hero, { opacity: 1, y: 0, duration: 0.7, ease: OUT, delay: 0.05 }));
 
   // the example thread plays out: a message, the other side typing, the reply, what it means
   const scene = $('[data-scene]');
-  if (scene) {
+  if (scene) shown.then(() => {
     gsap.set(scene, { opacity: 1 });
     const [a, b] = $$('.msg', scene);
-    gsap.timeline({ delay: INTRO, defaults: { ease: OUT, duration: 0.9 }, scrollTrigger: { trigger: scene, start: 'top 88%', once: true } })
+    gsap.timeline({ defaults: { ease: OUT, duration: 0.9 }, scrollTrigger: { trigger: scene, start: 'top 88%', once: true } })
       .fromTo($('.label', scene), { opacity: 0 }, { opacity: 1 }, 0.5)
       .fromTo(a, { opacity: 0, y: 24 }, { opacity: 1, y: 0 }, 0.6)
       .fromTo(b, { opacity: 0, y: 24 }, { opacity: 1, y: 0 }, 1.3)
@@ -67,7 +70,7 @@ if (motion) {
       .fromTo($('.typing', b), { opacity: 0 }, { opacity: 1, duration: 0.2 }, 1.5)
       .to($('.typing', b), { opacity: 0, duration: 0.2 }, 2.4)
       .fromTo($('.tag', scene), { opacity: 0, y: 12 }, { opacity: 1, y: 0 }, 2.9);
-  }
+  });
 
   // section headings: word by word, as each comes into view
   for (const h of $$('.sec h2, .close h2')) {
