@@ -1,0 +1,14 @@
+{
+  "_": "Short links for posts, videos and profiles: /go/<channel>[/<campaign>[/<content>]]. The channel names the source, its usual medium and where it lands; campaign and content are free text (a post id, a video slug). An unlisted channel still works: it lands on / with the channel as the source. Read by functions/go/[[path]].ts.",
+  "channels": {
+    "yt": { "source": "youtube", "medium": "organic", "to": "/" },
+    "li": { "source": "linkedin", "medium": "organic", "to": "/" },
+    "ig": { "source": "instagram", "medium": "organic", "to": "/" },
+    "tt": { "source": "tiktok", "medium": "organic", "to": "/" },
+    "x": { "source": "x", "medium": "organic", "to": "/" },
+    "rd": { "source": "reddit", "medium": "organic", "to": "/" },
+    "ads": { "source": "meta", "medium": "paid", "to": "/" },
+    "sms": { "source": "sms", "medium": "outreach", "to": "/" },
+    "rec": { "source": "recruiting", "medium": "outreach", "to": "/recruiting/lead-reactivation" }
+  }
+}

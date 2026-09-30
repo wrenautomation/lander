@@ -6,4 +6,5 @@ export interface Env {
   RESEND_API_KEY?: string;
   LEAD_TO?: string;            // where the notification goes
   LEAD_FROM?: string;          // a sender on a domain verified in Resend
+  EXPORT_TOKEN?: string;       // bearer for /api/export, shared with wren (WREN_SITE_EXPORT_TOKEN)
 }

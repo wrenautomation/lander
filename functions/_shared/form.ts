@@ -7,10 +7,10 @@ export const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 /** The posted form, or null when the body isn't one (a probe, a bad client). */
 export const readForm = (request: Request): Promise<FormData | null> => request.formData().catch(() => null);
 
-/** Where the submit came from: the page, the first-touch utm (filled by src/scripts/hit.ts) and the request. */
+/** Where the submit came from: the page, this tab's touch (filled by src/scripts/hit.ts) and the request. */
 export function origin(form: FormData, request: Request) {
   return {
-    page: clip(form.get('page'), 200),
+    page: clip(form.get('page'), 200), r: clip(form.get('r'), 40),
     utm_source: clip(form.get('utm_source'), 100), utm_medium: clip(form.get('utm_medium'), 100),
     utm_campaign: clip(form.get('utm_campaign'), 100), utm_content: clip(form.get('utm_content'), 100),
     ref: clip(form.get('ref'), 200), country: request.headers.get('cf-ipcountry') || '',

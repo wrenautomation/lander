@@ -36,7 +36,7 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       </div>
       <input type="hidden" name="offer" value={offer.id}>
       <input type="hidden" name="page" value={path}>
-      {['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref'].map((k) => <input type="hidden" name={k} value="">)}
+      {['r', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref'].map((k) => <input type="hidden" name={k} value="">)}
       <label class="hp" aria-hidden="true">Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
       {turnstile && <div class="cf-turnstile" data-sitekey={turnstile} data-size="flexible" data-theme="light"></div>}
       {!stepped && <button class="btn ink" type="submit" data-submit data-sending={a.sending}><span>{a.submit}</span><Arrow /></button>}

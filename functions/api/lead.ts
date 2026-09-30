@@ -3,14 +3,16 @@
 import type { Env } from '../_shared/env';
 import { EMAIL, clip, human, isBot, origin, readForm } from '../_shared/form';
 import { notify } from '../_shared/notify';
+import { cameFrom, history, visitorOf, withVisitor } from '../_shared/visitor';
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const wantsJson = (request.headers.get('accept') || '').includes('application/json');
   const back = new URL(request.headers.get('referer') || '/', request.url);
+  const visitor = visitorOf(request);
   const reply = (status: number, ok: boolean) => {
-    if (wantsJson) return Response.json({ ok }, { status });
+    if (wantsJson) return withVisitor(Response.json({ ok }, { status }), visitor.id);
     back.searchParams.set('sent', ok ? '1' : '0'); back.hash = 'ask';
-    return Response.redirect(back.toString(), 303);
+    return withVisitor(Response.redirect(back.toString(), 303), visitor.id);
   };
 
   const form = await readForm(request);
@@ -25,12 +27,13 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   };
   if (!(await human(env, form, o.ip))) return reply(403, false);
 
+  const came = await history(env.DB, visitor.id);
   await env.DB.prepare(
-    `insert into leads (ts, name, email, phone, note, questions, niche, page, utm_source, utm_medium, utm_campaign, utm_content, ref, country, ip, ua)
-     values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    `insert into leads (ts, name, email, phone, note, questions, niche, page, visitor, first_touch, last_touch, r, utm_source, utm_medium, utm_campaign, utm_content, ref, country, ip, ua)
+     values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   ).bind(
     new Date().toISOString(), row.name, row.email, row.phone, row.note, row.questions, row.niche, o.page,
-    o.utm_source, o.utm_medium, o.utm_campaign, o.utm_content, o.ref, o.country, o.ip, o.ua,
+    visitor.id, came.first ? JSON.stringify(came.first) : '', came.last ? JSON.stringify(came.last) : '', o.r || came.last?.r || '', o.utm_source, o.utm_medium, o.utm_campaign, o.utm_content, o.ref, o.country, o.ip, o.ua,
   ).run();
 
   await notify(env, {
@@ -38,6 +41,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     lines: [
       `${row.name ? `${row.name} · ` : ''}${row.email}${row.phone ? ` · ${row.phone}` : ''}`,
       `${o.page}${o.utm_campaign ? ` · ${o.utm_campaign}` : ''}${o.country ? ` · ${o.country}` : ''}`,
+      cameFrom(came),
     ],
     body: `${row.note || '(no note)'}${row.questions ? `\n\nQuestions: ${row.questions}` : ''}`,
     replyTo: row.email,

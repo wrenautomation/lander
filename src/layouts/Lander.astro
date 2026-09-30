@@ -226,7 +226,7 @@ const multi = new Set(['note', 'questions']);
         ))}
         <input type="hidden" name="niche" value={n.form_value}>
         <input type="hidden" name="page" value={Astro.url.pathname}>
-        {['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref'].map((k) => <input type="hidden" name={k} value="">)}
+        {['r', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref'].map((k) => <input type="hidden" name={k} value="">)}
         <label class="hp" aria-hidden="true" tabindex="-1">Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
         {turnstile && <div class="cf-turnstile" data-sitekey={turnstile} data-size="flexible"></div>}
         <button class="btn" type="submit">{site.ask_submit}</button>

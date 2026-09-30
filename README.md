@@ -81,20 +81,23 @@ The workflow needs four repo secrets: `CLOUDFLARE_API_TOKEN` (dash → My Profil
 | `TURNSTILE_SECRET` | `wrangler pages secret put` | same widget → secret key | same as above (both or neither) |
 | `DISCORD_WEBHOOK` | `wrangler pages secret put` | Discord channel → Edit → Integrations → Webhooks → New → copy URL | no Discord ping |
 | `RESEND_API_KEY` | `wrangler pages secret put` | resend.com → API keys; first verify `wrenautomation.com` under Domains (3 DNS records) | leads land in D1 only, no email ping |
+| `EXPORT_TOKEN` | `wrangler pages secret put` | any long random string; the same value is wren's `WREN_SITE_EXPORT_TOKEN` | `/api/export` answers 404, so `wren site visits` can't read clicks |
 | `LEAD_TO` / `LEAD_FROM` | `wrangler.toml` `[vars]` | already set; `LEAD_FROM` must be on the verified domain | — |
 
 `.env` and secrets are read at build/deploy time: change one → push again (or `npm run deploy`). The two `PUBLIC_` values also live as GitHub secrets; change both places. `.env` and `.dev.vars` are never committed.
 
 ## What gets measured
 
-No cookies, no ids. The footer line promises that; keep it true.
+One first-party cookie, `wv` (random id, HttpOnly, 400 days), joins one browser's visits so a form knows what first brought the person and what brought them last. Nothing third party. The privacy page says so; keep it true. Design: `designs/2026-09-29-attribution.md`.
 
 - **Cloudflare Web Analytics** (if the token is set): visits, referrers, per page. Cookieless.
-- **Our own beacon** (`src/scripts/hit.ts` → `/api/hit` → `hits` table): one row per page view when the tab closes or hides. Page, % scrolled, seconds visible, clicked the CTA, touched the form, viewport width, utm, referrer, country. Sent with `sendBeacon`, so it survives the tab closing. Skipped with `?static` / `?probe`.
-- **Leads** (`leads` table): the niche-page form, plus the utm and referrer the visitor arrived with, country, ip, user agent.
-- **Applications** (`applications` table): the pitch-page form. Offer, name, email, firm, note, every answer as JSON keyed by question id, `fit` (1/0 by the offer's rule), page, utm, ref, country, ip, user agent. A fit applicant is told so on the page; Discord and email ping either way.
+- **Our own beacon** (`src/scripts/hit.ts` → `/api/hit` → `hits` table): one row per page view, posted on arrival and raised when the tab hides. Page, % scrolled, seconds visible, clicked the CTA, touched the form, viewport width, visitor, and what it arrived from: `r` (email link code), utm, external referrer. Those params are then stripped from the address bar. Skipped with `?static` / `?probe`.
+- **Links out** (`/go/<channel>[/<campaign>[/<content>]]`, registry `src/data/links.json`): put these in bios, video descriptions and posts. They 302 to the channel's page with utm set. `/go/yt/launch-video` → `/?utm_source=youtube&utm_medium=organic&utm_campaign=launch-video`. An unknown channel still works (source = its name). `?to=/some/page` picks the page.
+- **Leads** (`leads` table): the niche-page form, plus the utm and referrer the visitor arrived with, visitor, first and last touch (JSON), country, ip, user agent.
+- **Applications** (`applications` table): the pitch-page form. Offer, name, email, firm, note, every answer as JSON keyed by question id, `fit` (1/0 by the offer's rule), page, utm, ref, `r`, visitor, first and last touch, country, ip, user agent. The ping says "Came from: …". A fit applicant is told so on the page; Discord and email ping either way.
 
 ```
+npm run channels        # per channel and campaign by first touch: visitors, reads, form, applied, fit; email codes clicked (-- --days 30)
 npm run hits            # per page: views, mobile share, avg depth, avg secs, CTA clicks, form touches
 npm run hits:campaign   # the same per utm_campaign
 npm run leads           # last 50 leads

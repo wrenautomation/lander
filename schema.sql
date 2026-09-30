@@ -18,11 +18,18 @@ create table if not exists leads (
   ref text,
   country text,
   ip text,
-  ua text
+  ua text,
+  visitor text,
+  first_touch text,
+  last_touch text,
+  r text
 );
 
--- one anonymous row per page view (src/scripts/hit.ts). depth = % scrolled, secs = visible time,
--- cta = clicked through to the form, touched = focused a form field, w = viewport width (mobile < 840)
+-- one row per page view (src/scripts/hit.ts). depth = % scrolled, secs = visible time,
+-- cta = clicked through to the form, touched = focused a form field, w = viewport width (mobile < 840).
+-- view = the page's own id for this view (arrival and exit posts land on one row); visitor = the wv cookie
+-- (functions/_shared/visitor.ts); r = the code on an email link. r, utm_* and ref are set only on the view a
+-- visitor arrived on, so a row with any of them is a touch.
 create table if not exists hits (
   id integer primary key autoincrement,
   ts text not null,
@@ -39,8 +46,13 @@ create table if not exists hits (
   utm_content text,
   ref text,
   country text,
-  ua text
+  ua text,
+  view text,
+  visitor text,
+  r text
 );
+create unique index if not exists ix_hits_view on hits (view);
+create index if not exists ix_hits_visitor on hits (visitor);
 
 -- name and questions were added 2026-09-15. A database created before then: npm run db:alter
 
@@ -70,6 +82,13 @@ create table if not exists applications (
   ref text,
   country text,
   ip text,
-  ua text
+  ua text,
+  visitor text,
+  first_touch text,
+  last_touch text,
+  r text
 );
 create index if not exists ix_applications_ts on applications (ts);
+
+-- 2026-09-29 attribution: visitor cookie, first/last touch (JSON, from hits), email link code r. A database made
+-- before then: npm run db:attribution (once).
