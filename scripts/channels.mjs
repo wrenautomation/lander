@@ -1,7 +1,7 @@
 // npm run channels [-- --days 30] [--local]: how well each channel works, from D1. Every visitor is credited to their first
 // touch (the first view that arrived from an email link, a /go or utm link, or another site; none = direct), then
 // followed to the end: views, time on page, clicks to the form, form touched, applied, fit.
-// Tables: by channel, by campaign, and each email link code (?r=) that was clicked; `wren site visits` names them.
+// Tables: by channel, by campaign, and each email link code (?r=) that was clicked; `wren email clicks` names them.
 import { execFileSync } from 'node:child_process';
 
 const i = process.argv.indexOf('--days');
@@ -39,7 +39,7 @@ show('By campaign (first touch, utm and /go links)', run(`${base}
   select f.utm_source source, f.utm_medium medium, coalesce(nullif(f.utm_campaign, ''), '-') campaign, ${totals}
   from seen s join first f using (visitor) left join app a using (visitor) where f.utm_source != ''
   group by 1, 2, 3 order by visitors desc`));
-show('Email link clicks (?r=, name them with: wren site visits)', run(`
+show('Email link clicks (?r=, name them with: wren email clicks)', run(`
   select h.r, min(h.ts) first_click, count(distinct h.visitor) visitors,
     (select count(*) from hits x where x.visitor in (select visitor from hits where r = h.r)) views,
     (select max(fit) from applications p where p.visitor in (select visitor from hits where r = h.r)) applied_fit

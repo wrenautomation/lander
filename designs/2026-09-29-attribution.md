@@ -15,7 +15,7 @@ Know which outreach brings people and which of them apply. Cold email first, the
 - **Forms.** At submit, `/api/apply` and `/api/lead` read the visitor's first and last touch from `hits` and store them as JSON with the `visitor` and `r`. The ping says "Came from: linkedin / organic / profile (2026-09-29), last email r:abc (2026-10-02) · 7 views". The form's hidden fields still carry this tab's touch, as a fallback for a blocked cookie.
 - **Links out.** `/go/<channel>[/<campaign>[/<content>]]` 302s to the channel's page with utm set. Channels live in `src/data/links.json` (yt, li, ig, tt, x, rd, ads, sms, rec). Unknown channel = source is its name, lands on `/`. `?to=/path` picks a local page; anything else is ignored.
 - **Report.** `npm run channels [-- --days 30]`: by channel and by campaign (first touch) with visitors, views, time, form reached, applied, fit; plus each email code clicked.
-- **Names.** `/api/export` (Bearer `EXPORT_TOKEN`, 404 without it) returns hits or applications as JSON for wren. wren mints `r` per message, so `wren site visits` names the company, person and step behind each click.
+- **Names.** `/api/export` (Bearer `EXPORT_TOKEN`, 404 without it) returns hits or applications as JSON for wren. wren mints `r` per message, so `wren email clicks` names the company, person and step behind each click.
 
 ## Decisions
 
@@ -28,5 +28,5 @@ Know which outreach brings people and which of them apply. Cold email first, the
 
 ## Owed
 
-- wren: `link_token` per message, `?r=` on the sign-off link, `wren site visits`.
+- ~~wren: link code per message, `?r=` on the sign-off link, `wren email clicks`.~~ Done (wren 4df4914). Drafts made before it have no code.
 - Cal.com bookings joined to visitor (the booking metadata already carries it).

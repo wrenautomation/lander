@@ -1,5 +1,5 @@
 // GET /api/export?since=<id>&limit=<n>&table=hits|applications: rows newer than an id, for wren to read
-// (`wren site visits` joins ?r= codes to the emails that carried them). Bearer EXPORT_TOKEN, a Pages secret;
+// (`wren email clicks` joins ?r= codes to the emails that carried them). Bearer EXPORT_TOKEN, a Pages secret;
 // with no secret set the endpoint does not exist.
 import type { Env } from '../_shared/env';
 

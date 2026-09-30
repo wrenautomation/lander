@@ -81,7 +81,7 @@ The workflow needs four repo secrets: `CLOUDFLARE_API_TOKEN` (dash → My Profil
 | `TURNSTILE_SECRET` | `wrangler pages secret put` | same widget → secret key | same as above (both or neither) |
 | `DISCORD_WEBHOOK` | `wrangler pages secret put` | Discord channel → Edit → Integrations → Webhooks → New → copy URL | no Discord ping |
 | `RESEND_API_KEY` | `wrangler pages secret put` | resend.com → API keys; first verify `wrenautomation.com` under Domains (3 DNS records) | leads land in D1 only, no email ping |
-| `EXPORT_TOKEN` | `wrangler pages secret put` | any long random string; the same value is wren's `WREN_SITE_EXPORT_TOKEN` | `/api/export` answers 404, so `wren site visits` can't read clicks |
+| `EXPORT_TOKEN` | `wrangler pages secret put` | any long random string; the same value is wren's `WREN_SITE_EXPORT_TOKEN` | `/api/export` answers 404, so `wren email clicks` can't read clicks |
 | `LEAD_TO` / `LEAD_FROM` | `wrangler.toml` `[vars]` | already set; `LEAD_FROM` must be on the verified domain | — |
 
 `.env` and secrets are read at build/deploy time: change one → push again (or `npm run deploy`). The two `PUBLIC_` values also live as GitHub secrets; change both places. `.env` and `.dev.vars` are never committed.
