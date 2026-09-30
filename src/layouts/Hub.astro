@@ -2,8 +2,8 @@
 // The hub, /: Wren as a whole. Copy from src/content/hub/home.yaml, the form's terms from its offer (lib/pitch.ts).
 // Laid out on the B2B landing template, one screen per section, each ending on a button to the form:
 // hero (words left, a line pointing at the form right), the pain (full-width headline, net margin by team size as a
-// line chart), what makes it stick (six cards, each with a small animated scene), the five levels (what breaks without each), client builds once there are real ones (each as the levels it climbed), every
-// service, the roadmap (the call, then the build's phases), William, the comparison (each mark with why), questions, the recap, the sources every [^n] marker points at. Same type, colour and motion as the pitch pages (pitch.css, pitch.ts);
+// line chart), what makes it stick (six cards, each with a small animated scene), the five levels (what each looks like, why it hurts, how I fix it; this is how it works), client builds once there are real ones (each as the levels it climbed), every
+// service, William, the comparison (each mark with why), questions, the recap, the sources every [^n] marker points at. Same type, colour and motion as the pitch pages (pitch.css, pitch.ts);
 // hub.css adds the hub's own parts.
 import '../styles/pitch.css';
 import '../styles/hub.css';
@@ -131,29 +131,6 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
 )}
 
 <Catalog s={p.catalog} />
-
-<section class="sec roadmap" id={p.roadmap.id}>
-  <div class="wrap">
-    <div class="head wide">
-      <div><h2 set:html={rich(p.roadmap.h2)} /><p class="intro" set:html={rich(p.roadmap.text)} /></div>
-      <a class="btn" href="#apply" data-cta><span>{p.roadmap.cta}</span><Arrow /></a>
-    </div>
-    <div class="road" data-art="road" style={`--n:${p.roadmap.phases.length}`}>
-      <span class="track" aria-hidden="true"></span>
-      <ol>
-        {p.roadmap.phases.map((x) => (
-          <li>
-            <i class="stop" aria-hidden="true"></i>
-            <p class="tag">{x.tag}</p>
-            <h3>{x.name}</h3>
-            <p class="does">{x.does}</p>
-            <p class="gets"><b>{p.roadmap.get}</b>{x.gets}</p>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </div>
-</section>
 
 <section class="sec about" id="about">
   <div class="wrap grid">

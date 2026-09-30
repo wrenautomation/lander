@@ -105,16 +105,6 @@ if (motion) {
     rows: (el, tl) => tl
       .fromTo($$('li', el), { opacity: 0, x: -24 }, { opacity: 1, x: 0, stagger: 0.14 })
       .fromTo($$('.mk', el), { scale: 0 }, { scale: 1, stagger: 0.14, duration: 0.6, ease: 'back.out(3)' }, 0.4),
-    // the roadmap: the line runs through the phases in order, each node lands as the line reaches it, then its words
-    road: (el, tl) => {
-      const down = matchMedia('(max-width: 899px)').matches, lis = $$('li', el), T = 0.45;
-      tl.fromTo($('.track', el), down ? { scaleY: 0 } : { scaleX: 0 }, { ...(down ? { scaleY: 1 } : { scaleX: 1 }), duration: T * lis.length, ease: 'none' });
-      lis.forEach((li, k) => {
-        tl.fromTo($('.stop', li), { scale: 0 }, { scale: 1, duration: 0.35, ease: 'back.out(3)' }, k * T)
-          .fromTo($$('h3, p', li), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.06 }, k * T + 0.1);
-      });
-      return tl;
-    },
     // what makes it stick: the cards rise in reading order, then each scene plays its point, one card after another
     values: (el, tl) => {
       const cards = $$(':scope > li', el);
@@ -192,32 +182,33 @@ if (motion) {
       }
       return tl;
     },
-    // the five levels, out of order then in order: the pinned step goes up alone over empty outlines, shakes with
-    // nothing under it and falls; then every step builds from the bottom, each with its name and what breaks without it
+    // the five levels, out of order then in order: the pinned level's end appears alone past empty outlines, shakes with
+    // nothing under it and falls; then each level builds from the top, its bar, then what it is, then my bubble
     levels: (el, tl) => {
-      const flat = matchMedia('(max-width: 899px)').matches; // phones lay the steps as bars growing right
-      const grow = flat ? 'scaleX' : 'scaleY', lis = $$('li', el), jump = $('.most .block', el), pin = $('.pin', el);
-      lis.forEach((li) => tl.fromTo($('.block', li), { [grow]: 0 }, { [grow]: 0, duration: 0.01 }, 0));
-      tl.fromTo($$('h3, p', el), { opacity: 0, y: 10 }, { opacity: 0, y: 10, duration: 0.01 }, 0);
+      const rows = $$(':scope > li:not(.gate)', el), gate = $('.gate', el), jump = $('.most .block', el), pin = $('.pin', el);
+      tl.fromTo($$('.block', el), { scaleX: 0 }, { scaleX: 0, duration: 0.01 }, 0)
+        .fromTo($$('.what, .fix', el), { opacity: 0, y: 10 }, { opacity: 0, y: 10, duration: 0.01 }, 0);
+      if (gate) tl.fromTo(gate, { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
       let t = 0.2;
       if (jump) {
         const oops = $('.oops', jump)!;
-        // just its top, hanging at its height with empty outlines below; a phone shows the whole bar
-        const hide = flat ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 100% 0%)', slab = flat ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 68% 0% round 10px)';
-        tl.set(jump, { [grow]: 1 }, t)
-          .fromTo(jump, { clipPath: hide }, { clipPath: slab, duration: 0.5, ease: 'power2.out' }, t);
-        if (pin) tl.fromTo(pin, { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(2)' }, t + 0.3);
+        tl.set(jump, { scaleX: 1 }, t)
+          .fromTo(jump, { clipPath: 'inset(0% 0% 0% 100%)' }, { clipPath: 'inset(0% 0% 0% 42% round 6px)', duration: 0.5, ease: 'power2.out' }, t);
+        if (pin) tl.fromTo(pin, { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.4 }, t + 0.3);
         tl.to(jump, { outlineColor: 'rgb(210,40,30)', backgroundColor: 'rgb(253,238,236)', duration: 0.3 }, t + 1.1)
           .fromTo(oops, { opacity: 0 }, { opacity: 1, duration: 0.3 }, t + 1.1)
           .to(jump, { x: 3, duration: 0.05, repeat: 7, yoyo: true, ease: 'none' }, t + 1.2)
-          .to(jump, { y: 120, rotation: 5, opacity: 0, duration: 0.5, ease: 'power2.in' }, t + 1.9)
+          .to(jump, { y: 34, rotation: 4, opacity: 0, duration: 0.5, ease: 'power2.in' }, t + 1.9)
           .set(oops, { opacity: 0 }, t + 2.4)
-          .set(jump, { clearProps: 'clipPath,outlineColor,backgroundColor', y: 0, rotation: 0, opacity: 1, [grow]: 0 }, t + 2.4);
-        t += 2.8;
+          .set(jump, { clearProps: 'clipPath,outlineColor,backgroundColor', y: 0, rotation: 0, opacity: 1, scaleX: 0 }, t + 2.4);
+        t += 2.7;
       }
-      lis.forEach((li, i) => {
-        tl.to($('.block', li), { [grow]: 1, duration: 0.5, ease: 'power2.out' }, t + i * 0.45)
-          .to($$('h3, p', li), { opacity: 1, y: 0, duration: 0.5 }, t + i * 0.45 + 0.2);
+      rows.forEach((li, i) => {
+        const at = t + i * 0.6;
+        tl.to($('.block', li), { scaleX: 1, duration: 0.45, ease: 'power2.out' }, at)
+          .to($('.what', li), { opacity: 1, y: 0, duration: 0.45 }, at + 0.15)
+          .to($('.fix', li), { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(2)' }, at + 0.3);
+        if (gate && li.previousElementSibling === gate) tl.to(gate, { opacity: 1, duration: 0.4 }, at - 0.2);
       });
       return tl;
     },
@@ -226,7 +217,7 @@ if (motion) {
       .fromTo($$('b', el), { scaleX: 0 }, { scaleX: 1, duration: 1.1, stagger: 0.18 }, 0.2),
   };
   for (const el of $$('[data-art]').filter((x) => !seen(x))) {
-    ART[el.dataset.art!]?.(el, gsap.timeline({ defaults: { ease: OUT, duration: 0.9 }, scrollTrigger: { trigger: el, start: 'top 85%', once: true } }));
+    ART[el.dataset.art!]?.(el, gsap.timeline({ defaults: { ease: OUT, duration: 0.9 }, scrollTrigger: { trigger: el, start: el.dataset.start ?? 'top 85%', once: true } }));
   }
 
   // proof figures count up to their number, in a box held at the final number's width so nothing beside it moves

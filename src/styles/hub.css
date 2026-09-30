@@ -146,34 +146,39 @@
 .climb .track i.gain{background:var(--win)}
 @media (max-width:760px){.case-list{grid-template-columns:1fr}}
 
-/* ---------- the five levels: a staircase, a pin over the level most companies are on ---------- */
+/* ---------- the five levels: a row each, the bars growing one step per level (a staircase on its side), what it
+   is and why it hurts, then a speech bubble with how I fix it; a line where AI is ready, a pin where most jump in ---------- */
 .levels .head.wide{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 40px;max-width:none}
 .levels .head h2{max-width:15em}
-.levels .head .intro{max-width:36em}
-.stairs{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(8px,1vw,14px);margin-top:clamp(28px,4vh,48px)}
-.stairs .rise{position:relative;display:flex;flex-direction:column;justify-content:flex-end;height:clamp(180px,28vh,260px)}
-/* the step's own outline, seen while the step is missing */
-.stairs .rise::before{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--h) * 20%);border:1.5px dashed rgba(14,14,14,.18);border-bottom:0;border-radius:10px 10px 0 0}
-.stairs .block{position:relative;display:flex;flex-direction:column;gap:6px;align-items:flex-start;height:calc(var(--h) * 20%);padding:12px 14px;border-radius:10px 10px 0 0;background:color-mix(in srgb,var(--ink) calc(var(--h) * 9% - 6%),#F3F1EC);transform-origin:bottom;font-style:normal}
-.stairs .block b{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
-.stairs li:nth-child(n+4) .block b{color:var(--ink)}
+.levels .head .intro{max-width:40em}
+.stairs{list-style:none;margin:clamp(22px,3vh,36px) 0 0;padding:0}
+.stairs>li{display:grid;grid-template-columns:minmax(0,26fr) minmax(0,37fr) minmax(0,37fr);gap:clamp(18px,2.4vw,36px);align-items:start;padding-block:clamp(14px,1.8vh,20px);border-top:1px solid var(--rule)}
+.stairs .lv{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
+.stairs .pin{padding:3px 8px;background:var(--ink);color:#fff;font-size:11.5px;font-weight:500;letter-spacing:0;text-transform:none;white-space:nowrap}
+.stairs h3{margin-top:4px;font-size:19px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.stairs .bar{position:relative;height:26px;margin-top:12px}
+/* the level's own outline, seen while the level is missing */
+.stairs .bar::before{content:"";position:absolute;left:0;top:0;bottom:0;width:calc(var(--h) * 20%);border:1.5px dashed rgba(14,14,14,.18);border-left:0;border-radius:0 6px 6px 0}
+.stairs .block{position:relative;display:flex;justify-content:flex-end;align-items:center;width:calc(var(--h) * 20%);height:100%;padding-right:10px;border-radius:0 6px 6px 0;background:color-mix(in srgb,var(--ink) calc(var(--h) * 9% - 6%),#E9E6DF);transform-origin:left;font-style:normal}
 .stairs .most .block{outline:1.5px solid var(--ink);outline-offset:-1.5px;background:#fff}
-.stairs .most .block b{color:var(--ink)}
-.stairs .oops{opacity:0;font-style:normal;font-size:12.5px;font-weight:600;color:var(--bad)}
-.stairs .pin{position:absolute;left:0;bottom:calc(var(--h) * 20% + 10px);padding:6px 10px;background:var(--ink);color:#fff;font-size:12.5px;font-weight:500;line-height:1.3;white-space:nowrap}
-.stairs .pin::after{content:"";position:absolute;left:16px;top:100%;border:6px solid transparent;border-top-color:var(--ink)}
-.stairs h3{margin-top:16px;font-size:17px;font-weight:600;letter-spacing:-.01em;line-height:1.3}
-.stairs p{position:relative;margin-top:8px;padding-left:22px;font-size:14.5px;line-height:1.5}
-.stairs .breaks{color:var(--ink-2)}
-.stairs .breaks::before,.stairs .breaks::after{content:"";position:absolute;left:1px;top:.75em;width:12px;height:0;border-top:2px solid var(--bad);transform:rotate(45deg)}
-.stairs .breaks::after{transform:rotate(-45deg)}
+.stairs .oops{opacity:0;font-style:normal;font-size:12px;font-weight:600;white-space:nowrap;color:var(--bad)}
+.stairs .is{font-size:15px;line-height:1.5;color:var(--ink)}
+.stairs .why{position:relative;margin-top:8px;padding-left:22px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.stairs .bad::before,.stairs .bad::after{content:"";position:absolute;left:1px;top:.75em;width:12px;height:0;border-top:2px solid var(--bad);transform:rotate(45deg)}
+.stairs .bad::after{transform:rotate(-45deg)}
+.stairs .good::before{content:"";position:absolute;left:0;top:.2em;width:15px;height:15px;border-radius:50%;background:var(--win) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4l2.6 2.6L12 5.6' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/11px no-repeat}
+/* the bubble: my words, a tail pointing back at the level */
+.stairs .fix{position:relative;padding:12px 16px 14px;border-radius:14px;background:var(--paper);box-shadow:0 0 0 1px var(--rule),0 6px 18px rgba(14,14,14,.05);font-size:14.5px;line-height:1.5}
+.stairs .fix::before{content:"";position:absolute;left:-7px;top:20px;width:12px;height:12px;background:var(--paper);box-shadow:-1px 1px 0 var(--rule);transform:rotate(45deg)}
+.stairs .fix b{display:block;margin-bottom:3px;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+.stairs .gate{display:flex;align-items:center;gap:14px;padding-block:10px;border-top:0;color:var(--win);font-size:13.5px}
+.stairs .gate::before,.stairs .gate::after{content:"";flex:1;min-width:24px;border-top:1.5px dashed currentColor}
+.stairs .gate b{margin-right:8px;font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
+.stairs .gate+li{border-top:0}
 @media (max-width:899px){
-  .stairs{grid-template-columns:1fr;gap:20px}
-  .stairs .rise{height:auto}
-  .stairs .block{width:calc(20% + var(--h) * 16%);height:36px;flex-direction:row;align-items:center;border-radius:0 8px 8px 0;transform-origin:left}
-  .stairs .rise::before{right:auto;width:calc(20% + var(--h) * 16%);height:36px;border:1.5px dashed rgba(14,14,14,.18);border-left:0;border-radius:0 8px 8px 0}
-  .stairs .pin{position:static;align-self:flex-start;margin-bottom:10px}
-  .stairs h3{margin-top:10px}
+  .stairs>li{grid-template-columns:1fr;gap:12px}
+  .stairs .fix::before{left:24px;top:-7px;box-shadow:-1px -1px 0 var(--rule)}
+  .stairs .gate span{text-align:center}
 }
 
 /* ---------- the comparison: Wren's column set apart; on phones the table scrolls under a fixed first column ---------- */
@@ -253,26 +258,3 @@
 .sources a{color:inherit}
 .sources a:hover{color:var(--acc)}
 .sources li:target{color:var(--ink)}
-
-/* ---------- the roadmap: phases along one line, what I do, then what you get (a green check). On phones the line
-   runs down the left. ---------- */
-.road{position:relative;margin-top:clamp(28px,4vh,48px)}
-.road .track{position:absolute;left:0;right:0;top:10px;height:2px;background:var(--acc);transform-origin:left}
-.road ol{position:relative;display:grid;grid-template-columns:repeat(var(--n),1fr);gap:clamp(16px,2vw,28px);list-style:none;margin:0;padding:0}
-.road li{display:grid;grid-row:span 5;grid-template-rows:subgrid;row-gap:0}   /* rows line up across phases */
-.road .stop{display:block;width:22px;height:22px;border:3px solid var(--acc);border-radius:50%;background:var(--paper)}
-.road li:first-child .stop{background:var(--acc)}
-.road .tag{margin-top:18px;font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--acc)}
-.road h3{margin-top:6px;font-size:19px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
-.road .does{margin:8px 0 14px;font-size:15px;line-height:1.5;color:var(--ink-2)}
-.road .gets{position:relative;padding:12px 12px 12px 38px;border-radius:10px;background:rgba(23,128,61,.07);font-size:15px;line-height:1.4;font-weight:500}
-.road .gets b{display:block;margin-bottom:2px;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--win)}
-.road .gets::before{content:"";position:absolute;left:12px;top:14px;width:16px;height:16px;border-radius:50%;background:var(--win) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4l2.6 2.6L12 5.6' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat}
-@media (max-width:899px){
-  .road .track{left:10px;right:auto;top:0;bottom:0;width:2px;height:auto;transform-origin:top}
-  .road ol{grid-template-columns:1fr;gap:28px}
-  .road li{display:block;position:relative;padding-left:40px}
-  .road .stop{position:absolute;left:0;top:0}
-  .road .tag{margin-top:0}
-  .road .gets{margin-top:12px}
-}

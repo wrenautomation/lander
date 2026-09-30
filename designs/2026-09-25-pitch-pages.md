@@ -262,6 +262,12 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   outlines, turns red ("Nothing under it"), shakes and falls; then levels 1 to 5 build in order. Each level
   now says only what breaks without it. What I build lives in the roadmap, so no claim repeats. Closes the
   open analogy and overlap from D56.
+- **D60 (2026-09-30): Levels carry the how; the roadmap is gone.** Federato's level style: each level is a state
+  of the company (Manual, Documented, Connected, AI-assisted, Self-running) with what it looks like and why it
+  hurts, in William's plain voice. A speech bubble on each row says how I fix it (level 5: how I keep it there).
+  An "AI-ready" line after level 3. Since the bubbles are the phases, the roadmap section was cut and the call
+  moved into the levels intro; nav "How it works" points at the levels. Rows instead of columns to fit the words;
+  the section runs past one desktop screen, accepted for the detail William asked for.
 
 ## Next
 
