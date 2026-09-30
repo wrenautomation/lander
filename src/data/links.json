@@ -7,6 +7,7 @@
     "tt": { "source": "tiktok", "medium": "organic", "to": "/" },
     "x": { "source": "x", "medium": "organic", "to": "/" },
     "rd": { "source": "reddit", "medium": "organic", "to": "/" },
+    "fb": { "source": "facebook", "medium": "organic", "to": "/" },
     "ads": { "source": "meta", "medium": "paid", "to": "/" },
     "sms": { "source": "sms", "medium": "outreach", "to": "/" },
     "rec": { "source": "recruiting", "medium": "outreach", "to": "/recruiting/lead-reactivation" }

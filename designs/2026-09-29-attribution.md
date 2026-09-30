@@ -13,7 +13,7 @@ Know which outreach brings people and which of them apply. Cold email first, the
 - **Touch.** A page view that arrived from somewhere: `?r=` (a code on one email's links), utm (a `/go` link or a tagged post), or another site's referrer. Stored on that view's `hits` row. `src/scripts/hit.ts` then strips `r` and utm from the address bar, so a forwarded link doesn't credit the wrong email.
 - **Views.** `hits` has one row per view, keyed by a view id the page makes. Posted on arrival (a bounce still counts), raised by a beacon when hidden. The upsert only raises numbers, and only for the same visitor.
 - **Forms.** At submit, `/api/apply` and `/api/lead` read the visitor's first and last touch from `hits` and store them as JSON with the `visitor` and `r`. The ping says "Came from: linkedin / organic / profile (2026-09-29), last email r:abc (2026-10-02) · 7 views". The form's hidden fields still carry this tab's touch, as a fallback for a blocked cookie.
-- **Links out.** `/go/<channel>[/<campaign>[/<content>]]` 302s to the channel's page with utm set. Channels live in `src/data/links.json` (yt, li, ig, tt, x, rd, ads, sms, rec). Unknown channel = source is its name, lands on `/`. `?to=/path` picks a local page; anything else is ignored.
+- **Links out.** `/go/<channel>[/<campaign>[/<content>]]` 302s to the channel's page with utm set. Channels live in `src/data/links.json` (yt, li, ig, tt, x, rd, fb, ads, sms, rec). Unknown channel = source is its name, lands on `/`. `?to=/path` picks a local page; anything else is ignored.
 - **Report.** `npm run channels [-- --days 30]`: by channel and by campaign (first touch) with visitors, views, time, form reached, applied, fit; plus each email code clicked.
 - **Names.** `/api/export` (Bearer `EXPORT_TOKEN`, 404 without it) returns hits or applications as JSON for wren. wren mints `r` per message, so `wren email clicks` names the company, person and step behind each click.
 
@@ -25,8 +25,10 @@ Know which outreach brings people and which of them apply. Cold email first, the
 - D4. `/go` links over hand-typed utm. Short enough for a bio, one registry, and a new channel works before it's registered.
 - D5. Strip `r` and utm after reading them. Shared links stay clean and don't credit the sender's email.
 - D6. Direct means no touch was ever seen for that visitor. Visitors are counted from 2026-09-29; older rows have no visitor.
+- D7. Posts link themselves, off until wren's `WREN_CONTENT_LINK_SITE` is set. A published post ends with `<site>/go/<code>/<first 8 of the draft id>`, so each post is its own campaign. Only YouTube, LinkedIn and Facebook: a link there is clickable and costs no reach. X, Instagram, TikTok and Reddit carry none; their profile bio link `/go/<code>/bio` counts them. A link that would push past the platform's cap is dropped, never the text.
 
 ## Owed
 
 - ~~wren: link code per message, `?r=` on the sign-off link, `wren email clicks`.~~ Done (wren 4df4914). Drafts made before it have no code.
+- Turn on post links and set bio links (after the demo and VSL): `WREN_CONTENT_LINK_SITE=wrenautomation.com` in prod env; bios to `wrenautomation.com/go/<yt|li|ig|tt|x|rd|fb>/bio`.
 - Cal.com bookings joined to visitor (the booking metadata already carries it).
