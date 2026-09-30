@@ -399,8 +399,8 @@ label.field small{font-size:12px;margin-left:6px}
 .flow .ghost.pill{border-radius:999px}
 .flow .ghost::before{content:"";position:absolute;inset:16px;background:linear-gradient(var(--g) 0 0) 0 0/34% 7px no-repeat,linear-gradient(var(--g) 0 0) 0 21px/100% 1px no-repeat,linear-gradient(var(--g) 0 0) 0 36px/78% 7px no-repeat,linear-gradient(var(--g) 0 0) 0 52px/56% 7px no-repeat}
 .flow .ghost.pill::before{inset:6px auto 6px 6px;aspect-ratio:1;border-radius:50%;background:var(--g)}
-.flow .ghost::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 35%,rgba(255,255,255,.75) 50%,transparent 65%);transform:translateX(-100%);animation:sheen 2.2s cubic-bezier(.4,0,.2,1) infinite}
-@keyframes sheen{60%,to{transform:translateX(100%)}}
+.flow .ghost::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-100%);animation:sheen 8s ease-in-out infinite}
+@keyframes sheen{45%,to{transform:translateX(100%)}}
 :is(.edges,.joins) path{fill:none;stroke:var(--ink-3);stroke-width:1.25}
 :is(.edges,.joins) .port{fill:var(--paper);stroke:var(--ink-3);stroke-width:1.25}
 :is(.edges,.joins) .dot{fill:var(--acc);opacity:0}

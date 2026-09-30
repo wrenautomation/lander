@@ -31,7 +31,9 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
           ? <label class="field"><span>{a.phone} <small>{a.required}</small></span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required><em class="fe" data-error>{a.required}</em></label>
           : <label class="field"><span>{a.phone}</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel"></label>}
         <label class="consent"><input name="sms_consent" type="checkbox" value="1"><span set:html={linked(a.sms_consent)} /></label>
-        {a.firm && <label class="field"><span>{a.firm} <small>{a.required}</small></span><input name="firm" type="text" autocomplete="url" inputmode="url" required><em class="fe" data-error>{a.required}</em></label>}
+        {a.firm && (a.firm_required
+          ? <label class="field"><span>{a.firm} <small>{a.required}</small></span><input name="firm" type="text" autocomplete="url" inputmode="url" required><em class="fe" data-error>{a.required}</em></label>
+          : <label class="field"><span>{a.firm}</span><input name="firm" type="text" autocomplete="url" inputmode="url"></label>)}
         {a.note && <label class="field"><span>{a.note}</span><textarea name="note" rows="3"></textarea></label>}
       </div>
       <input type="hidden" name="offer" value={offer.id}>

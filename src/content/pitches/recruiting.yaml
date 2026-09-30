@@ -111,6 +111,7 @@ ask:
   email: Work email
   phone: Phone
   sms_consent: Text me about my request. Msg & data rates may apply. Reply STOP to opt out. [Terms](/terms), [Privacy](/privacy).
+  firm: Company website
   required: Required
   bad_email: Enter an email I can reply to.
   error: "That didn't send. Email me instead:"

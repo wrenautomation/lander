@@ -226,6 +226,7 @@ ask:
   phone_required: true
   sms_consent: Text me about my request. Msg & data rates may apply. Reply STOP to opt out. [Terms](/terms), [Privacy](/privacy).
   firm: Company website
+  firm_required: true
   required: Required
   bad_email: Enter an email I can reply to.
   error: "That didn't send. Email me instead:"

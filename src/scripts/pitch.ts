@@ -558,7 +558,7 @@ if (box) {
   const phone = form.elements.namedItem('phone') as HTMLInputElement | null; // required on a page that calls back
   const contactOk = () => [
     fieldOk(email, EMAIL.test(email.value.trim())),
-    !firm || fieldOk(firm, !!firm.value.trim()),
+    !firm?.required || fieldOk(firm, !!firm.value.trim()),
     !phone?.required || fieldOk(phone, phone.value.replace(/\D/g, '').length >= 7),
   ].every(Boolean);
 

@@ -217,7 +217,8 @@ const ask = z.strictObject({
   cta: z.string().optional(),       // the first step's button (contact details), when the form steps
   name: z.string(), email: z.string(), phone: z.string(), sms_consent: z.string(),
   phone_required: z.boolean().optional(), // a page that calls back fast needs the number
-  firm: z.string().optional(), note: z.string().optional(),
+  firm: z.string().optional(), firm_required: z.boolean().optional(), // the company website; optional unless set
+  note: z.string().optional(),
   required: z.string(), bad_email: z.string(), error: z.string(),
   thanks_h: z.string(), thanks: z.string(),
   book_h: z.string().optional(), book: z.string().optional(),
