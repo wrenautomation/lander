@@ -48,12 +48,15 @@ body{position:relative;background:none;color:var(--ink);font-family:var(--sans);
 .backdrop.dark{z-index:0}
 .backdrop.dark svg{color:var(--cream);opacity:.07}
 
-/* the load screen (Loader.astro): only while a slow load keeps going past 400ms. The mark fills rust from the feet up
-   toward 80% with a rule drawing under it; when the page is ready both finish, then the screen lifts as the hero rises.
-   html classes: loading (from the start), slow (shown), ready (finishing). */
+/* the load screen (Loader.astro): a plain gray screen over the page from the first paint. A fast load fades it off;
+   past 400ms the mark shows, filling rust from the feet up toward 80% with a rule drawing under it; when the page is
+   ready both finish, then the screen lifts as the hero rises.
+   html classes: loading (from the start), quick (fast load, fading off), slow (mark shown), ready (finishing). */
 .loader{display:none}
-.js.loading .loader{position:fixed;inset:0;z-index:200;display:grid;place-content:center;justify-items:center;gap:20px;background:#F3F1EC;pointer-events:none;opacity:0;visibility:hidden}
-.js.slow .loader{opacity:1;visibility:visible;transition:opacity .25s}
+.js.loading .loader{position:fixed;inset:0;z-index:200;display:grid;place-content:center;justify-items:center;gap:20px;background:#F3F1EC;pointer-events:none}
+.js.loading .loader>*{opacity:0}
+.js.slow .loader>*{opacity:1;transition:opacity .25s}
+.js.quick .loader{opacity:0;transition:opacity .2s}
 .loader .bird{position:relative;width:84px;color:rgba(14,14,14,.08)}
 .loader .bird::after{content:"";position:absolute;inset:0;background:var(--acc);clip-path:inset(100% 0 0 0)}
 .loader b{width:84px;height:2px;background:var(--rule);overflow:hidden}
