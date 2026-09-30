@@ -1,9 +1,9 @@
 ---
 // The hub, /: Wren as a whole. Copy from src/content/hub/home.yaml, the form's terms from its offer (lib/pitch.ts).
 // Laid out on the B2B landing template, one screen per section, each ending on a button to the form:
-// hero (words left, a line pointing at the form right), the pain (full-width headline, net margin shrinking as the
-// team grows), proof, the five levels, client builds once there are real ones (each as the levels it climbed), three benefits (diagrams), every service, William, the comparison,
-// how it starts, questions, the recap, the sources every [^n] marker points at. Same type, colour and motion as the pitch pages (pitch.css, pitch.ts);
+// hero (words left, a line pointing at the form right), the pain (full-width headline, net margin by team size as a
+// line chart), the five levels, client builds once there are real ones (each as the levels it climbed), every
+// service, William, the comparison, how it starts, questions, the recap, the sources every [^n] marker points at. Same type, colour and motion as the pitch pages (pitch.css, pitch.ts);
 // hub.css adds the hub's own parts.
 import '../styles/pitch.css';
 import '../styles/hub.css';
@@ -13,9 +13,7 @@ import { getEntry } from 'astro:content';
 import Head from '../components/Head.astro';
 import Analytics from '../components/Analytics.astro';
 import Arrow from '../components/pitch/Arrow.astro';
-import Fig from '../components/pitch/Fig.astro';
 import Apply from '../components/pitch/Apply.astro';
-import Benefits from '../components/pitch/Benefits.astro';
 import Catalog from '../components/pitch/Catalog.astro';
 import Levels from '../components/pitch/Levels.astro';
 import Start from '../components/pitch/Start.astro';
@@ -29,7 +27,10 @@ import { bare, rich, richParas } from '../lib/text';
 const { entry } = Astro.props as { entry: CollectionEntry<'hub'> };
 const { p, offer } = await loadHub(entry);
 const { cases } = p;
-const chart = p.pain.chart, top = Math.max(...chart.bars.map((b) => b.pct));
+const chart = p.pain.chart, pts = chart.points;
+const top = Math.max(...pts.flatMap((x) => [x.pct, x.aim]));
+const X = (k: number) => ((k + 0.5) / pts.length) * 100, Y = (v: number) => (v / top) * 78; // % across, % up
+const line = (f: (x: typeof pts[number]) => number) => pts.map((x, k) => `${X(k)},${100 - Y(f(x))}`).join(' ');
 const site = (await getEntry('site', 'site'))!.data;
 const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap';
 const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
@@ -74,29 +75,21 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
       </div>
       <figure class="window">
         <p class="hd">{chart.h}</p>
-        <div class="art margin" data-art="margin" style={`--n:${chart.bars.length}`}>
-          <div class="plot" role="img" aria-label={`${chart.h}: ${chart.bars.map((b) => `${b.label} ${b.pct}%`).join(', ')}. ${chart.aim}: flat.`}>
-            {chart.bars.map((b) => <p class="col" style={`--h:${b.pct / top}`}><i></i><b>{b.pct}%</b></p>)}
-            <p class="aim"><span>{chart.aim}</span></p>
+        <div class="art margin" data-art="margin" style={`--n:${pts.length}`}>
+          <div class="plot" role="img" aria-label={`${chart.h}: ${pts.map((x) => `${x.label} ${x.pct}%`).join(', ')}. ${chart.aim}: a far gentler fall.`}>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <polyline class="real" points={line((x) => x.pct)} />
+              <polyline class="aim" points={line((x) => x.aim)} />
+            </svg>
+            {pts.map((x, k) => <i class="dot real" style={`--x:${X(k)};--y:${Y(x.pct)}`}><b>{x.pct}%</b></i>)}
+            {pts.slice(1).map((x, k) => <i class="dot aim" style={`--x:${X(k + 1)};--y:${Y(x.aim)}`}></i>)}
           </div>
-          <ul class="ticks" aria-hidden="true">{chart.bars.map((b) => <li>{b.label}</li>)}</ul>
+          <ul class="ticks" aria-hidden="true">{pts.map((x) => <li>{x.label}</li>)}</ul>
           <p class="axis">{chart.axis}</p>
-          <p class="note" set:html={rich(chart.note)} />
+          <ul class="key"><li class="real" set:html={rich(chart.real)} /><li class="aim">{chart.aim}</li></ul>
         </div>
       </figure>
     </div>
-  </div>
-</section>
-
-<section class="sec proof">
-  <div class="wrap">
-    <div class="head wide"><h2 set:html={rich(p.proof.h2)} /></div>
-    <div class="figs cards">
-      {p.proof.items.map((f) => (
-        <div><Fig v={f.fig} /><p class="lbl">{f.label}</p><p>{f.text}</p></div>
-      ))}
-    </div>
-    <a class="btn" href="#apply" data-cta><span>{p.proof.cta}</span><Arrow /></a>
   </div>
 </section>
 
@@ -126,8 +119,6 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
   </div>
 </section>
 )}
-
-<Benefits s={p.benefits} />
 
 <Catalog s={p.catalog} />
 

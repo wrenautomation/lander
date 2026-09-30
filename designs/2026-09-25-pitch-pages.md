@@ -220,6 +220,17 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   not our pitch, which is money and margin). Each step now carries two lines: the pain without it (red
   cross, grey) and what I build (green check, ink). The intro ends "I build every one, starting from
   yours." Level 5's pain is "Growth eats the margin", tying back to the pain section.
+- **D53 (2026-09-30): Margin alone, a line chart, a shorter page, no auto-advance.** William: combining
+  margin and busywork "weakens both pain points"; lead with margin, say why it falls, then one line
+  on the fix. The pain now reads: new clients need people, people need managers, support staff and
+  meetings, costs outrun revenue (Promethean's reasons), then "I automate the work that forces those
+  hires, so you keep more of every dollar as you grow." Headline, his words: "The bigger you grow, the
+  worse your profit margin." The chart is a line plot: the sourced rust line with points and figures,
+  and a green aim line that still falls (charitable) but far less, drawn and never printed; both draw
+  left to right. Asana 2022 left the page. Proof cards and the three benefit diagrams (inbound, admin,
+  firm map) are gone, their code with them; Services stays. "How it works" now points at the steps.
+  Form, both pages: picking a choice no longer moves on; people switch back and forth, and Next
+  (lower right) moves on.
 
 ## Next
 

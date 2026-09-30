@@ -306,8 +306,8 @@ const pitches = defineCollection({
 });
 
 // The hub (/): Wren as a whole, for anyone who lands without a service link. Laid out on the B2B landing template:
-// hero (proof line, dream outcome, checks, a line to the form) with the form beside it, the pain, proof cards, case studies
-// once real, three benefits (diagrams), about, a comparison table, how it works, FAQ, the recap, the sources.
+// hero (proof line, dream outcome, checks, a line to the form) with the form beside it, the pain, the levels, case
+// studies once real, every service, about, a comparison table, how it works, FAQ, the recap, the sources.
 // One button per section.
 const mark = z.enum(['yes', 'no']);
 const svcEnd = z.strictObject({ icon: z.enum(['person', 'mail', 'doc', 'cal', 'invoice', 'check', 'stack', 'record', 'search']), label: z.string(), note: z.string() });
@@ -322,18 +322,17 @@ const hub = defineCollection({
       checks: z.array(z.string()).length(3),
       to_form: z.string(),              // one line pointing at the form beside it (below it on a phone)
     }),
-    proof: proof.omit({ intro: true }).extend({ cta: z.string() }),
-    // the biggest pain, right under the first screen: a full-width headline, then the words beside a chart of net
-    // margin shrinking as the team grows. Bars are sourced (note carries the [^n]); the aim line is flat at the
-    // first bar's height and carries no number.
+    // the biggest pain, right under the first screen: a full-width headline, then the words beside a line chart of
+    // net margin by team size. pct is sourced and printed (real carries the [^n]); aim is our aim, drawn as a gentler
+    // green line and never printed. The two lines start at the same point.
     pain: z.strictObject({
       id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
       chart: z.strictObject({
         h: z.string(),                  // the window's title
         axis: z.string(),               // under the team sizes
-        note: z.string(),               // who the figures describe, with its [^n]
-        aim: z.string(),                // the flat line's label
-        bars: z.array(z.strictObject({ label: z.string(), pct: z.number().min(0).max(100) })).min(3).max(6),
+        real: z.string(),               // the sourced line's key, with its [^n]
+        aim: z.string(),                // the green line's key
+        points: z.array(z.strictObject({ label: z.string(), pct: z.number().min(0).max(100), aim: z.number().min(0).max(100) })).min(3).max(6),
       }),
     }),
     // the five levels a company climbs, as steps (Levels.astro); `most` is the level most companies are on
@@ -352,16 +351,6 @@ const hub = defineCollection({
         before: z.string(), after: z.string(),
       }).refine((c) => c.to > c.from, 'a case climbs: to must be above from')).min(1).max(3),
     }).optional(),
-    // three rows, a diagram each (inbound, admin: HubFlow.astro; map: FirmMap.astro), sides swapping
-    benefits: z.strictObject({
-      id: z.string(),
-      items: z.array(z.strictObject({ flow: z.enum(['inbound', 'admin', 'map']), h2: z.string(), text: z.string(), cta: z.string().optional() })).length(3),
-      map: z.strictObject({             // the firm map: scattered tools, one clean CRM, what that buys
-        from: z.strictObject({ h: z.string(), items: z.array(z.string()).min(3).max(4) }),
-        crm: z.strictObject({ h: z.string(), rows: z.array(z.strictObject({ name: z.string(), note: z.string() })).min(2).max(4) }),
-        to: z.array(z.strictObject({ h: z.string(), items: z.array(z.string()).length(2) })).length(2),
-      }),
-    }),
     // every service as a list, grouped by who it's for. Each row: the name, what it runs on, and a small diagram of
     // one thing going in and the result coming out (Catalog.astro). A group's `link` must be a pitch page's path.
     catalog: z.strictObject({

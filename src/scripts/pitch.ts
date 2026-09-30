@@ -105,11 +105,13 @@ if (motion) {
     rows: (el, tl) => tl
       .fromTo($$('li', el), { opacity: 0, x: -24 }, { opacity: 1, x: 0, stagger: 0.14 })
       .fromTo($$('.mk', el), { scale: 0 }, { scale: 1, stagger: 0.14, duration: 0.6, ease: 'back.out(3)' }, 0.4),
-    // margin by team size: bars rise one by one with their figures, then the aim line draws flat across
-    margin: (el, tl) => tl
-      .fromTo($$('.col i', el), { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: 0.7, stagger: 0.25, ease: 'power2.out' })
-      .fromTo($$('.col b', el), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.25 }, 0.3)
-      .fromTo($$('.aim', el), { clipPath: 'inset(-40px 100% 0 0)' }, { clipPath: 'inset(-40px 0% 0 0)', duration: 1, ease: 'power2.inOut' }),
+    // margin by team size: both lines draw left to right, each point popping as the line reaches it, then the key
+    margin: (el, tl) => {
+      const D = 2, at = (d: HTMLElement) => (D * parseFloat(d.style.getPropertyValue('--x'))) / 100; // when the line reaches it
+      tl.fromTo($('svg', el), { clipPath: 'inset(-10px 100% -10px 0)' }, { clipPath: 'inset(-10px 0% -10px 0)', duration: D, ease: 'none' });
+      $$('.dot', el).forEach((d) => tl.fromTo(d, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(3)' }, at(d) - 0.1));
+      return tl.fromTo($$('.key li', el), { opacity: 0 }, { opacity: 1, stagger: 0.15, duration: 0.4 });
+    },
     bars: (el, tl) => tl
       .fromTo($$('i', el), { scaleX: 0 }, { scaleX: 1, duration: 1.3, stagger: 0.14 })
       .fromTo($$('span', el), { opacity: 0 }, { opacity: 1, stagger: 0.14 }, 0),
@@ -374,57 +376,6 @@ if (flowsBox) {
         tl.to(node(f, 'count'), { opacity: 1, y: 0 }, 4.2)
           .to(c, { n: end, duration: 2, ease: 'power2.out', onUpdate: () => { const n = Math.round(c.n); num.textContent = String(n); segs.forEach((s, k) => s.classList.toggle('off', k >= n)); } }, 4.4);
       },
-      // the hub's late inquiry: it lands, the reply types itself, a time is picked, the calendar takes it
-      inbound: (f, tl, ws) => {
-        const inq = node(f, 'inq'), reply = node(f, 'reply'), cal = node(f, 'cal'), type = typer($('[data-type]', reply)!);
-        const times = $$('.times i', reply), pick = $('[data-pick]', reply)!;
-        pick.classList.remove('pick');
-        gsap.set($('.fast', reply), { opacity: 0 });
-        gsap.set(times, { opacity: 0, y: 6 });
-        gsap.set($('.note', cal), { opacity: 0 });
-        tl.to(inq, { opacity: 1, y: 0 }, 0);
-        wire(tl, into(f, ws, 'reply'), 0.6);
-        tl.to(reply, { opacity: 1, y: 0 }, 1.0);
-        type(tl, 1.2, 2.0);
-        tl.to(times, { opacity: 1, y: 0, duration: 0.4, stagger: 0.1 }, 3.3)
-          .call(() => pick.classList.add('pick'), [], 3.9)
-          .to($('.fast', reply), { opacity: 1, duration: 0.4 }, 4.0);
-        wire(tl, into(f, ws, 'cal'), 4.2);
-        tl.to(cal, { opacity: 1, y: 0 }, 4.7)
-          .to($('.note', cal), { opacity: 1, duration: 0.4 }, 5.1);
-      },
-      // the hub's paperwork: the contract is signed, the record fills itself, then the invoice, kickoff and report go
-      admin: (f, tl, ws) => {
-        const doc = node(f, 'doc'), rec = node(f, 'crm'), rows = $$('li', rec), chs = $$('.ch', f);
-        chs.forEach((c) => c.classList.add('wait'));
-        gsap.set($('.sig em', doc), { opacity: 0, scale: 0.8 });
-        gsap.set(rows, { opacity: 0, x: -10 });
-        tl.to(doc, { opacity: 1, y: 0 }, 0)
-          .to($('.sig em', doc), { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(3)' }, 0.6);
-        wire(tl, into(f, ws, 'crm'), 1.0);
-        tl.to(rec, { opacity: 1, y: 0 }, 1.4)
-          .to(rows, { opacity: 1, x: 0, duration: 0.4, stagger: 0.22 }, 1.6);
-        wire(tl, from(f, ws, 'crm'), 2.7);
-        tl.to(chs, { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 }, 3.1);
-        chs.forEach((c, k) => tl.call(() => c.classList.remove('wait'), [], 3.5 + k * 0.3));
-      },
-      // the hub's firm map: the tools come in and wire into one CRM, its records fill, then both halves light with results
-      map: (f, tl, ws) => {
-        const crm = node(f, 'crm'), rows = $$('li', crm), goals = $$('.goal', f), ticks = $$('.goal li', f), checks = $$('.goal li i', f);
-        gsap.set($('.cap', f), { opacity: 0 });
-        gsap.set(rows, { opacity: 0, x: -12 });
-        gsap.set(ticks, { opacity: 0 });
-        gsap.set(checks, { scale: 0 });
-        tl.to($('.cap', f), { opacity: 1, duration: 0.4 }, 0)
-          .to($$('.ch', f), { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 }, 0.1);
-        wire(tl, into(f, ws, 'crm'), 0.8, 0.8);
-        tl.to(crm, { opacity: 1, y: 0 }, 1.5)
-          .to(rows, { opacity: 1, x: 0, duration: 0.5, stagger: 0.25 }, 1.8);
-        wire(tl, from(f, ws, 'crm'), 2.8, 0.8);
-        tl.to(goals, { opacity: 1, y: 0, stagger: 0.2 }, 3.5)
-          .to(ticks, { opacity: 1, duration: 0.3, stagger: 0.2 }, 3.8)
-          .to(checks, { scale: 1, duration: 0.5, stagger: 0.2, ease: 'back.out(3)' }, 3.8);
-      },
     };
     // ghosts: a soft skeleton where each node will land, so a diagram waiting its turn reads as coming, not broken.
     // Each fades as its node starts in; the timeline says when.
@@ -612,8 +563,7 @@ if (box) {
         s.classList.remove('invalid');
         const t = e.target as HTMLInputElement;
         if (t.classList.contains('other')) return;
-        if (writeIn(s)) return; // they're typing, Next moves on
-        if (t.type === 'radio') setTimeout(() => { if (steps[cur] === s) advance(); }, 320); // pick one = move on
+        writeIn(s); // picking never moves on: they may switch back and forth, Next moves on
       });
     }
   }
