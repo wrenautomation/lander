@@ -304,7 +304,7 @@ const pitches = defineCollection({
 });
 
 // The hub (/): Wren as a whole, for anyone who lands without a service link. Laid out on the B2B landing template:
-// hero (proof line, dream outcome, checks, button) with the form beside it, proof cards, the pain, two case studies,
+// hero (proof line, dream outcome, checks, button) with the form beside it, proof cards, the pain, case studies once real,
 // three benefits (diagrams), about, a comparison table, how it works, FAQ, the recap. One button per section.
 const mark = z.enum(['yes', 'no']);
 const svcEnd = z.strictObject({ icon: z.enum(['person', 'mail', 'doc', 'cal', 'invoice', 'check', 'stack', 'record', 'search']), label: z.string(), note: z.string() });
@@ -333,7 +333,7 @@ const hub = defineCollection({
       most: z.number().int().min(1).max(5), most_note: z.string(),
       items: z.array(z.strictObject({ name: z.string(), text: z.string() })).length(5),
     }),
-    // real builds only, each as the level it started on, the level it reached, before and now
+    // real builds only, each as the level it started on, the level it reached, before and now. Left out until there are some.
     cases: z.strictObject({
       h2: z.string(), cta: z.string(), before: z.string(), after: z.string(),
       items: z.array(z.strictObject({
@@ -341,7 +341,7 @@ const hub = defineCollection({
         from: z.number().int().min(1).max(5), to: z.number().int().min(1).max(5),
         before: z.string(), after: z.string(),
       }).refine((c) => c.to > c.from, 'a case climbs: to must be above from')).min(1).max(3),
-    }),
+    }).optional(),
     // three rows, a diagram each (inbound, admin: HubFlow.astro; map: FirmMap.astro), sides swapping
     benefits: z.strictObject({
       id: z.string(),

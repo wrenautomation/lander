@@ -1,7 +1,7 @@
 ---
 // The hub, /: Wren as a whole. Copy from src/content/hub/home.yaml, the form's terms from its offer (lib/pitch.ts).
 // Laid out on the B2B landing template, one screen per section, each ending on a button to the form:
-// hero (words left, form right), proof, the pain, the five levels, two builds (each as the levels it climbed), three benefits (diagrams), every service, William, the comparison,
+// hero (words left, form right), proof, the pain, the five levels, client builds once there are real ones (each as the levels it climbed), three benefits (diagrams), every service, William, the comparison,
 // how it starts, questions, the recap. Same type, colour and motion as the pitch pages (pitch.css, pitch.ts);
 // hub.css adds the hub's own parts.
 import '../styles/pitch.css';
@@ -26,6 +26,7 @@ import { bare, rich, richParas } from '../lib/text';
 
 const { entry } = Astro.props as { entry: CollectionEntry<'hub'> };
 const { p, offer } = await loadHub(entry);
+const { cases } = p;
 const site = (await getEntry('site', 'site'))!.data;
 const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap';
 const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
@@ -93,11 +94,12 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
 
 <Levels s={p.levels} />
 
+{cases && (
 <section class="sec cases">
   <div class="wrap">
-    <div class="head wide"><h2 set:html={rich(p.cases.h2)} /></div>
+    <div class="head wide"><h2 set:html={rich(cases.h2)} /></div>
     <div class="case-list">
-      {p.cases.items.map((c) => (
+      {cases.items.map((c) => (
         <article class="case">
           <p class="who"><b>{c.client}</b><span>{c.kind}</span></p>
           <p class="climb" aria-label={`${p.levels.word} ${c.from} to ${p.levels.word} ${c.to}`}>
@@ -106,15 +108,16 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
             <span class="reached">{p.levels.word} {c.to}</span>
           </p>
           <dl>
-            <div class="was"><dt>{p.cases.before}</dt><dd>{c.before}</dd></div>
-            <div class="now"><dt>{p.cases.after}</dt><dd>{c.after}</dd></div>
+            <div class="was"><dt>{cases.before}</dt><dd>{c.before}</dd></div>
+            <div class="now"><dt>{cases.after}</dt><dd>{c.after}</dd></div>
           </dl>
         </article>
       ))}
     </div>
-    <a class="btn" href="#apply" data-cta><span>{p.cases.cta}</span><Arrow /></a>
+    <a class="btn" href="#apply" data-cta><span>{cases.cta}</span><Arrow /></a>
   </div>
 </section>
+)}
 
 <Benefits s={p.benefits} />
 

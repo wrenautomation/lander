@@ -173,6 +173,15 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
 - **D47 (2026-09-29): Company website on every form, optional unless the page says.** `ask.firm`
   is the label; `firm_required: true` makes it required (the hub, which calls back). The
   recruiting form asks it optional. Stored in `firm`, shown in the ping.
+- **D48 (2026-09-30): The hub's copy, on William's brief.** "a complete scalability tech integration
+  thing": software for every part of a company that has to scale (lead gen, hiring outreach, admin,
+  timesheets, onboarding), with AI on research and summaries, and "a lot of info" to teach the market.
+  Headline: "Scale your company *without scaling your headcount.*" Market facts (Asana, Salesforce,
+  HBR, McKinsey) sit in the prose of the pain, levels, benefits and FAQ, one fact per place, sources
+  in the YAML header. Cases are optional and left out until there are real client builds; the proof
+  cards carry the Government of Canada and University of Alberta work. The catalog keeps six rows (two
+  per group) so it reads on one screen; lead reactivation is the Growth group's link. The level pin
+  sits on level 4, "Where most companies stall", beside McKinsey's two-thirds not yet scaling AI.
 
 ## Next
 

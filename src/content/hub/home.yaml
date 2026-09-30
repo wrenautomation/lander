@@ -1,12 +1,24 @@
 # wrenautomation.com/. The hub: Wren as a whole, for anyone who lands without a service link.
-# Laid out on the B2B landing template: hero with the form, proof, the pain, proof, three benefits, proof,
-# a comparison, how it works, FAQ, the recap. Every section ends on one button to the form.
-# Reader: C-suite and key decision-makers at mid to big companies (brief 2026-09-29). Copy is placeholder
-# until William writes it: each [bracket] says what goes there.
-# Was: an owner or executive of a service firm. Prices stay off the page. Proof is real only:
-# the Government of Canada and University of Alberta builds, and William himself.
-title: Wren Automation
-description: Wren connects your company's tools into one clean system, then puts AI to work on it. More clients in, less busywork out.
+# Reader: an owner or executive at a company of 10+ people. The pitch: one connected system, built on their
+# tools, for every part of the company that has to scale (lead gen, hiring outreach, admin, timesheets,
+# onboarding), with AI on the research and the repetitive work. Grow without the headcount growing with it.
+# The page also teaches the market: where the week goes, why AI stalls, why speed to lead matters.
+# Rules: prices off the page. Proof is real only (the Government of Canada and University of Alberta builds).
+# No client cases until there are real ones. Every figure below is sourced:
+#   58% of the day on work about work, 4.9 hours a week saved by better processes: Asana, Anatomy of Work
+#     Global Index 2023 (9,615 knowledge workers).
+#   58 / 33 / 9 split of work about work, skilled and strategic work (the pain chart): Asana, Anatomy of Work
+#     Global Index 2022.
+#   About 70% of a sales rep's time on non-selling tasks: Salesforce, State of Sales, 6th edition.
+#   Nearly 7x more likely to qualify a lead contacted within an hour: Harvard Business Review, "The Short Life
+#     of Online Sales Leads", March 2011 (2,241 companies).
+#   Work that absorbs 60 to 70% of employees' time could be automated: McKinsey, "The economic potential of
+#     generative AI", June 2023.
+#   88% use AI in at least one function, nearly two-thirds not yet scaling it, 39% report any EBIT impact:
+#     McKinsey, "The state of AI in 2025", November 2025.
+# Team time, weeks and the retainer's monthly AI job come from the offer in wren (packages/offers).
+title: "Wren Automation: scale your company without scaling headcount"
+description: Custom software and AI for every part of your company that has to scale. Lead gen, hiring outreach, admin, timesheets, onboarding and research, in one connected system.
 path: /
 offer: ops-automation-build
 form_value: general
@@ -22,202 +34,192 @@ nav:
 nav_cta: Get in touch
 
 hero:
-  proof: "[Proof line: the strongest real credential, one sentence]"
-  h1: "[H1: dream outcome] *[accent]*"
-  lede: "[Lede: what Wren does, ground up modernization, in two short sentences]"
+  proof: Built for the Government of Canada and the University of Alberta
+  h1: Scale your company *without scaling your headcount.*
+  lede: I build the software your company runs on, from lead gen and hiring outreach to admin, timesheets and onboarding. One connected system, with AI doing the research and the repetitive work, so growing stops meaning hiring.
   checks:
-    - "[Check 1: a trust point]"
-    - "[Check 2: a trust point]"
-    - "[Check 3: risk reversal]"
-  cta: "[Hero button]"
-  friction: "[One line that takes the risk out of the button]"
+    - Built on the tools you already use
+    - One engineer from first call to launch
+    - If something I built breaks by my mistake, I fix it free
+  cta: Find where you can scale
+  friction: Two minutes, four questions, no commitment.
 
 proof:
-  h2: "[Proof heading] *[accent]*"
-  cta: "[Button]"
+  h2: Software I've built, *used at scale.*
+  cta: See what I'd build for you
   items:
-    - { fig: "[Figure]", label: "[Who or what]", text: "[What changed, one line]" }
-    - { fig: "[Figure]", label: "[Who or what]", text: "[What changed, one line]" }
-    - { fig: "[Figure]", label: "[Who or what]", text: "[What changed, one line]" }
+    - { fig: "17,000+", label: Government of Canada staff, text: Get straight answers from 220+ policy documents through an AI assistant I built. }
+    - { fig: 200+ hours, label: Saved at a University of Alberta lab, text: "Citation tracking automated across 7,000+ research papers." }
+    - { fig: 8+ hours a week, label: Back for the lab's lead professor, text: Terabytes of experiment files turned into one database anyone can audit. }
 
 pain:
   id: pain
-  h2: "[Pain heading: the cost of standing still] *[accent]*"
+  h2: Most of your team's day is *work about work.*
   text: |
-    [Pain paragraph: repetitive work, not enough leads, hiring and training, work nobody can track.]
+    Knowledge workers spend **58% of their day** chasing updates, switching apps and copying data from one tool to the next. Just 9% goes to the strategic work you hired them for. Salespeople spend about 70% of their time not selling.
 
-    **[The line that stings.]**
-  cta: "[Button]"
+    So when the work grows, the only lever left is another hire. Then another.
+
+    **Growth that needs a new hire for every new client isn't scale. It's a bigger payroll.**
+  cta: Get your team's week back
   chart:
-    h: "[Chart title: where the week goes]"
+    h: Where a knowledge worker's day goes
     bars:
-      - { label: "[Repetitive work]", w: 100, hot: true }
-      - { label: "[Chasing leads]", w: 64 }
-      - { label: "[Hiring and training]", w: 44 }
-      - { label: "[Tracking work]", w: 28 }
+      - { label: Work about work, w: 100, hot: true }
+      - { label: Skilled work, w: 57 }
+      - { label: Strategic work, w: 16 }
 
 levels:
   id: levels
-  h2: "[Levels heading: where is your company today?] *[accent]*"
-  text: "[One line: the audit finds your level, the build takes you up]"
-  cta: "[Button: find my level]"
+  h2: Where is your company *today?*
+  text: 88% of companies now use AI somewhere, yet nearly two-thirds haven't started scaling it. AI can't scale on scattered data and unwritten processes. Each level stands on the one below, and the audit finds yours.
+  cta: Find my level
   word: Level
-  most: 1
-  most_note: "[Most companies are here]"
+  most: 4
+  most_note: Where most companies stall
   items:
-    - { name: "[SOPs and best practices]", text: "[Battle tested by manual work]" }
-    - { name: "[One clean CRM]", text: "[Salesforce, Attio, Zoho: from scattered to unified and auditable]" }
-    - { name: "[Workflows]", text: "[Admin, hiring, onboarding, lead gen run on the data]" }
-    - { name: "[AI integration]", text: "[Agents, minimal hand-holding: outreach, ads, admin, SEO]" }
-    - { name: "[Scale and monitor]", text: "[Watched, fixed, smoothed out]" }
-
-cases:
-  h2: "[Cases heading] *[accent]*"
-  cta: "[Button]"
-  before: Before
-  after: Now
-  items:
-    - client: "[Client]"
-      kind: "[What we built]"
-      from: 1
-      to: 3
-      before: "[Where they were: the level, in their words]"
-      after: "[Where they are now: the result, a number if real]"
-    - client: "[Client]"
-      kind: "[What we built]"
-      from: 2
-      to: 4
-      before: "[Where they were: the level, in their words]"
-      after: "[Where they are now: the result, a number if real]"
+    - { name: Written processes, text: "How each job gets done, written down and proven by hand." }
+    - { name: One clean CRM, text: "Every client, lead and hire in one place, not five tools and a spreadsheet." }
+    - { name: Workflows, text: "Lead gen, hiring, onboarding and admin run on that data by themselves." }
+    - { name: AI at work, text: "AI does the research, outreach and summaries. Your team checks and decides." }
+    - { name: Scale, text: "More volume, same team. Everything watched and tuned as it grows." }
 
 benefits:
   id: how
   items:
     - flow: inbound
-      h2: "[Benefit 1: 10x, sustainably] *[accent]*"
-      text: "[Two sentences: how, and what it looks like day to day]"
-      cta: "[Button]"
+      h2: Answer every lead *in minutes, day or night.*
+      text: A reply goes out while the lead is still warm, and the call lands on your calendar. Harvard Business Review found leads contacted within an hour are nearly 7 times more likely to qualify.
+      cta: Show me where leads slip
     - flow: admin
-      h2: "[Benefit 2: better margins, same headcount] *[accent]*"
-      text: "[Two sentences: how, and what it looks like day to day]"
+      h2: Admin that *runs itself.*
+      text: A signed deal fills the CRM, sends the invoice, books the kickoff and updates the report. Timesheets and onboarding run the same way. Nobody types anything twice.
     - flow: map
-      h2: "[Benefit 3: meaningful work, better morale] *[accent]*"
-      text: "[Two sentences: how, and what it looks like day to day]"
-      cta: "[Button]"
+      h2: Your people on the work *they were hired for.*
+      text: Every tool feeds one clean record of every client, lead and hire. AI does the research, pulls the data together and writes the summary. Your team makes the calls.
+      cta: Put my data in one place
   map:
     from:
-      h: "[Today]"
-      items: ["[Tool]", "[Tool]", "[Tool]", "[Tool]"]
+      h: Today
+      items: [Inboxes, Spreadsheets, Old database, Calendars]
     crm:
-      h: "[One clean CRM]"
+      h: One clean CRM
       rows:
-        - { name: "[Client]", note: "[Detail]" }
-        - { name: "[Client]", note: "[Detail]" }
-        - { name: "[Client]", note: "[Detail]" }
+        - { name: Harbor Dental, note: Renewal in 30 days }
+        - { name: Northline Freight, note: 3 roles open }
+        - { name: Priya Shah, note: "New hire, day 4" }
     to:
-      - h: "[Outcome]"
-        items: ["[Point]", "[Point]"]
-      - h: "[Outcome]"
-        items: ["[Point]", "[Point]"]
+      - h: More business
+        items: [Every lead followed up, A pipeline you can trust]
+      - h: A lighter week
+        items: [No copy and paste, Time for real work]
 
 catalog:
   id: services
-  h2: "[Services heading] *[accent]*"
-  cta: "[Button]"
+  h2: Every part of your company *that has to scale.*
+  cta: Tell me what to scale first
   groups:
-    - for: "[Niche: recruiting companies]"
-      link: { label: "[Link to the recruiting page]", to: /recruiting/lead-reactivation }
+    - for: Growth
+      link: { label: "Recruiting? See lead reactivation", to: /recruiting/lead-reactivation }
       items:
-        - name: "[Service]"
-          runs: "[Runs on: their tools]"
-          in: { icon: person, label: "[In]", note: "[Detail]" }
-          out: { icon: cal, label: "[Out]", note: "[Result]" }
-        - name: "[Service]"
-          runs: "[Runs on: their tools]"
-          in: { icon: person, label: "[In]", note: "[Detail]" }
-          out: { icon: check, label: "[Out]", note: "[Result]" }
-    - for: "[Any company]"
+        - name: Lead generation
+          runs: Your CRM and inbox
+          in: { icon: search, label: Your ideal client, note: "Industry, size, region" }
+          out: { icon: mail, label: Personal first email, note: To the decision maker }
+        - name: Speed to lead
+          runs: Your site, inbox and calendar
+          in: { icon: mail, label: New inquiry, note: Any hour }
+          out: { icon: cal, label: Call booked, note: Minutes later }
+    - for: People
       items:
-        - name: "[Service]"
-          runs: "[Runs on: their tools]"
-          in: { icon: mail, label: "[In]", note: "[Detail]" }
-          out: { icon: cal, label: "[Out]", note: "[Result]" }
-        - name: "[Service]"
-          runs: "[Runs on: their tools]"
-          in: { icon: doc, label: "[In]", note: "[Detail]" }
-          out: { icon: invoice, label: "[Out]", note: "[Result]" }
-        - name: "[Service]"
-          runs: "[Runs on: their tools]"
-          in: { icon: stack, label: "[In]", note: "[Detail]" }
-          out: { icon: record, label: "[Out]", note: "[Result]" }
-        - name: "[Service]"
-          runs: "[Runs on: their tools]"
-          in: { icon: search, label: "[In]", note: "[Detail]" }
-          out: { icon: doc, label: "[Out]", note: "[Result]" }
+        - name: Hiring outreach
+          runs: Your ATS and inbox
+          in: { icon: search, label: Open role, note: Who you need }
+          out: { icon: mail, label: Candidates reached, note: Each note personal }
+        - name: Onboarding
+          runs: Your HR tools and docs
+          in: { icon: doc, label: Signed offer, note: New hire }
+          out: { icon: check, label: Ready on day one, note: "Accounts, docs, schedule" }
+    - for: Operations and research
+      items:
+        - name: Timesheets and invoicing
+          runs: Your time tracker and accounting
+          in: { icon: stack, label: Hours, note: From every tool }
+          out: { icon: invoice, label: Invoices and payroll, note: From approved hours }
+        - name: Research and reports
+          runs: AI on the web and your data
+          in: { icon: search, label: A question, note: "A company, a market, your numbers" }
+          out: { icon: doc, label: One-page summary, note: Sources linked }
 
 compare:
   id: compare
-  h2: "[Compare heading] *[accent]*"
+  h2: Why not hire, buy software or *hand it to an agency?*
   us: Wren
-  them: ["[Alternative]", "[Alternative]", "[Alternative]", "[Alternative]"]
+  them: [Another hire, Off-the-shelf software, An agency, Freelancers]
   rows:
-    - { feature: "[What only we do]", marks: [yes, no, no, no, no] }
-    - { feature: "[Point of difference]", marks: [yes, no, yes, no, no] }
-    - { feature: "[Point of difference]", marks: [yes, yes, yes, no, yes] }
-    - { feature: "[Point of difference]", marks: [yes, no, no, no, no] }
-    - { feature: "[Point of difference]", marks: [yes, yes, yes, yes, no] }
-  cta: "[Button]"
+    - { feature: Built around how your company works, marks: [yes, yes, no, yes, yes] }
+    - { feature: Connects all your tools into one system, marks: [yes, no, no, no, no] }
+    - { feature: Works nights and weekends, marks: [yes, no, yes, no, no] }
+    - { feature: Cost stays flat as volume grows, marks: [yes, no, no, no, no] }
+  cta: See if it fits
 
 start:
   id: start
-  h2: "[Start heading: getting started is small] *[accent]*"
+  h2: It starts with *two minutes and a call.*
   pics: [form, call, plan]
   steps:
-    - { name: "[Fill out the form]", time: "[2 minutes]" }
-    - { name: "[I call you]", time: "[Minutes later]" }
-    - { name: "[The audit: your level]", time: "[Timing]" }
-  then: { name: "[The build starts]", time: "[Timing]" }
+    - { name: Fill out the form, time: 2 minutes }
+    - { name: A call with me, time: 30 minutes }
+    - { name: "The audit: your level and your plan", time: Weeks 1 to 2 }
+  then: { name: The build starts, time: From week 2 }
   then_pic: live
-  text: "[One line: why it's low risk]"
-  cta: "[Button]"
+  text: You see the plan before anything gets built.
+  cta: Start with two minutes
 
 faq:
   h2: Questions you *should be asking.*
   items:
-    - { q: "[Question]", a: "[Answer]" }
-    - { q: "[Question]", a: "[Answer]" }
-    - { q: "[Question]", a: "[Answer]" }
-    - { q: "[Question]", a: "[Answer]" }
-    - { q: "[Question]", a: "[Answer]" }
-    - { q: "[Question]", a: "[Answer]" }
+    - q: How much of our work could software do?
+      a: McKinsey estimates today's AI and automation could handle work that takes up 60 to 70% of employees' time. Not whole jobs. The repetitive parts of every job.
+    - q: We already pay for AI tools. Why isn't it paying off?
+      a: Only 39% of companies see any effect on profit from AI so far (McKinsey, 2025). AI on scattered data gives scattered answers. It pays once your data sits in one place and your work runs on it. That's why the build starts there.
+    - q: Will this replace my team?
+      a: It replaces the copy and paste, not the people. Your team keeps the calls, the relationships and the judgment. In Asana's survey, workers said better processes alone would give them back 4.9 hours a week.
+    - q: What if our processes aren't written down?
+      a: Then that's where the audit starts. Automating a broken process just breaks it faster. So I fix the process first, then automate it.
+    - q: Which part should we automate first?
+      a: "Look for work that repeats, follows the same steps every time and eats hours: moving data between tools, follow-ups, scheduling, reports. The audit ranks yours by hours saved."
+    - q: How much of my team's time does this take?
+      a: An hour with you and 45 minutes each with three or four of your people in the first two weeks. After that, a 20-minute check-in each week.
+    - q: What happens after launch?
+      a: I stay on. I watch what I built, keep it tuned as you grow and add one new AI job every month.
 
 about:
-  h2: "[About heading] *[accent]*"
+  h2: Who you'll be *working with.*
   paras:
-    - "[Who William is]"
-    - "[Why he builds this]"
-    - "[What working with him is like]"
+    - I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
+    - I learn how your company actually runs before I build anything. I sit in on a normal week, talk to the people doing the work and write it down.
+    - I want long-term relationships, not one-off projects. I want to do such a good job that you tell every business owner you know about me.
   photo: /headshot.png
-  sign: "[Signature]"
-  cta: "[Button]"
+  sign: William Jin · Toronto
+  cta: Talk to me directly
 
 close:
-  h2: "[Close heading: one call from the outcome] *[accent]*"
-  reason: "[The cost of waiting] *[accent]*"
-  text: "[One line: time to fill out, how fast I call]"
+  h2: You're one call from *a company that scales.*
+  reason: Every new client adds busywork. *It doesn't have to add people.*
+  text: One short form, then a call. Nothing to prepare.
   vs:
-    win: "[Companies that start now]"
-    lose: "[Companies that wait]"
+    win: Companies that start now
+    lose: Companies that wait
     rows:
-      - ["[Win]", "[Lose]"]
-      - ["[Win]", "[Lose]"]
-      - ["[Win]", "[Lose]"]
-  cta: "[Button]"
+      - ["Leads answered in minutes, day or night", Leads wait for someone to get to them]
+      - [Admin that runs itself, Staff copying data between tools]
+      - ["More clients, same team", A new hire for every new client]
+  cta: Get started
 
 ask:
-  h2: "[Form heading]"
-  intro: "[One line: what happens after you send]"
-  cta: "[First step button]"
+  h2: Find out where you can scale.
+  cta: Show me where to start
   submit: Send
   sending: Sending…
   name: Your name
@@ -230,8 +232,9 @@ ask:
   required: Required
   bad_email: Enter an email I can reply to.
   error: "That didn't send. Email me instead:"
-  thanks_h: "[Thanks heading: I'm calling you]"
-  thanks: "[When I'll call, from which number]"
-  nofit_h: "[Not a fit heading]"
-  nofit: "[Kind no, and where to go instead]"
+  thanks_h: You're a fit. *I'll be in touch.*
+  thanks: I'll email you within one business day, from william@wrenautomation.com, to set up the call.
+  nofit_h: Thanks. *I've got it.*
+  # Says the fit rule in words. Change it with the fit gates in wren's offer.
+  nofit: This works best for companies with 10+ people, with the person who can say yes on the call. I'll still read this and reply within a business day.
   steps: { next: Next, back: Back, pick_one: Pick one to go on., other: Tell me in a few words }
