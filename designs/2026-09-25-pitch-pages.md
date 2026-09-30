@@ -268,6 +268,9 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   An "AI-ready" line after level 3. Since the bubbles are the phases, the roadmap section was cut and the call
   moved into the levels intro; nav "How it works" points at the levels. Rows instead of columns to fit the words;
   the section runs past one desktop screen, accepted for the detail William asked for.
+- **D61 (2026-09-30): About shows the internships as work; "another agency".** The hub about brings back the
+  two internships from /recruiting as cards drawn like a service (what went in, what came out) with the real numbers
+  counting up, under a two-line intro. Compare says "another agency": Wren is one.
 
 ## Next
 

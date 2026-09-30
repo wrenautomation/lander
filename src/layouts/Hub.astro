@@ -15,6 +15,7 @@ import Analytics from '../components/Analytics.astro';
 import Arrow from '../components/pitch/Arrow.astro';
 import Apply from '../components/pitch/Apply.astro';
 import Catalog from '../components/pitch/Catalog.astro';
+import Mini from '../components/pitch/Mini.astro';
 import Levels from '../components/pitch/Levels.astro';
 import Values from '../components/pitch/Values.astro';
 import Top from '../components/pitch/Top.astro';
@@ -140,6 +141,16 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
       {p.about.paras.map((x) => <p class="para">{x}</p>)}
       <p class="sign">{p.about.sign}</p>
       {p.about.cta && <a class="btn" href="#apply" data-cta><span>{p.about.cta}</span><Arrow /></a>}
+    </div>
+    <div class="work" data-art="work">
+      {p.about.work.map((w) => (
+        <article>
+          <p class="org">{w.org}</p>
+          <h3>{w.title}</h3>
+          <Mini in={w.in} out={w.out} />
+          <div class="wfigs">{w.figs.map((f) => <p class="fig"><span class="n">{f.n}</span><small>{f.label}</small></p>)}</div>
+        </article>
+      ))}
     </div>
   </div>
 </section>

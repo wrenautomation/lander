@@ -149,9 +149,9 @@ catalog:
 
 compare:
   id: compare
-  h2: Why not hire, buy software or *hand it to an agency?*
+  h2: Why not hire, buy software or *hand it to another agency?*
   us: Wren
-  them: [Another hire, Off-the-shelf software, An agency, Freelancers]
+  them: [Another hire, Off-the-shelf software, Another agency, Freelancers]
   # each cell: the mark, then why in a few words. Wren first, then `them` in order.
   rows:
     - feature: Built around how your company works
@@ -218,10 +218,26 @@ faq:
 
 about:
   h2: Who you'll be *working with.*
+  # the work cards sit under the text. Real internship numbers only, the same ones as /recruiting.
   paras:
-    - I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
-    - I learn how your company actually runs before I build anything. I sit in on a normal week, talk to the people doing the work and write it down.
+    - I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building. I've already built this kind of system at two internships.
     - I want long-term relationships, not one-off projects. I want to do such a good job that you tell every business owner you know about me.
+  work:
+    - org: Government of Canada
+      title: An AI assistant for policy
+      in: { icon: stack, label: Policy documents, note: Long and scattered }
+      out: { icon: check, label: Straight answers, note: Instead of searching }
+      figs:
+        - { n: "17,000+", label: officers and staff }
+        - { n: "220+", label: policy documents }
+    - org: University of Alberta
+      title: One database for a research lab
+      in: { icon: stack, label: Terabytes of files, note: Experiments and papers }
+      out: { icon: record, label: One database, note: Anyone can audit }
+      figs:
+        - { n: "7,000+", label: papers tracked }
+        - { n: "200+", label: hours of lookups cut }
+        - { n: "8+", label: hours a week back for the professor }
   photo: /headshot.png
   sign: William Jin · Toronto
   cta: Talk to me directly

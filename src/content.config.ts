@@ -378,7 +378,13 @@ const hub = defineCollection({
       rows: z.array(z.strictObject({ feature: z.string(), cells: z.array(z.tuple([mark, z.string()])) })).min(3).max(7),
     }),
     faq,
-    about,
+    // about, plus past work drawn like a service: what went in, what came out, the real numbers (count up)
+    about: about.extend({
+      work: z.array(z.strictObject({
+        org: z.string(), title: z.string(), in: svcEnd, out: svcEnd,
+        figs: z.array(z.strictObject({ n: z.string(), label: z.string() })).min(1).max(3),
+      })).min(1).max(2),
+    }),
     close,
     ask,
     // every outside figure on the page carries a [^n] marker to entry n here; the list sits under the recap

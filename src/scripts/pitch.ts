@@ -165,6 +165,19 @@ if (motion) {
       .fromTo($('svg', el), { clipPath: 'inset(-10% 100% -10% 0)' }, { clipPath: 'inset(-10% 0% -10% 0)', duration: 1.2, ease: 'expo.inOut' }, 0.3)
       .fromTo($('.into', el), { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, ease: 'back.out(2)' }, '-=0.5'),
     // the service list: row by row, the name, then the thing going in, the wire, a dot along it, the result
+    // past work: each card in, its diagram runs, the numbers count up on their own (below)
+    work: (el, tl) => {
+      $$('article', el).forEach((a, k) => {
+        const t = k * 0.5, dot = $('.wire i', a)!;
+        tl.fromTo(a, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6 }, t)
+          .fromTo($('.nd.in', a), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.5 }, t + 0.25)
+          .fromTo($('.wire', a), { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: 'power2.inOut' }, t + 0.6)
+          .fromTo(dot, { left: '0%', opacity: 1 }, { left: '100%', duration: 0.45, ease: 'power1.inOut', immediateRender: false }, t + 0.95)
+          .set(dot, { opacity: 0 }, t + 1.4)
+          .fromTo($('.nd.out', a), { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2)' }, t + 1.3);
+      });
+      return tl;
+    },
     catalog: (el, tl) => {
       let t = 0;
       for (const g of $$('.grp', el)) {
