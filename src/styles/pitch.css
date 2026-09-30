@@ -135,9 +135,8 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 .drop span{font-size:13px;color:var(--ink-2)}
 /* what the service is, one line, opened under it on hover or focus (always open where there's no hover) */
 .drop .what{display:grid;grid-template-rows:0fr;font-style:normal;transition:grid-template-rows .3s var(--out)}
-.drop .what span{overflow:hidden;min-height:0;white-space:nowrap;color:var(--ink);transition:padding-top .3s var(--out)}
+.drop .what span{overflow:hidden;min-height:0;padding-top:6px;white-space:nowrap;color:var(--ink)}
 .drop a:is(:hover,:focus-visible) .what{grid-template-rows:1fr}
-.drop a:is(:hover,:focus-visible) .what span{padding-top:6px}
 @media (hover:none){.drop .what{grid-template-rows:1fr}.drop .what span{padding-top:6px;white-space:normal}}
 .top .btn{margin-left:auto}
 .links+.btn,.links+.contact{margin-left:0}
