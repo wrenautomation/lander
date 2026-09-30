@@ -110,7 +110,8 @@ ask:
   name: Your name
   email: Work email
   phone: Phone
-  sms_consent: Text me about my request. Msg & data rates may apply. Reply STOP to opt out. [Terms](/terms), [Privacy](/privacy).
+  # Carrier-reviewed (Telnyx 10DLC campaign). Keep every part: brand, purpose, frequency, rates, HELP, STOP, links.
+  sms_consent: By checking this box, I agree to get texts from William Jin (Wren Automation) about my request (replies, scheduling and reminders). Up to 4 texts a month. Msg & data rates may apply. Reply HELP for help, STOP to opt out. Consent is not required to send this form. [Terms](/terms), [Privacy](/privacy).
   firm: Company website
   required: Required
   bad_email: Enter an email I can reply to.
