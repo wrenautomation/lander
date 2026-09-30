@@ -178,7 +178,7 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   timesheets, onboarding), with AI on research and summaries, and "a lot of info" to teach the market.
   Headline: "What if scaling took *less work*, not more?" (2026-09-30, his pick from ten, "scaling" his word). Market facts (Asana, Salesforce,
   HBR, McKinsey) sit in the prose of the pain, levels, benefits and FAQ, one fact per place, sources
-  in the YAML header. Cases are optional and left out until there are real client builds; the proof
+  in the page's Sources list (D49). Cases are optional and left out until there are real client builds; the proof
   cards carry the Government of Canada and University of Alberta work. The catalog keeps six rows (two
   per group) so it reads on one screen; lead reactivation is the Growth group's link. The level pin
   sits on level 4, "Where most companies stall", beside McKinsey's two-thirds not yet scaling AI.
@@ -186,6 +186,21 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   systems), and the three checks are deliverables as short Title Case tags: busywork cut by up to 60%
   (McKinsey's low end, a ceiling), a fully managed integrated system, aligned with the business's goals.
   The guarantee moved to the after-launch FAQ.
+- **D49 (2026-09-30): The hub opens on a question, cites its facts, and reloads clean.** William's
+  batch. The form's first panel asks "What's your main bottleneck?" (offer question `bottleneck`,
+  `ask.opens_with`), then contact, website optional; the old many-pick "struggles" is gone. The hero
+  button and friction line gave way to one line pointing at the form, "Your next stage of growth,
+  without the busywork, is a few steps away." (arrow turns down on phones); a light runs round the
+  panel's edge until the reader focuses it. The pain moved above proof as a full-width stat headline,
+  "58% of your team's day doesn't move the needle" (Asana 2022), beside two bars: the day today (58/42)
+  and what it should be (no numbers, an aim). Every fact carries `[^n]`, a superscript link to the
+  Sources list at the page foot; the build fails on a marker with no source or a source never cited.
+  Every other section sits on a faint warm band (his thrillx reference, softer). The Services menu's
+  Lead reactivation says what it is on hover (`what`). Reloads: the form's first step renders stepped
+  (no reflow when the script starts), the page goes back to the saved spot at once, anything on that
+  screen shows whole, and proof figures keep number and unit on one line so the count-up never rewraps.
+  The recruiting page runs tighter (section and heading spacing), on his note.
+  The backdrop bird carries on across the rust close and footer in cream (a clipped copy per dark band).
 
 ## Next
 

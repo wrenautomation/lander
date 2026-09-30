@@ -1,0 +1,7 @@
+---
+// A proof figure: the number big, its unit small beside it ("200+ hours" = 200+ and hours), on one line, so the
+// count-up (pitch.ts) never rewraps the card.
+const { v } = Astro.props as { v: string };
+const [, n = v, unit = ''] = /^([\d,.]+\+?)\s*(.*)$/.exec(v) ?? [];
+---
+<b class="fig"><span class="n">{n}</span>{unit && <small>{unit}</small>}</b>

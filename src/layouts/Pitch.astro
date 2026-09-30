@@ -10,6 +10,7 @@ import { getEntry } from 'astro:content';
 import Head from '../components/Head.astro';
 import Analytics from '../components/Analytics.astro';
 import Arrow from '../components/pitch/Arrow.astro';
+import Fig from '../components/pitch/Fig.astro';
 import Scene from '../components/pitch/Scene.astro';
 import Problem from '../components/pitch/Problem.astro';
 import Benefits from '../components/pitch/Benefits.astro';
@@ -131,7 +132,7 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
     </div>
     <div class="figs">
       {p.proof.items.map((f) => (
-        <div><b class="fig">{f.fig}</b><p class="lbl">{f.label}</p><p>{f.text}</p></div>
+        <div><Fig v={f.fig} /><p class="lbl">{f.label}</p><p>{f.text}</p></div>
       ))}
     </div>
   </div>
@@ -164,6 +165,7 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
 </section>
 
 <section class="close">
+  <Backdrop dark="close" />
   <div class="wrap grid">
     <div class="head">
       <h2 set:html={rich(p.close.h2)} />

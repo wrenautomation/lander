@@ -3,8 +3,10 @@
 const { site } = Astro.props as { site: { email: string; city: string; fine: string; fine_turnstile: string; fine_turnstile_link: string; fine_privacy: string } };
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 const year = new Date().getFullYear();
+import Backdrop from './Backdrop.astro';
 ---
 <footer class="foot">
+  <Backdrop dark="foot" />
   <div class="wrap">
     <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
     <p class="fine">© {year} Wren Automation · {site.city} · {site.fine}{turnstile && <> {site.fine_turnstile} <a href="https://www.cloudflare.com/turnstile-privacy-policy/">{site.fine_turnstile_link}</a>.</>} <a href="/privacy">{site.fine_privacy}</a></p>

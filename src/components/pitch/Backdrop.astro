@@ -1,20 +1,24 @@
 ---
 // The backdrop on every pitch page and the hub: one large wren, the simplified mark (public/brand/wren-simple.svg:
 // the silhouette with only the wing loop cut out), in faint ink behind the middle of the page. It drifts up slowly as
-// you read the page top to bottom (--p, scroll progress 0 to 1); still without motion. Look in pitch.css (.backdrop).
+// you read the page top to bottom (--p on the root, scroll progress 0 to 1); still without motion. Look in pitch.css (.backdrop).
+// A dark band hides the page's bird, so it carries its own copy (dark: a name, unique on the page): the same bird at
+// the same spot, cream instead of ink, shown only inside that band.
+const { dark } = Astro.props as { dark?: string };
+const wing = dark ? `backdrop-wing-${dark}` : 'backdrop-wing';
 ---
-<div class="backdrop" aria-hidden="true">
-  <svg viewBox="20 20 480 290"><mask id="backdrop-wing"><rect width="512" height="440" fill="#fff" /><path d="M60 238L292 126C334 106 358 160 318 178L100 264" fill="none" stroke="#000" stroke-width="14" stroke-linecap="round" /></mask><path d="M495 68L440 60C425 34 386 24 355 37C330 48 318 72 306 94C294 116 262 132 208 150L48 16C38 8 22 20 30 32L152 188C168 250 226 302 300 302C382 302 427 242 427 172C427 132 430 100 445 82Z" fill="currentColor" mask="url(#backdrop-wing)" /></svg>
+<div class:list={['backdrop', { dark }]} aria-hidden="true">
+  <svg viewBox="20 20 480 290"><mask id={wing}><rect width="512" height="440" fill="#fff" /><path d="M60 238L292 126C334 106 358 160 318 178L100 264" fill="none" stroke="#000" stroke-width="14" stroke-linecap="round" /></mask><path d="M495 68L440 60C425 34 386 24 355 37C330 48 318 72 306 94C294 116 262 132 208 150L48 16C38 8 22 20 30 32L152 188C168 250 226 302 300 302C382 302 427 242 427 172C427 132 430 100 445 82Z" fill="currentColor" mask={`url(#${wing})`} /></svg>
 </div>
 <script>
-  // one custom property per frame: how far down the page, 0 to 1
-  const box = document.querySelector<HTMLElement>('.backdrop');
-  if (box && document.documentElement.classList.contains('js')) {
+  // one custom property per frame, on the root so every copy reads it: how far down the page, 0 to 1 (bundled once)
+  const root = document.documentElement;
+  if (root.classList.contains('js')) {
     let queued = false;
     const move = () => {
       queued = false;
-      const room = document.documentElement.scrollHeight - innerHeight;
-      box.style.setProperty('--p', room > 0 ? (scrollY / room).toFixed(4) : '0.5');
+      const room = root.scrollHeight - innerHeight;
+      root.style.setProperty('--p', room > 0 ? (scrollY / room).toFixed(4) : '0.5');
     };
     addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(move); } }, { passive: true });
     addEventListener('resize', move);

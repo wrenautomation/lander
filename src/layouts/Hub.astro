@@ -1,8 +1,9 @@
 ---
 // The hub, /: Wren as a whole. Copy from src/content/hub/home.yaml, the form's terms from its offer (lib/pitch.ts).
 // Laid out on the B2B landing template, one screen per section, each ending on a button to the form:
-// hero (words left, form right), proof, the pain, the five levels, client builds once there are real ones (each as the levels it climbed), three benefits (diagrams), every service, William, the comparison,
-// how it starts, questions, the recap. Same type, colour and motion as the pitch pages (pitch.css, pitch.ts);
+// hero (words left, a line pointing at the form right), the pain (full-width stat headline, the day as it is and as
+// it should be), proof, the five levels, client builds once there are real ones (each as the levels it climbed), three benefits (diagrams), every service, William, the comparison,
+// how it starts, questions, the recap, the sources every [^n] marker points at. Same type, colour and motion as the pitch pages (pitch.css, pitch.ts);
 // hub.css adds the hub's own parts.
 import '../styles/pitch.css';
 import '../styles/hub.css';
@@ -12,6 +13,7 @@ import { getEntry } from 'astro:content';
 import Head from '../components/Head.astro';
 import Analytics from '../components/Analytics.astro';
 import Arrow from '../components/pitch/Arrow.astro';
+import Fig from '../components/pitch/Fig.astro';
 import Apply from '../components/pitch/Apply.astro';
 import Benefits from '../components/pitch/Benefits.astro';
 import Catalog from '../components/pitch/Catalog.astro';
@@ -27,6 +29,7 @@ import { bare, rich, richParas } from '../lib/text';
 const { entry } = Astro.props as { entry: CollectionEntry<'hub'> };
 const { p, offer } = await loadHub(entry);
 const { cases } = p;
+const legend = [...new Map(p.pain.chart.rows.flatMap((r) => r.parts).map((x) => [x.label, x])).values()];
 const site = (await getEntry('site', 'site'))!.data;
 const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap';
 const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
@@ -55,12 +58,35 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
       <h1 set:html={rich(p.hero.h1)} />
       <div class="lede" set:html={richParas(p.hero.lede)} />
       <ul class="checks big">{p.hero.checks.map((c) => <li set:html={rich(c)} />)}</ul>
-      <p class="ctas">
-        <a class="btn" href="#apply" data-cta><span>{p.hero.cta}</span><Arrow /></a>
-        <span class="friction">{p.hero.friction}</span>
-      </p>
+      <p class="to-form"><a href="#apply" data-cta><span>{p.hero.to_form}</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h10.5M9 4l4 4-4 4" /></svg></a></p>
     </div>
     <Apply a={p.ask} offer={offer} email={site.email} path={p.path} />
+  </div>
+</section>
+
+<section class="sec pain-sec" id={p.pain.id}>
+  <div class="wrap">
+    <div class="head wide"><h2 set:html={rich(p.pain.h2)} /></div>
+    <div class="grid">
+      <div class="head">
+        <div class="intro" set:html={richParas(p.pain.text)} />
+        <a class="btn" href="#apply" data-cta><span>{p.pain.cta}</span><Arrow /></a>
+      </div>
+      <figure class="window">
+        <p class="hd">{p.pain.chart.h}</p>
+        <div class="art day" data-art="day">
+          {p.pain.chart.rows.map((r) => (
+            <div class="day-row">
+              <p class="rh">{r.h}</p>
+              <p class="day-bar" role="img" aria-label={r.parts.map((x) => (x.pct ? `${x.label} ${x.w}%` : x.label)).join(', ')}>
+                {r.parts.map((x) => <i class={x.tone} style={`--w:${x.w}`}>{x.pct && <b>{x.w}%</b>}</i>)}
+              </p>
+            </div>
+          ))}
+          <ul class="legend" aria-hidden="true">{legend.map((x) => <li class={x.tone}>{x.label}</li>)}</ul>
+        </div>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -69,26 +95,10 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
     <div class="head wide"><h2 set:html={rich(p.proof.h2)} /></div>
     <div class="figs cards">
       {p.proof.items.map((f) => (
-        <div><b class="fig">{f.fig}</b><p class="lbl">{f.label}</p><p>{f.text}</p></div>
+        <div><Fig v={f.fig} /><p class="lbl">{f.label}</p><p>{f.text}</p></div>
       ))}
     </div>
     <a class="btn" href="#apply" data-cta><span>{p.proof.cta}</span><Arrow /></a>
-  </div>
-</section>
-
-<section class="sec pain-sec" id={p.pain.id}>
-  <div class="wrap grid">
-    <div class="head">
-      <h2 set:html={rich(p.pain.h2)} />
-      <div class="intro" set:html={richParas(p.pain.text)} />
-      <a class="btn" href="#apply" data-cta><span>{p.pain.cta}</span><Arrow /></a>
-    </div>
-    <figure class="window" aria-hidden="true">
-      <p class="hd">{p.pain.chart.h}</p>
-      <ul class="art bars" data-art="bars">
-        {p.pain.chart.bars.map((b) => <li class:list={{ hot: b.hot }}><span>{b.label}</span><i style={`--w:${b.w}%`}></i></li>)}
-      </ul>
-    </figure>
   </div>
 </section>
 
@@ -164,13 +174,14 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
     <div class="head sticky"><h2 set:html={rich(p.faq.h2)} /></div>
     <div class="qa">
       {p.faq.items.map((x) => (
-        <div><h3>{x.q}</h3><p>{x.a}</p></div>
+        <div><h3>{x.q}</h3><p set:html={rich(x.a)} /></div>
       ))}
     </div>
   </div>
 </section>
 
 <section class="close">
+  <Backdrop dark="close" />
   <div class="wrap grid">
     <div class="head">
       <h2 set:html={rich(p.close.h2)} />
@@ -184,6 +195,13 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
       </div>
     )}
     <a class="btn" href="#apply" data-cta><span>{p.close.cta}</span><Arrow /></a>
+  </div>
+</section>
+
+<section class="sources" id="sources">
+  <div class="wrap">
+    <h2>{p.sources.h}</h2>
+    <ol>{p.sources.items.map((x, i) => <li id={`source-${i + 1}`}><a href={x.url} target="_blank" rel="noopener">{x.text}</a></li>)}</ol>
   </div>
 </section>
 </main>

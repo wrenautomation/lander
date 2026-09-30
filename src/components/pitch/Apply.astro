@@ -1,7 +1,7 @@
 ---
 // The form, in the first screen beside the hero. An offer with an application: contact details first (ask.cta on
-// the button), then one question per step, then send. Without one: a contact form. Posts to /api/apply. With JS: fetch, then the calendar, a thank-you or a
-// not-a-fit. Without JS: a plain POST that redirects to #applied-fit / #applied-nofit / #applied-error, which CSS
+// the button), or after the one question the page opens with (ask.opens_with), then one question per step, then send. Without one: a contact form. Posts to /api/apply. With JS: fetch, then the calendar, a thank-you or a
+// not-a-fit. The first step renders stepped already, so the page never reflows when the script starts. Without JS: a plain POST that redirects to #applied-fit / #applied-nofit / #applied-error, which CSS
 // shows with :target.
 import type { CollectionEntry } from 'astro:content';
 import { fieldName, OTHER, otherName } from '../../lib/offers';
@@ -13,59 +13,63 @@ type Offer = CollectionEntry<'offers'>['data'];
 const { a, offer, email, path } = Astro.props as { a: Pitch['ask']; offer: Offer; email: string; path: string };
 const qs = offer.application?.questions ?? [];
 const stepped = qs.length > 0 && !!a.steps;
+const opener = qs.find((q) => q.id === a.opens_with);
+const order: (typeof qs[number] | 'contact')[] = opener ? [opener, 'contact', ...qs.filter((q) => q !== opener)] : ['contact', ...qs];
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
-<div class="panel" id="apply" data-apply>
+<div class:list={["panel", { stepping: stepped }]} id="apply" data-apply>
   <div class="ask">
     <h2>{a.h2}</h2>
     {stepped && <p class="pips" aria-hidden="true">{Array.from({ length: qs.length + 1 }, () => <i></i>)}</p>}
     {a.intro && <p class="intro">{a.intro}</p>}
   </div>
-  <form method="post" action="/api/apply" data-lead>
-    <fieldset class="step contact" data-step="0" data-contact>
-      {a.steps?.contact_h && <legend>{a.steps.contact_h}</legend>}
-      <div class="fields">
-        <label class="field"><span>{a.name}</span><input name="name" type="text" autocomplete="name"></label>
-        <label class="field"><span>{a.email} <small>{a.required}</small></span><input name="email" type="email" autocomplete="email" required><em class="fe" data-error>{a.bad_email}</em></label>
-        {a.phone_required
-          ? <label class="field"><span>{a.phone} <small>{a.required}</small></span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required><em class="fe" data-error>{a.required}</em></label>
-          : <label class="field"><span>{a.phone}</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel"></label>}
-        <label class="consent"><input name="sms_consent" type="checkbox" value="1"><span set:html={linked(a.sms_consent)} /></label>
-        {a.firm && (a.firm_required
-          ? <label class="field"><span>{a.firm} <small>{a.required}</small></span><input name="firm" type="text" autocomplete="url" inputmode="url" required><em class="fe" data-error>{a.required}</em></label>
-          : <label class="field"><span>{a.firm}</span><input name="firm" type="text" autocomplete="url" inputmode="url"></label>)}
-        {a.note && <label class="field"><span>{a.note}</span><textarea name="note" rows="3"></textarea></label>}
-      </div>
-      <input type="hidden" name="offer" value={offer.id}>
-      <input type="hidden" name="page" value={path}>
-      {['r', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref'].map((k) => <input type="hidden" name={k} value="">)}
-      <label class="hp" aria-hidden="true">Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
-      {turnstile && <div class="cf-turnstile" data-sitekey={turnstile} data-size="flexible" data-theme="light"></div>}
-      {!stepped && <button class="btn ink" type="submit" data-submit data-sending={a.sending}><span>{a.submit}</span><Arrow /></button>}
-    </fieldset>
-    {qs.map((q, i) => (
-      <fieldset class="step" data-step={i + 1} data-kind={q.kind} data-required={q.required ? '' : undefined}>
-        <legend>{q.ask}</legend>
-        {q.kind === 'text'
-          ? <textarea name={fieldName(q.id)} placeholder={q.placeholder} rows="3"></textarea>
-          : <div class:list={['choices', { many: q.kind === 'many' }]}>
-              {q.choices.map((c, j) => (
-                <label class="choice">
-                  <input type={q.kind === 'one' ? 'radio' : 'checkbox'} name={fieldName(q.id)} value={c.id} required={q.kind === 'one' && q.required && j === 0}>
-                  <span>{c.label}</span>
-                </label>
-              ))}
-              {q.choices.some((c) => c.id === OTHER) && <input class="other" type="text" data-choice={OTHER} name={otherName(q.id)} maxlength="200" placeholder={a.steps?.other ?? 'Tell me in a few words'} aria-label={a.steps?.other ?? 'Tell me in a few words'} hidden>}
-            </div>}
-        {a.steps && <p class="fe" data-error>{a.steps.pick_one}</p>}
-      </fieldset>
+  <form class:list={{ stepping: stepped }} method="post" action="/api/apply" data-lead>
+    {order.map((q, i) => q === 'contact' ? (
+        <fieldset class:list={["step contact", { on: stepped && i === 0 }]} data-step={i} data-contact>
+          {a.steps?.contact_h && <legend>{a.steps.contact_h}</legend>}
+          <div class="fields">
+            <label class="field"><span>{a.name}</span><input name="name" type="text" autocomplete="name"></label>
+            <label class="field"><span>{a.email} <small>{a.required}</small></span><input name="email" type="email" autocomplete="email" required><em class="fe" data-error>{a.bad_email}</em></label>
+            {a.phone_required
+              ? <label class="field"><span>{a.phone} <small>{a.required}</small></span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required><em class="fe" data-error>{a.required}</em></label>
+              : <label class="field"><span>{a.phone}</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel"></label>}
+            <label class="consent"><input name="sms_consent" type="checkbox" value="1"><span set:html={linked(a.sms_consent)} /></label>
+            {a.firm && (a.firm_required
+              ? <label class="field"><span>{a.firm} <small>{a.required}</small></span><input name="firm" type="text" autocomplete="url" inputmode="url" required><em class="fe" data-error>{a.required}</em></label>
+              : <label class="field"><span>{a.firm}</span><input name="firm" type="text" autocomplete="url" inputmode="url"></label>)}
+            {a.note && <label class="field"><span>{a.note}</span><textarea name="note" rows="3"></textarea></label>}
+          </div>
+          <input type="hidden" name="offer" value={offer.id}>
+          <input type="hidden" name="page" value={path}>
+          {['r', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref'].map((k) => <input type="hidden" name={k} value="">)}
+          <label class="hp" aria-hidden="true">Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+          {turnstile && <div class="cf-turnstile" data-sitekey={turnstile} data-size="flexible" data-theme="light"></div>}
+          {!stepped && <button class="btn ink" type="submit" data-submit data-sending={a.sending}><span>{a.submit}</span><Arrow /></button>}
+        </fieldset>
+    ) : (
+        <fieldset class:list={["step", { on: stepped && i === 0 }]} data-step={i} data-kind={q.kind} data-required={q.required ? '' : undefined}>
+          <legend>{q.ask}</legend>
+          {q.kind === 'text'
+            ? <textarea name={fieldName(q.id)} placeholder={q.placeholder} rows="3"></textarea>
+            : <div class:list={['choices', { many: q.kind === 'many' }]}>
+                {q.choices.map((c, j) => (
+                  <label class="choice">
+                    <input type={q.kind === 'one' ? 'radio' : 'checkbox'} name={fieldName(q.id)} value={c.id} required={q.kind === 'one' && q.required && j === 0}>
+                    <span>{c.label}</span>
+                  </label>
+                ))}
+                {q.choices.some((c) => c.id === OTHER) && <input class="other" type="text" data-choice={OTHER} name={otherName(q.id)} maxlength="200" placeholder={a.steps?.other ?? 'Tell me in a few words'} aria-label={a.steps?.other ?? 'Tell me in a few words'} hidden>}
+              </div>}
+          {a.steps && <p class="fe" data-error>{a.steps.pick_one}</p>}
+        </fieldset>
     ))}
     {stepped && (
       <div class="nav-steps">
-        <button type="button" class="back" data-back>{a.steps!.back}</button>
+        <button type="button" class="back" data-back hidden>{a.steps!.back}</button>
         <button type="button" class="btn ink" data-next data-first={a.cta} data-label={a.steps!.next}><span>{a.cta ?? a.steps!.next}</span><Arrow /></button>
-        <button class="btn ink" type="submit" data-submit data-sending={a.sending}><span>{a.submit}</span><Arrow /></button>
+        <button class="btn ink" type="submit" data-submit data-sending={a.sending} hidden><span>{a.submit}</span><Arrow /></button>
       </div>
+      <noscript><style>.stepping .step{display:block}.stepping .step+.step{margin-top:2rem}.stepping .nav-steps :is(.back,[data-next]){display:none}.nav-steps .btn[data-submit]{display:inline-flex}.stepping .pips{display:none}</style></noscript>
     )}
     {a.assure && <p class="assure">{a.assure}</p>}
   </form>

@@ -1,7 +1,7 @@
 // A page = its copy (src/content/pitches/*.yaml, or hub/home.yaml for /) + the offer it sells (src/data/offers.json).
 // Everything a page can get wrong about its offer fails the build here, not in front of a buyer.
 import { type CollectionEntry, getCollection, getEntry } from 'astro:content';
-import { fill } from './text';
+import { CITE, fill } from './text';
 
 type OfferData = CollectionEntry<'offers'>['data'];
 type Ask = CollectionEntry<'pitches'>['data']['ask'];
@@ -43,6 +43,14 @@ function checkAsk(a: Ask, offer: OfferData, where: string) {
   const need = (ok: unknown, what: string) => { if (!ok) throw new Error(`${where}: ask.${what} is required for offer '${offer.id}'`); };
   if (offer.application) { need(a.steps, 'steps'); need(a.nofit_h && a.nofit, 'nofit_h and ask.nofit'); }
   if (offer.booking) need(a.book_h && a.book, 'book_h and ask.book');
+  if (a.opens_with && !offer.application?.questions.some((q) => q.id === a.opens_with)) throw new Error(`${where}: ask.opens_with '${a.opens_with}' is no question in offer '${offer.id}'`);
+}
+
+// Every [^n] marker points at a source, and every source is cited somewhere on the page.
+function checkCites(p: object, sources: unknown[], where: string) {
+  const used = new Set([...JSON.stringify(p).matchAll(CITE)].map((m) => Number(m[1])));
+  for (const n of used) if (n < 1 || n > sources.length) throw new Error(`${where}: [^${n}] has no entry in sources`);
+  sources.forEach((_, i) => { if (!used.has(i + 1)) throw new Error(`${where}: source ${i + 1} is never cited`); });
 }
 
 export async function loadPitch(entry: CollectionEntry<'pitches'>) {
@@ -69,6 +77,7 @@ export async function loadHub(entry: CollectionEntry<'hub'>) {
   const out = [...p.nav.flatMap((n) => n.menu ?? []), ...p.catalog.groups.flatMap((g) => (g.link ? [g.link] : []))];
   for (const l of out) if (l.to.startsWith('/') && !paths.has(l.to)) throw new Error(`${where}: '${l.label}' links to ${l.to}, which is no pitch page`);
   checkAsk(p.ask, offer, where);
+  checkCites(p, p.sources.items, where);
   return { p, offer };
 }
 

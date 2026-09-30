@@ -3,7 +3,7 @@
 // on the hub itself, to the top. `contact`: an email shown beside the button on wide screens. A nav item with a
 // `menu` opens a small list of links on hover or tap (pitch.ts closes it on Escape or a tap outside).
 import Arrow from './Arrow.astro';
-type Link = { label: string; to: string; note?: string };
+type Link = { label: string; to: string; note?: string; what?: string };
 const { nav, cta, to = '#apply', hub = false, contact } = Astro.props as { nav: (Link & { menu?: Link[] })[]; cta: string; to?: string; hub?: boolean; contact?: string };
 ---
 <header class="top" data-nav>
@@ -12,7 +12,7 @@ const { nav, cta, to = '#apply', hub = false, contact } = Astro.props as { nav: 
     <nav class="links" aria-label="Page">{nav.map((n) => n.menu ? (
       <div class="menu" data-menu>
         <button type="button" aria-expanded="false" aria-haspopup="true">{n.label}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 6.5 8 10l3.5-3.5" /></svg></button>
-        <div class="drop">{n.menu.map((m) => <a href={m.to}><b>{m.label}</b>{m.note && <span>{m.note}</span>}</a>)}</div>
+        <div class="drop">{n.menu.map((m) => <a href={m.to}><b>{m.label}</b>{m.note && <span>{m.note}</span>}{m.what && <em class="what"><span>{m.what}</span></em>}</a>)}</div>
       </div>
     ) : <a href={n.to}>{n.label}</a>)}</nav>
     {contact && <a class="contact" href={`mailto:${contact}`}>{contact}</a>}

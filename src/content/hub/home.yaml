@@ -4,19 +4,11 @@
 # onboarding), with AI on the research and the repetitive work. Grow without the headcount growing with it.
 # The page also teaches the market: where the week goes, why AI stalls, why speed to lead matters.
 # Rules: prices off the page. Proof is real only (the Government of Canada and University of Alberta builds).
-# No client cases until there are real ones. Every figure below is sourced:
-#   58% of the day on work about work, 4.9 hours a week saved by better processes: Asana, Anatomy of Work
-#     Global Index 2023 (9,615 knowledge workers).
-#   58 / 33 / 9 split of work about work, skilled and strategic work (the pain chart): Asana, Anatomy of Work
-#     Global Index 2022.
-#   About 70% of a sales rep's time on non-selling tasks: Salesforce, State of Sales, 6th edition.
-#   Nearly 7x more likely to qualify a lead contacted within an hour: Harvard Business Review, "The Short Life
-#     of Online Sales Leads", March 2011 (2,241 companies).
-#   Work that absorbs 60 to 70% of employees' time could be automated (the hero's "up to 60%" check
-#     takes the low end, as a ceiling, not a measured result): McKinsey, "The economic potential of
-#     generative AI", June 2023.
-#   88% use AI in at least one function, nearly two-thirds not yet scaling it, 39% report any EBIT impact:
-#     McKinsey, "The state of AI in 2025", November 2025.
+# No client cases until there are real ones. Every outside figure carries a [^n] marker to `sources` at the end.
+# Notes on how they're used:
+#   The hero's "up to 60%" takes the low end of McKinsey's 60 to 70%, as a ceiling, not a measured result.
+#   The pain chart's today row is Asana 2022's split: 58% work about work, 33% skilled, 9% strategic (42% moves
+#     the needle). The "should be" row is our aim, not data, so it carries no numbers.
 # Team time, weeks and the retainer's monthly AI job come from the offer in wren (packages/offers).
 title: "Wren Automation: scale your company without scaling headcount"
 description: Custom software and AI for every part of your company that has to scale. Lead gen, hiring outreach, admin, timesheets, onboarding and research, in one connected system.
@@ -28,7 +20,7 @@ nav:
   - label: Services
     to: "#services"
     menu:
-      - { label: Lead reactivation, note: For recruiting companies, to: /recruiting/lead-reactivation }
+      - { label: Lead reactivation, note: For recruiting companies, what: Win new business from past clients already in your ATS., to: /recruiting/lead-reactivation }
   - { label: How it works, to: "#how" }
   - { label: Compare, to: "#compare" }
   - { label: FAQ, to: "#faq" }
@@ -39,11 +31,32 @@ hero:
   h1: "What if scaling took *less work*, not more?"
   lede: "Scaling usually means more follow-ups, more hires to onboard, more hours to track. We build integrated software that takes that work off your team: lead gen, hiring outreach, onboarding, timesheets, admin, or anything else that slows you down."
   checks:
-    - Reduce Busywork by Up to 60%
+    - Reduce Busywork by Up to 60%[^1]
     - Fully Managed, Integrated System
     - Aligned With Your Business Goals
-  cta: Find where you can scale
-  friction: Two minutes, four questions, no commitment.
+  to_form: Your next stage of growth, without the busywork, is a few steps away.
+
+pain:
+  id: pain
+  h2: 58% of your team's day *doesn't move the needle.*[^2]
+  text: |
+    Chasing updates, switching apps, copying data from one tool to the next. Just 9% of the day goes to the strategic work you hired them for.[^2] Salespeople spend about 70% of their time not selling.[^3]
+
+    So when the work grows, the only lever left is another hire. Then another.
+
+    **Growth that needs a new hire for every new client isn't scale. It's a bigger payroll.**
+  cta: Get your team's week back
+  chart:
+    h: Where your team's day goes
+    rows:
+      - h: Today
+        parts:
+          - { label: Busywork, w: 58, tone: hot, pct: true }
+          - { label: Work that moves the needle, w: 42, tone: win, pct: true }
+      - h: What it should be
+        parts:
+          - { label: Busywork, w: 15, tone: hot }
+          - { label: Work that moves the needle, w: 85, tone: win }
 
 proof:
   h2: Software I've built, *used at scale.*
@@ -53,27 +66,10 @@ proof:
     - { fig: 200+ hours, label: Saved at a University of Alberta lab, text: "Citation tracking automated across 7,000+ research papers." }
     - { fig: 8+ hours a week, label: Back for the lab's lead professor, text: Terabytes of experiment files turned into one database anyone can audit. }
 
-pain:
-  id: pain
-  h2: Most of your team's day is *work about work.*
-  text: |
-    Knowledge workers spend **58% of their day** chasing updates, switching apps and copying data from one tool to the next. Just 9% goes to the strategic work you hired them for. Salespeople spend about 70% of their time not selling.
-
-    So when the work grows, the only lever left is another hire. Then another.
-
-    **Growth that needs a new hire for every new client isn't scale. It's a bigger payroll.**
-  cta: Get your team's week back
-  chart:
-    h: Where a knowledge worker's day goes
-    bars:
-      - { label: Work about work, w: 100, hot: true }
-      - { label: Skilled work, w: 57 }
-      - { label: Strategic work, w: 16 }
-
 levels:
   id: levels
   h2: Where is your company *today?*
-  text: 88% of companies now use AI somewhere, yet nearly two-thirds haven't started scaling it. AI can't scale on scattered data and unwritten processes. Each level stands on the one below, and the audit finds yours.
+  text: 88% of companies now use AI somewhere, yet nearly two-thirds haven't started scaling it.[^4] AI can't scale on scattered data and unwritten processes. Each level stands on the one below, and the audit finds yours.
   cta: Find my level
   word: Level
   most: 4
@@ -90,7 +86,7 @@ benefits:
   items:
     - flow: inbound
       h2: Answer every lead *in minutes, day or night.*
-      text: A reply goes out while the lead is still warm, and the call lands on your calendar. Harvard Business Review found leads contacted within an hour are nearly 7 times more likely to qualify.
+      text: A reply goes out while the lead is still warm, and the call lands on your calendar. Harvard Business Review found leads contacted within an hour are nearly 7 times more likely to qualify.[^5]
       cta: Show me where leads slip
     - flow: admin
       h2: Admin that *runs itself.*
@@ -181,11 +177,11 @@ faq:
   h2: Questions you *should be asking.*
   items:
     - q: How much of our work could software do?
-      a: McKinsey estimates today's AI and automation could handle work that takes up 60 to 70% of employees' time. Not whole jobs. The repetitive parts of every job.
+      a: McKinsey estimates today's AI and automation could handle work that takes up 60 to 70% of employees' time.[^1] Not whole jobs. The repetitive parts of every job.
     - q: We already pay for AI tools. Why isn't it paying off?
-      a: Only 39% of companies see any effect on profit from AI so far (McKinsey, 2025). AI on scattered data gives scattered answers. It pays once your data sits in one place and your work runs on it. That's why the build starts there.
+      a: Only 39% of companies see any effect on profit from AI so far.[^4] AI on scattered data gives scattered answers. It pays once your data sits in one place and your work runs on it. That's why the build starts there.
     - q: Will this replace my team?
-      a: It replaces the copy and paste, not the people. Your team keeps the calls, the relationships and the judgment. In Asana's survey, workers said better processes alone would give them back 4.9 hours a week.
+      a: It replaces the copy and paste, not the people. Your team keeps the calls, the relationships and the judgment. In Asana's survey, workers said better processes alone would give them back 4.9 hours a week.[^6]
     - q: What if our processes aren't written down?
       a: Then that's where the audit starts. Automating a broken process just breaks it faster. So I fix the process first, then automate it.
     - q: Which part should we automate first?
@@ -221,6 +217,7 @@ close:
 ask:
   h2: Find out where you can scale.
   cta: Show me where to start
+  opens_with: bottleneck
   submit: Send
   sending: Sending…
   name: Your name
@@ -229,7 +226,6 @@ ask:
   phone_required: true
   sms_consent: Text me about my request. Msg & data rates may apply. Reply STOP to opt out. [Terms](/terms), [Privacy](/privacy).
   firm: Company website
-  firm_required: true
   required: Required
   bad_email: Enter an email I can reply to.
   error: "That didn't send. Email me instead:"
@@ -238,4 +234,20 @@ ask:
   nofit_h: Thanks. *I've got it.*
   # Says the fit rule in words. Change it with the fit gates in wren's offer.
   nofit: This works best for companies with 10+ people, with the person who can say yes on the call. I'll still read this and reply within a business day.
-  steps: { next: Next, back: Back, pick_one: Pick one to go on., other: Tell me in a few words }
+  steps: { next: Next, back: Back, pick_one: Pick one to go on., other: Tell me in a few words, contact_h: Where can I reach you? }
+
+sources:
+  h: Sources
+  items:
+    - text: "McKinsey Global Institute, \"The economic potential of generative AI: The next productivity frontier\", June 2023"
+      url: https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier
+    - text: "Asana, Anatomy of Work Index 2022, a survey of 10,624 knowledge workers"
+      url: "https://www.nasdaq.com/press-release/asana-anatomy-of-work-index-2022:-work-about-work-hampering-organizational-agility"
+    - text: "Salesforce, State of Sales, 6th edition"
+      url: https://www.salesforce.com/resources/research-reports/state-of-sales/
+    - text: "McKinsey, \"The state of AI in 2025\", November 2025"
+      url: https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai
+    - text: "Harvard Business Review, \"The Short Life of Online Sales Leads\", March 2011, a study of 2,241 companies"
+      url: https://hbr.org/2011/03/the-short-life-of-online-sales-leads
+    - text: "Asana, Anatomy of Work Global Index 2023, a survey of 9,615 knowledge workers"
+      url: "https://www.nasdaq.com/press-release/asana-anatomy-of-work-global-index-2023:-smart-collaboration-and-clear-goals-integral"

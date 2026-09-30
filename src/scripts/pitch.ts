@@ -25,12 +25,34 @@ for (const line of $$('[data-timeline]')) {
   if (motion && rail) gsap.fromTo(rail, { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: line, start: 'top 60%', end: 'bottom 60%', scrub: 0.6 } });
 }
 
+/* ---------- a reload lands where the reader was, not at the top ---------- */
+// Safari restores before fonts and the pinned sections settle, then lands short or at the top. Save the spot on the
+// way out, go back to it at once so the top barely shows, and again once layout is final. A link to #apply or a first
+// visit is left alone. landY is that spot (0 when there's none): what's above its screen bottom shows whole.
+let landY = 0;
+try {
+  const key = `scroll:${location.pathname}`;
+  history.scrollRestoration = 'manual';
+  addEventListener('pagehide', () => { try { sessionStorage.setItem(key, String(scrollY)); } catch {} });
+  const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+  const y = Number(sessionStorage.getItem(key));
+  if (nav?.type === 'reload' && !location.hash && y > 0) {
+    landY = y;
+    const back = () => scrollTo({ top: y, behavior: 'instant' });
+    back();
+    (document.fonts?.ready ?? Promise.resolve()).then(() => (document.readyState === 'complete' ? requestAnimationFrame(back) : addEventListener('load', () => requestAnimationFrame(back), { once: true })));
+  }
+} catch {}
+// Already on screen when the page starts (or on the screen a reload goes back to): shown whole, never hidden to rise
+// back in, so nothing blinks or replays on a reload.
+const seen = (el: Element) => el.getBoundingClientRect().top + scrollY < Math.max(scrollY, landY) + innerHeight;
+
 /* ---------- entrances: nothing waits on a click, everything arrives as it's reached ---------- */
 // Wraps each word in .w>span so it can rise out of its own line box. Keeps inline markup (the *punch* em).
 const words = (el: HTMLElement) => {
   const walk = (n: Node) => {
     for (const c of [...n.childNodes]) {
-      if (c.nodeType === Node.ELEMENT_NODE) { walk(c); continue; }
+      if (c.nodeType === Node.ELEMENT_NODE) { if ((c as Element).tagName !== 'SUP') walk(c); continue; } // a citation stays put
       if (c.nodeType !== Node.TEXT_NODE) continue;
       const frag = document.createDocumentFragment();
       for (const t of c.textContent!.split(/(\s+)/)) {
@@ -50,12 +72,18 @@ const OUT = 'expo.out';
 if (motion) {
   // the first screen waits for the page to be up: at load, or as a slow load's screen lifts (Loader.astro)
   const shown = (window as { wrenShown?: Promise<void> }).wrenShown ?? Promise.resolve();
-  const hero = $$('.hero :is(.kicker,h1,.lede,.promise,.checks,.more,.ctas,.by)');
-  gsap.set(hero, { opacity: 0, y: 20 });
-  root.classList.add('arrived');
-
+  const hero = $$('.hero :is(.kicker,h1,.lede,.promise,.checks,.more,.ctas,.to-form,.by)');
   // the first screen arrives all at once: headline and copy rise together. The form panel is never held back.
-  shown.then(() => gsap.to(hero, { opacity: 1, y: 0, duration: 0.7, ease: OUT, delay: 0.05 }));
+  // A reload that goes back down the page shows it whole.
+  if (!landY) {
+    gsap.set(hero, { opacity: 0, y: 20 });
+    shown.then(() => gsap.to(hero, { opacity: 1, y: 0, duration: 0.7, ease: OUT, delay: 0.05 }));
+  }
+  root.classList.add('arrived');
+  // the form's light runs round its edge until the reader starts on it
+  const panel = $('.hub-hero .panel');
+  if (panel) shown.then(() => panel.classList.add('beam'));
+  panel?.addEventListener('focusin', () => panel.classList.remove('beam'), { once: true });
 
   // the example thread plays out: a message, the other side typing, the reply, what it means
   const scene = $('[data-scene]');
@@ -73,19 +101,19 @@ if (motion) {
   });
 
   // section headings: word by word, as each comes into view
-  for (const h of $$('.sec h2, .close h2')) {
+  for (const h of $$('.sec h2, .close h2').filter((x) => !seen(x))) {
     gsap.fromTo(words(h), { yPercent: 110 }, { yPercent: 0, duration: 1.1, ease: OUT, stagger: 0.05, scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
   }
 
   // blocks rise in, in reading order, a few at a time
-  const ups = $$('.sec .intro, .qs li, .pain>*, .target, .problem .btn, .agitate .btn, .say p, .say .btn, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .case, .window, .table, .about .photo, .about .para, .sign, .qa>div, .first3 .st, .start .say>*, .close .head>p, .close .btn, .vs p, .sec .wrap>.btn, .sec .head>.btn');
+  const ups = $$('.sec .intro, .qs li, .pain>*, .target, .problem .btn, .agitate .btn, .say p, .say .btn, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .case, .window, .table, .about .photo, .about .para, .sign, .qa>div, .first3 .st, .start .say>*, .close .head>p, .close .btn, .vs p, .sec .wrap>.btn, .sec .head>.btn').filter((x) => !seen(x));
   gsap.set(ups, { opacity: 0, y: 48 });
   ScrollTrigger.batch(ups, { start: 'top 90%', once: true, onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: OUT, stagger: 0.08, overwrite: true }) });
 
   // pictures wipe open from alternate sides, settle, then drift a little against the scroll
   $$('[data-shot]').forEach((s, k) => {
     const pic = s.firstElementChild as HTMLElement;
-    gsap.timeline({ scrollTrigger: { trigger: s, start: 'top 85%', once: true } })
+    if (!seen(s)) gsap.timeline({ scrollTrigger: { trigger: s, start: 'top 85%', once: true } })
       .fromTo(s, { clipPath: k % 2 ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'expo.inOut' })
       .fromTo(pic, { scale: 1.35 }, { scale: 1.12, duration: 1.8, ease: OUT }, 0.1);
     gsap.fromTo(pic, { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: s, start: 'top bottom', end: 'bottom top', scrub: true } });
@@ -96,6 +124,11 @@ if (motion) {
     rows: (el, tl) => tl
       .fromTo($$('li', el), { opacity: 0, x: -24 }, { opacity: 1, x: 0, stagger: 0.14 })
       .fromTo($$('.mk', el), { scale: 0 }, { scale: 1, stagger: 0.14, duration: 0.6, ease: 'back.out(3)' }, 0.4),
+    // the day as it is and as it should be: each bar fills left to right, part by part, then the legend
+    day: (el, tl) => {
+      $$('.day-bar', el).forEach((bar, i) => tl.fromTo($$('i', bar), { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.8, stagger: 0.35, ease: 'power2.inOut' }, i * 0.9));
+      return tl.fromTo($$('.legend li', el), { opacity: 0 }, { opacity: 1, stagger: 0.1, duration: 0.5 });
+    },
     bars: (el, tl) => tl
       .fromTo($$('i', el), { scaleX: 0 }, { scaleX: 1, duration: 1.3, stagger: 0.14 })
       .fromTo($$('span', el), { opacity: 0 }, { opacity: 1, stagger: 0.14 }, 0),
@@ -136,16 +169,16 @@ if (motion) {
       .fromTo($$('.g-axis i', el), { opacity: 0 }, { opacity: 1, stagger: 0.04, duration: 0.4 })
       .fromTo($$('b', el), { scaleX: 0 }, { scaleX: 1, duration: 1.1, stagger: 0.18 }, 0.2),
   };
-  for (const el of $$('[data-art]')) {
+  for (const el of $$('[data-art]').filter((x) => !seen(x))) {
     ART[el.dataset.art!]?.(el, gsap.timeline({ defaults: { ease: OUT, duration: 0.9 }, scrollTrigger: { trigger: el, start: 'top 85%', once: true } }));
   }
 
-  // proof figures count up to their number
-  for (const f of $$('.fig')) {
+  // proof figures count up to their number, in a box held at the final number's width so nothing beside it moves
+  for (const f of $$('.fig .n').filter((x) => !seen(x))) {
     const m = /^([\d,]+)(.*)$/.exec(f.textContent!.trim()), end = m ? Number(m[1].replace(/,/g, '')) : 0;
     if (!m || end < 10) continue;
     const o = { v: 0 };
-    gsap.to(o, { v: end, duration: 1.8, ease: OUT, onUpdate: () => { f.textContent = fmt(o.v) + m[2]; }, scrollTrigger: { trigger: f, start: 'top 90%', once: true } });
+    gsap.to(o, { v: end, duration: 1.8, ease: OUT, onStart: () => { f.style.minWidth = `${f.getBoundingClientRect().width}px`; }, onUpdate: () => { f.textContent = fmt(o.v) + m[2]; }, scrollTrigger: { trigger: f, start: 'top 90%', once: true } });
   }
 
   // a section on its way out dims and lifts, so the next one reads as a new slide
@@ -517,21 +550,6 @@ if (flowsBox) {
   }
 }
 
-/* ---------- a reload lands where the reader was, not at the top ---------- */
-// Safari restores before fonts and the pinned sections settle, then lands short or at the top. Save the spot on the
-// way out and put it back once layout is final. A link to #apply or a first visit is left alone.
-try {
-  const key = `scroll:${location.pathname}`;
-  history.scrollRestoration = 'manual';
-  addEventListener('pagehide', () => { try { sessionStorage.setItem(key, String(scrollY)); } catch {} });
-  const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
-  const y = Number(sessionStorage.getItem(key));
-  if (nav?.type === 'reload' && !location.hash && y > 0) {
-    const back = () => requestAnimationFrame(() => scrollTo({ top: y, behavior: 'instant' }));
-    (document.fonts?.ready ?? Promise.resolve()).then(() => (document.readyState === 'complete' ? back() : addEventListener('load', back, { once: true })));
-  }
-} catch {}
-
 /* ---------- a nav menu: hover and focus open it in CSS; a tap toggles it, Escape or a tap outside closes it ---------- */
 for (const m of $$('[data-menu]')) {
   const btn = $<HTMLButtonElement>('button', m)!;
@@ -542,7 +560,7 @@ for (const m of $$('[data-menu]')) {
   for (const a of $$('a', m)) a.addEventListener('click', () => { set(false); (document.activeElement as HTMLElement | null)?.blur(); });
 }
 
-/* ---------- the form: contact details, then one question at a time, then fetch ---------- */
+/* ---------- the form: contact details (after an opening question, on the hub), then one question at a time, then fetch ---------- */
 const box = $('[data-apply]');
 if (box) {
   const form = $<HTMLFormElement>('form', box)!;
@@ -624,7 +642,7 @@ if (box) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (cur < steps.length - 1) { advance(); return; } // Enter in a field before the last step moves on
-    if (!contactOk()) { if (steps.length > 1) show(0); $<HTMLElement>('.field.invalid input', form)?.focus(); return; }
+    if (!contactOk()) { if (steps.length > 1) show(steps.findIndex((s) => 'contact' in s.dataset)); $<HTMLElement>('.field.invalid input', form)?.focus(); return; }
     const label = $('span', submit)!, was = label.textContent;
     submit.disabled = true; label.textContent = submit.dataset.sending || was;
     let state = 'error', booking: string | null = null;

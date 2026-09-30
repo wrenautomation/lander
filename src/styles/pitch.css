@@ -41,6 +41,12 @@ body{position:relative;background:none;color:var(--ink);font-family:var(--sans);
    from 8vh low to 8vh high over the whole read. Wide enough on a phone to run off both edges. */
 .backdrop{position:fixed;inset:0;z-index:-1;display:grid;place-items:center;overflow:hidden;pointer-events:none}
 .backdrop svg{width:max(560px,min(76vw,1080px));height:auto;color:var(--ink);opacity:.035;transform:translate3d(0,calc(8vh - var(--p,.5) * 16vh),0)}
+/* a dark band's copy: fixed like the page's bird, but clipped to its band (clip-path on the band clips fixed children),
+   so the one bird reads as cream across the rust */
+.close,.foot{position:relative;clip-path:inset(0)}
+.close>.wrap,.foot>.wrap{position:relative;z-index:1}
+.backdrop.dark{z-index:0}
+.backdrop.dark svg{color:var(--cream);opacity:.07}
 
 /* the load screen (Loader.astro): only while a slow load keeps going past 400ms. The mark fills rust from the feet up
    toward 80% with a rule drawing under it; when the page is ready both finish, then the screen lifts as the hero rises.
@@ -127,6 +133,12 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 .drop a:hover,.drop a:focus-visible{background:var(--paper-2)}
 .drop b{font-weight:600;color:var(--ink)}
 .drop span{font-size:13px;color:var(--ink-2)}
+/* what the service is, one line, opened under it on hover or focus (always open where there's no hover) */
+.drop .what{display:grid;grid-template-rows:0fr;font-style:normal;transition:grid-template-rows .3s var(--out)}
+.drop .what span{overflow:hidden;min-height:0;white-space:nowrap;color:var(--ink);transition:padding-top .3s var(--out)}
+.drop a:is(:hover,:focus-visible) .what{grid-template-rows:1fr}
+.drop a:is(:hover,:focus-visible) .what span{padding-top:6px}
+@media (hover:none){.drop .what{grid-template-rows:1fr}.drop .what span{padding-top:6px;white-space:normal}}
 .top .btn{margin-left:auto}
 .links+.btn,.links+.contact{margin-left:0}
 .top .contact{font-size:14.5px;font-weight:500;padding-left:clamp(16px,2.4vw,32px);border-left:1px solid var(--rule)}
@@ -329,7 +341,15 @@ label.field small{font-size:12px;margin-left:6px}
 
 /* ---------- sections: one sheet, joined on rules ---------- */
 .sec{border-top:1px solid var(--rule);padding-block:clamp(72px,10vw,148px)}
+/* every other section sits on a faint warm band, so the eye gets a break between screens; translucent, so the
+   bird behind still shows through */
+main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .head.wide{max-width:58rem;margin-bottom:clamp(40px,5vw,76px)}
+/* a pitch page runs tighter than the hub: each band starts close to its heading, the heading close to what it heads */
+.pitch:not(.hub) .sec{padding-block:clamp(48px,5.5vw,88px)}
+.pitch:not(.hub) :is(.agitate,.benefits){padding-block:clamp(40px,4.5vw,72px)}
+.pitch:not(.hub) .head.wide{margin-bottom:clamp(24px,3vw,44px)}
+.pitch:not(.hub) .close{padding-top:clamp(56px,6vw,96px)}
 @media (min-width:900px){
   .grid>.head{grid-column:1/6}
   .grid>:not(.head){grid-column:7/13}
@@ -696,7 +716,9 @@ label.field small{font-size:12px;margin-left:6px}
 /* proof: the figure is the loudest thing on the line */
 .figs{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.4vw,20px)}
 .figs>div{padding:clamp(22px,2.4vw,34px);border:1px solid var(--rule);border-radius:var(--r);background:#fff;box-shadow:0 1px 2px rgba(14,14,14,.04)}
-.fig{display:block;font-size:clamp(2.9rem,1.8rem + 3.2vw,4.9rem);font-weight:500;letter-spacing:-.04em;line-height:1}
+.fig .n{display:inline-block;font-variant-numeric:tabular-nums}
+.fig small{margin-left:.28em;font-size:.34em;font-weight:500;letter-spacing:-.01em}
+.fig{display:block;white-space:nowrap;font-size:clamp(2.9rem,1.8rem + 3.2vw,4.9rem);font-weight:500;letter-spacing:-.04em;line-height:1}
 .lbl{font-weight:600;margin-top:16px}
 .figs p:last-child{color:var(--ink-2);margin-top:4px;max-width:30em}
 @media (max-width:760px){
@@ -765,3 +787,9 @@ label.field small{font-size:12px;margin-left:6px}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
 }
+
+/* a citation: a small raised number linking to its entry in the sources list */
+.cite{font-size:.62em;line-height:0;vertical-align:super;margin-left:.1em;font-weight:500;letter-spacing:0}
+.cite a{color:var(--ink-3);text-decoration:none}
+.cite a:hover{color:var(--acc)}
+h2 .cite{font-size:.36em}

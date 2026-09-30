@@ -7,11 +7,14 @@ export const plain = (s: string) => s.replace(/\*\*/g, '');
 export const paras = (s: string) => s.trim().split(/\n\s*\n/).map((p) => `<p>${inline(p.trim())}</p>`).join('');
 
 // Pitch pages: *word* is the serif italic accent, **word** is ink. Headings and body alike.
-export const rich = (s: string) => inline(s).replace(/\*(.+?)\*/g, '<em>$1</em>');
+// [^2] is a citation: a superscript 2 linking to the second entry of the page's sources list.
+export const CITE = /\[\^(\d+)\]/g;
+export const rich = (s: string) => inline(s).replace(/\*(.+?)\*/g, '<em>$1</em>')
+  .replace(CITE, '<sup class="cite"><a href="#source-$1" aria-label="Source $1">$1</a></sup>');
 // Fine print that points at this site's own pages: [Terms](/terms). Only site paths, so copy can't link out.
 export const linked = (s: string) => rich(s).replace(/\[(.+?)\]\((\/[a-z0-9/-]*)\)/g, '<a href="$2">$1</a>');
 export const richParas = (s: string) => s.trim().split(/\n\s*\n/).map((p) => `<p>${rich(p.trim())}</p>`).join('');
-export const bare = (s: string) => s.replace(/\*+/g, '');
+export const bare = (s: string) => s.replace(CITE, '').replace(/\*+/g, '');
 
 // {slots} and {days} in a pitch's copy come from its offer, so a changed term changes every page that says it.
 // An unknown token, or one the offer leaves empty, fails the build.

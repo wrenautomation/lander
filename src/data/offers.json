@@ -526,6 +526,34 @@
       "application": {
         "questions": [
           {
+            "id": "bottleneck",
+            "ask": "What's your main bottleneck?",
+            "kind": "one",
+            "required": true,
+            "choices": [
+              {
+                "id": "leads",
+                "label": "Getting leads and following up"
+              },
+              {
+                "id": "hiring",
+                "label": "Hiring and onboarding"
+              },
+              {
+                "id": "admin",
+                "label": "Admin, timesheets and invoicing"
+              },
+              {
+                "id": "data",
+                "label": "Data spread across too many tools"
+              },
+              {
+                "id": "other",
+                "label": "Something else"
+              }
+            ]
+          },
+          {
             "id": "level",
             "ask": "Where is your company today?",
             "kind": "one",
@@ -550,30 +578,6 @@
               {
                 "id": "l5_scale",
                 "label": "Level 5: we're scaling what's built"
-              }
-            ]
-          },
-          {
-            "id": "struggles",
-            "ask": "What's slowing you down? Pick any.",
-            "kind": "many",
-            "required": true,
-            "choices": [
-              {
-                "id": "repetitive",
-                "label": "Repetitive work and internal busywork"
-              },
-              {
-                "id": "leads",
-                "label": "Not enough leads, or leads slipping"
-              },
-              {
-                "id": "hiring",
-                "label": "Hiring and training take too long"
-              },
-              {
-                "id": "tracking",
-                "label": "Work is hard to track"
               }
             ]
           },

@@ -11,7 +11,7 @@ const { s } = Astro.props as { s: CollectionEntry<'hub'>['data']['levels'] };
 <section class="sec levels" id={s.id}>
   <div class="wrap">
     <div class="head wide">
-      <div><h2 set:html={rich(s.h2)} /><p class="intro">{s.text}</p></div>
+      <div><h2 set:html={rich(s.h2)} /><p class="intro" set:html={rich(s.text)} /></div>
       <a class="btn" href="#apply" data-cta><span>{s.cta}</span><Arrow /></a>
     </div>
     <ol class="stairs" data-art="levels">

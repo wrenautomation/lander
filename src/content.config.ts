@@ -186,7 +186,8 @@ const art = z.discriminatedUnion('kind', [
 const step = z.strictObject({ when: z.string(), name: z.string(), text: z.string(), art: art.optional() });
 // The parts / and the pitch pages share: nav, the build, proof, about, the FAQ and the form.
 // an item with a `menu` opens a small list of links (the hub's services: every service, and each niche's page)
-const nav = z.array(z.strictObject({ label: z.string(), to: z.string(), menu: z.array(z.strictObject({ label: z.string(), note: z.string().optional(), to: z.string() })).min(1).optional() }));
+// a menu item's `what` is one line on what the service is, opened on hover or focus
+const nav = z.array(z.strictObject({ label: z.string(), to: z.string(), menu: z.array(z.strictObject({ label: z.string(), note: z.string().optional(), what: z.string().optional(), to: z.string() })).min(1).optional() }));
 // A card that links to a page: when it names an offer, that offer must be live and its page must be `to`,
 // and {slots} and {days} in the card fill from it.
 const card = z.strictObject({ name: z.string(), text: z.string(), to: z.string(), go: z.string(), badge: z.string().optional(), offer: z.string().optional() });
@@ -214,7 +215,8 @@ const ask = z.strictObject({
   h2: z.string(), intro: z.string().optional(),
   assure: z.string().optional(),    // one line under the form's button, on every step
   submit: z.string(), sending: z.string(),
-  cta: z.string().optional(),       // the first step's button (contact details), when the form steps
+  cta: z.string().optional(),       // the first step's button, when the form steps
+  opens_with: z.string().optional(), // a question (its id in the offer) asked before the contact details
   name: z.string(), email: z.string(), phone: z.string(), sms_consent: z.string(),
   phone_required: z.boolean().optional(), // a page that calls back fast needs the number
   firm: z.string().optional(), firm_required: z.boolean().optional(), // the company website; optional unless set
@@ -304,8 +306,9 @@ const pitches = defineCollection({
 });
 
 // The hub (/): Wren as a whole, for anyone who lands without a service link. Laid out on the B2B landing template:
-// hero (proof line, dream outcome, checks, button) with the form beside it, proof cards, the pain, case studies once real,
-// three benefits (diagrams), about, a comparison table, how it works, FAQ, the recap. One button per section.
+// hero (proof line, dream outcome, checks, a line to the form) with the form beside it, the pain, proof cards, case studies
+// once real, three benefits (diagrams), about, a comparison table, how it works, FAQ, the recap, the sources.
+// One button per section.
 const mark = z.enum(['yes', 'no']);
 const svcEnd = z.strictObject({ icon: z.enum(['person', 'mail', 'doc', 'cal', 'invoice', 'check', 'stack', 'record', 'search']), label: z.string(), note: z.string() });
 const hub = defineCollection({
@@ -317,14 +320,21 @@ const hub = defineCollection({
       h1: z.string(),
       lede: z.string(),
       checks: z.array(z.string()).length(3),
-      cta: z.string(),
-      friction: z.string(),             // one line under the button that takes the risk out
+      to_form: z.string(),              // one line pointing at the form beside it (below it on a phone)
     }),
     proof: proof.omit({ intro: true }).extend({ cta: z.string() }),
-    // the biggest pain, with a chart of where the week goes beside it (relative bars, no numbers)
+    // the biggest pain, right under the first screen: a full-width headline, then the words beside a chart of the
+    // day as it is and as it should be. Each row is one bar split into parts that add up to 100; pct prints a
+    // part's share on it (sourced rows only). One legend under the rows names each label once.
     pain: z.strictObject({
       id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
-      chart: z.strictObject({ h: z.string(), bars: z.array(z.strictObject({ label: z.string(), w: z.number().min(1).max(100), hot: z.boolean().optional() })).min(2).max(5) }),
+      chart: z.strictObject({
+        h: z.string(),
+        rows: z.array(z.strictObject({
+          h: z.string(),
+          parts: z.array(z.strictObject({ label: z.string(), w: z.number().min(1).max(100), tone: z.enum(['hot', 'win', 'ink']), pct: z.boolean().optional() })).min(1).max(4),
+        }).refine((r) => r.parts.reduce((t, x) => t + x.w, 0) === 100, 'a row\'s parts add up to 100')).min(2).max(3),
+      }),
     }),
     // the five levels a company climbs, as steps (Levels.astro); `most` is the level most companies are on
     levels: z.strictObject({
@@ -372,6 +382,8 @@ const hub = defineCollection({
     about,
     close,
     ask,
+    // every outside figure on the page carries a [^n] marker to entry n here; the list sits under the recap
+    sources: z.strictObject({ h: z.string(), items: z.array(z.strictObject({ text: z.string(), url: z.url() })).min(1) }),
   }),
 });
 
