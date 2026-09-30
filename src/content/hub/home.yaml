@@ -78,18 +78,19 @@ values:
 
 levels:
   id: levels
-  h2: Where is your company *today?*
-  text: 88% of companies now use AI somewhere, yet nearly two-thirds haven't started scaling it.[^3] AI can't scale on scattered data and unwritten processes. Each level stands on the one below. I build every one, starting from yours.
+  h2: Most companies *start at step four.*
+  text: 88% of companies now use AI somewhere, yet nearly two-thirds haven't started scaling it.[^3] AI can't stand on scattered data and unwritten processes. Each step holds up the one above. I find where yours is missing and build from there.
   cta: Find my level
   word: Level
   most: 4
-  most_note: Where most companies stall
+  most_note: Where most companies jump in
+  fall: Nothing under it
   items:
-    - { name: Written processes, was: "How work gets done lives in people's heads.", now: "Every job mapped, written down and proven by hand." }
-    - { name: One clean CRM, was: Clients spread over five tools and a spreadsheet., now: "One record of every client, lead and hire." }
-    - { name: Workflows, was: Every handoff done by hand., now: "Lead gen, hiring, onboarding and admin run on their own." }
-    - { name: AI at work, was: AI tools with answers nobody trusts., now: "AI does the research, outreach and summaries. Your team decides." }
-    - { name: Scale, was: Growth eats the margin., now: "More volume on the same team, watched and tuned as it grows." }
+    - { name: Written processes, breaks: "How work gets done lives in people's heads." }
+    - { name: One clean CRM, breaks: Clients spread over five tools and a spreadsheet. }
+    - { name: Workflows, breaks: Every handoff done by hand. }
+    - { name: AI at work, breaks: AI tools with answers nobody trusts. }
+    - { name: Scale, breaks: Growth eats the margin. }
 
 catalog:
   id: services

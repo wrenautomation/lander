@@ -1,7 +1,8 @@
 ---
-// The five levels a company climbs, as a staircase: each step a block that rises one higher, its name below, then
-// the pain without it (red cross) and what I build (green check), and a pin over the level most companies are on. The words sit beside it with one button. The markup
-// is the finished state; pitch.ts (ART.levels) raises the steps one at a time, then drops the pin.
+// The five levels, as a staircase: each step a block one higher than the last, its name below, then what breaks
+// without it (red cross), and a pin over the level most companies jump in at. Each step sits on a dashed outline of
+// itself. The markup is the finished state; pitch.ts (ART.levels) tells the story: the pinned level goes up alone,
+// shakes with nothing under it and falls, then the steps build in order.
 import type { CollectionEntry } from 'astro:content';
 import { rich } from '../../lib/text';
 import Arrow from './Arrow.astro';
@@ -19,11 +20,10 @@ const { s } = Astro.props as { s: CollectionEntry<'hub'>['data']['levels'] };
         <li class:list={{ most: i + 1 === s.most }} style={`--h:${i + 1}`}>
           <div class="rise">
             {i + 1 === s.most && <span class="pin">{s.most_note}</span>}
-            <i class="block"><b>{s.word} {i + 1}</b></i>
+            <i class="block"><b>{s.word} {i + 1}</b>{i + 1 === s.most && <em class="oops" aria-hidden="true">{s.fall}</em>}</i>
           </div>
           <h3>{x.name}</h3>
-          <p class="was">{x.was}</p>
-          <p class="now">{x.now}</p>
+          <p class="breaks">{x.breaks}</p>
         </li>
       ))}
     </ol>

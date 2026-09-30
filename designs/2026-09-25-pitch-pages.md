@@ -257,6 +257,11 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   catching a failure, a running-cost bar per job, the first job picked from a ranked set. Names say it
   straight ("No extra work for you", "Built for real-world cases", "Built around your team"). The cost card
   reports running cost only, not hours saved. Scenes carry no numbers.
+- **D59 (2026-09-30): Levels as stairs climbed out of order.** Headline "Most companies start at step four."
+  The pin marks where most jump in. The animation: level 4 appears alone as a slab over empty dashed
+  outlines, turns red ("Nothing under it"), shakes and falls; then levels 1 to 5 build in order. Each level
+  now says only what breaks without it. What I build lives in the roadmap, so no claim repeats. Closes the
+  open analogy and overlap from D56.
 
 ## Next
 

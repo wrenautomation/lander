@@ -337,17 +337,18 @@ const hub = defineCollection({
         points: z.array(z.strictObject({ label: z.string(), pct: z.number().min(0).max(100), aim: z.number().min(0).max(100) })).min(3).max(6),
       }),
     }),
-    // the five levels a company climbs, as steps (Levels.astro); `most` is the level most companies are on
     // what makes it stick: cards of a small animated scene, a name and a few sentences
     values: z.strictObject({
       id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
       items: z.array(z.strictObject({ art: z.enum(['handled', 'messy', 'charge', 'watched', 'cost', 'first']), name: z.string(), text: z.string() })).min(3).max(6),
     }),
+    // the five levels a company climbs, as steps (Levels.astro); `most` is the level most companies jump in at, `fall`
+    // the words on it as it falls with nothing under it
     levels: z.strictObject({
       id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
       word: z.string(),                 // "Level", before each number
-      most: z.number().int().min(1).max(5), most_note: z.string(),
-      items: z.array(z.strictObject({ name: z.string(), was: z.string(), now: z.string() })).length(5), // was: the pain today; now: what I build
+      most: z.number().int().min(1).max(5), most_note: z.string(), fall: z.string(),
+      items: z.array(z.strictObject({ name: z.string(), breaks: z.string() })).length(5), // breaks: what goes wrong without this step
     }),
     // real builds only, each as the level it started on, the level it reached, before and now. Left out until there are some.
     cases: z.strictObject({

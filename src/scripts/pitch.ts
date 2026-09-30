@@ -192,15 +192,33 @@ if (motion) {
       }
       return tl;
     },
-    // the five levels: each step rises, then its name; the pin drops on the level most companies are on
+    // the five levels, out of order then in order: the pinned step goes up alone over empty outlines, shakes with
+    // nothing under it and falls; then every step builds from the bottom, each with its name and what breaks without it
     levels: (el, tl) => {
-      $$('li', el).forEach((li, i) => {
-        const flat = matchMedia('(max-width: 899px)').matches; // phones lay the steps as bars growing right
-        tl.fromTo($('.block', li), flat ? { scaleX: 0 } : { scaleY: 0 }, flat ? { scaleX: 1, duration: 0.5, ease: 'power2.out' } : { scaleY: 1, duration: 0.5, ease: 'power2.out' }, i * 0.4)
-          .fromTo($$('h3, p', li), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 }, i * 0.4 + 0.2);
+      const flat = matchMedia('(max-width: 899px)').matches; // phones lay the steps as bars growing right
+      const grow = flat ? 'scaleX' : 'scaleY', lis = $$('li', el), jump = $('.most .block', el), pin = $('.pin', el);
+      lis.forEach((li) => tl.fromTo($('.block', li), { [grow]: 0 }, { [grow]: 0, duration: 0.01 }, 0));
+      tl.fromTo($$('h3, p', el), { opacity: 0, y: 10 }, { opacity: 0, y: 10, duration: 0.01 }, 0);
+      let t = 0.2;
+      if (jump) {
+        const oops = $('.oops', jump)!;
+        // just its top, hanging at its height with empty outlines below; a phone shows the whole bar
+        const hide = flat ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 100% 0%)', slab = flat ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 68% 0% round 10px)';
+        tl.set(jump, { [grow]: 1 }, t)
+          .fromTo(jump, { clipPath: hide }, { clipPath: slab, duration: 0.5, ease: 'power2.out' }, t);
+        if (pin) tl.fromTo(pin, { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(2)' }, t + 0.3);
+        tl.to(jump, { outlineColor: 'rgb(210,40,30)', backgroundColor: 'rgb(253,238,236)', duration: 0.3 }, t + 1.1)
+          .fromTo(oops, { opacity: 0 }, { opacity: 1, duration: 0.3 }, t + 1.1)
+          .to(jump, { x: 3, duration: 0.05, repeat: 7, yoyo: true, ease: 'none' }, t + 1.2)
+          .to(jump, { y: 120, rotation: 5, opacity: 0, duration: 0.5, ease: 'power2.in' }, t + 1.9)
+          .set(oops, { opacity: 0 }, t + 2.4)
+          .set(jump, { clearProps: 'clipPath,outlineColor,backgroundColor', y: 0, rotation: 0, opacity: 1, [grow]: 0 }, t + 2.4);
+        t += 2.8;
+      }
+      lis.forEach((li, i) => {
+        tl.to($('.block', li), { [grow]: 1, duration: 0.5, ease: 'power2.out' }, t + i * 0.45)
+          .to($$('h3, p', li), { opacity: 1, y: 0, duration: 0.5 }, t + i * 0.45 + 0.2);
       });
-      const pin = $('.pin', el);
-      if (pin) tl.fromTo(pin, { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(2)' });
       return tl;
     },
     gantt: (el, tl) => tl
