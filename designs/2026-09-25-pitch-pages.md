@@ -176,15 +176,16 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
 - **D48 (2026-09-30): The hub's copy, on William's brief.** "a complete scalability tech integration
   thing": software for every part of a company that has to scale (lead gen, hiring outreach, admin,
   timesheets, onboarding), with AI on research and summaries, and "a lot of info" to teach the market.
-  Headline: "What if growing took *less work*, not more?" (2026-09-30, his pick from ten). Market facts (Asana, Salesforce,
+  Headline: "What if scaling took *less work*, not more?" (2026-09-30, his pick from ten, "scaling" his word). Market facts (Asana, Salesforce,
   HBR, McKinsey) sit in the prose of the pain, levels, benefits and FAQ, one fact per place, sources
   in the YAML header. Cases are optional and left out until there are real client builds; the proof
   cards carry the Government of Canada and University of Alberta work. The catalog keeps six rows (two
   per group) so it reads on one screen; lead reactivation is the Growth group's link. The level pin
   sits on level 4, "Where most companies stall", beside McKinsey's two-thirds not yet scaling AI.
   Hero, on his note: the proof line says the software works past the demo (he has shipped production
-  systems), and the three checks are deliverables as short Title Case tags. The guarantee moved to the
-  after-launch FAQ.
+  systems), and the three checks are deliverables as short Title Case tags: busywork cut by up to 60%
+  (McKinsey's low end, a ceiling), a fully managed integrated system, aligned with the business's goals.
+  The guarantee moved to the after-launch FAQ.
 
 ## Next
 

@@ -12,7 +12,8 @@
 #   About 70% of a sales rep's time on non-selling tasks: Salesforce, State of Sales, 6th edition.
 #   Nearly 7x more likely to qualify a lead contacted within an hour: Harvard Business Review, "The Short Life
 #     of Online Sales Leads", March 2011 (2,241 companies).
-#   Work that absorbs 60 to 70% of employees' time could be automated: McKinsey, "The economic potential of
+#   Work that absorbs 60 to 70% of employees' time could be automated (the hero's "up to 60%" check
+#     takes the low end, as a ceiling, not a measured result): McKinsey, "The economic potential of
 #     generative AI", June 2023.
 #   88% use AI in at least one function, nearly two-thirds not yet scaling it, 39% report any EBIT impact:
 #     McKinsey, "The state of AI in 2025", November 2025.
@@ -35,12 +36,12 @@ nav_cta: Get in touch
 
 hero:
   proof: Works past the demo. Built by an engineer who's shipped production systems.
-  h1: "What if growing took *less work*, not more?"
-  lede: "Growing usually means more follow-ups, more hires to onboard, more hours to track. We build integrated software that takes that work off your team: lead gen, hiring outreach, onboarding, timesheets, admin, or anything else that slows you down."
+  h1: "What if scaling took *less work*, not more?"
+  lede: "Scaling usually means more follow-ups, more hires to onboard, more hours to track. We build integrated software that takes that work off your team: lead gen, hiring outreach, onboarding, timesheets, admin, or anything else that slows you down."
   checks:
-    - Eliminate Busywork
-    - Fully Managed Systems
-    - One Dedicated Engineer
+    - Reduce Busywork by Up to 60%
+    - Fully Managed, Integrated System
+    - Aligned With Your Business Goals
   cta: Find where you can scale
   friction: Two minutes, four questions, no commitment.
 
