@@ -1,0 +1,5 @@
+name = "wren-www-to-apex"
+main = "index.js"
+compatibility_date = "2026-09-01"
+workers_dev = false
+routes = [{ pattern = "www.wrenautomation.com/*", zone_name = "wrenautomation.com" }]

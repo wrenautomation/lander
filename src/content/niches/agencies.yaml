@@ -6,6 +6,7 @@
 #   About 1 in 100 fields typed by hand is wrong: the long-run human-factors figure, also Panko.
 hue: red
 title: Wren Automation for agencies
+description: Type the client in once. Every tool that needs it follows. I build the connection inside the tools you already pay for. No new platform, no new hire.
 h1: Type the **client** in once. Every tool that needs it follows.
 lede: |
   Somebody at your shop typed the same client into a fifth tool this week. CRM, board, Friday timesheet, invoice, notes doc.

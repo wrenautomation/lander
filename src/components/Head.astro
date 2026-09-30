@@ -1,19 +1,24 @@
 ---
-// Everything in <head> every page shares: meta, social cards, icons, fonts. Layouts add their own scripts after it.
+// Everything in <head> every page shares: meta, social cards, structured data, icons, fonts. Layouts add their own scripts after it.
+import { getEntry } from 'astro:content';
+import { structuredData, type QA, type Service } from '../lib/structured-data';
 const FONTS = 'https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Instrument+Serif:ital@0;1&display=swap';
-const { title, description, image = '/brand/wren-lockup.png', noindex = false, fonts = FONTS, theme } = Astro.props as {
+const { title, description, image = '/brand/wren-lockup.png', noindex = false, fonts = FONTS, theme, faq, services } = Astro.props as {
   title: string; description: string; image?: string; noindex?: boolean;
   fonts?: string; theme?: string; // a layout with its own type and one fixed theme colour
+  faq?: QA[]; services?: Service[]; // the page's questions and what it sells, for the structured data
 };
 // build.format 'file' gives pathname "/x.html"; the served URL is "/x" (Pages redirects .html away)
 const canonical = new URL(Astro.url.pathname.replace(/(?:\/?index)?\.html$/, ''), Astro.site);
+const site = (await getEntry('site', 'site'))!.data;
+// a noindex page (404) gets neither a canonical nor structured data: there is nothing there to point search at
+const ld = !noindex && structuredData({ site, url: canonical, title, description, faq, services });
 ---
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content={description}>
-<link rel="canonical" href={canonical}>
-{noindex && <meta name="robots" content="noindex">}
+{noindex ? <meta name="robots" content="noindex"> : <link rel="canonical" href={canonical}>}
 <link rel="icon" href="/brand/wren-icon.png">
 <link rel="apple-touch-icon" href="/brand/wren-icon.png">
 {theme ? <meta name="theme-color" content={theme}> : <>
@@ -27,6 +32,7 @@ const canonical = new URL(Astro.url.pathname.replace(/(?:\/?index)?\.html$/, '')
 <meta property="og:description" content={description}>
 <meta property="og:image" content={new URL(image, Astro.site)}>
 <meta name="twitter:card" content="summary_large_image">
+{ld && <script type="application/ld+json" set:html={ld} />}
 {fonts === FONTS ? <>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -3,7 +3,8 @@
 # that doesn't hang on one rainmaker) and less busywork for their team.
 # The questions on the form and the fit rule come from the offer in wren (packages/offers), not from
 # this file. Prices stay off the page.
-title: Wren Automation for recruiting companies
+# title and description: the search result. What someone would type goes first; ~60 and ~155 characters.
+title: Lead reactivation for recruiting companies | Wren Automation
 description: Win new clients from the past clients already in your ATS, with a personalized lead reactivation system that books the meetings.
 path: /recruiting/lead-reactivation
 offer: reactivation

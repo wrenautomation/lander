@@ -153,3 +153,4 @@ dist
 # impeccable: review captures and question pages are per-session
 .impeccable/review/
 .impeccable/questions/
+.indexnow

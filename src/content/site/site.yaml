@@ -5,6 +5,11 @@
 name: William Jin
 email: william@wrenautomation.com
 city: Toronto
+# Wren's own profiles elsewhere, read by search engines as the same company (structured data, never shown). Live ones only.
+profiles:
+  - https://www.linkedin.com/company/wrenautomation
+  - https://www.youtube.com/channel/UCJvP02ENWoDeOZxec-hoz9Q
+  - https://www.instagram.com/wrenautomation
 
 # Top bar. Order is fixed; words are yours.
 nav:

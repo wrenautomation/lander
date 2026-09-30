@@ -14,6 +14,7 @@ const niches = defineCollection({
   schema: z.strictObject({
     hue: z.enum(['rust', 'green', 'red']),
     title: z.string(),            // <title> and the email subject line
+    description: z.string().optional(), // the search result snippet, ~155 characters; the lede when left out
     h1: z.string(),               // **bold** allowed: the accent colour
     lede: z.string(),             // **bold** allowed
     who: z.string(),              // one line under the hero button, next to the photo. **bold** allowed
@@ -68,6 +69,7 @@ const site = defineCollection({
     name: z.string(),
     email: z.string(),
     city: z.string(),
+    profiles: z.array(z.url()),   // Wren's own live profiles elsewhere; search engines read them as the same company
     nav: z.strictObject({ work: z.string(), offer: z.string(), about: z.string(), contact: z.string() }),
     theme: z.strictObject({ to_dark: z.string(), to_light: z.string() }),
     cta: z.string(),

@@ -1,4 +1,4 @@
-# Every push to main: check, build, deploy to Cloudflare Pages.
+# Every push to main: check, build, deploy to Cloudflare Pages, tell IndexNow engines which pages changed.
 # Secrets on the GitHub repo: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID, PUBLIC_CF_ANALYTICS, PUBLIC_TURNSTILE_SITE_KEY.
 name: deploy
 on:
@@ -23,7 +23,12 @@ jobs:
         env:
           PUBLIC_CF_ANALYTICS: ${{ secrets.PUBLIC_CF_ANALYTICS }}
           PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
+      # which pages' words changed, read before the deploy replaces the live site (scripts/indexnow.mjs)
+      - run: node scripts/indexnow.mjs changed
+        continue-on-error: true
       - run: npx wrangler pages deploy dist --project-name wren-lander --commit-dirty=true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - run: node scripts/indexnow.mjs ping
+        continue-on-error: true
