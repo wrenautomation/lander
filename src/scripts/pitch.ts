@@ -115,6 +115,13 @@ if (motion) {
       });
       return tl;
     },
+    // what makes it stick: the cards rise in reading order, each icon drawing itself as its card lands
+    values: (el, tl) => {
+      $$('li', el).forEach((li, k) => tl
+        .fromTo(li, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7 }, k * 0.12)
+        .fromTo($('path', li), { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.9, ease: 'power2.inOut' }, k * 0.12 + 0.25));
+      return tl;
+    },
     // margin by team size: both lines draw left to right, each point popping as the line reaches it, then the key
     margin: (el, tl) => {
       const D = 2, at = (d: HTMLElement) => (D * parseFloat(d.style.getPropertyValue('--x'))) / 100; // when the line reaches it

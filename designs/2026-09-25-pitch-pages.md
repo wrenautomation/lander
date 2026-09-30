@@ -247,6 +247,11 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   Under the headline, in rust: "You work harder every year to keep less of every dollar." The offer line
   adds "Bring us *any bottleneck*" in a green highlighter. Beside the button: "Free call. If it's not a
   fit, I'll tell you." The hub's sections run tighter (less padding, less space under headings).
+- **D57 (2026-09-30): What makes it stick, under the pain.** William's reference: a centred heading and six
+  icon cards. Ours: "Automation that actually sticks." No jargon, messy cases, team in charge, nothing
+  unwatched, you see what it's worth, start where it pays most. Two FAQ sentences cut so no claim repeats.
+  The pain's headline moved into the left column so words and chart sit side by side, centred. Punch line
+  now "You're working harder than you need to, and keeping less for it."
 
 ## Next
 

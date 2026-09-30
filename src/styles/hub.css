@@ -46,13 +46,25 @@
 
 /* ---------- the pain: a full-width headline, then the words left, net margin by team size right, in a gray
    window. The rust line is sourced and printed; the green aim line is drawn, never printed ---------- */
-.pain-sec .head.wide{max-width:none}
-.pain-sec h2{font-size:clamp(2.2rem,1.3rem + 2.6vw,4rem)}
-.pain-sec .grid{align-items:start}
-.pain-sec .grid>.head .intro{margin-top:0}
-.pain-sec .punch{margin-top:clamp(14px,1.6vw,22px);max-width:30em;font-size:clamp(1.25rem,1rem + .8vw,1.6rem);line-height:1.35;font-weight:500;color:var(--acc)}
+.pain-sec .grid{align-items:center}
+.pain-sec .grid>.head .intro{margin-top:1.2rem}
+.pain-sec .punch{margin-top:clamp(12px,1.4vw,18px);max-width:30em;font-size:clamp(1.25rem,1rem + .8vw,1.6rem);line-height:1.35;font-weight:500;color:var(--acc)}
 .pain-sec .fix{margin-top:1.1rem;font-size:18px;line-height:1.5;color:var(--ink-2)}
 .pain-sec .fix b{display:block;margin-bottom:.35rem;color:var(--ink)}
+/* ---------- what makes it stick: a centred heading, cards three across in light gray windows ---------- */
+.values .head.wide{margin-inline:auto;text-align:center}
+.values .head .intro{margin-inline:auto;max-width:40em;text-wrap:balance}
+.values .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,22px);list-style:none;margin:0;padding:0}
+.values li{padding:clamp(22px,2.2vw,30px);background:#F3F1EC;border-radius:calc(var(--r) + 4px);box-shadow:inset 0 0 0 1px rgba(14,14,14,.05);transition:transform .35s var(--out),box-shadow .35s var(--out)}
+.values li:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 1px rgba(168,59,18,.25)}
+.values li i{display:grid;place-items:center;width:48px;height:48px;border-radius:10px;background:rgba(168,59,18,.09);color:var(--acc)}
+.values li svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.values h3{margin-top:18px;font-size:19px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.values li p{margin-top:8px;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.values .wrap>.btn{display:flex;width:max-content;margin-inline:auto}
+@media (max-width:899px){.values .cards{grid-template-columns:1fr 1fr}}
+@media (max-width:599px){.values .cards{grid-template-columns:1fr}.values .head.wide{text-align:left}}
+
 /* the highlighter: the words the reader should carry off */
 .pain-sec .fix em{font-weight:600;color:var(--win);background:linear-gradient(transparent 58%,rgba(23,128,61,.16) 0);padding-inline:2px}
 .pain-sec .act{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin-top:clamp(22px,2.6vw,32px)}

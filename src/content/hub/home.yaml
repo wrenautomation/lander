@@ -41,7 +41,7 @@ hero:
 pain:
   id: pain
   h2: The bigger you grow, *the worse your profit margin.*
-  punch: You work harder every year to keep less of every dollar.
+  punch: "You're working harder than you need to, and keeping less for it."
   text: Every new client needs more people. More people need managers, support staff and meetings to stay in sync. Then come the CRMs, subscriptions, consultants, experts and developers to hold it all together. Costs climb faster than revenue.[^2]
   # the offer in one line; *words* get the highlighter
   fix: "**We offer a complete suite of services to align your systems with profitable growth.** Bring us *any bottleneck.* We make fixing it as easy as possible."
@@ -59,6 +59,21 @@ pain:
       - { label: 10 to 24, pct: 12, aim: 17.5 }
       - { label: 25 to 49, pct: 9, aim: 16.5 }
       - { label: 50+, pct: 8, aim: 16 }
+
+# what makes it stick, right under the pain: six cards, each a place most automation fails and what I do instead.
+# No claim here may repeat the comparison, the roadmap or the FAQ.
+values:
+  id: why
+  h2: Automation that *actually sticks.*
+  text: Most companies have paid for software their team stopped using. Here's what I do differently.
+  cta: Talk through your bottleneck
+  items:
+    - { icon: chat, name: "No jargon, no homework", text: "You tell me the problem in plain words. I handle the APIs, the setup and the fixes. Nobody on your team has to learn how it works to use it." }
+    - { icon: shield, name: Built for the messy cases, text: "Demos show the happy path. Real work has bounced emails, duplicate contacts and replies at 2am. I build for those first, because that's where tools break." }
+    - { icon: toggle, name: Your team stays in charge, text: "AI drafts, sorts and researches. People approve what matters. You choose which jobs run on their own and which wait for a yes." }
+    - { icon: eye, name: Nothing runs unwatched, text: "Every run is logged. A failure gets caught and fixed, not found by a client weeks later." }
+    - { icon: chart, name: You see what it's worth, text: "Each job tracks the hours it saves and what it costs to run. You know what's paying off, and so do I." }
+    - { icon: sprout, name: Start where it pays most, text: "The first job is the one that frees the most hours. Everything after builds on it, one job at a time." }
 
 levels:
   id: levels
@@ -175,11 +190,11 @@ faq:
     - q: What if our processes aren't written down?
       a: Then that's where the audit starts. Automating a broken process just breaks it faster. So I fix the process first, then automate it.
     - q: Which part should we automate first?
-      a: "Look for work that repeats, follows the same steps every time and eats hours: moving data between tools, follow-ups, scheduling, reports. The audit ranks yours by hours saved."
+      a: "Look for work that repeats, follows the same steps every time and eats hours: moving data between tools, follow-ups, scheduling, reports."
     - q: How much of my team's time does this take?
       a: An hour with you and 45 minutes each with three or four of your people in the first two weeks. After that, a 20-minute check-in each week.
     - q: What happens after launch?
-      a: I stay on. I watch what I built, keep it tuned as you grow and add one new AI job every month. If something I built breaks by my mistake, I fix it free.
+      a: I stay on. I keep what I built tuned as you grow and add one new AI job every month. If something I built breaks by my mistake, I fix it free.
 
 roadmap:
   id: roadmap

@@ -1,0 +1,34 @@
+---
+// What makes it stick, right under the pain: a centred heading, then cards of an icon, a name and a few sentences,
+// three across on desktop. The markup is the finished state; pitch.ts (ART.values) raises the cards and draws each icon.
+import type { CollectionEntry } from 'astro:content';
+import { rich } from '../../lib/text';
+import Arrow from './Arrow.astro';
+
+type V = CollectionEntry<'hub'>['data']['values'];
+const { s } = Astro.props as { s: V };
+
+const ICON: Record<V['items'][number]['icon'], string> = {
+  chat: 'M2.5 3.5h11v7.5H7.2l-3.2 2.6v-2.6H2.5zM5.5 6.5h5M5.5 8.5h3',
+  shield: 'M8 1.8l5 2v4c0 3-2.2 5.2-5 6.4-2.8-1.2-5-3.4-5-6.4v-4zM5.8 8l1.6 1.6 3-3.2',
+  toggle: 'M5 4.5h6a3.5 3.5 0 0 1 0 7H5a3.5 3.5 0 0 1 0-7zM11 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
+  eye: 'M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8zM8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
+  chart: 'M2.5 2.5v11h11M5.5 10.5v-2.5M8.5 10.5v-5M11.5 10.5v-7',
+  sprout: 'M8 14V8M8 8C8 5 6.2 3.2 3 3.2 3 6.4 5 8 8 8zM8 9.8c0-2.6 1.8-4.2 4.8-4.2 0 2.8-1.9 4.2-4.8 4.2z',
+};
+---
+<section class="sec values" id={s.id}>
+  <div class="wrap">
+    <div class="head wide"><h2 set:html={rich(s.h2)} /><p class="intro" set:html={rich(s.text)} /></div>
+    <ul class="cards" data-art="values">
+      {s.items.map((x) => (
+        <li>
+          <i><svg viewBox="0 0 16 16" aria-hidden="true"><path d={ICON[x.icon]} pathLength="1" /></svg></i>
+          <h3>{x.name}</h3>
+          <p set:html={rich(x.text)} />
+        </li>
+      ))}
+    </ul>
+    <a class="btn" href="#apply" data-cta><span>{s.cta}</span><Arrow /></a>
+  </div>
+</section>

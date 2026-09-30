@@ -338,6 +338,11 @@ const hub = defineCollection({
       }),
     }),
     // the five levels a company climbs, as steps (Levels.astro); `most` is the level most companies are on
+    // what makes it stick: cards of an icon, a name and a few sentences
+    values: z.strictObject({
+      id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
+      items: z.array(z.strictObject({ icon: z.enum(['chat', 'shield', 'toggle', 'eye', 'chart', 'sprout']), name: z.string(), text: z.string() })).min(3).max(6),
+    }),
     levels: z.strictObject({
       id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
       word: z.string(),                 // "Level", before each number
