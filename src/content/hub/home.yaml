@@ -126,8 +126,8 @@ catalog:
   h2: Every part of your company *that has to scale.*
   cta: Tell me what to scale first
   groups:
-    - for: Growth
-      link: { label: "Recruiting? See lead reactivation", to: /recruiting/lead-reactivation }
+    - for: Win more clients
+      link: { label: "Recruiting? Lead reactivation", to: /recruiting/lead-reactivation }
       items:
         - name: Lead generation
           scene: email
@@ -137,7 +137,7 @@ catalog:
           scene: inquiry
           text: Leads go cold while they wait. Reply to every inquiry in minutes, day or night, with times to book.
           gets: More inquiries become calls.
-    - for: People
+    - for: Hire and onboard
       items:
         - name: Hiring outreach
           scene: people
@@ -147,7 +147,7 @@ catalog:
           scene: onboard
           text: New hires wait on accounts and paperwork. Set it all up and book their first week the moment they sign.
           gets: Ready on day one.
-    - for: Operations and research
+    - for: Know your numbers
       items:
         - name: Timesheets and invoicing
           scene: hours

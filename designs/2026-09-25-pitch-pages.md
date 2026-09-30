@@ -305,7 +305,12 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
 - **D68 (2026-09-30): The fix bubbles come back over the blocks.** William loved the blocks but missed D62/D63's
   face bubbles. Each stack carries one again: what I build at that level. It pops in after the level's text. The pin
   moved onto the corner of level four's block. Service group headers went from 12px to 14px. The group names are
-  up for discussion.
+  up for discussion. Settled: grouped by what the owner wants, "Win more clients" (lead gen, speed to lead), "Hire and
+  onboard" (hiring outreach, onboarding), "Know your numbers" (timesheets and invoicing, research and reports).
+- **D69 (2026-09-30): /recruiting promises meetings, not clients.** We bill per meeting, so the promise is the thing we
+  bill. h1 "Book 20 client meetings in 90 days from leads you already paid for"; target "20 booked meetings in 90
+  days". Why 20: under the 30-meeting cap ($15k at $500), and reachable from a few hundred past contacts, where D16's 10
+  clients needed ~35 meetings and 500-1,000 contacts. Supersedes D16's h1.
 
 ## Next
 
