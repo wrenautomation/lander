@@ -155,6 +155,13 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   both layouts include it, so every pitch page gets it. Nothing shows unless the page is still
   loading at 400ms; then the mark creeps to 80%, finishes on load (at least 700ms shown, 6s
   cap) and lifts; the hero rises on `window.wrenShown`. Replaces once-a-visit on a 1s clock.
+- **D45 (2026-09-29): One big simplified wren instead of the flock.** William wanted the motif
+  more subtle, simplified, and either a uniform pattern or one big bird parallaxing; my call for
+  high ticket. One: a repeating pattern reads as wallpaper, a single watermark reads as
+  letterhead. public/brand/wren-simple.svg: the mark's silhouette traced by hand (tail, head,
+  beak, belly; no stripes, branch or legs) with only the wing loop cut out. Backdrop.astro draws
+  it inline, fixed, 76vw (560px to 1080px, so it runs off a phone's edges), 3.5% ink, drifting
+  from 8vh low to 8vh high over the page's scroll. Flock.astro deleted.
 
 ## Next
 

@@ -20,7 +20,7 @@ import Gantt from '../components/pitch/Gantt.astro';
 import Apply from '../components/pitch/Apply.astro';
 import Top from '../components/pitch/Top.astro';
 import Loader from '../components/pitch/Loader.astro';
-import Flock from '../components/pitch/Flock.astro';
+import Backdrop from '../components/pitch/Backdrop.astro';
 import End from '../components/pitch/End.astro';
 import { loadPitch } from '../lib/pitch';
 import { bare, rich, richParas } from '../lib/text';
@@ -43,7 +43,7 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
 </head>
 <body>
 <Loader />
-<Flock />
+<Backdrop />
 
 <Top nav={p.nav} cta={p.nav_cta} />
 

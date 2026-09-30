@@ -19,7 +19,7 @@ import Levels from '../components/pitch/Levels.astro';
 import Start from '../components/pitch/Start.astro';
 import Top from '../components/pitch/Top.astro';
 import Loader from '../components/pitch/Loader.astro';
-import Flock from '../components/pitch/Flock.astro';
+import Backdrop from '../components/pitch/Backdrop.astro';
 import End from '../components/pitch/End.astro';
 import { loadHub } from '../lib/pitch';
 import { bare, rich, richParas } from '../lib/text';
@@ -42,7 +42,7 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
 </head>
 <body>
 <Loader />
-<Flock />
+<Backdrop />
 
 <Top nav={p.nav} cta={p.nav_cta} hub contact={site.email} />
 

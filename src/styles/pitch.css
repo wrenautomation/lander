@@ -35,15 +35,12 @@
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--bar) + 12px);-webkit-text-size-adjust:100%}
 html{background:var(--paper)}
 body{position:relative;background:none;color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip;caret-color:var(--acc)}
-@media print{.flock,.loader{display:none}}
+@media print{.backdrop,.loader{display:none}}
 
-/* the backdrop (Flock.astro): faint wrens under the page, body transparent so they show. Each is placed so it's met
-   mid-screen at its --y (px down the page), then lags the scroll by --k (--sy is scrollY, set per frame). Far birds are fainter and soft. */
-.flock{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;--z:1}
-.flock i{position:absolute;left:var(--x);top:calc(var(--y) * (1 - var(--k)) * 1px + var(--k) * 50vh);width:calc(var(--s) * var(--z) * 1px);aspect-ratio:1048/957;background:var(--ink);opacity:.05;-webkit-mask:url(/brand/wren-mark-512.png) center/contain no-repeat;mask:url(/brand/wren-mark-512.png) center/contain no-repeat;transform:translate3d(0,calc(var(--sy,0) * var(--k) * 1px),0) rotate(var(--r)) scaleX(var(--f))}
-.flock .mid{opacity:.04}
-.flock .far{opacity:.035;filter:blur(1.5px)}
-@media (max-width:700px){.flock{--z:.55}.flock .far{display:none}}
+/* the backdrop (Backdrop.astro): one large simplified wren in faint ink behind the middle of the page, fixed, drifting
+   from 8vh low to 8vh high over the whole read. Wide enough on a phone to run off both edges. */
+.backdrop{position:fixed;inset:0;z-index:-1;display:grid;place-items:center;overflow:hidden;pointer-events:none}
+.backdrop svg{width:max(560px,min(76vw,1080px));height:auto;color:var(--ink);opacity:.035;transform:translate3d(0,calc(8vh - var(--p,.5) * 16vh),0)}
 
 /* the load screen (Loader.astro): only while a slow load keeps going past 400ms. The mark fills rust from the feet up
    toward 80% with a rule drawing under it; when the page is ready both finish, then the screen lifts as the hero rises.
