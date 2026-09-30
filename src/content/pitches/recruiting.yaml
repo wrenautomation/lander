@@ -114,7 +114,7 @@ ask:
   required: Required
   bad_email: Enter an email I can reply to.
   error: "That didn't send. Email me instead:"
-  steps: { next: Next, back: Back, pick_one: Pick one to continue. }
+  steps: { next: Next, back: Back, pick_one: Pick one to continue., other: Tell me in a few words }
   book_h: You're a fit. *Pick a time.*
   book: Thirty minutes, on video. Nothing to prepare.
   thanks_h: You're a fit. *I'll be in touch.*

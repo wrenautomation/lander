@@ -162,6 +162,14 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   beak, belly; no stripes, branch or legs) with only the wing loop cut out. Backdrop.astro draws
   it inline, fixed, 76vw (560px to 1080px, so it runs off a phone's edges), 3.5% ink, drifting
   from 8vh low to 8vh high over the page's scroll. Flock.astro deleted.
+- **D46 (2026-09-29): Ghosts in waiting diagrams; a box behind "Something else".** William: a fast
+  scroll showed empty gray windows that looked broken, and "Something else" had nowhere to say
+  what. Each node gets a faint card (header bar, rule, two lines; pills get a dot) with a slow
+  sheen where it will land; it fades as its node starts in, timed off the diagram's own timeline.
+  Motion off draws no ghosts. Any choice with id `other` opens a 200-char box (`q.<id>.other`);
+  picking it doesn't auto-advance. The server keeps the text only when `other` is picked, stores
+  it in answers as `<id>.other` (validation never sees it), and the ping reads "Something else:
+  <text>". Niche-agnostic: an offer gets the box by naming a choice `other`.
 
 ## Next
 

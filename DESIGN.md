@@ -193,7 +193,7 @@ GSAP + ScrollTrigger (`src/scripts/pitch.ts`), on only with `html.js` (off for `
 - **Blocks:** rise in, a few at a time, in reading order.
 - **Pictures:** wipe open from alternate sides, settle from a zoom, then drift slightly against the scroll.
 - **Diagrams:** assemble once on entry (tiles, then the chip; rows with marks popping; the wire draws, then a dot runs; bars grow).
-- **Flows (How it works):** each diagram plays once on entry: nodes in, wires draw, then a dot runs each wire while it's on screen. The line between diagrams draws with the scroll, but never ahead of its diagram: it waits for the diagram to finish, then catches up. On phones it runs down the left margin.
+- **Flows (How it works):** each diagram plays once on entry: nodes in, wires draw, then a dot runs each wire while it's on screen. A diagram waiting its turn shows ghosts: a faint skeleton card per node with a slow sheen, each fading as its node arrives. The line between diagrams draws with the scroll, but never ahead of its diagram: it waits for the diagram to finish, then catches up. On phones it runs down the left margin.
 - **Proof figures:** count up.
 - **Leaving:** a section dims and lifts as its bottom passes, so the next reads as a new slide.
 - **Signature:** the steps rule filling as you read.

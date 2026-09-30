@@ -233,4 +233,4 @@ ask:
   thanks: "[When I'll call, from which number]"
   nofit_h: "[Not a fit heading]"
   nofit: "[Kind no, and where to go instead]"
-  steps: { next: Next, back: Back, pick_one: Pick one to go on. }
+  steps: { next: Next, back: Back, pick_one: Pick one to go on., other: Tell me in a few words }

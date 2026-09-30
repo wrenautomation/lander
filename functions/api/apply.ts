@@ -6,7 +6,7 @@ import { EMAIL, clip, human, isBot, origin, readForm } from '../_shared/form';
 import { bookingLink } from '../_shared/booking';
 import { notify } from '../_shared/notify';
 import { cameFrom, history, visitorOf, withVisitor } from '../_shared/visitor';
-import { type Answers, answersFrom, fits, invalidAnswers, offerFor } from '../../src/lib/offers';
+import { type Answers, OTHER, answersFrom, fits, invalidAnswers, offerFor, writeInsFrom } from '../../src/lib/offers';
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const wantsJson = (request.headers.get('accept') || '').includes('application/json');
@@ -28,6 +28,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const answers: Answers = answersFrom(offer, form);
   const bad = invalidAnswers(offer, answers);
   if (bad) return reply(400, { ok: false, error: bad });
+  const wrote = writeInsFrom(offer, form, answers);
   const o = origin(form, request);
   if (!(await human(env, form, o.ip))) return reply(403, { ok: false, error: 'turnstile' });
 
@@ -37,7 +38,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     `insert into applications (ts, offer, name, email, phone, sms_consent, firm, note, answers, fit, page, visitor, first_touch, last_touch, r, utm_source, utm_medium, utm_campaign, utm_content, ref, country, ip, ua)
      values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   ).bind(
-    new Date().toISOString(), offer.id, row.name, email, row.phone, row.sms_consent ? 1 : 0, row.firm, row.note, JSON.stringify(answers), row.fit ? 1 : 0, o.page,
+    new Date().toISOString(), offer.id, row.name, email, row.phone, row.sms_consent ? 1 : 0, row.firm, row.note, JSON.stringify({ ...answers, ...Object.fromEntries(Object.entries(wrote).map(([id, t]) => [`${id}.${OTHER}`, t])) }), row.fit ? 1 : 0, o.page,
     visitor.id, came.first ? JSON.stringify(came.first) : '', came.last ? JSON.stringify(came.last) : '', o.r || came.last?.r || '', o.utm_source, o.utm_medium, o.utm_campaign, o.utm_content, o.ref, o.country, o.ip, o.ua,
   ).run();
 
@@ -46,7 +47,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     const got = answers[q.id];
     if (got === undefined || got.length === 0) return [];
     const ids = typeof got === 'string' ? [got] : got;
-    const text = q.kind === 'text' ? ids.join('') : ids.map((id) => q.choices.find((c) => c.id === id)?.label ?? id).join(', ');
+    const text = q.kind === 'text' ? ids.join('') : ids.map((id) => { const label = q.choices.find((c) => c.id === id)?.label ?? id; return id === OTHER && wrote[q.id] ? `${label}: ${wrote[q.id]}` : label; }).join(', ');
     return [`${q.ask} ${text}`];
   });
   await notify(env, {

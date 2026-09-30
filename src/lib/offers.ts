@@ -56,11 +56,28 @@ export function invalidAnswers(offer: Offer, answers: Answers): string | null {
 /** Form field name for a question: `q.<id>`. Radios and checkboxes share it; checkboxes repeat it. */
 export const fieldName = (questionId: string) => `q.${questionId}`;
 
+/** A choice with this id ("Something else") opens a short text box on the page, sent as `q.<id>.other`. */
+export const OTHER = 'other';
+export const otherName = (questionId: string) => `${fieldName(questionId)}.${OTHER}`;
+const takesOther = (q: Question) => q.kind !== 'text' && q.choices.some((c) => c.id === OTHER);
+
+/** What they wrote next to "Something else", by question id: kept only where they picked it. Stored beside the answers, never validated as one. */
+export function writeInsFrom(offer: Offer, form: FormData, answers: Answers): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const q of offer.application?.questions ?? []) {
+    const got = answers[q.id], text = form.get(otherName(q.id));
+    const picked = typeof got === 'string' ? got === OTHER : (got ?? []).includes(OTHER);
+    if (takesOther(q) && picked && typeof text === 'string' && text.trim()) out[q.id] = text.trim().slice(0, 200);
+  }
+  return out;
+}
+
 /** Read an application's answers out of a submitted form, by the offer's questions. Unknown q.* fields come back too, so validation can refuse them. */
 export function answersFrom(offer: Offer, form: FormData): Answers {
   const out: Answers = {};
   const kinds = new Map((offer.application?.questions ?? []).map((q) => [q.id, q.kind] as const));
-  for (const key of new Set([...form.keys()].filter((k) => k.startsWith('q.')))) {
+  const others = new Set((offer.application?.questions ?? []).filter(takesOther).map((q) => otherName(q.id)));
+  for (const key of new Set([...form.keys()].filter((k) => k.startsWith('q.') && !others.has(k)))) {
     const id = key.slice(2);
     const vals = form.getAll(key).filter((v): v is string => typeof v === 'string').map((v) => v.slice(0, 2000));
     out[id] = kinds.get(id) === 'many' ? vals : (vals.length === 1 ? vals[0] : vals);

@@ -221,7 +221,7 @@ const ask = z.strictObject({
   required: z.string(), bad_email: z.string(), error: z.string(),
   thanks_h: z.string(), thanks: z.string(),
   book_h: z.string().optional(), book: z.string().optional(),
-  steps: z.strictObject({ next: z.string(), back: z.string(), pick_one: z.string(), contact_h: z.string().optional() }).optional(),
+  steps: z.strictObject({ next: z.string(), back: z.string(), pick_one: z.string(), other: z.string().optional(), contact_h: z.string().optional() }).optional(),
   nofit_h: z.string().optional(), nofit: z.string().optional(),
 });
 // Every page names its URL and the live offer whose `page` it is; form_value is what the D1 row says the page was.

@@ -256,8 +256,9 @@ if (flowsBox) {
       } else shape(w, elbow(a.x + a.w / 2, a.y + a.h, b.x + b.w / 2, b.y, (fa.y + fa.h + fb.y) / 2));
     });
   };
+  let placeGhosts = () => {};
   layout();
-  const ro = new ResizeObserver(layout);
+  const ro = new ResizeObserver(() => { layout(); placeGhosts(); });
   for (const el of [flowsBox, ...flows]) ro.observe(el);
   phone.addEventListener('change', layout);
 
@@ -411,6 +412,25 @@ if (flowsBox) {
           .to(checks, { scale: 1, duration: 0.5, stagger: 0.2, ease: 'back.out(3)' }, 3.8);
       },
     };
+    // ghosts: a soft skeleton where each node will land, so a diagram waiting its turn reads as coming, not broken.
+    // Each fades as its node starts in; the timeline says when.
+    const ghosts = new Map(flows.map((f) => [f, nodes(f).map((n) => {
+      const g = document.createElement('span');
+      g.className = n.classList.contains('ch') ? 'ghost pill' : 'ghost';
+      f.append(g);
+      return [n, g] as const;
+    })]));
+    placeGhosts = () => ghosts.forEach((gs, f) => gs.forEach(([n, g]) => {
+      const b = boxIn(n, f);
+      Object.assign(g.style, { left: `${b.x}px`, top: `${b.y}px`, width: `${b.w}px`, height: `${b.h}px` });
+    }));
+    placeGhosts();
+    // when a node first starts showing in a timeline: the earliest opacity tween on it, stagger included
+    const shows = (tl: gsap.core.Timeline, n: HTMLElement) => Math.min(tl.duration(), ...tl.getChildren(false, true, false).flatMap((c) => {
+      const k = (c as gsap.core.Tween).targets().indexOf(n);
+      if (k < 0 || !('opacity' in c.vars)) return [];
+      return [c.startTime() + k * (typeof c.vars.stagger === 'number' ? c.vars.stagger : 0)];
+    }));
     const done = new Map<HTMLElement, Promise<void>>();
     // diagrams play in story order at 3/4 speed, each starting as the one before it has about a second left, so they
     // overlap a little. A fast scroll queues the next one, and any diagram with another waiting behind it plays at
@@ -422,6 +442,10 @@ if (flowsBox) {
       const tl = gsap.timeline({ paused: true, defaults: { ease: OUT, duration: 0.7 } });
       gsap.set(nodes(f), { opacity: 0, y: 16 });
       PLAY[f.dataset.flow!]?.(f, tl, wires.get(f)!);
+      for (const [n, g] of ghosts.get(f)!) {
+        gsap.set(g, { opacity: 1 });
+        tl.to(g, { opacity: 0, duration: 0.4, ease: 'none' }, shows(tl, n));
+      }
       return tl;
     };
     // next: when the following diagram may start; done: when this one is whole
@@ -544,6 +568,16 @@ if (box) {
     if (s.dataset.kind === 'text') return !!$<HTMLTextAreaElement>('textarea', s)?.value.trim();
     return !!$('input:checked', s);
   };
+  // "Something else" opens its text box; picking another answer closes it (what they typed stays, the server drops it)
+  const writeIn = (s: HTMLElement) => {
+    const field = $<HTMLInputElement>('input.other', s);
+    if (!field) return false;
+    const open = !!$(`input[value="${field.dataset.choice}"]:checked`, s);
+    const opening = open && field.hidden;
+    field.hidden = !open;
+    if (opening) field.focus();
+    return open;
+  };
   const pips = $$('.pips i', box); // one bar per step, filled up to the current one
   const show = (i: number, focus = true) => {
     cur = i;
@@ -578,10 +612,14 @@ if (box) {
       s.addEventListener('change', (e) => {
         s.classList.remove('invalid');
         const t = e.target as HTMLInputElement;
+        if (t.classList.contains('other')) return;
+        if (writeIn(s)) return; // they're typing, Next moves on
         if (t.type === 'radio') setTimeout(() => { if (steps[cur] === s) advance(); }, 320); // pick one = move on
       });
     }
   }
+
+  if (!form.classList.contains('stepping')) for (const s of steps) s.addEventListener('change', () => writeIn(s));
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();

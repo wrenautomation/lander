@@ -4,7 +4,7 @@
 // not-a-fit. Without JS: a plain POST that redirects to #applied-fit / #applied-nofit / #applied-error, which CSS
 // shows with :target.
 import type { CollectionEntry } from 'astro:content';
-import { fieldName } from '../../lib/offers';
+import { fieldName, OTHER, otherName } from '../../lib/offers';
 import { linked, rich } from '../../lib/text';
 import Arrow from './Arrow.astro';
 
@@ -53,6 +53,7 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
                   <span>{c.label}</span>
                 </label>
               ))}
+              {q.choices.some((c) => c.id === OTHER) && <input class="other" type="text" data-choice={OTHER} name={otherName(q.id)} maxlength="200" placeholder={a.steps?.other ?? 'Tell me in a few words'} aria-label={a.steps?.other ?? 'Tell me in a few words'} hidden>}
             </div>}
         {a.steps && <p class="fe" data-error>{a.steps.pick_one}</p>}
       </fieldset>
