@@ -1,14 +1,16 @@
 ---
-// The five levels, one row each, as a staircase on its side: a bar one step longer per level, then what the level is and
-// why it hurts (red cross; the top level's good news gets a green check), then a speech bubble off the row with how I
-// fix it. A line marks where the data is ready for AI, and a pin marks the level most companies jump in at. Each bar sits
-// on a dashed outline of itself. The markup is the finished state; pitch.ts (ART.levels) tells the story: the pinned
-// level's end appears alone, shakes with nothing under it and falls, then the levels build in order.
+// The five levels as a staircase: a bar one step taller per level with a small scene of icons in it (loose on the low
+// levels, joined once the tools talk), a bubble off the top with how I get you past it (my face on it), and under the
+// floor the level's name and why it hurts in a few words (red cross; the top level's good news gets a green check). A dashed line marks where the data is ready for AI; a pin marks the level
+// most companies jump in at. Each bar stands in a dashed outline of itself. On phones the bars lie flat, one row each.
+// The markup is the finished state; pitch.ts (ART.levels) tells the story: the top of the pinned level appears alone,
+// shakes with nothing under it and falls, then the levels build in order, each bubble popping out of its bar.
 import type { CollectionEntry } from 'astro:content';
 import { rich } from '../../lib/text';
+import { ICON } from '../../lib/icons';
 import Arrow from './Arrow.astro';
 
-const { s } = Astro.props as { s: CollectionEntry<'hub'>['data']['levels'] };
+const { s, face } = Astro.props as { s: CollectionEntry<'hub'>['data']['levels']; face: string };
 const last = s.items.length - 1;
 ---
 <section class="sec levels" id={s.id}>
@@ -17,21 +19,23 @@ const last = s.items.length - 1;
       <div><h2 set:html={rich(s.h2)} /><p class="intro" set:html={rich(s.text)} /></div>
       <a class="btn" href="#apply" data-cta><span>{s.cta}</span><Arrow /></a>
     </div>
-    <ol class="stairs" data-art="levels" data-start="top 35%">
+    <ol class="stairs" data-art="levels" data-start="top 60%">
       {s.items.map((x, i) => (
         <>
-          {i === s.gate.after && <li class="gate" role="separator"><span><b>{s.gate.name}</b>{s.gate.text}</span></li>}
+          {i === s.gate.after && <li class="gate" role="separator" aria-label={s.gate.name}><b>{s.gate.name}</b></li>}
           <li class:list={{ most: i + 1 === s.most }} style={`--h:${i + 1}`}>
-            <div class="rise">
-              <p class="lv"><b>{s.word} {i + 1}</b>{i + 1 === s.most && <span class="pin">{s.most_note}</span>}</p>
-              <h3>{x.name}</h3>
-              <div class="bar"><i class="block">{i + 1 === s.most && <em class="oops" aria-hidden="true">{s.fall}</em>}</i></div>
+            <div class="up">
+              <p class="fix"><img src={face} alt="" width="24" height="24" loading="lazy">{x.fix}</p>
+              <div class="riser">
+                <i class="block"><span class="picto" aria-hidden="true">{x.linked && <b class="link"></b>}{x.scene.map((k) => <i><svg viewBox="0 0 16 16"><path d={ICON[k]} /></svg></i>)}</span></i>
+                {i + 1 === s.most && <><em class="oops" aria-hidden="true">{s.fall}</em><span class="pin">{s.most_note}</span></>}
+              </div>
             </div>
             <div class="what">
-              <p class="is">{x.is}</p>
+              <p class="lv">{s.word} {i + 1}</p>
+              <h3>{x.name}</h3>
               <p class:list={['why', i === last ? 'good' : 'bad']}>{x.why}</p>
             </div>
-            <p class="fix"><b>{i === last ? s.keep_label : s.fix_label}</b>{x.fix}</p>
           </li>
         </>
       ))}

@@ -2,6 +2,7 @@
 import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { file, glob } from 'astro/loaders';
+import { ICONS } from './lib/icons';
 
 const one = (base: string) =>
   glob({ pattern: '**/*.yaml', base: `./src/content/${base}` });
@@ -310,7 +311,7 @@ const pitches = defineCollection({
 // studies once real, every service, about, a comparison table, FAQ, the recap, the sources.
 // One button per section.
 const mark = z.enum(['yes', 'no']);
-const svcEnd = z.strictObject({ icon: z.enum(['person', 'mail', 'doc', 'cal', 'invoice', 'check', 'stack', 'record', 'search']), label: z.string(), note: z.string() });
+const svcEnd = z.strictObject({ icon: z.enum(ICONS), label: z.string(), note: z.string() });
 const hub = defineCollection({
   loader: one('hub'),
   schema: z.strictObject({
@@ -348,10 +349,12 @@ const hub = defineCollection({
       id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
       word: z.string(),                 // "Level", before each number
       most: z.number().int().min(1).max(5), most_note: z.string(), fall: z.string(),
-      gate: z.strictObject({ after: z.number().int().min(1).max(4), name: z.string(), text: z.string() }), // the line after that level where AI has clean data
-      fix_label: z.string(), keep_label: z.string(), // over each bubble; the top level's says how I keep it there
-      // is: what the level looks like; why: why it hurts (the top level: why it's good); fix: how I get you past it
-      items: z.array(z.strictObject({ name: z.string(), is: z.string(), why: z.string(), fix: z.string() })).length(5),
+      gate: z.strictObject({ after: z.number().int().min(1).max(4), name: z.string() }), // the line after that level where AI has clean data
+      // scene: icons drawn in the bar, linked: joined by a line; why: the pain in a few words (the top level: the good
+      // news); fix: how I get you past it, in a bubble off the top of its bar. The picture carries the rest.
+      items: z.array(z.strictObject({
+        name: z.string(), scene: z.array(z.enum(ICONS)).min(1).max(4), linked: z.boolean().default(false), why: z.string(), fix: z.string(),
+      })).length(5),
     }),
     // real builds only, each as the level it started on, the level it reached, before and now. Left out until there are some.
     cases: z.strictObject({
@@ -384,6 +387,7 @@ const hub = defineCollection({
         org: z.string(), title: z.string(), in: svcEnd, out: svcEnd,
         figs: z.array(z.strictObject({ n: z.string(), label: z.string() })).min(1).max(3),
       })).min(1).max(2),
+      proves: z.string(),               // one line under the cards: why work that isn't this work still counts
     }),
     close,
     ask,

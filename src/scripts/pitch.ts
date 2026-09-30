@@ -198,29 +198,40 @@ if (motion) {
     // the five levels, out of order then in order: the pinned level's end appears alone past empty outlines, shakes with
     // nothing under it and falls; then each level builds from the top, its bar, then what it is, then my bubble
     levels: (el, tl) => {
+      // bars stand on desktop and lie flat on phones, so they grow up or across. On phones level four sits a screen
+      // below where this starts, so the jump would play unseen: the levels just build.
+      const flat = matchMedia('(max-width:899px)').matches, grow = flat ? 'scaleX' : 'scaleY';
       const rows = $$(':scope > li:not(.gate)', el), gate = $('.gate', el), jump = $('.most .block', el), pin = $('.pin', el);
-      tl.fromTo($$('.block', el), { scaleX: 0 }, { scaleX: 0, duration: 0.01 }, 0)
-        .fromTo($$('.what, .fix', el), { opacity: 0, y: 10 }, { opacity: 0, y: 10, duration: 0.01 }, 0);
+      tl.fromTo($$('.block', el), { [grow]: 0 }, { [grow]: 0, duration: 0.01 }, 0)
+        .fromTo($$('.what', el), { opacity: 0, y: 10 }, { opacity: 0, y: 10, duration: 0.01 }, 0)
+        .fromTo($$('.fix', el), { opacity: 0, scale: 0.6 }, { opacity: 0, scale: 0.6, duration: 0.01 }, 0)
+        .fromTo($$('.picto>i', el), { scale: 0 }, { scale: 0, duration: 0.01 }, 0)
+        .fromTo($$('.picto>b', el), { scaleX: 0 }, { scaleX: 0, duration: 0.01 }, 0);
       if (gate) tl.fromTo(gate, { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
       let t = 0.2;
-      if (jump) {
-        const oops = $('.oops', jump)!;
-        tl.set(jump, { scaleX: 1 }, t)
-          .fromTo(jump, { clipPath: 'inset(0% 0% 0% 100%)' }, { clipPath: 'inset(0% 0% 0% 42% round 6px)', duration: 0.5, ease: 'power2.out' }, t);
+      if (jump && !flat) {
+        // only the top of the pinned level: the part most companies build first, standing on nothing
+        const oops = $('.oops', jump.parentElement!)!;
+        tl.set(jump, { [grow]: 1 }, t)
+          .set($$('.picto>i', jump), { scale: 1 }, t)
+          .set($$('.picto>b', jump), { scaleX: 1 }, t)
+          .fromTo(jump, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 75% 0% round 8px)', duration: 0.5, ease: 'power2.out' }, t);
         if (pin) tl.fromTo(pin, { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.4 }, t + 0.3);
-        tl.to(jump, { outlineColor: 'rgb(210,40,30)', backgroundColor: 'rgb(253,238,236)', duration: 0.3 }, t + 1.1)
+        tl.to(jump, { outlineColor: 'rgb(210,40,30)', backgroundColor: 'rgb(253,238,236)', color: 'rgb(210,40,30)', duration: 0.3 }, t + 1.1)
           .fromTo(oops, { opacity: 0 }, { opacity: 1, duration: 0.3 }, t + 1.1)
           .to(jump, { x: 3, duration: 0.05, repeat: 7, yoyo: true, ease: 'none' }, t + 1.2)
-          .to(jump, { y: 34, rotation: 4, opacity: 0, duration: 0.5, ease: 'power2.in' }, t + 1.9)
-          .set(oops, { opacity: 0 }, t + 2.4)
-          .set(jump, { clearProps: 'clipPath,outlineColor,backgroundColor', y: 0, rotation: 0, opacity: 1, scaleX: 0 }, t + 2.4);
+          .to(jump, { y: 60, rotation: 4, opacity: 0, duration: 0.5, ease: 'power2.in' }, t + 1.9)
+          .to(oops, { opacity: 0, duration: 0.3 }, t + 1.9)
+          .set(jump, { clearProps: 'clipPath,outlineColor,backgroundColor,color', x: 0, y: 0, rotation: 0, opacity: 1, [grow]: 0 }, t + 2.4);
         t += 2.7;
       }
       rows.forEach((li, i) => {
         const at = t + i * 0.6;
-        tl.to($('.block', li), { scaleX: 1, duration: 0.45, ease: 'power2.out' }, at)
+        tl.to($('.block', li), { [grow]: 1, duration: 0.45, ease: 'power2.out' }, at)
+          .fromTo($$('.picto>i', li), { scale: 0 }, { scale: 1, duration: 0.35, stagger: 0.08, ease: 'back.out(2.5)', immediateRender: false }, at + 0.25)
+          .fromTo($$('.picto>b', li), { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: 'power2.inOut', immediateRender: false }, at + 0.5)
           .to($('.what', li), { opacity: 1, y: 0, duration: 0.45 }, at + 0.15)
-          .to($('.fix', li), { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(2)' }, at + 0.3);
+          .to($('.fix', li), { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(2)' }, at + 0.35);
         if (gate && li.previousElementSibling === gate) tl.to(gate, { opacity: 1, duration: 0.4 }, at - 0.2);
       });
       return tl;

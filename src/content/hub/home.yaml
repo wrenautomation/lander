@@ -79,36 +79,39 @@ values:
 levels:
   id: levels
   h2: Most companies *start at level four.*
-  text: "88% of companies now use AI somewhere, yet nearly two-thirds haven't started scaling it.[^3] That's because AI can't run on scattered data and processes nobody wrote down. Each level holds up the one above it. On the call, you walk me through a normal week and I'll tell you which level you're on."
+  text: "88% of companies now use AI somewhere, yet nearly two-thirds haven't started scaling it.[^3] AI can't run on scattered data and processes nobody wrote down."
   cta: Find my level
   word: Level
   most: 4
-  most_note: Most companies jump in here
+  most_note: Most jump in here
   fall: Nothing under it
-  gate: { after: 3, name: AI-ready, text: "Past this line, AI has clean data to work with." }
-  fix_label: How I fix it
-  keep_label: How I keep it there
+  gate: { after: 3, name: AI-ready }
+  # scene: the icons drawn inside the bar; linked joins them with a line (the tools talk to each other).
+  # why: the pain in a few words (the top level: the good news). fix: my bubble, one short line.
   items:
     - name: Manual
-      is: "Work lives in people's heads. Everyone does it their own way, and nothing's written down."
-      why: "You end up as everyone's backup. Someone's out sick and deadlines slip. New hires shadow for months, and quality depends on who did the work that day."
-      fix: "I sit with you and your team and write down how the work actually gets done: your SOPs, who owns what, and the principles you run the business on. Then we test each one by hand until anyone could follow it."
+      scene: [person, person, person]
+      why: "Slips when someone's out"
+      fix: "I write down how the work gets done."
     - name: Documented
-      is: "Your processes are written down, but client data still lives in a CRM, three inboxes and a spreadsheet someone updates on Fridays."
-      why: "Nobody trusts the numbers, so every report eats an afternoon of copy and paste. Leads fall through the cracks between tools. You find out a client was unhappy when they leave."
-      fix: "I go through every tool you pay for and pick the one CRM that fits. I clean and merge your records into it and cancel what you don't need. Then I wire up the simple handoffs, so a form fills in a record and a signed deal kicks off onboarding."
+      scene: [doc, mail, stack]
+      why: Nobody trusts the numbers
+      fix: "I merge your tools into one CRM."
     - name: Connected
-      is: "One clean record of every client, lead and hire. The simple handoffs run on their own."
-      why: "The thinking work is still manual. Your team reads every reply, researches every lead and writes every update. Each new client adds hours, so growing still means hiring."
-      fix: "I put AI on the jobs your data can finally support: researching leads, drafting replies, summarizing calls. Your team reviews and approves each one."
+      scene: [doc, mail, stack]
+      linked: true
+      why: Growth still means hiring
+      fix: "I put AI on the busywork."
     - name: AI-assisted
-      is: "AI drafts the research, outreach and summaries. Your team checks every one."
-      why: "Your best people turn into editors. Reviewing becomes the new bottleneck, and headcount still climbs with volume."
-      fix: "I track which AI work your team approves without changes and let those jobs run on their own. Review shrinks to the exceptions."
+      scene: [spark, doc, person]
+      linked: true
+      why: Your team edits all day
+      fix: "I let approved work run itself."
     - name: Self-running
-      is: "Workflows and AI handle the daily work. Your team handles clients and the odd exception."
-      why: "Volume grows without new hires, and your margins hold as you scale."
-      fix: "I monitor your automations, fix any issues that come up, and keep everything reliable and consistent."
+      scene: [spark, loop, check]
+      linked: true
+      why: More clients, same team
+      fix: "I monitor it and fix any issues."
 
 catalog:
   id: services
@@ -238,6 +241,7 @@ about:
         - { n: "7,000+", label: papers tracked }
         - { n: "200+", label: hours of lookups cut }
         - { n: "8+", label: hours a week back for the professor }
+  proves: "Neither project is what I'd build for you. But both prove I build software that stays fast, reliable and consistent with thousands of people using it."
   photo: /headshot.png
   sign: William Jin · Toronto
   cta: Talk to me directly

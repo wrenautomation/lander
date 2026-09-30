@@ -104,7 +104,7 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
 
 <Values s={p.values} />
 
-<Levels s={p.levels} />
+<Levels s={p.levels} face={p.about.photo} />
 
 {cases && (
 <section class="sec cases">
@@ -151,6 +151,7 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
           <div class="wfigs">{w.figs.map((f) => <p class="fig"><span class="n">{f.n}</span><small>{f.label}</small></p>)}</div>
         </article>
       ))}
+      <p class="proves">{p.about.proves}</p>
     </div>
   </div>
 </section>

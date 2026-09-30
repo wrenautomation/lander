@@ -271,6 +271,12 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
 - **D61 (2026-09-30): About shows the internships as work; "another agency".** The hub about brings back the
   two internships from /recruiting as cards drawn like a service (what went in, what came out) with the real numbers
   counting up, under a two-line intro. Compare says "another agency": Wren is one.
+  A line under the cards says why work that isn't this work still counts (fast, reliable, thousands of users).
+- **D62 (2026-09-30): Levels are a picture first.** Too much text in D60's rows. Back to a standing staircase:
+  each bar holds a few icons (loose at levels 1 and 2, joined by a line from level 3 once the tools talk), a short
+  bubble with my face off its top says how I get you past it, and under the floor sit only the name and the pain in
+  four or five words. The "is" lines are gone: the names say it. The AI-ready line stands between levels 3 and 4.
+  Level 4's top still appears alone and falls first; on phones, where level 4 is a screen below, the levels just build.
 
 ## Next
 
