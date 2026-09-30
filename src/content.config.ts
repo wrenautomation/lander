@@ -367,14 +367,19 @@ const hub = defineCollection({
         before: z.string(), after: z.string(),
       }).refine((c) => c.to > c.from, 'a case climbs: to must be above from')).min(1).max(3),
     }).optional(),
-    // every service as a list, grouped by who it's for. Each row: the name, what it runs on, and a small diagram of
-    // one thing going in and the result coming out (Catalog.astro). A group's `link` must be a pitch page's path.
+    // every service, grouped by the part of the company it's for, the groups side by side (Catalog.astro). Each service:
+    // `scene`, the small scene drawn over it of what it hands you (Catalog.astro draws each one), its name, what it does
+    // in a sentence, and what it runs on. Two a group, so the section fits one screen. A group's `link` must be a pitch
+    // page's path.
     catalog: z.strictObject({
       id: z.string(), h2: z.string(), cta: z.string(),
       groups: z.array(z.strictObject({
         for: z.string(),
         link: z.strictObject({ label: z.string(), to: z.string() }).optional(),
-        items: z.array(z.strictObject({ name: z.string(), runs: z.string(), in: svcEnd, out: svcEnd })).min(1).max(4),
+        items: z.array(z.strictObject({
+          scene: z.enum(['email', 'inquiry', 'people', 'onboard', 'hours', 'report']),
+          name: z.string(), text: z.string(), runs: z.string(),
+        })).min(1).max(2),
       })).min(1).max(3),
     }),
     // Wren against the alternatives: each cell a mark and why in a few words; cells[0] is Wren's, then one per `them`

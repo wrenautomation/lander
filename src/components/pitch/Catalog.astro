@@ -1,33 +1,74 @@
 ---
-// Every service as a list, grouped by who it's for, the button beside the heading so it all fits one screen; a group with its own page links to it. Each row: a number, the
-// name, what it runs on, and a small diagram: one thing going in, the result coming out (green). The markup is the
-// finished state; pitch.ts (ART.catalog) plays the rows in, one after another.
+// Every service, in three columns by the part of the company it's for, the button beside the heading so it all fits
+// one screen; a group with its own page links to it. Each service opens on a small scene of what it hands you (the
+// email sent, the call booked, the candidates reached, the hire ready, the invoices out, the summary with its
+// sources), then the name, what it does in a sentence, and the tools it runs on. Scene labels are illustration, so
+// they live here, not in the yaml. The markup is each scene's finished state; pitch.ts (ART.svc) plays each one as it's
+// reached.
 import type { CollectionEntry } from 'astro:content';
 import { rich } from '../../lib/text';
+import { ICON } from '../../lib/icons';
 import Arrow from './Arrow.astro';
-import Mini from './Mini.astro';
 
 type C = CollectionEntry<'hub'>['data']['catalog'];
 const { s } = Astro.props as { s: C };
-
-let n = 0;
 ---
 <section class="sec catalog" id={s.id}>
   <div class="wrap">
     <div class="head wide"><h2 set:html={rich(s.h2)} /><a class="btn" href="#apply" data-cta><span>{s.cta}</span><Arrow /></a></div>
-    <div class="groups" data-art="catalog">
+    <div class="groups">
       {s.groups.map((g) => (
         <div class="grp">
           <p class="grp-hd"><span>{g.for}</span>{g.link && <a href={g.link.to}>{g.link.label}<Arrow /></a>}</p>
-          <ol>
+          <ul>
             {g.items.map((x) => (
-              <li class="svc">
-                <span class="n">{String(++n).padStart(2, '0')}</span>
-                <div class="what"><h3>{x.name}</h3><p>{x.runs}</p></div>
-                <Mini in={x.in} out={x.out} />
+              <li class="svc" data-art="svc" data-ui={x.scene}>
+                <div class:list={['ui', x.scene]} aria-hidden="true">
+                  {x.scene === 'email' && (
+                    <div class="pane">
+                      <p class="rcpt"><span>To</span><b><i><svg viewBox="0 0 16 16"><path d={ICON.person} /></svg></i>Decision maker</b></p>
+                      <u style="--w:92%"></u>
+                      <p class="mine"><u style="--w:58%"></u><em>Written for them</em></p>
+                      <p class="snd"><b><em class="was">Send</em><em class="now good"><svg viewBox="0 0 16 16"><path d={ICON.check} /></svg>Sent</em></b></p>
+                    </div>
+                  )}
+                  {x.scene === 'inquiry' && (
+                    <>
+                      <p class="q"><b>New inquiry</b><time>11:48 pm</time></p>
+                      <p class="r"><b>Replied with times</b><time>11:50 pm</time></p>
+                      <p class="bk good"><svg viewBox="0 0 16 16"><path d={ICON.cal} /></svg>Call booked</p>
+                    </>
+                  )}
+                  {x.scene === 'people' && (
+                    <ul>{[['Reached', 46], ['Reached', 60], ['Replied', 38]].map(([t, w], k) => <li><i><svg viewBox="0 0 16 16"><path d={ICON.person} /></svg></i><u style={`--w:${w}%`}></u><b class:list={{ rep: k === 2 }}>{t}</b></li>)}</ul>
+                  )}
+                  {x.scene === 'onboard' && (
+                    <>
+                      <ul>{['Accounts created', 'Paperwork sent', 'First week booked'].map((t) => <li><i><svg viewBox="0 0 16 16"><path d={ICON.check} /></svg></i>{t}</li>)}</ul>
+                      <p class="fin"><i><svg viewBox="0 0 16 16"><path d={ICON.person} /></svg></i>Ready for day one</p>
+                    </>
+                  )}
+                  {x.scene === 'hours' && (
+                    <>
+                      <ul class="tools">{[['Time tracker', 0.9], ['Calendar', 0.5], ['Spreadsheet', 0.7]].map(([t, w]) => <li><span>{t}</span><i style={`--w:${w}`}></i></li>)}</ul>
+                      <i class="arw"></i>
+                      <ul class="made">{([['invoice', 'Invoices'], ['person', 'Payroll']] as const).map(([k, t]) => <li><svg viewBox="0 0 16 16"><path d={ICON[k]} /></svg>{t}<b class="good"><svg viewBox="0 0 16 16"><path d={ICON.check} /></svg></b></li>)}</ul>
+                    </>
+                  )}
+                  {x.scene === 'report' && (
+                    <div class="pane">
+                      <p class="hd">One-page summary</p>
+                      <div class="body"><p class="ln"><u style="--w:96%"></u><u style="--w:84%"></u><u style="--w:90%"></u><u style="--w:52%"></u></p><p class="cht">{[0.45, 0.7, 0.55, 0.95].map((h) => <i style={`--h:${h}`}></i>)}</p></div>
+                      <p class="srcs"><span>Sources</span>{[1, 2, 3].map((n) => <b><svg viewBox="0 0 16 16"><path d={ICON.link} /></svg>{n}</b>)}</p>
+                    </div>
+                  )}
+                </div>
+                <h3>{x.name}</h3>
+                <p>{x.text}</p>
+                <p class="runs">{x.runs}</p>
               </li>
             ))}
-          </ol>
+          </ul>
         </div>
       ))}
     </div>

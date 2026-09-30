@@ -129,33 +129,33 @@ catalog:
       link: { label: "Recruiting? See lead reactivation", to: /recruiting/lead-reactivation }
       items:
         - name: Lead generation
-          runs: Your CRM and inbox
-          in: { icon: search, label: Your ideal client, note: "Industry, size, region" }
-          out: { icon: mail, label: Personal first email, note: To the decision maker }
+          scene: email
+          text: I find companies that fit your ideal client and write each decision maker a personal first email.
+          runs: Runs on your CRM and inbox.
         - name: Speed to lead
-          runs: Your site, inbox and calendar
-          in: { icon: mail, label: New inquiry, note: Any hour }
-          out: { icon: cal, label: Call booked, note: Minutes later }
+          scene: inquiry
+          text: Every new inquiry gets a reply in minutes, day or night, with times to book a call.
+          runs: Runs on your site, inbox and calendar.
     - for: People
       items:
         - name: Hiring outreach
-          runs: Your ATS and inbox
-          in: { icon: search, label: Open role, note: Who you need }
-          out: { icon: mail, label: Candidates reached, note: Each note personal }
+          scene: people
+          text: I find people who fit the role and reach each one with a personal note.
+          runs: Runs on your ATS and inbox.
         - name: Onboarding
-          runs: Your HR tools and docs
-          in: { icon: doc, label: Signed offer, note: New hire }
-          out: { icon: check, label: Ready on day one, note: "Accounts, docs, schedule" }
+          scene: onboard
+          text: A signed offer sets up their accounts, sends the paperwork and books their first week.
+          runs: Runs on your HR tools and docs.
     - for: Operations and research
       items:
         - name: Timesheets and invoicing
-          runs: Your time tracker and accounting
-          in: { icon: stack, label: Hours, note: From every tool }
-          out: { icon: invoice, label: Invoices and payroll, note: From approved hours }
+          scene: hours
+          text: Hours from every tool land in one place. Approved hours become invoices and payroll.
+          runs: Runs on your time tracker and accounting.
         - name: Research and reports
-          runs: AI on the web and your data
-          in: { icon: search, label: A question, note: "A company, a market, your numbers" }
-          out: { icon: doc, label: One-page summary, note: Sources linked }
+          scene: report
+          text: Ask about a company, a market or your numbers. Get the answer on one page, every source linked.
+          runs: Runs on the web and your data.
 
 compare:
   id: compare

@@ -282,6 +282,12 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   what it costs you, and my fix in the bubble with the specifics (SOPs, one CRM, lead research and drafts, what you
   approve unchanged, monitoring). The intro says each level holds up the one above it; a line under the button says
   how the call finds your level. The bars sit a little lower so the top bubble fits three lines.
+- **D64 (2026-09-30): Services are scenes, not diagrams.** The numbered rows with an in-and-out diagram didn't read
+  at a glance. Now the three groups stand side by side, two services each, lined up across columns. Each service opens
+  on a small scene of what it hands you (the email sent, the inquiry answered and the call booked, the candidates
+  reached, the new hire ready, invoices and payroll out, the summary with its sources), then its name, what it does in
+  a sentence, and what it runs on. Each scene plays as it's reached, left to right across a row. Still one desktop
+  screen. The about cards keep the in-and-out diagram.
 
 ## Next
 

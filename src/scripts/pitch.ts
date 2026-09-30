@@ -67,7 +67,7 @@ if (motion) {
   panel?.addEventListener('focusin', () => panel.classList.remove('beam'), { once: true });
 
   // the example thread plays out: a message, the other side typing, the reply, what it means
-  const scene = $('[data-scene]');
+  const scene = $('.scene[data-scene]'); // the thread, not the hub's value cards
   if (scene) shown.then(() => {
     gsap.set(scene, { opacity: 1 });
     const [a, b] = $$('.msg', scene);
@@ -87,7 +87,7 @@ if (motion) {
   }
 
   // blocks rise in, in reading order, a few at a time
-  const ups = $$('.sec .intro, .qs li, .pain>*, .target, .problem .btn, .agitate .btn, .say p, .say .btn, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .case, .window, .table, .about .photo, .about .para, .sign, .qa>div, .first3 .st, .start .say>*, .close .head>p, .close .btn, .vs p, .sec .wrap>.btn, .sec .head>.btn, .sec .head>.act').filter((x) => !seen(x));
+  const ups = $$('.sec .intro, .qs li, .pain>*, .target, .problem .btn, .agitate .btn, .say p, .say .btn, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .case, .window, .table, .about .photo, .about .para, .sign, .qa>div, .first3 .st, .start .say>*, .close .head>p, .close .btn, .vs p, .sec .wrap>.btn, .sec .head>.btn, .sec .head>.act, .grp-hd').filter((x) => !seen(x));
   gsap.set(ups, { opacity: 0, y: 48 });
   ScrollTrigger.batch(ups, { start: 'top 90%', once: true, onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: OUT, stagger: 0.08, overwrite: true }) });
 
@@ -164,7 +164,6 @@ if (motion) {
       .fromTo($$('li', el), { opacity: 0, x: -20 }, { opacity: 1, x: 0, stagger: 0.12 })
       .fromTo($('svg', el), { clipPath: 'inset(-10% 100% -10% 0)' }, { clipPath: 'inset(-10% 0% -10% 0)', duration: 1.2, ease: 'expo.inOut' }, 0.3)
       .fromTo($('.into', el), { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, ease: 'back.out(2)' }, '-=0.5'),
-    // the service list: row by row, the name, then the thing going in, the wire, a dot along it, the result
     // past work: each card in, its diagram runs, the numbers count up on their own (below)
     work: (el, tl) => {
       $$('article', el).forEach((a, k) => {
@@ -178,21 +177,39 @@ if (motion) {
       });
       return tl;
     },
-    catalog: (el, tl) => {
-      let t = 0;
-      for (const g of $$('.grp', el)) {
-        tl.fromTo($('.grp-hd', g), { opacity: 0 }, { opacity: 1, duration: 0.5 }, t);
-        for (const r of $$('.svc', g)) {
-          const dot = $('.wire i', r)!;
-          tl.fromTo($$('.n, .what', r), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.6 }, t)
-            .fromTo($('.nd.in', r), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.5 }, t + 0.15)
-            .fromTo($('.wire', r), { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: 'power2.inOut' }, t + 0.5)
-            .fromTo(dot, { left: '0%', opacity: 1 }, { left: '100%', duration: 0.45, ease: 'power1.inOut', immediateRender: false }, t + 0.85)
-            .set(dot, { opacity: 0 }, t + 1.3)
-            .fromTo($('.nd.out', r), { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2)' }, t + 1.2);
-          t += 0.55;
-        }
-      }
+    // a service rises, then its scene plays what it hands you. Services side by side trigger together, so each waits by
+    // how far across the screen it sits: left to right on a wide screen, each as it's reached down a phone.
+    svc: (el, tl) => {
+      const t = (el.getBoundingClientRect().left / innerWidth) * 0.9, s = t + 0.45, v = $('.ui', el)!; // s: as it settles
+      const pop = (x: gsap.TweenTarget, at: number, stagger = 0) => tl.fromTo(x, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(3)', stagger }, at);
+      const grow = (x: gsap.TweenTarget, at: number, stagger = 0.12, axis = 'scaleX') => tl.fromTo(x, { [axis]: 0 }, { [axis]: 1, duration: 0.5, ease: 'power2.out', stagger }, at);
+      tl.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7 }, t);
+      const SCENE: Record<string, () => void> = {
+        // the email fills in, the line written for them gets its tag, then it sends
+        email: () => {
+          pop($('.rcpt b', v), s); grow($$('u', v), s + 0.2, 0.15); pop($('.mine em', v), s + 0.6);
+          tl.fromTo($('.snd .was', v), { opacity: 1 }, { opacity: 0, duration: 0.2 }, s + 1.1); pop($('.snd .now', v), s + 1.15);
+        },
+        // an inquiry late at night, my reply two minutes later, then the call on the calendar
+        inquiry: () => {
+          tl.fromTo($('.q', v), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.4 }, s)
+            .fromTo($('.r', v), { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: 0.4 }, s + 0.55);
+          pop($('.bk', v), s + 1.1);
+        },
+        // each person reached in turn; the last has already replied
+        people: () => { tl.fromTo($$('li', v), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.25 }, s); pop($$('b', v), s + 0.3, 0.25); },
+        // the checklist ticks itself off, then they're ready
+        onboard: () => { pop($$('li i', v), s, 0.3); pop($('.fin', v), s + 1); },
+        // hours come in from each tool, then out go the invoices and payroll
+        hours: () => {
+          grow($$('.tools i', v), s); grow($('.arw', v), s + 0.45, 0);
+          tl.fromTo($$('.made li', v), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.35, stagger: 0.15 }, s + 0.7);
+          pop($$('.made b', v), s + 0.9, 0.15);
+        },
+        // the summary writes itself, its chart rises, then its sources
+        report: () => { grow($$('.ln u', v), s, 0.1); grow($$('.cht i', v), s + 0.25, 0.1, 'scaleY'); pop($$('.srcs b', v), s + 0.8, 0.12); },
+      };
+      SCENE[el.dataset.ui!]?.();
       return tl;
     },
     // the five levels, out of order then in order: the pinned level's end appears alone past empty outlines, shakes with
