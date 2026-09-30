@@ -79,39 +79,46 @@ values:
 levels:
   id: levels
   h2: Most companies *start at level four.*
-  text: "88% of companies now use AI somewhere, yet nearly two-thirds haven't started scaling it.[^3] AI can't run on scattered data and processes nobody wrote down."
+  text: "88% of companies now use AI somewhere, yet nearly two-thirds haven't started scaling it.[^3] AI can't run on scattered data and processes nobody wrote down. Each level holds up the one above it."
   cta: Find my level
+  how: "Walk me through a normal week. I'll tell you your level."
   word: Level
   most: 4
   most_note: Most jump in here
   fall: Nothing under it
   gate: { after: 3, name: AI-ready }
   # scene: the icons drawn inside the bar; linked joins them with a line (the tools talk to each other).
-  # why: the pain in a few words (the top level: the good news). fix: my bubble, one short line.
+  # is: what the level looks like, so the reader spots their own. why: what it costs you (the top level: the good
+  # news). fix: my bubble. One sentence each.
   items:
     - name: Manual
       scene: [person, person, person]
-      why: "Slips when someone's out"
-      fix: "I write down how the work gets done."
+      is: "Work lives in people's heads."
+      why: "You're everyone's backup. Someone's out and deadlines slip."
+      fix: "I write down how your team actually works, so anyone can do it."
     - name: Documented
       scene: [doc, mail, stack]
-      why: Nobody trusts the numbers
-      fix: "I merge your tools into one CRM."
+      is: "It's written down, but your data sits in every tool."
+      why: Nobody trusts the numbers, and leads slip between tools.
+      fix: "I merge it all into one clean CRM and cut the tools you don't need."
     - name: Connected
       scene: [doc, mail, stack]
       linked: true
-      why: Growth still means hiring
-      fix: "I put AI on the busywork."
+      is: One clean record. Handoffs run on their own.
+      why: Your team still researches and writes it all. Growth means hiring.
+      fix: "I put AI on the busywork: lead research, drafts, call notes."
     - name: AI-assisted
       scene: [spark, doc, person]
       linked: true
-      why: Your team edits all day
-      fix: "I let approved work run itself."
+      is: AI drafts. Your team checks every piece.
+      why: Your best people become editors. Headcount still climbs with volume.
+      fix: "I track what you approve unchanged and let it run on its own."
     - name: Self-running
       scene: [spark, loop, check]
       linked: true
-      why: More clients, same team
-      fix: "I monitor it and fix any issues."
+      is: The daily work runs itself. Your team handles clients.
+      why: "More clients, same team. No new hire for every new client."
+      fix: "I monitor your automations and fix any issues that come up."
 
 catalog:
   id: services

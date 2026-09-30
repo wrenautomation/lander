@@ -151,9 +151,13 @@
 .levels .head.wide{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 40px;max-width:none}
 .levels .head h2{max-width:15em}
 .levels .head .intro{max-width:40em}
-.stairs{--u:clamp(34px,5.4vh,50px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 0 repeat(2,minmax(0,1fr));list-style:none;margin:clamp(26px,3.4vh,44px) 0 0;padding:0}
+.levels .act{display:grid;justify-items:end;gap:10px}
+/* wide enough for the first sentence alone, so it breaks between the two */
+.levels .how{max-width:15.5em;font-size:14px;line-height:1.4;text-align:right;color:var(--ink-2)}
+/* --top: the room over the tallest bar, for its bubble */
+.stairs{--u:clamp(32px,4.8vh,46px);--top:104px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 0 repeat(2,minmax(0,1fr));list-style:none;margin:clamp(26px,3.4vh,44px) 0 0;padding:0}
 .stairs>li:not(.gate){display:flex;flex-direction:column;min-width:0}
-.stairs .up{display:flex;flex-direction:column;justify-content:flex-end;height:calc(var(--u) * 5 + 80px);padding-inline:1px;border-bottom:1.5px solid var(--ink)}
+.stairs .up{display:flex;flex-direction:column;justify-content:flex-end;height:calc(var(--u) * 5 + var(--top));padding-inline:1px;border-bottom:1.5px solid var(--ink)}
 /* the bubble: my words, my face, a tail pointing down at the bar */
 .stairs .fix{position:relative;display:flex;align-items:flex-start;gap:9px;margin:0 clamp(6px,.8vw,12px) 14px;padding:10px 12px 11px 10px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px var(--rule),0 6px 18px rgba(14,14,14,.06);font-size:14px;line-height:1.4;transform-origin:50% 100%}
 .stairs .fix::after{content:"";position:absolute;left:50%;bottom:-6px;width:11px;height:11px;margin-left:-5.5px;background:#fff;box-shadow:1px 1px 0 var(--rule);transform:rotate(45deg)}
@@ -174,15 +178,18 @@
 .stairs .lv{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
 .stairs .pin{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);padding:2px 7px;background:var(--ink);color:#fff;font-size:11.5px;font-weight:500;letter-spacing:0;text-transform:none;white-space:nowrap}
 .stairs h3{margin-top:4px;font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
-.stairs .why{position:relative;margin-top:4px;padding-left:20px;font-size:14px;line-height:1.45;color:var(--ink-2)}
+.stairs .is{margin-top:4px;font-size:14.5px;line-height:1.45;color:var(--ink-2)}
+.stairs .why{position:relative;margin-top:8px;padding-left:20px;font-size:14px;line-height:1.45;color:var(--ink)}
 .stairs .bad::before,.stairs .bad::after{content:"";position:absolute;left:1px;top:.72em;width:11px;height:0;border-top:2px solid var(--bad);transform:rotate(45deg)}
 .stairs .bad::after{transform:rotate(-45deg)}
 .stairs .good::before{content:"";position:absolute;left:0;top:.18em;width:14px;height:14px;border-radius:50%;background:var(--win) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4l2.6 2.6L12 5.6' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/10px no-repeat}
 /* the AI-ready line: dashed, green, from the top of the stairs to the floor */
-.stairs .gate{position:relative;z-index:1;height:calc(var(--u) * 5 + 80px);color:var(--win)}
+.stairs .gate{position:relative;z-index:1;height:calc(var(--u) * 5 + var(--top));color:var(--win)}
 .stairs .gate::before{content:"";position:absolute;top:28px;bottom:0;left:-1px;border-left:1.5px dashed currentColor}
 .stairs .gate b{position:absolute;top:0;left:0;transform:translateX(-50%);padding:3px 9px;border-radius:99px;background:var(--win);color:#fff;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
 @media (max-width:899px){
+  .levels .act{justify-items:start}
+  .levels .how{text-align:left}
   .stairs{display:block;--u:0px}
   .stairs>li:not(.gate){padding-block:16px;border-top:1px solid var(--rule)}
   .stairs .up{display:contents}

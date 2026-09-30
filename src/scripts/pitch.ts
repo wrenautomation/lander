@@ -87,7 +87,7 @@ if (motion) {
   }
 
   // blocks rise in, in reading order, a few at a time
-  const ups = $$('.sec .intro, .qs li, .pain>*, .target, .problem .btn, .agitate .btn, .say p, .say .btn, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .case, .window, .table, .about .photo, .about .para, .sign, .qa>div, .first3 .st, .start .say>*, .close .head>p, .close .btn, .vs p, .sec .wrap>.btn, .sec .head>.btn').filter((x) => !seen(x));
+  const ups = $$('.sec .intro, .qs li, .pain>*, .target, .problem .btn, .agitate .btn, .say p, .say .btn, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .case, .window, .table, .about .photo, .about .para, .sign, .qa>div, .first3 .st, .start .say>*, .close .head>p, .close .btn, .vs p, .sec .wrap>.btn, .sec .head>.btn, .sec .head>.act').filter((x) => !seen(x));
   gsap.set(ups, { opacity: 0, y: 48 });
   ScrollTrigger.batch(ups, { start: 'top 90%', once: true, onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: OUT, stagger: 0.08, overwrite: true }) });
 

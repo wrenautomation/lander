@@ -277,6 +277,11 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   bubble with my face off its top says how I get you past it, and under the floor sit only the name and the pain in
   four or five words. The "is" lines are gone: the names say it. The AI-ready line stands between levels 3 and 4.
   Level 4's top still appears alone and falls first; on phones, where level 4 is a screen below, the levels just build.
+- **D63 (2026-09-30): Levels keep the staircase, with the copy grown back.** William liked D62's picture but found
+  the copy underdeveloped. Each level now says, a sentence each: what it looks like (so the reader spots their own),
+  what it costs you, and my fix in the bubble with the specifics (SOPs, one CRM, lead research and drafts, what you
+  approve unchanged, monitoring). The intro says each level holds up the one above it; a line under the button says
+  how the call finds your level. The bars sit a little lower so the top bubble fits three lines.
 
 ## Next
 

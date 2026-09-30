@@ -344,16 +344,18 @@ const hub = defineCollection({
       items: z.array(z.strictObject({ art: z.enum(['handled', 'messy', 'charge', 'watched', 'cost', 'first']), name: z.string(), text: z.string() })).min(3).max(6),
     }),
     // the five levels a company climbs, as steps (Levels.astro); `most` is the level most companies jump in at, `fall`
-    // the words on it as it falls with nothing under it
+    // the words on it as it falls with nothing under it; `how`: how the call finds your level, under the button
     levels: z.strictObject({
-      id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
+      id: z.string(), h2: z.string(), text: z.string(), cta: z.string(), how: z.string(),
       word: z.string(),                 // "Level", before each number
       most: z.number().int().min(1).max(5), most_note: z.string(), fall: z.string(),
       gate: z.strictObject({ after: z.number().int().min(1).max(4), name: z.string() }), // the line after that level where AI has clean data
-      // scene: icons drawn in the bar, linked: joined by a line; why: the pain in a few words (the top level: the good
-      // news); fix: how I get you past it, in a bubble off the top of its bar. The picture carries the rest.
+      // scene: icons drawn in the bar, linked: joined by a line; is: what a company at this level looks like, so the
+      // reader spots their own; why: the pain in a sentence (the top level: the good news); fix: how I get you past it,
+      // in a bubble off the top of its bar. Each a sentence at most: the picture carries the rest.
       items: z.array(z.strictObject({
-        name: z.string(), scene: z.array(z.enum(ICONS)).min(1).max(4), linked: z.boolean().default(false), why: z.string(), fix: z.string(),
+        name: z.string(), scene: z.array(z.enum(ICONS)).min(1).max(4), linked: z.boolean().default(false),
+        is: z.string(), why: z.string(), fix: z.string(),
       })).length(5),
     }),
     // real builds only, each as the level it started on, the level it reached, before and now. Left out until there are some.
