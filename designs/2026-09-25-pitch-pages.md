@@ -201,6 +201,9 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   screen shows whole, and proof figures keep number and unit on one line so the count-up never rewraps.
   The recruiting page runs tighter (section and heading spacing), on his note.
   The backdrop bird carries on across the rust close and footer in cream (a clipped copy per dark band).
+- **D50 (2026-09-30): Headings rise whole.** William: the staggered word-by-word rise "is a bit slow and
+  makes the experience worse" on the recruiting page; not faster, less time, more subtle. Every section
+  heading now fades up 14px at once in 0.6s (was 1.1s plus 0.05s a word). Both pages.
 
 ## Next
 

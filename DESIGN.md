@@ -153,8 +153,8 @@ Black on white, with the brand's rust in set places. The rust and cream are samp
 **Character:** Clean with a little warmth. Hierarchy comes from size and weight, not style.
 
 ### Hierarchy
-- **Display** (500, clamp 2.5–5.4rem, 1.04, −0.035em): the hero headline only. Rises in word by word.
-- **Headline** (500, clamp 2–3.4rem, 1.04, −0.035em): section heads and the closing screen. Rise in word by word.
+- **Display** (500, clamp 2.5–5.4rem, 1.04, −0.035em): the hero headline only. Rises in with the rest of the first screen.
+- **Headline** (500, clamp 2–3.4rem, 1.04, −0.035em): section heads and the closing screen. Rise in whole, a short fade.
 - **Title** (500, 20–24px, 1.2): items, steps, terms, form questions, FAQ questions.
 - **Lede** (400, 18–23px, 1.45): the hero paragraph, max 31em. Its bold opener is ink, weight 500.
 - **Body** (400, 17px, 1.6): text, max about 36em.
@@ -187,9 +187,9 @@ Prompt style: black-and-white editorial photography, natural light, fine grain, 
 
 GSAP + ScrollTrigger (`src/scripts/pitch.ts`), on only with `html.js` (off for `?static` and reduced motion; everything then renders whole and still).
 
-- **First screen:** the headline rises word by word; lede and byline follow. The form panel never waits.
+- **First screen:** headline, lede and checks rise together. The form panel never waits.
 - **Example thread:** a message, the other side typing, the reply, the tag.
-- **Headings:** rise word by word as they enter.
+- **Headings:** rise 14px and fade in at once, 0.6s, as they enter (was word by word; too slow, D50).
 - **Blocks:** rise in, a few at a time, in reading order.
 - **Pictures:** wipe open from alternate sides, settle from a zoom, then drift slightly against the scroll.
 - **Diagrams:** assemble once on entry (tiles, then the chip; rows with marks popping; the wire draws, then a dot runs; bars grow).

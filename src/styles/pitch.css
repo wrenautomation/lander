@@ -780,8 +780,6 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .js:not(.arrived) .hero :is(h1,.lede,.promise,.more,.scene,.by){opacity:0;animation:show .01s 2.5s forwards}
 .js.loading .hero :is(h1,.lede,.promise,.more,.scene,.by,.kicker,.checks,.ctas){animation-play-state:paused}
 @keyframes show{to{opacity:1}}
-.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
-.w>span{display:inline-block}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}

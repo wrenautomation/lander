@@ -1,4 +1,4 @@
-// Pitch pages: the motion (the hero coming in, headings rising word by word, blocks and pictures entering as you
+// Pitch pages: the motion (the hero coming in, headings rising whole, blocks and pictures entering as you
 // scroll, each step's diagram assembling, the steps rule filling) and the stepped form,
 // which works without motion too. html.js is set in the layout's head (Pitch.astro, Hub.astro) when motion is on;
 // without it everything renders whole and still. Diagrams are always complete: motion only brings their parts in.
@@ -48,25 +48,6 @@ try {
 const seen = (el: Element) => el.getBoundingClientRect().top + scrollY < Math.max(scrollY, landY) + innerHeight;
 
 /* ---------- entrances: nothing waits on a click, everything arrives as it's reached ---------- */
-// Wraps each word in .w>span so it can rise out of its own line box. Keeps inline markup (the *punch* em).
-const words = (el: HTMLElement) => {
-  const walk = (n: Node) => {
-    for (const c of [...n.childNodes]) {
-      if (c.nodeType === Node.ELEMENT_NODE) { if ((c as Element).tagName !== 'SUP') walk(c); continue; } // a citation stays put
-      if (c.nodeType !== Node.TEXT_NODE) continue;
-      const frag = document.createDocumentFragment();
-      for (const t of c.textContent!.split(/(\s+)/)) {
-        if (!t) continue;
-        if (/^\s+$/.test(t)) { frag.append(t); continue; }
-        const w = document.createElement('span'), i = document.createElement('span');
-        w.className = 'w'; i.textContent = t; w.append(i); frag.append(w);
-      }
-      c.replaceWith(frag);
-    }
-  };
-  walk(el);
-  return $$('.w>span', el);
-};
 const OUT = 'expo.out';
 
 if (motion) {
@@ -100,9 +81,9 @@ if (motion) {
       .fromTo($('.tag', scene), { opacity: 0, y: 12 }, { opacity: 1, y: 0 }, 2.9);
   });
 
-  // section headings: word by word, as each comes into view
+  // section headings: the whole line rises a little and fades in at once, as each comes into view
   for (const h of $$('.sec h2, .close h2').filter((x) => !seen(x))) {
-    gsap.fromTo(words(h), { yPercent: 110 }, { yPercent: 0, duration: 1.1, ease: OUT, stagger: 0.05, scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
+    gsap.fromTo(h, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, ease: OUT, scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
   }
 
   // blocks rise in, in reading order, a few at a time
