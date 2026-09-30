@@ -1,8 +1,8 @@
 ---
 // The hub, /: Wren as a whole. Copy from src/content/hub/home.yaml, the form's terms from its offer (lib/pitch.ts).
 // Laid out on the B2B landing template, one screen per section, each ending on a button to the form:
-// hero (words left, a line pointing at the form right), the pain (full-width stat headline, the day as it is and as
-// it should be), proof, the five levels, client builds once there are real ones (each as the levels it climbed), three benefits (diagrams), every service, William, the comparison,
+// hero (words left, a line pointing at the form right), the pain (full-width headline, net margin shrinking as the
+// team grows), proof, the five levels, client builds once there are real ones (each as the levels it climbed), three benefits (diagrams), every service, William, the comparison,
 // how it starts, questions, the recap, the sources every [^n] marker points at. Same type, colour and motion as the pitch pages (pitch.css, pitch.ts);
 // hub.css adds the hub's own parts.
 import '../styles/pitch.css';
@@ -29,7 +29,7 @@ import { bare, rich, richParas } from '../lib/text';
 const { entry } = Astro.props as { entry: CollectionEntry<'hub'> };
 const { p, offer } = await loadHub(entry);
 const { cases } = p;
-const legend = [...new Map(p.pain.chart.rows.flatMap((r) => r.parts).map((x) => [x.label, x])).values()];
+const chart = p.pain.chart, top = Math.max(...chart.bars.map((b) => b.pct));
 const site = (await getEntry('site', 'site'))!.data;
 const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap';
 const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
@@ -73,17 +73,15 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
         <a class="btn" href="#apply" data-cta><span>{p.pain.cta}</span><Arrow /></a>
       </div>
       <figure class="window">
-        <p class="hd">{p.pain.chart.h}</p>
-        <div class="art day" data-art="day">
-          {p.pain.chart.rows.map((r) => (
-            <div class="day-row">
-              <p class="rh">{r.h}</p>
-              <p class="day-bar" role="img" aria-label={r.parts.map((x) => (x.pct ? `${x.label} ${x.w}%` : x.label)).join(', ')}>
-                {r.parts.map((x) => <i class={x.tone} style={`--w:${x.w}`}>{x.pct && <b>{x.w}%</b>}</i>)}
-              </p>
-            </div>
-          ))}
-          <ul class="legend" aria-hidden="true">{legend.map((x) => <li class={x.tone}>{x.label}</li>)}</ul>
+        <p class="hd">{chart.h}</p>
+        <div class="art margin" data-art="margin" style={`--n:${chart.bars.length}`}>
+          <div class="plot" role="img" aria-label={`${chart.h}: ${chart.bars.map((b) => `${b.label} ${b.pct}%`).join(', ')}. ${chart.aim}: flat.`}>
+            {chart.bars.map((b) => <p class="col" style={`--h:${b.pct / top}`}><i></i><b>{b.pct}%</b></p>)}
+            <p class="aim"><span>{chart.aim}</span></p>
+          </div>
+          <ul class="ticks" aria-hidden="true">{chart.bars.map((b) => <li>{b.label}</li>)}</ul>
+          <p class="axis">{chart.axis}</p>
+          <p class="note" set:html={rich(chart.note)} />
         </div>
       </figure>
     </div>

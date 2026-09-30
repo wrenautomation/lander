@@ -176,7 +176,7 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
 - **D48 (2026-09-30): The hub's copy, on William's brief.** "a complete scalability tech integration
   thing": software for every part of a company that has to scale (lead gen, hiring outreach, admin,
   timesheets, onboarding), with AI on research and summaries, and "a lot of info" to teach the market.
-  Headline: "What if scaling took *less work*, not more?" (2026-09-30, his pick from ten, "scaling" his word). Market facts (Asana, Salesforce,
+  Headline: "What if scaling took *less work*, not more?" (2026-09-30, his pick from ten, "scaling" his word). Market facts (Asana, Promethean,
   HBR, McKinsey) sit in the prose of the pain, levels, benefits and FAQ, one fact per place, sources
   in the page's Sources list (D49). Cases are optional and left out until there are real client builds; the proof
   cards carry the Government of Canada and University of Alberta work. The catalog keeps six rows (two
@@ -204,6 +204,17 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
 - **D50 (2026-09-30): Headings rise whole.** William: the staggered word-by-word rise "is a bit slow and
   makes the experience worse" on the recruiting page; not faster, less time, more subtle. Every section
   heading now fades up 14px at once in 0.6s (was 1.1s plus 0.05s a word). Both pages.
+- **D51 (2026-09-30): The hub's pain is money first.** William: margins may be the stronger pitch;
+  unify it with team size and busywork; "company", never "agency" (the page is general); lead with
+  what everyone wants, mainly more money, then better margins and less repetitive work. Headline "The
+  bigger you grow, *the less you keep.*" Body: more clients bring repetitive work (58% of the day,
+  Asana), so each client needs a hire, so margins shrink; take the work off the team and more of each
+  new dollar stays. The chart is net margin by team size, 19/12/9/8% (Promethean Research 2025, after
+  tax, by FTE); its sample is digital agencies, so the note says "Digital service companies" and the
+  copy stays general. A dashed flat line at the first bar, "With the repetitive work automated", is
+  the aim and has no number. Salesforce's 70% left the page (its slot in Sources went to Promethean).
+  Hero third check is now "Better Margins as You Grow"; the recap reads "Growth should add profit, not
+  payroll" and its last row is margins that hold vs shrink. Recruiting page unchanged.
 
 ## Next
 

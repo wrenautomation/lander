@@ -323,17 +323,17 @@ const hub = defineCollection({
       to_form: z.string(),              // one line pointing at the form beside it (below it on a phone)
     }),
     proof: proof.omit({ intro: true }).extend({ cta: z.string() }),
-    // the biggest pain, right under the first screen: a full-width headline, then the words beside a chart of the
-    // day as it is and as it should be. Each row is one bar split into parts that add up to 100; pct prints a
-    // part's share on it (sourced rows only). One legend under the rows names each label once.
+    // the biggest pain, right under the first screen: a full-width headline, then the words beside a chart of net
+    // margin shrinking as the team grows. Bars are sourced (note carries the [^n]); the aim line is flat at the
+    // first bar's height and carries no number.
     pain: z.strictObject({
       id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
       chart: z.strictObject({
-        h: z.string(),
-        rows: z.array(z.strictObject({
-          h: z.string(),
-          parts: z.array(z.strictObject({ label: z.string(), w: z.number().min(1).max(100), tone: z.enum(['hot', 'win', 'ink']), pct: z.boolean().optional() })).min(1).max(4),
-        }).refine((r) => r.parts.reduce((t, x) => t + x.w, 0) === 100, 'a row\'s parts add up to 100')).min(2).max(3),
+        h: z.string(),                  // the window's title
+        axis: z.string(),               // under the team sizes
+        note: z.string(),               // who the figures describe, with its [^n]
+        aim: z.string(),                // the flat line's label
+        bars: z.array(z.strictObject({ label: z.string(), pct: z.number().min(0).max(100) })).min(3).max(6),
       }),
     }),
     // the five levels a company climbs, as steps (Levels.astro); `most` is the level most companies are on

@@ -105,11 +105,11 @@ if (motion) {
     rows: (el, tl) => tl
       .fromTo($$('li', el), { opacity: 0, x: -24 }, { opacity: 1, x: 0, stagger: 0.14 })
       .fromTo($$('.mk', el), { scale: 0 }, { scale: 1, stagger: 0.14, duration: 0.6, ease: 'back.out(3)' }, 0.4),
-    // the day as it is and as it should be: each bar fills left to right, part by part, then the legend
-    day: (el, tl) => {
-      $$('.day-bar', el).forEach((bar, i) => tl.fromTo($$('i', bar), { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.8, stagger: 0.35, ease: 'power2.inOut' }, i * 0.9));
-      return tl.fromTo($$('.legend li', el), { opacity: 0 }, { opacity: 1, stagger: 0.1, duration: 0.5 });
-    },
+    // margin by team size: bars rise one by one with their figures, then the aim line draws flat across
+    margin: (el, tl) => tl
+      .fromTo($$('.col i', el), { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: 0.7, stagger: 0.25, ease: 'power2.out' })
+      .fromTo($$('.col b', el), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.25 }, 0.3)
+      .fromTo($$('.aim', el), { clipPath: 'inset(-40px 100% 0 0)' }, { clipPath: 'inset(-40px 0% 0 0)', duration: 1, ease: 'power2.inOut' }),
     bars: (el, tl) => tl
       .fromTo($$('i', el), { scaleX: 0 }, { scaleX: 1, duration: 1.3, stagger: 0.14 })
       .fromTo($$('span', el), { opacity: 0 }, { opacity: 1, stagger: 0.14 }, 0),

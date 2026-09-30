@@ -40,25 +40,22 @@
 .sec .wrap>.btn{margin-top:clamp(32px,3.6vw,52px)}
 .sec .head>.btn{margin-top:clamp(22px,2.6vw,32px)}
 
-/* ---------- the pain: the figure as a full-width headline, then the words left, the day as it is and as it
-   should be right, in a gray window ---------- */
+/* ---------- the pain: a full-width headline, then the words left, net margin by team size right, in a gray
+   window. Bars are sourced; the dashed aim line has no number ---------- */
 .pain-sec .head.wide{max-width:none}
 .pain-sec h2{font-size:clamp(2.2rem,1.3rem + 2.6vw,4rem)}
 .pain-sec .grid{align-items:center}
 .pain-sec .grid>.head .intro{margin-top:0}
-.day .day-row+.day-row{margin-top:26px}
-.day{text-align:left}
-.day .rh{margin-bottom:10px;font-size:15px;font-weight:600}
-.day .day-bar{display:flex;gap:3px;height:44px}
-.day .day-bar i{font-style:normal;position:relative;display:flex;align-items:center;flex:var(--w) 0 0;min-width:0;border-radius:6px;background:var(--ink)}
-.day .day-bar i.hot{background:var(--acc)}
-.day .day-bar i.win{background:var(--win)}
-.day .day-bar b{font-style:normal;padding-inline:12px;font-size:15px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums}
-.day .legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:24px;padding-top:16px;border-top:1px solid var(--rule);font-size:14px;color:var(--ink-2)}
-.day .legend li{display:flex;align-items:center;gap:8px}
-.day .legend li::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--ink)}
-.day .legend .hot::before{background:var(--acc)}
-.day .legend .win::before{background:var(--win)}
+.margin{text-align:left}
+.margin .plot{position:relative;display:grid;grid-template-columns:repeat(var(--n),1fr);gap:clamp(10px,2vw,22px);height:clamp(200px,20vw,280px);border-bottom:1px solid var(--rule)}
+.margin .col{position:relative;margin:0}
+.margin .col i{position:absolute;inset:auto 0 0;height:calc(var(--h) * 78%);border-radius:6px 6px 0 0;background:var(--acc)}
+.margin .col b{position:absolute;inset:auto 0 calc(var(--h) * 78%);padding-bottom:6px;text-align:center;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.margin .aim{position:absolute;inset:auto 0 78%;margin:0;border-top:2px dashed var(--win)}
+.margin .aim span{position:absolute;right:0;bottom:8px;font-size:14px;font-weight:600;color:var(--win)}
+.margin .ticks{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:clamp(10px,2vw,22px);margin-top:10px;font-size:14px;text-align:center;color:var(--ink-2)}
+.margin .axis{margin-top:6px;font-size:13px;text-align:center;color:var(--ink-2)}
+.margin .note{margin-top:18px;padding-top:14px;border-top:1px solid var(--rule);font-size:13px;color:var(--ink-2)}
 .pain-sec .intro b{color:var(--ink)}
 .window{padding:clamp(24px,2.6vw,38px)}
 .window .hd{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--rule);font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
