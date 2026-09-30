@@ -313,8 +313,9 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   clients needed ~35 meetings and 500-1,000 contacts. Supersedes D16's h1.
 - **D70 (2026-09-30): About qualifies the client too.** Under "Who you'll be working with", both pages say who we
   work best with: "You'll enjoy working with us if you:" then four green checks (thoughtful advice over quick fixes,
-  take tough feedback and act on it, a partner for years, decide quickly and tell us straight). The hub drops its
-  long-term para (the list carries it); the name sits beside the button so each section stays one screen.
+  take tough feedback and act on it, a partner for years, decide quickly and tell us straight). The about copy stays
+  full length (William: don't shorten it); the name sits beside the button and the hub's about, levels and services
+  pad 72px, so each section stays one screen.
 
 ## Next
 
