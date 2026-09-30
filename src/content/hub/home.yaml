@@ -42,13 +42,14 @@ pain:
   id: pain
   h2: The bigger you grow, *the worse your profit margin.*
   text: |
-    Every new client needs more people. More people need managers, support staff and meetings to stay in sync. Costs climb faster than revenue, so each new dollar earns less than the one before.[^2]
+    Every new client needs more people. More people need managers, support staff and meetings to stay in sync. Then come the CRMs, subscriptions, consultants, experts and developers to hold it all together. Costs climb faster than revenue, so each new dollar earns less than the one before.[^2]
 
-    **I automate the work that forces those hires, so you keep more of every dollar as you grow.**
+    **We offer a complete suite of services to align your systems with profitable growth.**
   cta: Keep more of what you earn
   chart:
     h: Net profit margin by team size
     axis: People on the team
+    y: Net profit margin
     real: Digital service companies, 2025[^2]
     aim: With the repetitive work automated
     # pct is sourced and printed; aim is our aim, drawn gentler, never printed

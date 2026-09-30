@@ -231,6 +231,10 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   firm map) are gone, their code with them; Services stays. "How it works" now points at the steps.
   Form, both pages: picking a choice no longer moves on; people switch back and forth, and Next
   (lower right) moves on.
+- **D54 (2026-09-30): A real graph, costs named, the fix as an offer.** The chart gets axes: margin up
+  the side (0 to 20% in 5s, dashed gridlines), team size along the bottom. The pain names the costs
+  that pile up (CRMs, subscriptions, consultants, experts, developers). The fix line, his template:
+  "We offer a complete suite of services to align your systems with profitable growth."
 
 ## Next
 

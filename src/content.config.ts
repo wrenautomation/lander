@@ -330,6 +330,7 @@ const hub = defineCollection({
       chart: z.strictObject({
         h: z.string(),                  // the window's title
         axis: z.string(),               // under the team sizes
+        y: z.string(),                  // up the side, beside the % ticks
         real: z.string(),               // the sourced line's key, with its [^n]
         aim: z.string(),                // the green line's key
         points: z.array(z.strictObject({ label: z.string(), pct: z.number().min(0).max(100), aim: z.number().min(0).max(100) })).min(3).max(6),

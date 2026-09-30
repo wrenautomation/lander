@@ -28,8 +28,9 @@ const { entry } = Astro.props as { entry: CollectionEntry<'hub'> };
 const { p, offer } = await loadHub(entry);
 const { cases } = p;
 const chart = p.pain.chart, pts = chart.points;
-const top = Math.max(...pts.flatMap((x) => [x.pct, x.aim]));
-const X = (k: number) => ((k + 0.5) / pts.length) * 100, Y = (v: number) => (v / top) * 78; // % across, % up
+const STEP = 5, top = Math.ceil(Math.max(...pts.flatMap((x) => [x.pct, x.aim])) / STEP) * STEP; // the y axis runs 0 to top
+const yTicks = Array.from({ length: top / STEP + 1 }, (_, i) => i * STEP);
+const X = (k: number) => ((k + 0.5) / pts.length) * 100, Y = (v: number) => (v / top) * 100; // % across, % up
 const line = (f: (x: typeof pts[number]) => number) => pts.map((x, k) => `${X(k)},${100 - Y(f(x))}`).join(' ');
 const site = (await getEntry('site', 'site'))!.data;
 const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap';
@@ -76,7 +77,9 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
       <figure class="window">
         <p class="hd">{chart.h}</p>
         <div class="art margin" data-art="margin" style={`--n:${pts.length}`}>
+          <p class="ytitle" aria-hidden="true">{chart.y}</p>
           <div class="plot" role="img" aria-label={`${chart.h}: ${pts.map((x) => `${x.label} ${x.pct}%`).join(', ')}. ${chart.aim}: a far gentler fall.`}>
+            {yTicks.map((t) => <span class="gl" style={`--y:${Y(t)}`} aria-hidden="true"><em>{t}%</em></span>)}
             <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
               <polyline class="real" points={line((x) => x.pct)} />
               <polyline class="aim" points={line((x) => x.aim)} />
