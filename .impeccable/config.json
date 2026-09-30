@@ -41,6 +41,14 @@
         "value": "instrument serif",
         "createdAt": "2026-09-29T19:20:19.963Z",
         "reason": "agent: same, older /agencies niche design"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/styles/hub.css"
+        ],
+        "createdAt": "2026-09-30T15:57:16.386Z"
       }
     ]
   }
