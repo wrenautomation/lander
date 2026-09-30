@@ -229,7 +229,8 @@ if (motion) {
       return tl;
     },
     // the five levels, out of order then in order: the pinned level's own block drops in over empty outlines, shakes
-    // with nothing under it and falls; then each level builds bottom up, block on block, and says what it has and lacks
+    // with nothing under it and falls; then each level builds bottom up, block on block, says what it has and lacks,
+    // and my bubble pops over it with what I build there
     levels: (el, tl) => {
       // stacks stand on desktop and lie flat on phones, so blocks drop in from above or slide in from the left. On
       // phones level four sits a screen below where this starts, so the jump would play unseen: the levels just build.
@@ -237,6 +238,7 @@ if (motion) {
       const rows = $$(':scope > li:not(.gate)', el), gate = $('.gate', el), jump = $('.most .brick.own', el), pin = $('.pin', el);
       const hide = (x: gsap.TweenTarget, v: gsap.TweenVars) => tl.fromTo(x, v, { ...v, duration: 0.01 }, 0);
       hide($$('.brick', el), { opacity: 0, ...off }); hide($$('.what', el), { opacity: 0, y: 10 });
+      hide($$('.fix', el), { opacity: 0, scale: 0.85 });
       if (gate) hide(gate, { opacity: 0 });
       if (pin) hide(pin, { opacity: 0 });
       let t = 0.2;
@@ -256,7 +258,8 @@ if (motion) {
         const at = t + i * 0.5;
         if (gate && li.previousElementSibling === gate) tl.to(gate, { opacity: 1, duration: 0.4 }, at - 0.2);
         tl.to($$('.brick', li), { opacity: 1, x: 0, y: 0, duration: 0.35, stagger: 0.06, ease: 'power3.out' }, at)
-          .to($('.what', li), { opacity: 1, y: 0, duration: 0.45 }, at + 0.2);
+          .to($('.what', li), { opacity: 1, y: 0, duration: 0.45 }, at + 0.2)
+          .to($('.fix', li), { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)' }, at + 0.35);
         if (pin && li.contains(pin) && flat) tl.to(pin, { opacity: 1, duration: 0.3 }, at + 0.3);
       });
       return tl;

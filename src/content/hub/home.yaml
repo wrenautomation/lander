@@ -88,32 +88,38 @@ levels:
   most_note: Most jump in here
   fall: Nothing under it
   gate: { after: 3, name: AI-ready }
-  # brick: the block this level adds, on top of the ones below. has: what now exists. lacks: what's still missing.
+  # brick: the block this level adds, on top of the ones below. fix: my bubble over the stack, what I build here.
+  # has: what now exists. lacks: what's still missing.
   items:
     - name: Documented
       brick: SOPs
+      fix: "I write down how your team actually works, so anyone can do it."
       icon: doc
       has: [Every process written down as an SOP., Anyone can cover for anyone.]
       lacks: [Your data sits in a dozen tools., Nobody trusts the numbers.]
     - name: Organized
       brick: One CRM
+      fix: "I merge it all into one clean CRM and cut the tools you don't need."
       icon: stack
       has: [One clean CRM with every client in it., Numbers you can trust.]
       lacks: [Your team still moves data by hand., Leads wait until someone's free.]
     - name: Connected
       brick: Workflows
+      fix: "I connect your tools so data moves without anyone copying it."
       icon: loop
       has: [Handoffs run on their own., Every lead gets a reply in minutes.]
       lacks: [Your team still researches and writes everything., More clients still means more hires.]
     - name: AI-assisted
       brick: AI
+      fix: "I pick where AI saves the most hours and set it up."
       icon: spark
       has: ["AI does the research, drafts and call notes.", Your team reviews instead of writing.]
       lacks: [Someone still checks every draft., Nobody watches for what breaks.]
     - name: Self-running
       brick: Monitoring
+      fix: "I monitor your automations and fix any issues that come up."
       icon: check
-      has: [Work you've approved runs on its own., I monitor it and fix issues fast., "More clients, same team."]
+      has: [Work you've approved runs on its own., "More clients, same team."]
 
 catalog:
   id: services

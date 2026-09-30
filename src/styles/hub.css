@@ -160,9 +160,12 @@
 .levels .head .intro{max-width:40em;margin-top:10px}
 .levels .act{display:grid;justify-items:end;gap:10px}
 .levels .how{max-width:15.5em;font-size:14px;line-height:1.4;text-align:right;color:var(--ink-2)}
-.stairs{--u:clamp(28px,4vh,38px);--gap:4px;--room:40px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 0 repeat(2,minmax(0,1fr));list-style:none;margin:clamp(22px,3vh,40px) 0 0;padding:0}
+.stairs{--u:clamp(26px,3.6vh,34px);--gap:4px;--room:76px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 0 repeat(2,minmax(0,1fr));list-style:none;margin:clamp(8px,1.6vh,24px) 0 0;padding:0}
 .stairs>li:not(.gate){display:flex;flex-direction:column;min-width:0}
 .stairs .up{display:flex;flex-direction:column;justify-content:flex-end;height:calc(var(--u) * 5 + var(--gap) * 4 + var(--room));padding:0 clamp(5px,.7vw,10px);border-bottom:1.5px solid var(--ink)}
+.stairs .fix{position:relative;display:flex;align-items:flex-start;gap:9px;margin:0 0 16px;padding:9px 11px 10px 9px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px var(--rule),0 6px 18px rgba(14,14,14,.06);font-size:13.5px;line-height:1.4;transform-origin:50% 100%}
+.stairs .fix::after{content:"";position:absolute;left:50%;bottom:-6px;width:11px;height:11px;margin-left:-5.5px;background:#fff;box-shadow:1px 1px 0 var(--rule);transform:rotate(45deg)}
+.stairs .fix img{flex:none;width:24px;height:24px;border-radius:50%;object-fit:cover;filter:grayscale(1)}
 .stairs .riser{position:relative;display:flex;flex-direction:column-reverse;gap:var(--gap)}
 .stairs .spot{display:block;height:var(--u);border:1.5px dashed rgba(14,14,14,.18);border-radius:7px}
 .stairs .brick{display:flex;align-items:center;justify-content:center;gap:7px;height:calc(100% + 3px);margin:-1.5px;border-radius:7px;background:#ECE9E3;color:var(--ink-2);font-style:normal;font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden}
@@ -170,7 +173,7 @@
 .stairs .brick.own{background:var(--ink);color:#fff}
 .stairs .peak .brick.own{background:var(--win)}
 .stairs .oops{position:absolute;left:0;right:0;bottom:calc(var(--u) * 1.5 - .7em);opacity:0;font-style:normal;font-size:12.5px;font-weight:600;text-align:center;white-space:nowrap;color:var(--bad)}
-.stairs .pin{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);padding:2px 8px;border-radius:4px;background:var(--acc);color:#fff;font-size:11.5px;font-weight:500;white-space:nowrap}
+.stairs .pin{position:absolute;z-index:1;top:-13px;right:6px;padding:2px 8px;border-radius:4px;background:var(--acc);color:#fff;font-size:11.5px;font-weight:500;white-space:nowrap}
 .stairs .what{padding:14px clamp(8px,1vw,16px) 0 2px}
 .stairs .lv{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
 .stairs h3{margin-top:3px;font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
@@ -190,14 +193,18 @@
   .levels .how{text-align:left}
   .stairs{display:block;--u:32px}
   .stairs>li:not(.gate){padding-block:16px;border-top:1px solid var(--rule)}
-  .stairs .up{display:block;height:auto;padding:0;border:0}
+  .stairs .up{display:contents}
+  .stairs .riser{order:0}
+  .stairs .what{order:1}
+  .stairs .fix{order:2;margin:12px 0 0;transform-origin:30px 0}
+  .stairs .fix::after{left:30px;top:-6px;bottom:auto;box-shadow:-1px -1px 0 var(--rule)}
   .stairs .riser{flex-direction:row;flex-wrap:wrap;align-items:center}
   .stairs .spot{flex:none;width:40px}
   .stairs .spot:has(.own){width:auto}
   .stairs .brick:not(.own) span{display:none}
   .stairs .brick.own{padding:0 12px}
   .stairs .oops{display:none}
-  .stairs .pin{position:static;transform:none;margin-left:6px}
+  .stairs .pin{position:static;margin-left:6px}
   .stairs .what{padding:10px 0 0}
   .stairs .gate{display:flex;align-items:center;gap:12px;height:auto;padding-block:10px}
   .stairs .gate::before,.stairs .gate::after{content:"";position:static;flex:1;border:0;border-top:1.5px dashed currentColor}
@@ -232,7 +239,7 @@
 }
 
 /* ---------- every service: the groups side by side, each service a small scene of what it hands you, then its words ---------- */
-.sec.catalog{padding-block:clamp(48px,6vw,80px)}
+.sec.catalog,.sec.levels{padding-block:clamp(48px,6vw,80px)}
 .catalog .head.wide{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 40px;max-width:none;margin-bottom:clamp(24px,3vw,40px)}
 .catalog .head h2{max-width:14em}
 /* each group is a column; subgrid lines up the headers, first services and second services across columns */
@@ -242,7 +249,7 @@
 /* each service its own box: the scene, the name, the problem and what it does, then what you get in green */
 .svc{padding:10px 10px 16px;border:1px solid var(--rule);border-radius:20px;background:#fff}
 .svc>:not(.ui){margin-inline:8px}
-.grp-hd{display:flex;flex-wrap:wrap;align-content:flex-end;align-items:baseline;justify-content:space-between;gap:6px 20px;line-height:20px;margin-bottom:clamp(14px,1.6vw,20px);padding-bottom:10px;border-bottom:1px solid var(--ink);font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
+.grp-hd{display:flex;flex-wrap:wrap;align-content:flex-end;align-items:baseline;justify-content:space-between;gap:6px 20px;line-height:22px;margin-bottom:clamp(14px,1.6vw,20px);padding-bottom:10px;border-bottom:1px solid var(--ink);font-size:14px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
 .grp-hd a{display:inline-flex;align-items:center;gap:6px;font-size:14px;letter-spacing:0;text-transform:none;color:var(--acc);transition:color .25s}
 .grp-hd a:hover{color:var(--ink)}
 .grp-hd .arr svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}

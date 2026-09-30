@@ -351,10 +351,10 @@ const hub = defineCollection({
       word: z.string(),                 // "Level", before each number
       most: z.number().int().min(1).max(5), most_note: z.string(), fall: z.string(),
       gate: z.strictObject({ after: z.number().int().min(1).max(4), name: z.string() }), // the line after that level where AI has clean data
-      // brick: the block this level adds to the stack, with its icon; has: what now exists (checks); lacks: what's still
-      // missing (crosses; none at the top). One short sentence each.
+      // brick: the block this level adds to the stack, with its icon; fix: my bubble over the stack, what I build here;
+      // has: what now exists (checks); lacks: what's still missing (crosses; none at the top). One short sentence each.
       items: z.array(z.strictObject({
-        name: z.string(), brick: z.string(), icon: z.enum(ICONS),
+        name: z.string(), brick: z.string(), icon: z.enum(ICONS), fix: z.string(),
         has: z.array(z.string()).min(1).max(3), lacks: z.array(z.string()).max(3).default([]),
       })).length(5),
     }),

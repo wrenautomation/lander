@@ -2,8 +2,9 @@
 // The five levels as building blocks: each level is a stack, one block taller than the last, its own block on top of
 // the ones it stands on (the lower ones muted, the top one dark; the top level's green). Each block sits in a dashed
 // outline of itself, seen while it's missing. Under the floor: the level's name, what now exists (checks) and what's
-// still missing (crosses). A dashed line marks where the data is ready for AI; a pin marks the level most companies
-// jump in at. The button says how the call finds your level. On phones each stack lies flat, left to right.
+// still missing (crosses). Over each stack, a bubble with my face: what I build at that level. A dashed line marks
+// where the data is ready for AI; a pin on the corner of its top block marks the level most companies jump in at.
+// The button says how the call finds your level. On phones each stack lies flat, left to right.
 // The markup is the finished state; pitch.ts (ART.levels) tells the story: the pinned level's block appears alone,
 // shakes with nothing under it and falls, then the levels build in order, block on block.
 import type { CollectionEntry } from 'astro:content';
@@ -11,7 +12,7 @@ import { rich } from '../../lib/text';
 import { ICON } from '../../lib/icons';
 import Arrow from './Arrow.astro';
 
-const { s } = Astro.props as { s: CollectionEntry<'hub'>['data']['levels'] };
+const { s, face } = Astro.props as { s: CollectionEntry<'hub'>['data']['levels']; face: string };
 ---
 <section class="sec levels" id={s.id}>
   <div class="wrap">
@@ -25,6 +26,7 @@ const { s } = Astro.props as { s: CollectionEntry<'hub'>['data']['levels'] };
           {i === s.gate.after && <li class="gate" role="separator" aria-label={s.gate.name}><b>{s.gate.name}</b></li>}
           <li class:list={{ most: i + 1 === s.most, peak: i === s.items.length - 1 }}>
             <div class="up">
+              <p class="fix"><img src={face} alt="" width="24" height="24" loading="lazy">{x.fix}</p>
               <div class="riser" aria-hidden="true">
                 {s.items.slice(0, i + 1).map((b, k) => (
                   <span class="spot"><i class:list={['brick', { own: k === i }]}><svg viewBox="0 0 16 16"><path d={ICON[b.icon]} /></svg><span>{b.brick}</span></i></span>

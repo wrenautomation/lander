@@ -302,6 +302,10 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   KPIs that matter, then start with the job that moves them most"); its green bar had collided with the global `.top`
   nav class, now `.pick`. The margin chart draws 1.5x faster, and a thin error bar (capped both ends) rides the drawing edge between the two lines,
   resting just right of the widest gap. Proof figures count up in 0.6s.
+- **D68 (2026-09-30): The fix bubbles come back over the blocks.** William loved the blocks but missed D62/D63's
+  face bubbles. Each stack carries one again: what I build at that level. It pops in after the level's text. The pin
+  moved onto the corner of level four's block. Service group headers went from 12px to 14px. The group names are
+  up for discussion.
 
 ## Next
 
