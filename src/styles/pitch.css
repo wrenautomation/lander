@@ -207,6 +207,8 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 /* a long headline (one that carries the whole offer) sets smaller, so the lede and the promise still make the first screen */
 @media (min-width:720px){.hero h1.long{font-size:clamp(2.6rem,1.2rem + 3.1vw,4.4rem)}}
 /* the headline's last clause: a step down, so the promise reads first */
+/* the headline's starred part is the promise: success green, like the target line */
+.hero h1 em{color:var(--win)}
 .hero h1 .tail{display:block;margin-top:.25em;font-size:.62em;line-height:1.1;letter-spacing:-.01em;color:var(--ink-2)}
 /* below desktop the form follows the headline, so it's on the first screen; the lede and promise come after */
 @media (max-width:1023px){
