@@ -341,7 +341,7 @@ const hub = defineCollection({
       id: z.string(), h2: z.string(), text: z.string(), cta: z.string(),
       word: z.string(),                 // "Level", before each number
       most: z.number().int().min(1).max(5), most_note: z.string(),
-      items: z.array(z.strictObject({ name: z.string(), text: z.string() })).length(5),
+      items: z.array(z.strictObject({ name: z.string(), was: z.string(), now: z.string() })).length(5), // was: the pain today; now: what I build
     }),
     // real builds only, each as the level it started on, the level it reached, before and now. Left out until there are some.
     cases: z.strictObject({

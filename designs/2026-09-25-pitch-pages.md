@@ -215,6 +215,11 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
   the aim and has no number. Salesforce's 70% left the page (its slot in Sources went to Promethean).
   Hero third check is now "Better Margins as You Grow"; the recap reads "Growth should add profit, not
   payroll" and its last row is margins that hold vs shrink. Recruiting page unchanged.
+- **D52 (2026-09-30): Each level says the pain and what I build.** William liked the levels and asked
+  for a clearer dichotomy and exactly what we offer (Federato's lander frames old core vs AI native;
+  not our pitch, which is money and margin). Each step now carries two lines: the pain without it (red
+  cross, grey) and what I build (green check, ink). The intro ends "I build every one, starting from
+  yours." Level 5's pain is "Growth eats the margin", tying back to the pain section.
 
 ## Next
 
