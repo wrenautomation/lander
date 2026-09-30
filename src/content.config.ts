@@ -207,7 +207,12 @@ const proof = z.strictObject({
   ...head,
   items: z.array(z.strictObject({ fig: z.string(), label: z.string(), text: z.string() })).min(2).max(4),
 });
-const about = z.strictObject({ h2: z.string(), paras: z.array(z.string()), photo: z.string(), sign: z.string(), cta: z.string().optional() });
+// ideal: who we work best with, so the right clients see themselves and the wrong ones don't apply. h: the lead-in
+// ("You'll enjoy working with us if you:"); items: one trait each, said as what the client does or wants.
+const about = z.strictObject({
+  h2: z.string(), paras: z.array(z.string()), photo: z.string(), sign: z.string(), cta: z.string().optional(),
+  ideal: z.strictObject({ h: z.string(), items: z.array(z.string()).min(3).max(5) }).optional(),
+});
 const faq = z.strictObject({ h2: z.string(), items: qa });
 // The form: the offer's application when it has one (steps, nofit), else a short contact form. After a fit:
 // book_h/book with the calendar when the offer has a booking link, thanks_h/thanks without. The build refuses a

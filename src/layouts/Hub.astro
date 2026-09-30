@@ -140,8 +140,11 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
     <div class="head">
       <h2 set:html={rich(p.about.h2)} />
       {p.about.paras.map((x) => <p class="para">{x}</p>)}
-      <p class="sign">{p.about.sign}</p>
-      {p.about.cta && <a class="btn" href="#apply" data-cta><span>{p.about.cta}</span><Arrow /></a>}
+      {p.about.ideal && <div class="ideal"><p>{p.about.ideal.h}</p><ul>{p.about.ideal.items.map((t) => <li>{t}</li>)}</ul></div>}
+      <div class="signoff">
+        <p class="sign">{p.about.sign}</p>
+        {p.about.cta && <a class="btn" href="#apply" data-cta><span>{p.about.cta}</span><Arrow /></a>}
+      </div>
     </div>
     <div class="work" data-art="work">
       {p.about.work.map((w) => (
