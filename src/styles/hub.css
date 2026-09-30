@@ -116,8 +116,8 @@
 .margin polyline{fill:none;stroke-width:3;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
 .margin polyline.real{stroke:var(--acc)}
 .margin polyline.aim{stroke:var(--win)}
-/* the gap: a bar from the real line up to the aim, the money left on the table; it rides the lines as they draw */
-.margin .gap{position:absolute;left:calc(var(--x) * 1%);bottom:calc(var(--lo) * 1%);height:calc((var(--hi) - var(--lo)) * 1%);width:10px;translate:-50% 0;border-radius:5px;background:color-mix(in srgb,var(--acc) 16%,transparent);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--acc) 45%,transparent)}
+/* the gap: an error-bar shape (a thin line, capped both ends) from the real line up to the aim, resting just right of the last dots so its caps show; the money left on the table; it rides the lines as they draw */
+.margin .gap{position:absolute;left:calc(var(--x) * 1%);bottom:calc(var(--lo) * 1%);height:calc((var(--hi) - var(--lo)) * 1%);width:12px;translate:-50% 0;box-sizing:border-box;border-block:1.5px solid var(--ink-2);background:linear-gradient(var(--ink-2),var(--ink-2)) center/1.5px 100% no-repeat;transform:translateX(15px)}
 .margin .dot{position:absolute;left:calc(var(--x) * 1%);bottom:calc(var(--y) * 1%);width:13px;height:13px;translate:-50% 50%;border:3px solid var(--acc);border-radius:50%;background:#F3F1EC}
 .margin .dot.aim{border-color:var(--win)}
 .margin .dot b{position:absolute;top:calc(100% + 8px);left:50%;translate:-50% 0;font-size:15px;font-weight:600;font-style:normal;font-variant-numeric:tabular-nums}

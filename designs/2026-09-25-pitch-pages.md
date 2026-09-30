@@ -300,8 +300,8 @@ Each block now looks like its job, so the eye goes heading, then answer, then pr
 - **D67 (2026-09-30): Values move the needle; the chart shows the gap.** h2 "Automation that actually moves the
   needle", intro in William's words. Tighter cards, shorter scenes. The last card ranks jobs by KPI impact ("Find the
   KPIs that matter, then start with the job that moves them most"); its green bar had collided with the global `.top`
-  nav class, now `.pick`. The margin chart draws 1.5x faster, and a bar rides the drawing edge between the two lines,
-  resting on the widest gap. Proof figures count up in 0.6s.
+  nav class, now `.pick`. The margin chart draws 1.5x faster, and a thin error bar (capped both ends) rides the drawing edge between the two lines,
+  resting just right of the widest gap. Proof figures count up in 0.6s.
 
 ## Next
 

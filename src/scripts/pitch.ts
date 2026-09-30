@@ -164,12 +164,12 @@ if (motion) {
           const k = Math.max(1, line.findIndex(([px]) => px >= x)), [x0, y0] = line[k - 1]!, [x1, y1] = line[k]!;
           return y0 + ((y1 - y0) * (x - x0)) / (x1 - x0);
         };
-        gsap.set(gap, { opacity: 0 });
+        gsap.set(gap, { opacity: 0, x: 0 });
         const o = { x: 0 }, first = real[0]![0]!, last = real.at(-1)![0]!;
         tl.fromTo(o, { x: 0 }, { x: 100, duration: D, ease: 'none', onUpdate: () => {
           const x = Math.min(o.x, last), lo = y(real, x), hi = y(aim, x);
           gsap.set(gap, { opacity: o.x < first ? 0 : 1, '--x': x, '--lo': Math.min(lo, hi), '--hi': Math.max(lo, hi) });
-        } }, 0);
+        } }, 0).to(gap, { x: 15, duration: 0.3, ease: 'power2.out' }, D);
       }
       return tl.fromTo($$('.key li', el), { opacity: 0 }, { opacity: 1, stagger: 0.15, duration: 0.4 });
     },
