@@ -64,7 +64,7 @@ if (motion) {
   }
   root.classList.add('arrived');
   // the form's light runs round its edge until the reader starts on it
-  const panel = $('.hub-hero .panel');
+  const panel = $('.hero .panel');
   if (panel) shown.then(() => panel.classList.add('beam'));
   panel?.addEventListener('focusin', () => panel.classList.remove('beam'), { once: true });
 
@@ -711,4 +711,14 @@ if (box) {
     shown?.focus({ preventScroll: true });
     if (state !== 'error') box.scrollIntoView({ behavior: motion ? 'smooth' : 'auto', block: 'start' });
   });
+}
+
+// the money lost on the pain screen underlines itself, one figure after another, when the reader reaches it
+if (motion) {
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('drawn');
+    io.unobserve(e.target);
+  }), { rootMargin: '0px 0px -25% 0px' });
+  $$('.pain em').forEach((em, i) => { em.style.transitionDelay = `${i * 0.4}s`; io.observe(em); });
 }

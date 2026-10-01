@@ -17,13 +17,6 @@
 @keyframes nudge{0%,55%,to{transform:none}25%{transform:translateX(5px)}}
 @media (max-width:1023px){.to-form svg{rotate:90deg}}
 .js:not(.arrived) .hero :is(.kicker,.checks,.to-form){opacity:0;animation:show .01s 2.5s forwards}
-/* the form's light: a rust glint runs round the card's edge until the reader starts on the form (pitch.ts) */
-@property --beam{syntax:'<angle>';inherits:false;initial-value:0deg}
-.hub-hero .panel{position:relative}
-.hub-hero .panel::before{content:"";position:absolute;inset:-1px;z-index:1;padding:2px;border-radius:inherit;background:conic-gradient(from var(--beam),transparent 0 70%,rgba(168,59,18,.35) 84%,var(--acc) 93%,#E9926A 96%,transparent 98%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .8s;pointer-events:none}
-.hub-hero .panel.beam::before{opacity:1;animation:beam 4s linear infinite}
-.hub-hero .panel.beam{box-shadow:var(--lift),0 0 0 6px rgba(168,59,18,.05)}
-@keyframes beam{to{--beam:360deg}}
 @media (min-width:1024px){
   .hub-hero{grid-template-rows:1fr}
   .hub-hero .copy{grid-column:1/7;align-self:center;padding-block:48px}

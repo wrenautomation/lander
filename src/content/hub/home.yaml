@@ -39,7 +39,7 @@ pain:
   id: pain
   h2: The bigger you grow, *the worse your profit margin.*
   punch: "You're working harder than you need to, and keeping less for it."
-  text: Every new client needs more people. More people need managers, support staff and meetings to stay in sync. Knowledge workers already spend 58% of their day on that kind of coordination.[^4] Then come the CRMs, subscriptions, consultants, experts and developers to hold it all together. Net margins drop from 19% under 10 people to 8% past 50.[^2]
+  text: Every new client needs more people. More people need managers, support staff and meetings to stay in sync. Knowledge workers already spend **58% of their day** on that kind of coordination.[^4] Then come the CRMs, subscriptions, consultants, experts and developers to hold it all together. Net margins drop **from 19% under 10 people to 8% past 50.**[^2]
   # the offer in one line; *words* get the highlighter
   fix: "**I fix the work that grows with every hire.** Bring me *any bottleneck* and I'll handle the rest."
   cta: Keep more of what you earn
