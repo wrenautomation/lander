@@ -20,7 +20,7 @@ hero:
   h1: Book *{until} client meetings in {days} days* from past clients you've worked with,
   h1_tail: with my personalized lead reactivation system
   lede: |
-    Your past clients are hiring again, and you may be missing it. Every role they fill through another company is a lost fee, $16,000 on an $80,000 hire at 20%. Don't hand those relationships to a competitor.
+    Your past clients are hiring again. Every role they fill through another company is a fee you lose. Don't hand those relationships to a competitor.
 
     I build you a personalized lead reactivation system that watches every past client for new hiring windows, reaches out in your brand voice, and books the meeting.
   second_to: "#problem"
@@ -43,7 +43,7 @@ problem:
   target_cta: Book a consultation
   cta: I'm ready to win back my clients
   pain:
-    - Repeat clients carry most recruiting companies. In Bullhorn's survey, 79% got half or more of their revenue from them.[^1]
+    - Repeat clients carry most recruiting companies. In Bullhorn's survey, 79% got half or more of their revenue from them.[^1] At a 20% fee, one lost $80,000 role is $16,000 you don't collect.
     - "You win a client and fill the roles. Then the next job order pulls you away. It's not that you don't care. **There's just no time.** So the loop keeps going."
     - Your team spends hours messaging strangers who've never heard of you, and a new client can cost 5 to 25 times more to win than an old one costs to keep.[^2] Meanwhile, the people who **already trust you** go cold.
     - bad:
