@@ -10,13 +10,17 @@
 </div>
 <script src="../scripts/sound.ts"></script>
 <style is:global>
-  .sound{position:fixed;z-index:50;left:16px;bottom:16px;display:flex;align-items:center;gap:6px;padding:4px;background:rgba(14,14,14,.86);color:#FAF7F2;border-radius:2px}
+  /* a small white speaker on a faint dark square, bottom left; full strength on hover or focus */
+  .sound{position:fixed;z-index:50;left:12px;bottom:12px;display:flex;align-items:center;gap:4px;padding:0;background:rgba(14,14,14,.18);color:#fff;border-radius:2px;opacity:.85;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:opacity .25s,background .25s}
+  .sound:is(:hover,:focus-within){opacity:1;background:rgba(14,14,14,.55)}
   html:not(.js) .sound,.sound[hidden]{display:none}
-  .sound button{display:grid;place-items:center;width:40px;height:40px;padding:0;background:none;border:0;color:inherit;cursor:pointer}
-  .sound svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .sound button{display:grid;place-items:center;width:32px;height:32px;padding:0;background:none;border:0;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .sound svg{width:15px;height:15px;filter:drop-shadow(0 0 1px rgba(14,14,14,.35));fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
   .sound svg path:first-child{fill:currentColor}
   .sound .w{display:none}.sound.on .w{display:inline}.sound.on .x{display:none}
-  .sound input{width:0;opacity:0;margin:0;accent-color:#FAF7F2;transition:width .25s,opacity .25s}
+  .sound input{width:0;opacity:0;margin:0;accent-color:#fff;transition:width .25s,opacity .25s}
   .sound:is(:hover,:focus-within) input{width:88px;opacity:1;margin-right:8px}
-  .sound :focus-visible{outline:2px solid #FAF7F2;outline-offset:2px}
+  /* touch screens: the phone's own volume buttons set the level, so just the mute button */
+  @media (hover:none){.sound input{display:none}}
+  .sound :focus-visible{outline:2px solid #fff;outline-offset:2px}
 </style>
