@@ -185,6 +185,15 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
     <a class="btn" href="#apply" data-cta><span>{p.close.cta}</span><Arrow /></a>
   </div>
 </section>
+
+{p.sources && (
+<section class="sources" id="sources">
+  <div class="wrap">
+    <h2>{p.sources.h}</h2>
+    <ol>{p.sources.items.map((x, i) => <li id={`source-${i + 1}`}><a href={x.url} target="_blank" rel="noopener">{x.text}</a></li>)}</ol>
+  </div>
+</section>
+)}
 </main>
 
 <End site={site} />

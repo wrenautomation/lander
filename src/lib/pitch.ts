@@ -61,6 +61,7 @@ export async function loadPitch(entry: CollectionEntry<'pitches'>) {
   const p = fill({ ...raw, industries }, terms(offer), where);
   checkBuild(p.build, where);
   checkAsk(p.ask, offer, where);
+  checkCites(p, p.sources?.items ?? [], where);
   return { p, offer };
 }
 

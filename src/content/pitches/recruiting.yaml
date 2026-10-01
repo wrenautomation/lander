@@ -20,7 +20,7 @@ hero:
   h1: Book *{until} client meetings in {days} days* from past clients you've worked with,
   h1_tail: with my personalized lead reactivation system
   lede: |
-    Your old clients are hiring again. You built those relationships. Don't hand them to a competitor.
+    Your past clients are hiring again, and you may be missing it. Every role they fill through another company is a lost fee, $16,000 on an $80,000 hire at 20%. Don't hand those relationships to a competitor.
 
     I build you a personalized lead reactivation system that watches every past client for new hiring windows, reaches out in your brand voice, and books the meeting.
   second_to: "#problem"
@@ -43,9 +43,9 @@ problem:
   target_cta: Book a consultation
   cta: I'm ready to win back my clients
   pain:
-    - You're not alone. Most mid-size companies work this way.
+    - Repeat clients carry most recruiting companies. In Bullhorn's survey, 79% got half or more of their revenue from them.[^1]
     - "You win a client and fill the roles. Then the next job order pulls you away. It's not that you don't care. **There's just no time.** So the loop keeps going."
-    - Your team spends hours messaging strangers who've never heard of you. Meanwhile, the people who **already trust you** go cold.
+    - Your team spends hours messaging strangers who've never heard of you, and a new client can cost 5 to 25 times more to win than an old one costs to keep.[^2] Meanwhile, the people who **already trust you** go cold.
     - bad:
         - Follow-ups live in someone's head, then get forgotten.
         - Nobody notices when a past client starts hiring again.
@@ -143,3 +143,11 @@ close:
       - [Reach every past client with zero extra hours, Keep cold-messaging strangers]
       - ["Walk into warm, booked meetings", Chase replies that never come]
   cta: I'm ready to win back my clients
+
+sources:
+  h: Sources
+  items:
+    - text: "Bullhorn, 2015 North American Staffing and Recruiting Trends Report"
+      url: https://www.bullhorn.com/blog/the-pros-and-cons-of-repeat-client-business-for-staffing-and-recruiting-agencies/
+    - text: "Amy Gallo, \"The Value of Keeping the Right Customers\", Harvard Business Review, October 2014"
+      url: https://hbr.org/2014/10/the-value-of-keeping-the-right-customers

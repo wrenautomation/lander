@@ -253,6 +253,8 @@ const start = z.strictObject({
 });
 // The last screen: the ask, and optionally one last reason and the benefits as two firms side by side, the one
 // that acts and the one that waits. Then a button back up to the form.
+// every outside figure on a page carries a [^n] marker to entry n here; the list sits at the foot of the page
+const sources = z.strictObject({ h: z.string(), items: z.array(z.strictObject({ text: z.string(), url: z.url() })).min(1) });
 const close = z.strictObject({
   h2: z.string(), text: z.string(), cta: z.string(),
   reason: z.string().optional(),
@@ -312,6 +314,7 @@ const pitches = defineCollection({
     start: start.optional(),
     // The last screen: one line and a button back up to the form.
     close,
+    sources: sources.optional(),
   }),
 });
 
@@ -408,7 +411,7 @@ const hub = defineCollection({
     close,
     ask,
     // every outside figure on the page carries a [^n] marker to entry n here; the list sits under the recap
-    sources: z.strictObject({ h: z.string(), items: z.array(z.strictObject({ text: z.string(), url: z.url() })).min(1) }),
+    sources,
   }),
 });
 

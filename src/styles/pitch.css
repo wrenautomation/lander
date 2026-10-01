@@ -804,3 +804,11 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .cite a{color:var(--ink-3);text-decoration:none}
 .cite a:hover{color:var(--acc)}
 h2 .cite{font-size:.36em}
+
+/* ---------- the sources every [^n] points at, small, at the foot of the page ---------- */
+.sources{padding-block:clamp(40px,4vw,60px);border-top:1px solid var(--rule)}
+.sources h2{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
+.sources ol{display:grid;gap:6px;margin-top:14px;padding-left:1.4em;list-style:decimal;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+.sources a{color:inherit}
+.sources a:hover{color:var(--acc)}
+.sources li:target{color:var(--ink)}
