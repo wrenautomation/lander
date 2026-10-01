@@ -141,7 +141,7 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
     <img class="photo" src={p.about.photo} alt={site.name} width="640" height="640" loading="lazy">
     <div class="head">
       <h2 set:html={rich(p.about.h2)} />
-      {p.about.paras.map((x) => <p class="para">{x}</p>)}
+      {p.about.paras.map((x) => <p class="para" set:html={rich(x)} />)}
       {p.about.ideal && <div class="ideal"><p>{p.about.ideal.h}</p><ul>{p.about.ideal.items.map((t) => <li>{t}</li>)}</ul></div>}
       <div class="signoff">
         <p class="sign">{p.about.sign}</p>

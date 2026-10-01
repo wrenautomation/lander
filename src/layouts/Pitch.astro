@@ -159,7 +159,7 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
     <img class="photo" src={p.about.photo} alt={site.name} width="640" height="640" loading="lazy">
     <div class="head">
       <h2 set:html={rich(p.about.h2)} />
-      {p.about.paras.map((x) => <p class="para">{x}</p>)}
+      {p.about.paras.map((x) => <p class="para" set:html={rich(x)} />)}
       {p.about.ideal && <div class="ideal"><p>{p.about.ideal.h}</p><ul>{p.about.ideal.items.map((t) => <li>{t}</li>)}</ul></div>}
       <div class="signoff">
         <p class="sign">{p.about.sign}</p>
