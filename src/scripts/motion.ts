@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
+gsap.globalTimeline.timeScale(1.2); // every animation at 1.2x, as on the pitch pages (pitch.ts)
 const q = new URLSearchParams(location.search);
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches || q.has('static');
 if (q.has('probe')) gsap.ticker.lagSmoothing(0); // headless screenshots: virtual time otherwise reads as lag
@@ -83,9 +84,9 @@ const el = (tag: string, attrs: Record<string, string | number>) => { const e = 
     const { paths, nodes } = prep(svg);
     tl.to(paths[1], { strokeDashoffset: 0, duration: .8, ease: 'power1.inOut' }, 0)
       .to(paths[0], { strokeDashoffset: 0, duration: .4, ease: 'power1.inOut' }, .15)
-      .to(nodes[0], { scale: 1, duration: .25, ease: 'back.out(2)' }, .5)
-      .to(nodes[1], { scale: 1, duration: .3, ease: 'back.out(2)' }, .75)
-      .fromTo(parts, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5, stagger: .08, ease: 'power2.out' }, .2);
+      .to(nodes[0], { scale: 1, duration: .25, ease: 'back.out(1.4)' }, .5)
+      .to(nodes[1], { scale: 1, duration: .3, ease: 'back.out(1.4)' }, .75)
+      .fromTo(parts, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .5, stagger: .08, ease: 'power2.out' }, .2);
   }
 })();
 
@@ -145,7 +146,7 @@ function tracePipe(pipe: Pipe, animate: boolean) {
   gsap.set(dots, { scale: 0 }); marks.forEach((m) => gsap.set(m.els, { opacity: 0 }));
   const tl = gsap.timeline({ paused: true, onComplete: () => { pipe._done = true; } });
   tl.to(main, { strokeDashoffset: 0, duration: dur, ease: 'none' }, 0);
-  dots.forEach((dot, i) => tl.to(dot, { scale: 1, duration: .25, ease: 'back.out(2)' }, cum[i] / len * dur));
+  dots.forEach((dot, i) => tl.to(dot, { scale: 1, duration: .25, ease: 'back.out(1.4)' }, cum[i] / len * dur));
   marks.forEach((m) => tl.to(m.els, { opacity: 1, duration: .3 }, m.at / len * dur));
   pipe._tl = tl;
   if (inFlight) tl.play(); // layout shifted mid-draw: draw again from the start

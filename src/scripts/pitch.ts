@@ -5,8 +5,11 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { mountBooking } from './cal';
+import { sfx } from './sound';
 
 gsap.registerPlugin(ScrollTrigger);
+// every animation plays at 1.2x: brisk, not hurried. Diagram catch-up stays 2x on top of it.
+gsap.globalTimeline.timeScale(1.2);
 const root = document.documentElement;
 const motion = root.classList.contains('js');
 const $ = <T extends Element = HTMLElement>(s: string, el: ParentNode = document) => el.querySelector<T>(s);
@@ -57,7 +60,7 @@ if (motion) {
   // the first screen arrives all at once: headline and copy rise together. The form panel is never held back.
   // A reload that goes back down the page shows it whole.
   if (!landY) {
-    gsap.set(hero, { opacity: 0, y: 20 });
+    gsap.set(hero, { opacity: 0, y: 12 });
     shown.then(() => gsap.to(hero, { opacity: 1, y: 0, duration: 0.7, ease: OUT, delay: 0.05 }));
   }
   root.classList.add('arrived');
@@ -88,23 +91,22 @@ if (motion) {
 
   // blocks rise in, in reading order, a few at a time
   const ups = $$('.sec .intro, .qs li, .pain>*, .target, .problem .btn, .agitate .btn, .say p, .say .btn, .side h3, .side .sub, .side li, .bridge, .rows li, .timeline h3, .timeline>li>p, .figs>div, .case, .window, .table, .about .photo, .about .para, .sign, .qa>div, .first3 .st, .start .say>*, .close .head>p, .close .btn, .vs p, .sec .wrap>.btn, .sec .head>.btn, .sec .head>.act, .grp-hd').filter((x) => !seen(x));
-  gsap.set(ups, { opacity: 0, y: 48 });
+  gsap.set(ups, { opacity: 0, y: 20 });
   ScrollTrigger.batch(ups, { start: 'top 90%', once: true, onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: OUT, stagger: 0.08, overwrite: true }) });
 
-  // pictures wipe open from alternate sides, settle, then drift a little against the scroll
+  // pictures wipe open from alternate sides and settle
   $$('[data-shot]').forEach((s, k) => {
     const pic = s.firstElementChild as HTMLElement;
     if (!seen(s)) gsap.timeline({ scrollTrigger: { trigger: s, start: 'top 85%', once: true } })
       .fromTo(s, { clipPath: k % 2 ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'expo.inOut' })
-      .fromTo(pic, { scale: 1.35 }, { scale: 1.12, duration: 1.8, ease: OUT }, 0.1);
-    gsap.fromTo(pic, { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: s, start: 'top bottom', end: 'bottom top', scrub: true } });
+      .fromTo(pic, { scale: 1.08 }, { scale: 1, duration: 1.8, ease: OUT }, 0.1);
   });
 
   // each step's diagram assembles itself once, then the flow keeps a dot running through it
   const ART: Record<string, (el: HTMLElement, tl: gsap.core.Timeline) => unknown> = {
     rows: (el, tl) => tl
-      .fromTo($$('li', el), { opacity: 0, x: -24 }, { opacity: 1, x: 0, stagger: 0.14 })
-      .fromTo($$('.mk', el), { scale: 0 }, { scale: 1, stagger: 0.14, duration: 0.6, ease: 'back.out(3)' }, 0.4),
+      .fromTo($$('li', el), { opacity: 0, x: -12 }, { opacity: 1, x: 0, stagger: 0.14 })
+      .fromTo($$('.mk', el), { scale: 0 }, { scale: 1, stagger: { each: 0.14, onStart: () => sfx('tick') }, duration: 0.6, ease: 'back.out(1.6)' }, 0.4),
     // what makes it stick: the cards rise in reading order, then each scene plays its point, one card after another
     values: (el, tl) => {
       const cards = $$(':scope > li', el);
@@ -113,17 +115,17 @@ if (motion) {
         // the to-do list empties: each task struck through, then handled
         handled: (v, t) => $$('li', v).forEach((r, k) => tl
           .fromTo($('s', r), { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: 'power2.in' }, t + k * 0.35)
-          .fromTo($('b', r), { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(3)' }, t + k * 0.35 + 0.25)),
+          .fromTo($('b', r), { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.6)' }, t + k * 0.35 + 0.25)),
         // each thing that goes wrong turns into the thing that happened instead
         messy: (v, t) => $$('li', v).forEach((r, k) => tl
           .fromTo($('.bad', r), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.3 }, t + k * 0.35)
           .fromTo($('i', r), { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: 'power1.inOut' }, t + k * 0.35 + 0.2)
-          .fromTo($('.ok', r), { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(3)' }, t + k * 0.35 + 0.45)),
+          .fromTo($('.ok', r), { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.6)' }, t + k * 0.35 + 0.45)),
         // you set the switches: some flip on, one stays off, each saying what it means
         charge: (v, t) => {
           $$('li', v).forEach((r, k) => {
             const on = $('.tg.on', r), at = t + 0.3 + k * 0.4;
-            if (on) tl.fromTo(on, { backgroundColor: 'rgba(14,14,14,.14)' }, { backgroundColor: '#17803D', duration: 0.3 }, at)
+            if (on) tl.fromTo(on, { backgroundColor: 'rgba(14,14,14,.14)' }, { backgroundColor: '#136B35', duration: 0.3 }, at)
               .fromTo($('u', on), { left: 2 }, { left: 16, duration: 0.3, ease: 'power2.inOut' }, at);
             tl.fromTo($('em', r), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: 0.35 }, at + 0.15);
           });
@@ -143,7 +145,7 @@ if (motion) {
         first: (v, t) => {
           const bars = $$('.rank i', v), top = bars[0]!, pos = (b: HTMLElement, key: string) => `calc(${b.style.getPropertyValue(key)} * 20% + 3%)`;
           tl.fromTo(bars, { left: (_: number, b: HTMLElement) => pos(b, '--from') }, { left: (_: number, b: HTMLElement) => pos(b, '--at'), duration: 0.8, ease: 'power2.inOut' }, t + 0.2)
-            .fromTo(top, { backgroundColor: 'rgba(14,14,14,.14)' }, { backgroundColor: '#17803D', duration: 0.3 }, t + 1)
+            .fromTo(top, { backgroundColor: 'rgba(14,14,14,.14)' }, { backgroundColor: '#136B35', duration: 0.3 }, t + 1)
             .fromTo($('em', top), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.35 }, t + 1.1);
         },
       };
@@ -154,7 +156,7 @@ if (motion) {
     margin: (el, tl) => {
       const D = 4 / 3, at = (d: HTMLElement) => (D * parseFloat(d.style.getPropertyValue('--x'))) / 100; // when the line reaches it
       tl.fromTo($('svg', el), { clipPath: 'inset(-10px 100% -10px 0)' }, { clipPath: 'inset(-10px 0% -10px 0)', duration: D, ease: 'none' });
-      $$('.dot', el).forEach((d) => tl.fromTo(d, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(3)' }, at(d) - 0.1));
+      $$('.dot', el).forEach((d) => tl.fromTo(d, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.6)' }, at(d) - 0.1));
       // the gap rides the drawing edge, stretched between the two lines wherever it is
       const gap = $('.gap', el);
       if (gap) {
@@ -177,9 +179,9 @@ if (motion) {
       .fromTo($$('i', el), { scaleX: 0 }, { scaleX: 1, duration: 1.3, stagger: 0.14 })
       .fromTo($$('span', el), { opacity: 0 }, { opacity: 1, stagger: 0.14 }, 0),
     merge: (el, tl) => tl
-      .fromTo($$('li', el), { opacity: 0, x: -20 }, { opacity: 1, x: 0, stagger: 0.12 })
+      .fromTo($$('li', el), { opacity: 0, x: -10 }, { opacity: 1, x: 0, stagger: 0.12 })
       .fromTo($('svg', el), { clipPath: 'inset(-10% 100% -10% 0)' }, { clipPath: 'inset(-10% 0% -10% 0)', duration: 1.2, ease: 'expo.inOut' }, 0.3)
-      .fromTo($('.into', el), { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, ease: 'back.out(2)' }, '-=0.5'),
+      .fromTo($('.into', el), { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, ease: 'back.out(1.4)' }, '-=0.5'),
     // past work: each card in, its diagram runs, the numbers count up on their own (below)
     work: (el, tl) => {
       $$('article', el).forEach((a, k) => {
@@ -189,7 +191,7 @@ if (motion) {
           .fromTo($('.wire', a), { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: 'power2.inOut' }, t + 0.6)
           .fromTo(dot, { left: '0%', opacity: 1 }, { left: '100%', duration: 0.45, ease: 'power1.inOut', immediateRender: false }, t + 0.95)
           .set(dot, { opacity: 0 }, t + 1.4)
-          .fromTo($('.nd.out', a), { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2)' }, t + 1.3);
+          .fromTo($('.nd.out', a), { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.4)' }, t + 1.3);
       });
       return tl;
     },
@@ -197,7 +199,7 @@ if (motion) {
     // how far across the screen it sits: left to right on a wide screen, each as it's reached down a phone.
     svc: (el, tl) => {
       const t = (el.getBoundingClientRect().left / innerWidth) * 0.9, s = t + 0.45, v = $('.ui', el)!; // s: as it settles
-      const pop = (x: gsap.TweenTarget, at: number, stagger = 0) => tl.fromTo(x, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(3)', stagger }, at);
+      const pop = (x: gsap.TweenTarget, at: number, stagger = 0) => tl.call(() => sfx('pop'), [], at).fromTo(x, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.6)', stagger }, at);
       const grow = (x: gsap.TweenTarget, at: number, stagger = 0.12, axis = 'scaleX') => tl.fromTo(x, { [axis]: 0 }, { [axis]: 1, duration: 0.5, ease: 'power2.out', stagger }, at);
       tl.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7 }, t);
       const SCENE: Record<string, () => void> = {
@@ -244,11 +246,12 @@ if (motion) {
       let t = 0.2;
       if (jump && !flat) {
         const oops = $('.oops', el)!;
-        tl.to(jump, { opacity: 1, y: 0, duration: 0.45, ease: 'bounce.out' }, t)
+        tl.to(jump, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, t)
           .to(pin!, { opacity: 1, duration: 0.3 }, t + 0.3)
           .to(jump, { backgroundColor: 'rgb(210,40,30)', duration: 0.25 }, t + 0.9)
           .fromTo(oops, { opacity: 0 }, { opacity: 1, duration: 0.25 }, t + 0.9)
-          .to(jump, { x: 3, duration: 0.05, repeat: 7, yoyo: true, ease: 'none' }, t + 1)
+          .call(() => sfx('thud'), [], t + 0.9)
+          .to(jump, { x: 2, duration: 0.08, repeat: 3, yoyo: true, ease: 'sine.inOut' }, t + 1)
           .to(jump, { y: 3 * 40, rotation: 8, opacity: 0, duration: 0.5, ease: 'power2.in' }, t + 1.5)
           .to(oops, { opacity: 0, duration: 0.3 }, t + 1.6)
           .set(jump, { clearProps: 'backgroundColor', rotation: 0, ...off }, t + 2);
@@ -259,7 +262,7 @@ if (motion) {
         if (gate && li.previousElementSibling === gate) tl.to(gate, { opacity: 1, duration: 0.4 }, at - 0.2);
         tl.to($$('.brick', li), { opacity: 1, x: 0, y: 0, duration: 0.35, stagger: 0.06, ease: 'power3.out' }, at)
           .to($('.what', li), { opacity: 1, y: 0, duration: 0.45 }, at + 0.2)
-          .to($('.fix', li), { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)' }, at + 0.35);
+          .to($('.fix', li), { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.4)' }, at + 0.35);
         if (pin && li.contains(pin) && flat) tl.to(pin, { opacity: 1, duration: 0.3 }, at + 0.3);
       });
       return tl;
@@ -280,13 +283,13 @@ if (motion) {
     gsap.to(o, { v: end, duration: 0.6, ease: 'power2.out', onStart: () => { f.style.minWidth = `${f.getBoundingClientRect().width}px`; }, onUpdate: () => { f.textContent = fmt(o.v) + m[2]; }, scrollTrigger: { trigger: f, start: 'top 90%', once: true } });
   }
 
-  // a section on its way out dims and lifts, so the next one reads as a new slide
+  // a section on its way out dims a little, so the next one reads as a new slide
   for (const w of $$('.sec>.wrap')) {
-    gsap.to(w, { opacity: 0.25, y: -40, ease: 'none', scrollTrigger: { trigger: w.parentElement, start: 'bottom 40%', end: 'bottom top', scrub: true } });
+    gsap.to(w, { opacity: 0.55, ease: 'none', scrollTrigger: { trigger: w.parentElement, start: 'bottom 40%', end: 'bottom top', scrub: true } });
   }
   // a sticky heading leaves with its last item, not after it: gone before the item reaches the top
   for (const h of $$('.head.sticky')) {
-    gsap.to(h, { opacity: 0, y: -40, ease: 'none', scrollTrigger: { trigger: h.parentElement, start: 'bottom 55%', end: 'bottom 25%', scrub: true } });
+    gsap.to(h, { opacity: 0, ease: 'none', scrollTrigger: { trigger: h.parentElement, start: 'bottom 55%', end: 'bottom 25%', scrub: true } });
   }
 
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
@@ -437,13 +440,13 @@ if (flowsBox) {
         wire(tl, from(f, ws, 'list'), 0.7);
         tl.to(chs, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, clearProps: 'opacity' }, 1.0)
           .call(() => { hit.classList.add('on'); quiet.forEach((c) => c.classList.add('quiet')); }, [], 1.9)
-          .call(() => hot.classList.add('lit'), [], 2.2)
+          .call(() => { hot.classList.add('lit'); sfx('chime'); }, [], 2.2)
           .to([hot, ...rows.slice(1, 3)], { yPercent: 0, duration: 0.8, ease: 'power3.inOut' }, 2.5);
         // the rest are ruled out one by one, crossed through with the reason
         outs.forEach((r, k) => tl.call(() => r.classList.add('out'), [], 3.3 + k * 0.25));
         wire(tl, into(f, ws, 'alert'), 4.1);
         tl.to(alert, { opacity: 1, y: 0 }, 4.6)
-          .fromTo($('.bell', alert), { rotate: -20 }, { rotate: 0, duration: 1, ease: 'elastic.out(1.2,0.3)' }, 4.7)
+          .fromTo($('.bell', alert), { rotate: -12 }, { rotate: 0, duration: 0.8, ease: 'back.out(1.4)' }, 4.7)
           .to(spark, { clipPath: 'inset(-40% 0% -40% 0)', duration: 1.1, ease: 'power1.inOut' }, 4.9)
           .to($$('.spark .tip', alert), { opacity: 1, duration: 0.3 }, 5.9);
       },
@@ -463,7 +466,7 @@ if (flowsBox) {
         tl.to(ok, { opacity: 1, y: 0 }, 3.5)
           .to(ptr, { opacity: 1, x: 0, y: 0, duration: 0.8, ease: 'power2.out' }, 3.8)
           .to(ptr, { scale: 0.8, duration: 0.12, yoyo: true, repeat: 1, ease: 'power1.inOut' }, 4.65)
-          .call(() => ok.classList.add('done'), [], 4.75)
+          .call(() => { ok.classList.add('done'); sfx('chime'); }, [], 4.75)
           .to(ptr, { opacity: 0, duration: 0.4 }, 5.2);
         wire(tl, from(f, ws, 'ok'), 5.0);
         tl.to(chs, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }, 5.4);
@@ -487,6 +490,7 @@ if (flowsBox) {
         tl.to(cal, { opacity: 1, y: 0 }, 2.4)
           .to($$('.busy', cal), { opacity: 1, duration: 0.3, stagger: 0.05 }, 2.5)
           .to($('.slot', cal), { scaleY: 1, duration: 0.6, ease: 'power3.out' }, 3.1)
+          .call(() => sfx('chime'), [], 3.1)
           .to($('.note', cal), { opacity: 1, duration: 0.4 }, 3.5);
         wire(tl, ws[1], 3.8);
         tl.to(node(f, 'count'), { opacity: 1, y: 0 }, 4.2)
@@ -525,7 +529,8 @@ if (flowsBox) {
       PLAY[f.dataset.flow!]?.(f, tl, wires.get(f)!);
       for (const [n, g] of ghosts.get(f)!) {
         gsap.set(g, { opacity: 1 });
-        tl.to(g, { opacity: 0, duration: 0.4, ease: 'none' }, shows(tl, n));
+        const at = shows(tl, n);
+        tl.to(g, { opacity: 0, duration: 0.4, ease: 'none' }, at).call(() => sfx('pop'), [], at);
       }
       return tl;
     };

@@ -113,6 +113,8 @@ const site = defineCollection({
     fine_turnstile_link: z.string(),
     fine_privacy: z.string(),
     fine_terms: z.string(),
+    fine_cookies: z.string(),
+    cookies: z.strictObject({ text: z.string(), policy: z.string(), yes: z.string(), no: z.string() }),
     notfound_title: z.string(),
     notfound_h: z.string(),
     notfound: z.string(),

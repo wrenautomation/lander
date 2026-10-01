@@ -23,7 +23,7 @@ const { s, face } = Astro.props as { s: CollectionEntry<'hub'>['data']['levels']
     <ol class="stairs" data-art="levels" data-start="top 60%">
       {s.items.map((x, i) => (
         <>
-          {i === s.gate.after && <li class="gate" role="separator" aria-label={s.gate.name}><b>{s.gate.name}</b></li>}
+          {i === s.gate.after && <li class="gate"><b>{s.gate.name}</b></li>}
           <li class:list={{ most: i + 1 === s.most, peak: i === s.items.length - 1 }}>
             <div class="up">
               <p class="fix"><img src={face} alt="" width="24" height="24" loading="lazy">{x.fix}</p>

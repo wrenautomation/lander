@@ -4,6 +4,7 @@ import '../styles/global.css';
 import '../styles/cursor.css';
 import Head from '../components/Head.astro';
 import Analytics from '../components/Analytics.astro';
+import Consent from '../components/Consent.astro';
 const { title, description, hue, niche, image, noindex = false } = Astro.props as {
   title: string; description: string; hue: string; niche?: string; image?: string; noindex?: boolean;
 };
@@ -24,6 +25,7 @@ const { title, description, hue, niche, image, noindex = false } = Astro.props a
 <body>
   <slot />
   <script src="../scripts/motion.ts"></script>
+  <Consent />
   <script src="../scripts/hit.ts"></script>
   <Analytics />
 </body>

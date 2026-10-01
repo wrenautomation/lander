@@ -7,7 +7,7 @@ import Base from '../layouts/Base.astro';
 import Mark from '../components/Mark.astro';
 import Foot from '../components/Foot.astro';
 const site = (await getEntry('site', 'site'))!.data;
-const updated = 'September 29, 2026';
+const updated = 'September 30, 2026';
 ---
 <Base title="Privacy | Wren Automation" description="What Wren Automation collects, why, and how to have it deleted." hue="rust">
 <div class="wrap">
@@ -18,6 +18,7 @@ const updated = 'September 29, 2026';
     </div>
   </nav>
 </div>
+<main>
 <section class="hero">
   <div class="wrap">
     <h1>Privacy</h1>
@@ -27,15 +28,25 @@ const updated = 'September 29, 2026';
 <section class="s">
   <div class="wrap legal">
     <h2>The form</h2>
-    <p>If you fill in the audit form I store what you typed — name, email, phone, what eats your week, your questions — with the page you sent it from, the campaign or referring link that brought you, your country, your IP address and your browser's user-agent string. It goes into a Cloudflare D1 database and I get a notification. I use it to reply to you and to prepare the call. It is never sold, rented, or added to a marketing list.</p>
+    <p>If you fill in the audit form I store what you typed (name, email, phone, what eats your week, your questions) with the page you sent it from, the campaign or referring link that brought you, your country, your IP address and your browser's user-agent string. It goes into a Cloudflare D1 database and I get a notification. I use it to reply to you and to prepare the call. It is never sold, rented, or added to a marketing list.</p>
     <p>The form is checked for bots by Cloudflare Turnstile, under its <a href="https://www.cloudflare.com/turnstile-privacy-policy/">privacy addendum</a>.</p>
 
     <h2>Page views</h2>
     <p>Each page view writes one row: the page, how far down it you scrolled, how long it was visible, whether you clicked through to the form or touched a field, your viewport width, your country, the referring link and your user-agent. No IP address.</p>
-    <p>One first-party cookie, <code>wv</code>, holds a random id so your visits to this site join up. It lasts up to 400 days, is never shared with anyone, and no ad or tracking company sees it. If an email from me had a link, the link carries a short code (<code>?r=</code>) so I know which email brought you. Links I post on social profiles and videos go through <code>/go/</code> and are tagged with the channel. I use all of this only to see which outreach works. Cloudflare Web Analytics may also be on; it is cookieless and gives me counts, not people.</p>
+    <p>If an email from me had a link, the link carries a short code (<code>?r=</code>) so I know which email brought you. Links I post on social profiles and videos go through <code>/go/</code> and are tagged with the channel. I use this only to see which outreach works. Your country comes from Cloudflare, which reads it from your connection; no cookie holds it. Cloudflare Web Analytics may also be on; it is cookieless and gives me counts, not people.</p>
+
+    <h2 id="cookies">Cookies</h2>
+    <p>This site sets two cookies of its own and none from anyone else.</p>
+    <ul>
+      <li><code>wv</code>: a random id so your visits to this site join up, and a form you send later is tied to the link that first brought you. It lasts up to 400 days, is never shared, and no ad or tracking company sees it. It is optional.</li>
+      <li><code>wc</code>: your answer on the cookie banner, yes or no, for six months, so I don't ask again. It is needed for the site to respect your choice.</li>
+    </ul>
+    <p>In the EU, the UK, Switzerland, Brazil and Quebec, <code>wv</code> is set only after you say yes on the banner. Elsewhere it is on unless you say no. A browser that sends Global Privacy Control is treated as a no everywhere. You can change your answer any time with "Cookie settings" at the bottom of every page; a no deletes <code>wv</code>.</p>
+    <p>Your browser also keeps a few settings on your device that never leave it: the light or dark theme, whether sound is on and how loud, and, for the current tab only, the link you arrived from and where you were on the page.</p>
+    <p>Other services load only when you use them. Cloudflare Turnstile checks the form for bots. If you book a call, the calendar is Cal.com's, under <a href="https://cal.com/privacy">its privacy policy</a>, and it may set its own cookies. Fonts come from Google Fonts and Fontshare, which see your IP address when they send them.</p>
 
     <h2>Email I send you</h2>
-    <p>I email firms who haven't asked, which is what cold outreach is. Addresses come from public sources — a company's own website and public business listings. Those messages can carry a one-pixel image that tells me the message was opened, and they carry an unsubscribe link. Unsubscribe, or reply with "stop", and the address is suppressed: I will not email it again. Reply once and you are in an ordinary conversation, nothing more.</p>
+    <p>I email firms who haven't asked, which is what cold outreach is. Addresses come from public sources: a company's own website and public business listings. Those messages can carry a one-pixel image that tells me the message was opened, and they carry an unsubscribe link. Unsubscribe, or reply with "stop", and the address is suppressed: I will not email it again. Reply once and you are in an ordinary conversation, nothing more.</p>
 
     <h2>Text messages</h2>
     <p>If you tick the texts box on the form, I store your phone number, that you ticked it, and when. I text you only about your request: replies, scheduling, reminders. Up to 4 texts a month. Reply STOP and you get no more texts; reply HELP for help. Full terms are on the <a href="/terms">terms page</a>.</p>
@@ -48,11 +59,12 @@ const updated = 'September 29, 2026';
     <p>Cloudflare hosts the site and the database. Google Workspace carries my email. Resend and Discord deliver the notification when the form is submitted. Telnyx delivers texts. Each of them sees the data it needs to do that and nothing else. No advertising networks, no data brokers.</p>
 
     <h2>Keeping and deleting</h2>
-    <p>Form submissions are kept while there's a reason to — a live conversation, a build, the records a business has to keep. Page-view rows are kept as counts. Email <a href={`mailto:${site.email}`}>{site.email}</a> and I will tell you what I hold about you, correct it, or delete it. No form, no account, no wait: one email to a person who reads it.</p>
+    <p>Form submissions are kept while there's a reason to: a live conversation, a build, the records a business has to keep. Page-view rows are kept as counts. Email <a href={`mailto:${site.email}`}>{site.email}</a> and I will tell you what I hold about you, correct it, or delete it. No form, no account, no wait: one email to a person who reads it.</p>
 
     <h2>Changes</h2>
     <p>If this changes, the date at the top changes with it.</p>
   </div>
 </section>
+</main>
 <Foot site={site} />
 </Base>

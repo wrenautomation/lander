@@ -12,10 +12,11 @@
   --ink:#0E0E0E;
   --ink-2:#56564F;   /* secondary text: 7.4:1 on white */
   --ink-3:#9C9C96;   /* marks only */
+  --mute:#6E6E68;    /* small grey text: 5.1:1 on white, 4.5:1 on paper-2 */
   --rule:rgba(14,14,14,.13);
   --line:rgba(14,14,14,.38); /* field underlines */
   --acc:#A83B12;     /* brand rust (the pfp): 6.4:1 on white */
-  --win:#17803D;     /* success: the result the page promises (the goal, the client count), 5.2:1 on white */
+  --win:#136B35;     /* success: the result the page promises (the goal, the client count), 6.6:1 on white, 5.2:1 on its own tint */
   --bad:#D2281E;     /* the X on a crossed-out item: a true red, apart from the rust */
   --cream:#FAF7F2;   /* the pfp's bird: text and marks on rust only, 5.9:1 */
   --cream-2:#EFDDD3; /* secondary text on rust, 4.8:1 */
@@ -165,8 +166,8 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 .more.down{display:block;width:18px;margin-top:clamp(28px,5vh,56px);color:var(--ink-3);text-decoration:none;transition:color .3s var(--out)}
 .more.down:hover{color:var(--ink)}
 .more.down svg{display:block;width:100%;fill:none;stroke:currentColor;stroke-width:1.5}
-.js .more.down svg{animation:bob 2.4s ease-in-out 3s infinite}
-@keyframes bob{50%{transform:translateY(8px)}}
+.js .more.down svg{animation:bob 2.4s ease-in-out 3s 3}
+@keyframes bob{50%{transform:translateY(5px)}}
 .promise{margin-top:clamp(18px,3vh,30px);max-width:34em;padding:18px 22px 20px;border:1px solid var(--rule);border-radius:var(--r);background:#fff}
 .promise .label{font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--acc)}
 .promise ul{display:grid;gap:9px;margin-top:12px}
@@ -464,10 +465,10 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .list :is(.was,.now){font-size:12px;color:var(--ink-2);white-space:nowrap}
 .list li:is(.lit,.out) .was,.list li:not(.lit,.out) .now{display:none}
 .list .nm{position:relative;transition:font-size .4s var(--out),color .4s var(--out)}
-.list li.out{color:var(--ink-3)}
+.list li.out{color:var(--mute)}
 .list li.out .nm{flex:none;font-size:12.5px;font-weight:400}
 .list li.out .nm::after{content:"";position:absolute;left:0;right:0;top:52%;height:1px;background:currentColor;transform-origin:left;animation:strike .4s var(--out) both}
-.list li.out .now{margin-left:auto;font-size:11.5px;color:var(--ink-3)}
+.list li.out .now{margin-left:auto;font-size:11.5px;color:var(--mute)}
 @keyframes strike{from{transform:scaleX(0)}}
 .list li.lit .nm{font-size:14.5px;font-weight:600}
 .list li.lit{z-index:1;background:rgba(168,59,18,.07);border-top-color:transparent;box-shadow:inset 0 0 0 1px rgba(168,59,18,.3)}
@@ -532,11 +533,11 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 /* replies that aren't ready shrink and fade, then a line draws through each, one row after the other, like the
    ruled-out clients in the first diagram. Every change is a transition, so nothing jumps when .sorted lands. */
 .inbox .cold :is(b,p span){background:linear-gradient(currentColor,currentColor) no-repeat 0 55%/0 1px}
-.inbox.sorted .cold{--d:.25s;color:var(--ink-3)}
+.inbox.sorted .cold{--d:.25s;color:var(--mute)}
 .inbox.sorted .cold~.cold{--d:.6s}
 .inbox.sorted .cold .av{opacity:.5}
 .inbox.sorted .cold b{font-size:12.5px}
-.inbox.sorted .cold :is(p span,em){font-size:10.5px;color:var(--ink-3)}
+.inbox.sorted .cold :is(p span,em){font-size:10.5px;color:var(--mute)}
 .inbox.sorted .cold :is(b,p span){background-size:100% 1px}
 .week{flex:1;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:auto repeat(8,minmax(17px,1fr));gap:3px}
 .day{grid-row:1;padding-bottom:4px;font-size:11px;color:var(--ink-2);text-align:center}
@@ -703,7 +704,7 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 /* the build's weeks: one bar per stage, overlapping; the one with no end runs off the chart */
 .gantt{margin-top:32px;max-width:30rem;font-size:13px;line-height:1.2}
 .g-axis,.g-row{display:grid;grid-template-columns:7.5em repeat(var(--weeks),1fr);align-items:center}
-.g-axis{color:var(--ink-3);font-size:11.5px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+.g-axis{color:var(--mute);font-size:11.5px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
 .g-axis i{font-style:normal;text-align:center}
 .g-row{padding-block:9px;border-bottom:1px solid var(--rule)}
 .g-row span{font-weight:500;color:var(--ink-2);transition:color .5s var(--out)}
@@ -768,7 +769,7 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .close .vs p{margin:0;max-width:none;padding-block:16px 18px;border-top:1px solid rgba(250,247,242,.28);font-size:clamp(15px,.9rem + .25vw,18px);line-height:1.4}
 .close .vs .hd{border-top:0;padding-block:0 12px;font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
 .close .vs .win{color:var(--cream)}
-.close .vs .lose{color:var(--cream-2);opacity:.7}
+.close .vs .lose{color:var(--cream-2)}
 .close .vs p.win:not(.hd){font-weight:500}
 @media (min-width:900px){
   .close:has(.vs) .grid>.head{grid-column:1/6;grid-row:1}

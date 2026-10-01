@@ -88,7 +88,9 @@ The workflow needs four repo secrets: `CLOUDFLARE_API_TOKEN` (dash → My Profil
 
 ## What gets measured
 
-One first-party cookie, `wv` (random id, HttpOnly, 400 days), joins one browser's visits so a form knows what first brought the person and what brought them last. Nothing third party. The privacy page says so; keep it true. Design: `designs/2026-09-29-attribution.md`.
+One first-party cookie, `wv` (random id, HttpOnly, 400 days), joins one browser's visits so a form knows what first brought the person and what brought them last. Nothing third party. The privacy page says so; keep it true.
+
+Consent (`functions/_shared/consent.ts`): in the EU/EEA, UK, Switzerland, Brazil, Quebec and unknown countries `wv` waits for a yes on the cookie banner; elsewhere it is on until a no. GPC is a no. The choice lives in `wc` (six months); "Cookie settings" in every footer reopens the banner. Without consent a hit row has no visitor. Design: `designs/2026-09-29-attribution.md`.
 
 - **Cloudflare Web Analytics** (if the token is set): visits, referrers, per page. Cookieless.
 - **Our own beacon** (`src/scripts/hit.ts` → `/api/hit` → `hits` table): one row per page view, posted on arrival and raised when the tab hides. Page, % scrolled, seconds visible, clicked the CTA, touched the form, viewport width, visitor, and what it arrived from: `r` (email link code), utm, external referrer. Those params are then stripped from the address bar. Skipped with `?static` / `?probe`.
@@ -114,7 +116,7 @@ Put a utm on every link in an email: `https://wrenautomation.com/recruiting/lead
 
 ### Pixels
 
-None. A Meta / LinkedIn / Google pixel sets cookies, which breaks the footer promise and needs a consent banner (Quebec Law 25, PIPEDA). Add one only when running paid ads, together with a `/privacy` page and a consent gate. There is no `/thanks` page; the result shows on the same URL, so count conversions from the `leads` and `applications` tables, not from a page view.
+None. A Meta / LinkedIn / Google pixel sets cookies, which breaks the footer promise. Add one only when running paid ads, and gate it on the same consent as `wv`. There is no `/thanks` page; the result shows on the same URL, so count conversions from the `leads` and `applications` tables, not from a page view.
 
 ## Layout
 

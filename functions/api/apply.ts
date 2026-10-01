@@ -13,9 +13,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const back = new URL(request.headers.get('referer') || '/', request.url);
   const visitor = visitorOf(request);
   const reply = (status: number, r: { ok: boolean; fit?: boolean; booking?: string | null; error?: string }) => {
-    if (wantsJson) return withVisitor(Response.json(r, { status }), visitor.id);
+    if (wantsJson) return withVisitor(Response.json(r, { status }), visitor);
     back.hash = `applied-${!r.ok ? 'error' : r.fit ? 'fit' : 'nofit'}`; // Apply.astro shows that block with :target
-    return withVisitor(Response.redirect(back.toString(), 303), visitor.id);
+    return withVisitor(Response.redirect(back.toString(), 303), visitor);
   };
 
   const form = await readForm(request);
@@ -62,7 +62,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   });
   const booking = row.fit && offer.booking
     ? bookingLink(offer.booking, {
-        offer: offer.id, application: String(saved.meta.last_row_id), visitor: visitor.id,
+        offer: offer.id, application: String(saved.meta.last_row_id), visitor: visitor.id ?? '',
         utm_source: o.utm_source, utm_medium: o.utm_medium, utm_campaign: o.utm_campaign, utm_content: o.utm_content,
       })
     : null;

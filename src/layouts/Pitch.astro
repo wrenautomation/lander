@@ -9,6 +9,8 @@ import type { CollectionEntry } from 'astro:content';
 import { getEntry } from 'astro:content';
 import Head from '../components/Head.astro';
 import Analytics from '../components/Analytics.astro';
+import Consent from '../components/Consent.astro';
+import Sound from '../components/Sound.astro';
 import Arrow from '../components/pitch/Arrow.astro';
 import Fig from '../components/pitch/Fig.astro';
 import Scene from '../components/pitch/Scene.astro';
@@ -190,6 +192,8 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
 
 
 <script src="../scripts/pitch.ts"></script>
+<Sound />
+<Consent />
 <script src="../scripts/hit.ts"></script>
 <Analytics />
 </body>

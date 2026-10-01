@@ -175,6 +175,15 @@ fine_turnstile_link: privacy addendum
 # The footer link to /privacy.
 fine_privacy: Privacy
 fine_terms: Terms
+# The footer button that opens the cookie banner again.
+fine_cookies: Cookie settings
+# The cookie banner (src/components/Consent.astro). Shown only where the law wants a yes first
+# (functions/_shared/consent.ts). Both buttons the same size: saying no is as easy as yes.
+cookies:
+  text: I use one first-party cookie to see which emails and posts bring people here. No ads, no third-party trackers.
+  policy: Cookie policy
+  yes: Accept
+  no: Decline
 
 # The 404 page.
 notfound_title: Not found

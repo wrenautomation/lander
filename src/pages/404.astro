@@ -15,6 +15,7 @@ const site = (await getEntry('site', 'site'))!.data;
     </div>
   </nav>
 </div>
+<main>
 <section class="hero">
   <div class="wrap">
     <h1>{site.notfound_h}</h1>
@@ -22,5 +23,6 @@ const site = (await getEntry('site', 'site'))!.data;
     <a class="btn" href="/">{site.notfound_link}</a>
   </div>
 </section>
+</main>
 <Foot site={site} />
 </Base>

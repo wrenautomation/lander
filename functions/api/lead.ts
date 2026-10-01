@@ -10,9 +10,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const back = new URL(request.headers.get('referer') || '/', request.url);
   const visitor = visitorOf(request);
   const reply = (status: number, ok: boolean) => {
-    if (wantsJson) return withVisitor(Response.json({ ok }, { status }), visitor.id);
+    if (wantsJson) return withVisitor(Response.json({ ok }, { status }), visitor);
     back.searchParams.set('sent', ok ? '1' : '0'); back.hash = 'ask';
-    return withVisitor(Response.redirect(back.toString(), 303), visitor.id);
+    return withVisitor(Response.redirect(back.toString(), 303), visitor);
   };
 
   const form = await readForm(request);

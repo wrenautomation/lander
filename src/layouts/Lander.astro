@@ -36,6 +36,7 @@ const multi = new Set(['note', 'questions']);
   </nav>
 </div>
 
+<main>
 <section class="hero" id="top">
   <div class="wrap" data-intro-target>
     <svg class="itr" aria-hidden="true"></svg>
@@ -53,7 +54,7 @@ const multi = new Set(['note', 'questions']);
 
 <div class="wrap">
   <aside class="teaser" aria-label={site.offer.eyebrow}>
-    <h4>{site.offer.eyebrow}</h4>
+    <p class="lbl">{site.offer.eyebrow}</p>
     <p class="promise" set:html={inline(site.offer.promise)} />
     <div class="safe pp" set:html={paras(site.offer.safe)} />
     <a href="#offer">{site.offer.more} &rarr;</a>
@@ -238,6 +239,7 @@ const multi = new Set(['note', 'questions']);
   </div>
 </section>
 
+</main>
 <Foot site={site} />
 
 {turnstile && <script is:inline async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>}

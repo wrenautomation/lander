@@ -1,9 +1,12 @@
 // One row per page view in D1 (functions/api/hit.ts): posted on arrival, then again when the tab is hidden with how
 // far they read, how long, whether they clicked through to the form, whether they touched it. The server ties views
-// together with a first-party cookie, so a visit from an email link and a form a week later join up.
+// together with a first-party cookie, so a visit from an email link and a form a week later join up. Where the law
+// wants a yes first, the server says "ask" and the cookie banner shows (consent.ts); until then there is no cookie.
 // What brought them rides only on the view they arrived on: ?r= (a code on the link in one of our emails), utm_*
 // (a /go link or a tagged post), or another site's referrer. Those params are then taken off the address bar, so a
 // copied link doesn't credit someone else's email. The form's hidden fields carry this tab's touch as a fallback.
+import { ask } from './consent';
+
 const q = new URLSearchParams(location.search);
 if (!q.has('static') && !q.has('probe')) {
   const UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
@@ -41,7 +44,8 @@ if (!q.has('static') && !q.has('probe')) {
     view, page: location.pathname, niche: document.documentElement.dataset.niche || '',
     depth, secs: Math.round(secs + (shown ? (performance.now() - shown) / 1000 : 0)), cta, touched, w: innerWidth, ...here,
   });
-  fetch('/api/hit', { method: 'POST', body: body(), headers: { 'content-type': 'application/json' }, keepalive: true }).catch(() => {});
+  fetch('/api/hit', { method: 'POST', body: body(), headers: { 'content-type': 'application/json' }, keepalive: true })
+    .then((r) => r.json()).then((r: { consent?: string }) => { if (r.consent === 'ask') ask(); }).catch(() => {});
   const send = () => navigator.sendBeacon('/api/hit', new Blob([body()], { type: 'application/json' }));
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) { send(); if (shown) { secs += (performance.now() - shown) / 1000; shown = 0; } }

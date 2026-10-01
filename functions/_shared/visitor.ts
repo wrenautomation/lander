@@ -1,24 +1,41 @@
 // Who a visitor is across visits, and what brought them. One first-party cookie, `wv`, a random id set by the
 // server (HttpOnly, 400 days) so the /api/hit rows of one browser join up and a form knows its visitor's history.
+// Only with consent (consent.ts): without it there is no cookie and no id, and each view stands alone.
 // A touch is a view that arrived from somewhere: an email link (?r=), a /go link, a utm link, or another site.
 // First and last touch are read from `hits` at submit time, so the database is the one source of truth.
+import { type Consent, consentOf } from './consent';
 
 export const VISITOR = 'wv';
 const MAX_AGE = 400 * 24 * 60 * 60; // the longest a browser keeps any cookie
 
-/** The visitor id on this request, or a fresh one to set with `visitorCookie`. */
-export function visitorOf(request: Request): { id: string; fresh: boolean } {
-  const got = (request.headers.get('cookie') || '').match(/(?:^|;\s*)wv=([A-Za-z0-9-]{8,64})/);
-  return got ? { id: got[1], fresh: false } : { id: crypto.randomUUID(), fresh: true };
+export interface Visitor {
+  /** The id on this browser's cookie, a fresh one to set, or null: no consent, no id. */
+  id: string | null;
+  consent: Consent;
+  /** A cookie came with the request. */
+  had: boolean;
+}
+
+/** The id on this request's visitor cookie, if it has one. */
+export const cookieId = (request: Request): string | null =>
+  (request.headers.get('cookie') || '').match(/(?:^|;\s*)wv=([A-Za-z0-9-]{8,64})/)?.[1] ?? null;
+
+/** The visitor on this request. */
+export function visitorOf(request: Request): Visitor {
+  const got = cookieId(request), consent = consentOf(request);
+  return { id: consent === 'yes' ? (got ?? crypto.randomUUID()) : null, consent, had: !!got };
 }
 
 /** The Set-Cookie header value that keeps (or starts) this visitor. Sent on every answer so the 400 days roll. */
 export const visitorCookie = (id: string) => `${VISITOR}=${id}; Max-Age=${MAX_AGE}; Path=/; Secure; HttpOnly; SameSite=Lax`;
+/** Takes the cookie away: a no, after a yes. */
+export const forgetCookie = `${VISITOR}=; Max-Age=0; Path=/; Secure; HttpOnly; SameSite=Lax`;
 
-/** A response with the visitor cookie on it. */
-export function withVisitor(response: Response, id: string): Response {
+/** A response with the visitor cookie on it, or taken off it when consent is gone. */
+export function withVisitor(response: Response, v: Visitor): Response {
+  if (!v.id && !v.had) return response;
   const r = new Response(response.body, response);
-  r.headers.append('set-cookie', visitorCookie(id));
+  r.headers.append('set-cookie', v.id ? visitorCookie(v.id) : forgetCookie);
   return r;
 }
 
@@ -33,7 +50,8 @@ export function label(t: Pick<Touch, 'r' | 'utm_source' | 'utm_medium' | 'utm_ca
 }
 
 /** This visitor's first and last touch and how many views they have made, from `hits`. */
-export async function history(db: D1Database, visitor: string): Promise<{ first: Touch | null; last: Touch | null; views: number }> {
+export async function history(db: D1Database, visitor: string | null): Promise<{ first: Touch | null; last: Touch | null; views: number }> {
+  if (!visitor) return { first: null, last: null, views: 0 };
   const { results } = await db.prepare(
     `select ts, page, r, utm_source, utm_medium, utm_campaign, utm_content, ref from hits
      where visitor = ? and (r != '' or utm_source != '' or ref != '') order by id`,
