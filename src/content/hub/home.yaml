@@ -23,9 +23,6 @@ nav:
     to: "#services"
     menu:
       - { label: Lead reactivation, note: For recruiting companies, what: Win new business from past clients already in your ATS., to: /recruiting/lead-reactivation }
-  - { label: How it works, to: "#levels" }
-  - { label: Compare, to: "#compare" }
-  - { label: FAQ, to: "#faq" }
 nav_cta: Get in touch
 
 hero:
