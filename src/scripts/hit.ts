@@ -24,6 +24,10 @@ if (!q.has('static') && !q.has('probe')) {
     const el = document.querySelector<HTMLInputElement>(`form[data-lead] input[name=${k}]`);
     if (el) el.setAttribute('value', touch[k] || '');
   }
+  // a "Book a call" button (functions/book) carries this tab's email code onto the booking
+  if (touch.r) document.querySelectorAll<HTMLAnchorElement>('a[data-book]').forEach((a) => {
+    const u = new URL(a.href); u.searchParams.set('r', touch.r); a.href = u.pathname + u.search;
+  });
   if (KEYS.some((k) => q.has(k))) {
     const clean = new URL(location.href);
     for (const k of KEYS) clean.searchParams.delete(k);
