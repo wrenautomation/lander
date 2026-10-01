@@ -16,7 +16,10 @@
         "cap": 13500,
         "monthly": 300,
         "flat": 7500,
-        "until": 20
+        "until": 20,
+        "refundIfNone": {
+          "minContacts": 500
+        }
       },
       "slots": 3,
       "days": 90,
