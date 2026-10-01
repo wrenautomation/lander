@@ -5,10 +5,6 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { mountBooking } from './cal';
-import { sfx } from './sound';
-// a beat of sound at a point in a timeline, so it keeps the animation's own timing; quiet while it plays fast
-const cue = (tl: gsap.core.Timeline, at: number, kind: Parameters<typeof sfx>[0], el?: Element | null, step = 0, scene: object = tl) =>
-  tl.call(() => sfx(kind, { el, step, scene, fast: tl.timeScale() > 1 }), [], at);
 
 gsap.registerPlugin(ScrollTrigger);
 // every animation plays at 1.2x: brisk, not hurried. Diagram catch-up stays 2x on top of it.
@@ -109,8 +105,7 @@ if (motion) {
   const ART: Record<string, (el: HTMLElement, tl: gsap.core.Timeline) => unknown> = {
     rows: (el, tl) => tl
       .fromTo($$('li', el), { opacity: 0, x: -12 }, { opacity: 1, x: 0, stagger: 0.14 })
-      .fromTo($$('.mk', el), { scale: 0 }, { scale: 1, stagger: 0.14, duration: 0.6, ease: 'back.out(1.6)' }, 0.4)
-      .call(() => sfx('step', { el, scene: tl }), [], 0.4),
+      .fromTo($$('.mk', el), { scale: 0 }, { scale: 1, stagger: 0.14, duration: 0.6, ease: 'back.out(1.6)' }, 0.4),
     // what makes it stick: the cards rise in reading order, then each scene plays its point, one card after another
     values: (el, tl) => {
       const cards = $$(':scope > li', el);
@@ -206,8 +201,6 @@ if (motion) {
       const pop = (x: gsap.TweenTarget, at: number, stagger = 0) => tl.fromTo(x, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.6)', stagger }, at);
       const grow = (x: gsap.TweenTarget, at: number, stagger = 0.12, axis = 'scaleX') => tl.fromTo(x, { [axis]: 0 }, { [axis]: 1, duration: 0.5, ease: 'power2.out', stagger }, at);
       tl.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7 }, t);
-      // one note per service as its scene starts; side by side they climb left to right
-      cue(tl, s, 'step', el, Math.round(t / 0.3), el.parentElement ?? tl);
       const SCENE: Record<string, () => void> = {
         // the email fills in, the line written for them gets its tag, then it sends
         email: () => {
@@ -256,7 +249,6 @@ if (motion) {
           .to(pin!, { opacity: 1, duration: 0.3 }, t + 0.3)
           .to(jump, { backgroundColor: 'rgb(210,40,30)', duration: 0.25 }, t + 0.9)
           .fromTo(oops, { opacity: 0 }, { opacity: 1, duration: 0.25 }, t + 0.9)
-          .call(() => sfx('miss', { el, scene: tl }), [], t + 0.9)
           .to(jump, { x: 2, duration: 0.08, repeat: 3, yoyo: true, ease: 'sine.inOut' }, t + 1)
           .to(jump, { y: 3 * 40, rotation: 8, opacity: 0, duration: 0.5, ease: 'power2.in' }, t + 1.5)
           .to(oops, { opacity: 0, duration: 0.3 }, t + 1.6)
@@ -266,7 +258,6 @@ if (motion) {
       rows.forEach((li, i) => {
         const at = t + i * 0.5;
         if (gate && li.previousElementSibling === gate) tl.to(gate, { opacity: 1, duration: 0.4 }, at - 0.2);
-        cue(tl, at, 'step', li, i);
         tl.to($$('.brick', li), { opacity: 1, x: 0, y: 0, duration: 0.35, stagger: 0.06, ease: 'power3.out' }, at)
           .to($('.what', li), { opacity: 1, y: 0, duration: 0.45 }, at + 0.2)
           .to($('.fix', li), { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.4)' }, at + 0.35);
@@ -447,7 +438,7 @@ if (flowsBox) {
         wire(tl, from(f, ws, 'list'), 0.7);
         tl.to(chs, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, clearProps: 'opacity' }, 1.0)
           .call(() => { hit.classList.add('on'); quiet.forEach((c) => c.classList.add('quiet')); }, [], 1.9)
-          .call(() => { hot.classList.add('lit'); sfx('done', { el: hot, scene: tl, fast: tl.timeScale() > 1 }); }, [], 2.2)
+          .call(() => hot.classList.add('lit'), [], 2.2)
           .to([hot, ...rows.slice(1, 3)], { yPercent: 0, duration: 0.8, ease: 'power3.inOut' }, 2.5);
         // the rest are ruled out one by one, crossed through with the reason
         outs.forEach((r, k) => tl.call(() => r.classList.add('out'), [], 3.3 + k * 0.25));
@@ -473,7 +464,7 @@ if (flowsBox) {
         tl.to(ok, { opacity: 1, y: 0 }, 3.5)
           .to(ptr, { opacity: 1, x: 0, y: 0, duration: 0.8, ease: 'power2.out' }, 3.8)
           .to(ptr, { scale: 0.8, duration: 0.12, yoyo: true, repeat: 1, ease: 'power1.inOut' }, 4.65)
-          .call(() => { ok.classList.add('done'); sfx('done', { el: ok, scene: tl, fast: tl.timeScale() > 1 }); }, [], 4.75)
+          .call(() => ok.classList.add('done'), [], 4.75)
           .to(ptr, { opacity: 0, duration: 0.4 }, 5.2);
         wire(tl, from(f, ws, 'ok'), 5.0);
         tl.to(chs, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }, 5.4);
@@ -497,7 +488,6 @@ if (flowsBox) {
         tl.to(cal, { opacity: 1, y: 0 }, 2.4)
           .to($$('.busy', cal), { opacity: 1, duration: 0.3, stagger: 0.05 }, 2.5)
           .to($('.slot', cal), { scaleY: 1, duration: 0.6, ease: 'power3.out' }, 3.1)
-          .call(() => sfx('done', { el: cal, scene: tl, fast: tl.timeScale() > 1 }), [], 3.1)
           .to($('.note', cal), { opacity: 1, duration: 0.4 }, 3.5);
         wire(tl, ws[1], 3.8);
         tl.to(node(f, 'count'), { opacity: 1, y: 0 }, 4.2)
@@ -534,15 +524,10 @@ if (flowsBox) {
       const tl = gsap.timeline({ paused: true, defaults: { ease: OUT, duration: 0.7 } });
       gsap.set(nodes(f), { opacity: 0, y: 16 });
       PLAY[f.dataset.flow!]?.(f, tl, wires.get(f)!);
-      // each node lands on a note; parts landing together share one, and the notes climb in story order
-      const beats: number[] = [];
       for (const [n, g] of ghosts.get(f)!) {
         gsap.set(g, { opacity: 1 });
-        const at = shows(tl, n);
-        tl.to(g, { opacity: 0, duration: 0.4, ease: 'none' }, at);
-        beats.push(at);
+        tl.to(g, { opacity: 0, duration: 0.4, ease: 'none' }, shows(tl, n));
       }
-      beats.sort((a, b) => a - b).filter((at, k) => !k || at - beats[k - 1]! > 0.3).forEach((at, k) => cue(tl, at, 'step', f, k));
       return tl;
     };
     // next: when the following diagram may start; done: when this one is whole
