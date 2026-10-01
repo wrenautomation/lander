@@ -30,9 +30,9 @@ hero:
   h1: "What if scaling took *less work*, not more?"
   lede: "Scaling usually means more follow-ups, more hires to onboard, more hours to track. We build **integrated software** that **takes that work off your team**: lead gen, hiring outreach, onboarding, timesheets, admin, or anything else that slows you down."
   checks:
-    - Reduce Busywork by Up to 60%[^1]
-    - Fully Managed, Integrated System
-    - Better Margins as You Grow
+    - Reduce busywork by up to 60%[^1]
+    - Fully managed, integrated system
+    - Better margins as you grow
   to_form: Your next stage of growth, without the busywork, is a few steps away.
 
 pain:
@@ -41,7 +41,7 @@ pain:
   punch: "You're working harder than you need to, and keeping less for it."
   text: Every new client needs more people. More people need managers, support staff and meetings to stay in sync. Then come the CRMs, subscriptions, consultants, experts and developers to hold it all together. Costs climb faster than revenue.[^2]
   # the offer in one line; *words* get the highlighter
-  fix: "**We offer a complete suite of services to align your systems with profitable growth.** Bring us *any bottleneck.* We make fixing it as easy as possible."
+  fix: "**We fix the work that grows with every hire.** Bring us *any bottleneck* and we'll handle the rest."
   cta: Keep more of what you earn
   assure: "Free call. If it's not a fit, I'll tell you."
   chart:
@@ -61,67 +61,66 @@ pain:
 # No claim here may repeat the comparison, the levels or the FAQ.
 values:
   id: why
-  h2: Automation that *actually moves the needle.*
-  text: Most software doesn't actually help the team. Here's how we provide real utility.
+  h2: Automation that *holds up on real work.*
+  text: Most software never sticks with the team. These six things are why ours does.
   cta: Talk through your bottleneck
   # art: the small animated scene at the top of each card (Values.astro)
   items:
-    - { art: handled, name: No extra work for you, text: "I handle the setup, the APIs and the fixes. You tell me the problem in plain words." }
-    - { art: messy, name: Built for real-world cases, text: "Bounced emails, duplicate contacts, replies at 2am. I build for the messy parts, because that's where tools break." }
+    - { art: handled, name: No extra work for you, text: "We handle the setup, the APIs and the fixes. You tell us the problem in plain words." }
+    - { art: messy, name: Built for real-world cases, text: "Bounced emails, duplicate contacts, replies at 2am. We build for the messy parts, because that's where tools break." }
     - { art: charge, name: Built around your team, text: "It fits how your team already works. You choose what runs on its own and what waits for a yes." }
     - { art: watched, name: Nothing runs unwatched, text: "Every run is logged. A failure gets caught and fixed, not found by a client weeks later." }
-    - { art: cost, name: You see what it costs, text: "Each job shows what it costs to run. No guessing what you pay for." }
+    - { art: cost, name: You see what it costs, text: "Each job shows what it costs to run, so you know what you're paying for." }
     - { art: first, name: Start where it pays most, text: "Find the KPIs that matter, then start with the job that moves them most. Everything after builds on it." }
 
 levels:
   id: levels
   h2: Most companies jump into AI *without a solid foundation.*
-  sub: AI at level 4 doesn't work without the infrastructure underneath to support it.
   text: "88% of companies now use AI somewhere, yet nearly two-thirds haven't started scaling it.[^3] AI can't run on scattered data and processes nobody wrote down."
   cta: Find my level
-  how: "Walk me through a normal week. I'll tell you your level."
+  how: "Walk us through a normal week. We'll tell you your level."
   word: Level
   most: 4
   most_note: Most jump in here
   fall: Nothing under it
   gate: { after: 3, name: AI-ready }
-  # brick: the block this level adds, on top of the ones below. fix: my bubble over the stack, what I build here.
+  # brick: the block this level adds, on top of the ones below. fix: the bubble over the stack, what we build there.
   # has: what now exists. lacks: what's still missing.
   items:
     - name: Documented
       brick: SOPs
-      fix: "I write down how your team actually works, so anyone can do it."
+      fix: "We write down how your team actually works, so anyone can do it."
       icon: doc
       has: [Every process written down as an SOP., Anyone can cover for anyone.]
       lacks: [Your data sits in a dozen tools., Nobody trusts the numbers.]
     - name: Organized
       brick: One CRM
-      fix: "I merge it all into one clean CRM and cut the tools you don't need."
+      fix: "We merge it all into one clean CRM and cut the tools you don't need."
       icon: stack
       has: [One clean CRM with every client in it., Numbers you can trust.]
       lacks: [Your team still moves data by hand., Leads wait until someone's free.]
     - name: Connected
       brick: Workflows
-      fix: "I connect your tools so data moves without anyone copying it."
+      fix: "We connect your tools so data moves without anyone copying it."
       icon: loop
       has: [Handoffs run on their own., Every lead gets a reply in minutes.]
       lacks: [Your team still researches and writes everything., More clients still means more hires.]
     - name: AI-assisted
       brick: AI
-      fix: "I pick where AI saves the most hours and set it up."
+      fix: "We pick where AI saves the most hours and set it up."
       icon: spark
       has: ["AI does the research, drafts and call notes.", Your team reviews instead of writing.]
       lacks: [Someone still checks every draft., Nobody watches for what breaks.]
     - name: Self-running
       brick: Monitoring
-      fix: "I monitor your automations and fix any issues that come up."
+      fix: "We monitor your automations and fix any issues that come up."
       icon: check
       has: [Work you've approved runs on its own., "More clients, same team."]
 
 catalog:
   id: services
   h2: Every part of your company *that has to scale.*
-  cta: Tell me what to scale first
+  cta: Tell us what to scale first
   groups:
     - for: Win more clients
       link: { label: "Recruiting? Lead reactivation", to: /recruiting/lead-reactivation }
@@ -212,17 +211,17 @@ faq:
     - q: How much of our work could software do?
       a: McKinsey estimates today's AI and automation could handle work that takes up 60 to 70% of employees' time.[^1] Not whole jobs. The repetitive parts of every job.
     - q: We already pay for AI tools. Why isn't it paying off?
-      a: Only 39% of companies see any effect on profit from AI so far.[^3] AI on scattered data gives scattered answers. It pays once your data sits in one place and your work runs on it. That's why the build starts there.
+      a: Only 39% of companies see any effect on profit from AI so far.[^3] It pays once your data sits in one place and your work runs on it. That's why the build starts there.
     - q: Will this replace my team?
       a: It replaces the copy and paste, not the people. Your team keeps the calls, the relationships and the judgment. In Asana's survey, workers said better processes alone would give them back 4.9 hours a week.[^4]
     - q: What if our processes aren't written down?
-      a: Then that's where the audit starts. Automating a broken process just breaks it faster. So I fix the process first, then automate it.
+      a: Then that's where the audit starts. Automating a broken process just breaks it faster. So we fix the process first, then automate it.
     - q: Which part should we automate first?
       a: "Look for work that repeats, follows the same steps every time and eats hours: moving data between tools, follow-ups, scheduling, reports."
     - q: How much of my team's time does this take?
       a: An hour with you and 45 minutes each with three or four of your people in the first two weeks. After that, a 20-minute check-in each week.
     - q: What happens after launch?
-      a: I stay on. I keep what I built tuned as you grow and add one new AI job every month. If something I built breaks by my mistake, I fix it free.
+      a: We stay on. We keep what we built tuned as you grow and add one new AI job every month. If something we built breaks by our mistake, we fix it free.
 
 about:
   h2: Who you'll be *working with.*
@@ -235,7 +234,6 @@ about:
     items:
       - Value thoughtful advice over quick fixes.
       - Take tough feedback and act on it.
-      - Want a partner for years, not one project.
       - Decide quickly and tell us straight.
   work:
     - org: Government of Canada
@@ -253,7 +251,7 @@ about:
         - { n: "7,000+", label: papers tracked }
         - { n: "200+", label: hours of lookups cut }
         - { n: "8+", label: hours a week back for the professor }
-  proves: "Although these projects aren't business automations, they prove I build software that stays fast, reliable and consistent with thousands of people using it."
+  proves: "These weren't business automations, but they hold up with thousands of people using them."
   photo: /headshot.png
   sign: William Jin · Toronto
   cta: Talk to me directly
@@ -268,7 +266,7 @@ close:
     rows:
       - ["Leads answered in minutes, day or night", Leads wait for someone to get to them]
       - [Admin that runs itself, Staff copying data between tools]
-      - [Margins that hold as you grow, Margins that shrink with every hire]
+      - [Every run logged and watched, Failures found by a client weeks later]
   cta: Get started
 
 ask:

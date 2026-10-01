@@ -156,7 +156,6 @@
    line where the data is ready for AI, a pin where most companies jump in ---------- */
 .levels .head.wide{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 40px;max-width:none}
 .levels .head h2{max-width:15em}
-.levels .head .sub{margin-top:clamp(10px,1.2vw,16px);max-width:30em;font-size:clamp(1.15rem,1rem + .5vw,1.4rem);line-height:1.35;font-weight:500;color:var(--acc)}
 .levels .head .intro{max-width:40em;margin-top:10px}
 .levels .act{display:grid;justify-items:end;gap:10px}
 .levels .how{max-width:15.5em;font-size:14px;line-height:1.4;text-align:right;color:var(--ink-2)}

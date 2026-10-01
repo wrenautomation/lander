@@ -356,7 +356,7 @@ const hub = defineCollection({
     // `fall` the words on its block as it falls with nothing under it; `sub`: the line under the heading; `how`: how the
     // call finds your level, under the button
     levels: z.strictObject({
-      id: z.string(), h2: z.string(), sub: z.string(), text: z.string(), cta: z.string(), how: z.string(),
+      id: z.string(), h2: z.string(), text: z.string(), cta: z.string(), how: z.string(),
       word: z.string(),                 // "Level", before each number
       most: z.number().int().min(1).max(5), most_note: z.string(), fall: z.string(),
       gate: z.strictObject({ after: z.number().int().min(1).max(4), name: z.string() }), // the line after that level where AI has clean data
