@@ -17,7 +17,7 @@ nav:
 nav_cta: Win back my clients
 
 hero:
-  h1: Book *20 client meetings in 90 days* from leads you already paid for,
+  h1: Book *{until} client meetings in {days} days* from leads you already paid for,
   h1_tail: with my personalized lead reactivation system
   lede: |
     Your old clients are hiring again. You built those relationships. Don't hand them to a competitor.
@@ -27,6 +27,7 @@ hero:
   promise:
     h: My personal guarantee
     items:
+      - If you don't have {until} meetings by day {days}, I keep going until you do.
       - If I don't get you results, you don't pay.
       - Works with the ATS and inbox you already use.
       - Every piece of outreach goes out in your brand voice, under your recruiters' names.
@@ -39,7 +40,7 @@ problem:
     - Do clients go quiet after **one hiring season** and never come back?
     - Have you lost a past client to another company because you were **too busy to respond in time?**
   answer: My system catches past clients *the moment they're hiring again,* and books the meeting for you.
-  target: My target for you is *20 booked meetings in 90 days.*
+  target: My target for you is *{until} booked meetings in {days} days.*
   target_cta: Book a consultation
   cta: I'm ready to win back my clients
   pain:

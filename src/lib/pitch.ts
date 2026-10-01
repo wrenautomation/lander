@@ -7,7 +7,7 @@ type OfferData = CollectionEntry<'offers'>['data'];
 type Ask = CollectionEntry<'pitches'>['data']['ask'];
 type Card = { name: string; to: string; offer?: string };
 type Build = CollectionEntry<'pitches'>['data']['build'];
-const terms = (o: OfferData) => ({ slots: o.slots, days: o.days });
+const terms = (o: OfferData) => ({ slots: o.slots, days: o.days, until: 'until' in o.price ? o.price.until : null });
 
 async function liveOffer(id: string, where: string): Promise<OfferData> {
   const o = (await getEntry('offers', id))?.data;
