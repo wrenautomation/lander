@@ -22,15 +22,15 @@ hero:
   lede: |
     Your old clients are hiring again. You built those relationships. Don't hand them to a competitor.
 
-    We build you a personalized lead reactivation system that watches every past client for new hiring windows, reaches out in your brand voice, and books the meeting. You only pay for meetings that land.
+    We build you a personalized lead reactivation system that watches every past client for new hiring windows, reaches out in your brand voice, and books the meeting.
   second_to: "#problem"
   promise:
     h: My personal guarantee
     items:
+      - If I don't get you results, you don't pay.
       - Works with the ATS and inbox you already use.
-      - Follows how your company already works. Nothing new to learn.
       - Every piece of outreach goes out in your brand voice, under your recruiters' names.
-  by: If it doesn't fit how your company works, I change it. Not you.
+  by: If it doesn't fit how your company works, I change the system to fit.
 
 problem:
   id: problem
@@ -39,7 +39,7 @@ problem:
     - Do clients go quiet after **one hiring season** and never come back?
     - Have you lost a past client to another company because you were **too busy to respond in time?**
   answer: Our system catches past clients *the moment they're hiring again,* and books the meeting for you.
-  target: Our target for you is *20 booked meetings in 90 days.* You only pay if you get a clear return on revenue and time saved.
+  target: Our target for you is *20 booked meetings in 90 days.*
   target_cta: Book a consultation
   cta: I'm ready to win back my clients
   pain:
@@ -51,20 +51,19 @@ problem:
         - Nobody notices when a past client starts hiring again.
         - The CRM reminder fires months late, or never.
         - When a recruiter leaves, **their relationships leave too.**
-    - Every quarter, your past clients open new roles. If you don't reach them first, **another company will.**
 
 benefits:
   id: how
   items:
     - flow: watch
-      h2: Catch every past client the day they start hiring & never lose another job order to a competitor
+      h2: Catch every past client the day they start hiring
       text: Our system watches every past client for job posts, funding, new leaders, and contacts who moved to a new company. The day one starts hiring, you know.
       cta: See if my company is a fit
     - flow: reach
-      h2: Reach every past client in your brand voice, under your recruiters' names, with zero extra hours from your team
-      text: We write every message, you approve it, and it goes out by email, LinkedIn and text. Nothing sends without your OK.
+      h2: Reach every past client in your brand voice, under your recruiters' names
+      text: We write every message, you approve it, and it goes out by email, LinkedIn and text.
     - flow: book
-      h2: Walk into warm, booked meetings with the full client history in hand, no chasing and no guesswork
+      h2: Walk into warm, booked meetings with the full client history in hand
       text: We sort every reply, handle the back and forth, and put the call on your calendar. Your recruiter only sees the ones ready to talk.
       cta: Start booking meetings
 
@@ -80,7 +79,6 @@ about:
     items:
       - Value thoughtful advice over quick fixes.
       - Take tough feedback and act on it.
-      - Want a partner for years, not one project.
       - Decide quickly and tell us straight.
   photo: /headshot.png
   sign: William Jin · Toronto
@@ -103,7 +101,7 @@ faq:
     - q: We tried re-engaging old clients before. Why would this work?
       a: Before, nobody knew when to reach out. This messages them the day they start hiring.
     - q: What if it doesn't book meetings?
-      a: You only pay for meetings that land.
+      a: If I don't get you results, you don't pay.
     - q: Who on my team needs to be involved?
       a: You, for one 30-minute call and an export. After that, one person approves messages before they go out.
     - q: Will this hurt our email domain?
@@ -135,7 +133,7 @@ ask:
 
 close:
   h2: You're a 2-minute form away from *reliable client outreach.*
-  reason: Stop wasting time chasing dead ends with cold outreach. *Win back the clients who already trust you.*
+  reason: Stop cold-messaging strangers. *Win back the clients who already trust you.*
   text: Your details and four quick questions, then you pick a time. Nothing to prepare.
   vs:
     win: Companies that start now
