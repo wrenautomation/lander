@@ -10,10 +10,13 @@
       "promise": "20 booked meetings with your past clients in 90 days, from leads you already paid for.",
       "price": {
         "kind": "performance",
-        "upfront": 1000,
+        "upfront": 1500,
         "perUnit": 500,
         "unit": "meeting booked",
-        "cap": 15000
+        "cap": 13500,
+        "monthly": 300,
+        "flat": 7500,
+        "until": 20
       },
       "slots": 3,
       "days": 90,
