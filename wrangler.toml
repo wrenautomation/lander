@@ -10,3 +10,4 @@ database_id = "a7a1773b-eb74-4b25-a930-bdb2e737c556"
 [vars]
 LEAD_TO = "william@wrenautomation.com"
 LEAD_FROM = "Wren site <site@wrenautomation.com>"
+VIDEOS_ORIGIN = "https://d29j9i83p8kh8y.cloudfront.net"  # wren deploy/terraform videos_origin; /v/<id> reads <id>.json there

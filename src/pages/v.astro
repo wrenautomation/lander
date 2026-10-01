@@ -1,0 +1,67 @@
+---
+// The shell for /v/<id>, one firm's demo video. functions/v/[id].ts serves it with the firm's name, the video
+// and its poster filled in from what wren published; /v on its own is never linked. Copy is the offer's own
+// (src/data/offers.json), so the page says nothing the pitch page doesn't. Not indexed, not in the sitemap.
+import '../styles/pitch.css';
+import '../styles/cursor.css';
+import Head from '../components/Head.astro';
+import Analytics from '../components/Analytics.astro';
+import Consent from '../components/Consent.astro';
+import Arrow from '../components/pitch/Arrow.astro';
+import data from '../data/offers.json';
+
+const offer = data.offers.find((o) => o.id === 'reactivation')!;
+const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap';
+---
+<!doctype html>
+<html lang="en" class="pitch" data-niche="recruiting">
+<head>
+  <Head title={`${offer.name}, made for you | Wren Automation`} description={offer.promise} fonts={FONTS} theme="#ffffff" noindex />
+  <meta name="color-scheme" content="light">
+  <style>
+    .watch{padding:clamp(20px,4vh,40px) 0 clamp(48px,8vh,96px)}
+    .watch .bar{margin-bottom:clamp(28px,7vh,72px)}
+    .watch .home{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:600;letter-spacing:-.01em}
+    .watch .home img{width:28px;height:28px}
+    .watch .label{color:var(--acc)}
+    .watch h1{font-size:clamp(2.2rem,1rem + 3vw,3.8rem);margin-top:14px}
+    .watch .lede{margin-top:16px}
+    .watch .screen{margin-top:clamp(28px,5vh,48px);background:var(--paper-2);border-radius:var(--r);box-shadow:var(--lift);padding:clamp(6px,1vw,10px)}
+    .watch video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:calc(var(--r) - 6px);background:var(--paper-2)}
+    .watch .next{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;margin-top:clamp(24px,4vh,40px)}
+    .watch .next a:not(.btn){color:var(--ink-2)}
+    /* phone: the words, the video the email promised, then the button. Wide: words and button beside the video. */
+    @media (min-width:1024px){
+      .watch .stage{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,8fr);grid-template-areas:"copy screen" "next screen";column-gap:clamp(40px,5vw,80px);align-content:center}
+      .watch .copy{grid-area:copy;align-self:end}
+      .watch .next{grid-area:next;align-self:start}
+      .watch .screen{grid-area:screen;align-self:center;margin-top:0}
+    }
+    @media (max-width:640px){.watch .next .btn{width:100%;justify-content:space-between}}
+  </style>
+</head>
+<body>
+<main class="watch">
+  <div class="wrap">
+    <div class="bar"><a class="home" href="/"><img src="/brand/wren-icon.png" alt="" width="28" height="28">Wren Automation</a></div>
+    <div class="stage">
+      <div class="copy">
+        <p class="label">Made for <span data-firm>your firm</span></p>
+        <h1>{offer.name}</h1>
+        <p class="lede">{offer.promise}</p>
+      </div>
+      <div class="screen">
+        <video data-video controls playsinline preload="metadata" width="1920" height="1080"></video>
+      </div>
+      <div class="next">
+        <a class="btn" href={offer.booking} data-cta><span>Book a call</span><Arrow /></a>
+        <a href="/recruiting/lead-reactivation">How it works</a>
+      </div>
+    </div>
+  </div>
+</main>
+<Consent />
+<script src="../scripts/hit.ts"></script>
+<Analytics />
+</body>
+</html>
