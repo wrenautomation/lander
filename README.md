@@ -80,6 +80,7 @@ The workflow needs four repo secrets: `CLOUDFLARE_API_TOKEN` (dash → My Profil
 | `PUBLIC_TURNSTILE_SITE_KEY` | `.env` | dash.cloudflare.com → Turnstile → add widget (hostname wrenautomation.com, invisible) → site key | form still works; honeypot alone catches the dumb bots |
 | `TURNSTILE_SECRET` | `wrangler pages secret put` | same widget → secret key | same as above (both or neither) |
 | `DISCORD_WEBHOOK` | `wrangler pages secret put` | Discord channel → Edit → Integrations → Webhooks → New → copy URL | no Discord ping |
+| `DISCORD_PING_USER_ID` | `wrangler pages secret put` | Discord → Settings → Advanced → Developer Mode, then right-click your name → Copy User ID | the lead posts but does not @mention you (silent if the server is set to only @mentions) |
 | `RESEND_API_KEY` | `wrangler pages secret put` | resend.com → API keys; first verify `wrenautomation.com` under Domains (3 DNS records) | leads land in D1 only, no email ping |
 | `EXPORT_TOKEN` | `wrangler pages secret put` | any long random string; the same value is wren's `WREN_SITE_EXPORT_TOKEN` | `/api/export` answers 404, so `wren email clicks` can't read clicks |
 | `LEAD_TO` / `LEAD_FROM` | `wrangler.toml` `[vars]` | already set; `LEAD_FROM` must be on the verified domain | — |

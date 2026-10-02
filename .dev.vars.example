@@ -1,4 +1,5 @@
 # copy to .dev.vars for `npm run preview`; never commit .dev.vars
 TURNSTILE_SECRET=
 DISCORD_WEBHOOK=
+DISCORD_PING_USER_ID=
 RESEND_API_KEY=

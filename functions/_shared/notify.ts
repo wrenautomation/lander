@@ -6,7 +6,11 @@ export async function notify(env: Env, n: { title: string; lines: string[]; body
   if (env.DISCORD_WEBHOOK) {
     jobs.push(fetch(env.DISCORD_WEBHOOK, {
       method: 'POST', headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ content: `**${n.title}**\n${n.lines.join('\n')}\n> ${n.body.slice(0, 1500).replace(/\n/g, '\n> ')}` }),
+      // A new lead is a ping: @mention William (only him, never a mention the form text carries).
+      body: JSON.stringify({
+        content: `${env.DISCORD_PING_USER_ID ? `<@${env.DISCORD_PING_USER_ID}> ` : ''}🔔 **${n.title}**\n${n.lines.join('\n')}\n> ${n.body.slice(0, 1500).replace(/\n/g, '\n> ')}`,
+        allowed_mentions: { parse: [], users: env.DISCORD_PING_USER_ID ? [env.DISCORD_PING_USER_ID] : [] },
+      }),
     }));
   }
   if (env.RESEND_API_KEY && env.LEAD_TO && env.LEAD_FROM) {

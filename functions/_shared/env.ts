@@ -3,6 +3,7 @@ export interface Env {
   DB: D1Database;
   TURNSTILE_SECRET?: string;
   DISCORD_WEBHOOK?: string;    // channel → Integrations → Webhooks
+  DISCORD_PING_USER_ID?: string; // William's Discord user id: lead pings @mention him
   RESEND_API_KEY?: string;
   LEAD_TO?: string;            // where the notification goes
   LEAD_FROM?: string;          // a sender on a domain verified in Resend
