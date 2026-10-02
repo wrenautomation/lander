@@ -338,9 +338,11 @@ const hub = defineCollection({
     // the biggest pain, right under the first screen: a full-width headline, then the words beside a line chart of
     // net margin by team size. pct is sourced and printed (real carries the [^n]); aim is our aim, drawn as a gentler
     // green line and never printed. The two lines start at the same point.
-    // punch: the pain in one sentence under the headline. fix: the offer in one line. assure: the risk, answered beside the button
+    // punch: the pain in one sentence under the headline. manage: everything growth hands you to run, crossed out.
+    // fix: the offer in one line. assure: the risk, answered beside the button
     pain: z.strictObject({
       id: z.string(), h2: z.string(), punch: z.string(), text: z.string(), fix: z.string(), cta: z.string(), assure: z.string(),
+      manage: z.strictObject({ h: z.string(), items: z.array(z.string()).min(3).max(6) }),
       chart: z.strictObject({
         h: z.string(),                  // the window's title
         axis: z.string(),               // under the team sizes

@@ -41,6 +41,8 @@
    window. The rust line is sourced and printed; the green aim line is drawn, never printed ---------- */
 .pain-sec .grid{align-items:center}
 .pain-sec .grid>.head .intro{margin-top:1.2rem}
+.pain-sec .manage{margin-top:1.2rem;font-size:18px;font-weight:500;color:var(--ink)}
+.pain-sec .crosses{margin-top:.7rem;gap:6px;font-size:17px;color:var(--ink-2)}
 .pain-sec .punch{margin-top:clamp(12px,1.4vw,18px);max-width:30em;font-size:clamp(1.25rem,1rem + .8vw,1.6rem);line-height:1.35;font-weight:500;color:var(--acc)}
 .pain-sec .fix{margin-top:1.1rem;font-size:18px;line-height:1.5;color:var(--ink-2)}
 .pain-sec .fix b{display:block;margin-bottom:.35rem;color:var(--ink)}

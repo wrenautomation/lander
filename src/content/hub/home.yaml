@@ -1,9 +1,9 @@
 # wrenautomation.com/. The hub: Wren as a whole, for anyone who lands without a service link.
 # Reader: an owner or executive at a company of 10+ people. The pitch: one connected system, built on their
 # tools, for every part of the company that has to scale (lead gen, hiring outreach, admin, timesheets,
-# onboarding), with AI on the research and the repetitive work. Money first: grow without margins shrinking,
-# because the repetitive work no longer needs a new hire for every new client. Call the reader a company, never an agency.
-# The pain is margin alone (why it shrinks, then a one-line fix); busywork stays out of it. The page also teaches
+# onboarding), with AI on the research and the repetitive work. General on purpose: growth makes every problem bigger,
+# and the fix is software for whatever slows them down. Call the reader a company, never an agency.
+# The pain is growth without a foundation: more to manage, more stress, thinner margins, then a one-line fix. The page also teaches
 # the market: why margins shrink, why AI stalls. Rules: prices off the page. Proof is real only.
 # No client cases until there are real ones. Every outside figure carries a [^n] marker to `sources` at the end.
 # Notes on how they're used:
@@ -12,7 +12,7 @@
 #     management layers, support roles and coordination. Their sample is digital agencies, so the key names them;
 #     the copy stays general. The green line is our aim, not data: drawn gentler (still falling), never printed.
 # Team time, weeks and the retainer's monthly AI job come from the offer in wren (packages/offers).
-title: "Wren Automation: scale your company without scaling headcount"
+title: "Wren Automation: scale your company without drowning in work"
 description: Custom software and AI for every part of your company that has to scale. Lead gen, hiring outreach, admin, timesheets, onboarding and research, in one connected system.
 path: /
 offer: ops-automation-build
@@ -27,8 +27,8 @@ nav_cta: Get in touch
 
 hero:
   proof: Works past the demo. Built by an engineer who's shipped production systems.
-  h1: "What if scaling took *less work*, not more?"
-  lede: "Every hire adds more follow-ups, more onboarding and more hours to track, and that work eats your margin. I build **integrated software** that **takes that work off your team**: lead gen, hiring outreach, onboarding, timesheets, admin, or anything else that slows you down."
+  h1: "Drowning in work as you grow? *Scale sustainably.*"
+  lede: "As your company grows, every problem gets bigger and every task takes longer. The companies that scale well fix that early. I build **integrated software** that **takes the work off your shoulders**: lead gen, hiring outreach, onboarding, timesheets, admin, or anything else that slows you down."
   checks:
     - Reduce busywork by up to 60%[^1]
     - Fully managed, integrated system
@@ -37,11 +37,19 @@ hero:
 
 pain:
   id: pain
-  h2: The bigger you grow, *the worse your profit margin.*
-  punch: "You're working harder than you need to, and keeping less for it."
-  text: Every new client needs more people. More people need managers, support staff and meetings to stay in sync. Knowledge workers already spend **58% of their day** on that kind of coordination.[^4] Then come the CRMs, subscriptions, consultants, experts and developers to hold it all together. Net margins drop **from 19% under 10 people to 8% past 50.**[^2]
+  h2: Scaling without a foundation is *pouring water into a leaky bucket.*
+  punch: "You grow, but you end up busier, more stressed and keeping less of what you earn."
+  manage:
+    h: "As you scale, you end up managing:"
+    items:
+      - Managers and support staff
+      - CRMs and subscriptions that don't talk to each other
+      - Consultants, experts and developers
+      - Admin work that eats your week
+      - Meetings just to keep everyone in sync
+  text: Knowledge workers already spend **58% of their day** on that kind of coordination.[^4] Net margins drop **from 19% under 10 people to 8% past 50.**[^2]
   # the offer in one line; *words* get the highlighter
-  fix: "**I fix the work that grows with every hire.** Bring me *any bottleneck* and I'll handle the rest."
+  fix: "**I'll fix any bottleneck in your business.** You get *your time back.*"
   cta: Keep more of what you earn
   assure: "Free call. If it's not a fit, I'll tell you."
   chart:
@@ -57,21 +65,21 @@ pain:
       - { label: 25 to 49, pct: 9, aim: 16.5 }
       - { label: 50+, pct: 8, aim: 16 }
 
-# what makes it stick, right under the pain: six cards, each a place most automation fails and what I do instead.
+# what you get, right under the pain: six cards, each a benefit named first, then how I deliver it.
 # No claim here may repeat the comparison, the levels or the FAQ.
 values:
   id: why
   h2: Automation that *holds up on real work.*
-  text: Most software never sticks with the team. These six things are why mine does.
+  text: More hours back, more revenue and smoother days, from software your team keeps using.
   cta: Talk through your bottleneck
   # art: the small animated scene at the top of each card (Values.astro)
   items:
-    - { art: handled, name: No extra work for you, text: "I handle the setup, the APIs and the fixes. You tell me the problem in plain words." }
-    - { art: messy, name: Built for real-world cases, text: "Bounced emails, duplicate contacts, replies at 2am. I build for the messy parts, because that's where tools break." }
-    - { art: charge, name: Built around your team, text: "It fits how your team already works. You choose what runs on its own and what waits for a yes." }
-    - { art: watched, name: Nothing runs unwatched, text: "Every run is logged. A failure gets caught and fixed, not found by a client weeks later." }
-    - { art: cost, name: You see what it costs, text: "Each job shows what it costs to run, so you know what you're paying for." }
-    - { art: first, name: Start where it pays most, text: "Find the KPIs that matter, then start with the job that moves them most. Everything after builds on it." }
+    - { art: handled, name: Get your week back, text: "I handle the setup, the APIs and the fixes. You tell me the problem in plain words and get the hours back." }
+    - { art: first, name: More revenue sooner, text: "I find the numbers that matter, then start with the job that moves them most. Everything after builds on it." }
+    - { art: messy, name: Work that runs smoothly, text: "Bounced emails, duplicate contacts, replies at 2am. I build for the messy parts, so the work keeps moving when something odd happens." }
+    - { art: charge, name: Your team stays in control, text: "It fits how your team already works. You choose what runs on its own and what waits for a yes." }
+    - { art: watched, name: Nothing slips through, text: "Every run is logged. A failure gets caught and fixed before a client ever notices." }
+    - { art: cost, name: No surprise bills, text: "Each job shows what it costs to run, so you always know what you're paying for." }
 
 levels:
   id: levels
@@ -156,7 +164,7 @@ catalog:
 
 compare:
   id: compare
-  h2: Why not hire, buy software or *hand it to another agency?*
+  h2: You should *work with me.*
   us: Wren
   them: [Another hire, Off-the-shelf software, Another agency, Freelancers]
   # each cell: the mark, then why in a few words. Wren first, then `them` in order.
@@ -258,15 +266,8 @@ about:
 
 close:
   h2: You're one call from *a company that scales properly.*
-  reason: Growth should add profit, *not payroll.*
+  reason: You started your company for *freedom.* Don't let growth turn it into a harder job than the one you left.
   text: One short form, then a call.
-  vs:
-    win: Companies that start now
-    lose: Companies that wait
-    rows:
-      - ["Leads answered in minutes, day or night", Leads wait for someone to get to them]
-      - [Admin that runs itself, Staff copying data between tools]
-      - [Every run logged and watched, Failures found by a client weeks later]
   cta: Get started
 
 ask:

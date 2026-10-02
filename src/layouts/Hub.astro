@@ -74,6 +74,8 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
       <div class="head">
         <h2 set:html={rich(p.pain.h2)} />
         <p class="punch" set:html={rich(p.pain.punch)} />
+        <p class="manage" set:html={rich(p.pain.manage.h)} />
+        <ul class="checks crosses">{p.pain.manage.items.map((x) => <li set:html={rich(x)} />)}</ul>
         <div class="intro" set:html={richParas(p.pain.text)} />
         <p class="fix" set:html={rich(p.pain.fix)} />
         <div class="act">
