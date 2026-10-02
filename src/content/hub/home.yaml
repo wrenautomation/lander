@@ -37,10 +37,10 @@ hero:
 
 pain:
   id: pain
-  h2: Scaling without a foundation is *pouring water into a leaky bucket.*
+  h2: Scaling without a foundation is *like pouring water into a leaky bucket.*
   punch: "You grow, but you end up busier, more stressed and keeping less of what you earn."
   manage:
-    h: "As you scale, you end up managing:"
+    h: "As you scale, you end up juggling:"
     items:
       - Managers and support staff
       - CRMs and subscriptions that don't talk to each other
