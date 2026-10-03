@@ -50,7 +50,7 @@ pain:
       - Meetings just to keep everyone in sync
   text: Knowledge workers already spend **58% of their day** on that kind of coordination.[^4] Net margins drop **from 19% under 10 people to 8% past 50.**[^2]
   # the offer in one line; *words* get the highlighter
-  fix: "**I'll fix any bottleneck in your business.** You get *your time back.*"
+  fix: "**I'll fix any bottleneck in your business.** You get *your time back* and *more revenue.*"
   cta: Keep more of what you earn
   assure: "Free audit. If it's not a fit, I'll tell you."
   chart:
@@ -110,19 +110,19 @@ levels:
       lacks: [Your team still moves data by hand., Leads wait until someone's free.]
     - name: Connected
       brick: Workflows
-      fix: "I connect your tools so data moves without anyone copying it."
+      fix: "I connect your tools so no one copies data by hand and no lead slips through."
       icon: loop
       has: [Handoffs run on their own., Every lead gets a reply in minutes.]
       lacks: [Your team still researches and writes everything., More clients still means more hires.]
     - name: AI-assisted
       brick: AI
-      fix: "I pick where AI saves the most hours and set it up."
+      fix: "I set up AI where it saves hours and wins you revenue."
       icon: spark
       has: ["AI does the research, drafts and call notes.", Your team reviews instead of writing.]
       lacks: [Someone still checks every draft., Nobody watches for what breaks.]
     - name: Self-running
       brick: Monitoring
-      fix: "I monitor your automations and fix any issues that come up."
+      fix: "I monitor and fix your automations, so the hours and revenue keep coming."
       icon: check
       has: [Work you've approved runs on its own., "More clients, same team."]
 
