@@ -140,8 +140,8 @@ catalog:
           gets: More calls booked, no new reps.
         - name: Speed to lead
           scene: inquiry
-          text: "Leads go cold fast. Companies that reply within an hour are nearly 7 times as likely to qualify the lead as those that wait one hour longer.[^5] Reply to every inquiry in minutes, day or night, with times to book."
-          gets: More inquiries become calls.
+          text: "Leads go cold fast. Companies that reply within an hour are nearly 7 times as likely to qualify the lead as those that wait one hour longer.[^5] A voice agent answers every call, and every inquiry gets a reply in minutes with times to book, day or night."
+          gets: More calls and inquiries become meetings.
     - for: Hire and onboard
       items:
         - name: Hiring outreach
