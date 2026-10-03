@@ -29,7 +29,7 @@ hero:
   proof: You'll work with an engineer whose Government of Canada system serves 17,000+ staff.
   h1: "Drowning in work as you grow? *I'll help you scale sustainably*"
   h1_tail: by building you custom software and automations.
-  lede: "As your company grows, every problem gets bigger and every task takes longer. The companies that scale well fix that early. I build **integrated software** that **takes the work off your shoulders**: lead gen, hiring outreach, onboarding, timesheets, admin, or anything else that slows you down."
+  lede: "As your company gets bigger, your problems do too. The companies that scale well fix that early. I build **integrated software** that **takes the work off your shoulders**: lead gen, hiring outreach, onboarding, timesheets, admin, or anything else that slows you down."
   checks:
     - Reduce busywork by up to 60%[^1]
     - Fully managed, integrated system
@@ -72,14 +72,14 @@ values:
   id: why
   h2: Automation that *holds up on real work.*
   text: More hours back, more revenue and smoother days, from software your team keeps using.
-  cta: Talk through your bottleneck
+  cta: Get my free audit
   # art: the small animated scene at the top of each card (Values.astro)
   items:
-    - { art: handled, name: Get your week back, text: "I handle the setup, the APIs and the fixes. You tell me the problem in plain words and get the hours back." }
+    - { art: handled, name: Get a full day back every week, text: "I handle the setup, the APIs and the fixes. You tell me the problem in plain words, and the hours your team spent on it come back." }
     - { art: first, name: More revenue sooner, text: "I find the numbers that matter, then start with the job that moves them most. Everything after builds on it." }
     - { art: messy, name: Work that runs smoothly, text: "Bounced emails, duplicate contacts, replies at 2am. I build for the messy parts, so the work keeps moving when something odd happens." }
     - { art: charge, name: Your team stays in control, text: "It fits how your team already works. You choose what runs on its own and what waits for a yes." }
-    - { art: watched, name: Nothing slips through, text: "Every run is logged. A failure gets caught and fixed before a client ever notices." }
+    - { art: watched, name: Never lose an easy win to a busy week, text: "Every lead, follow up and invoice gets handled, even when you're swamped. If something fails, I catch it and fix it before a client notices." }
     - { art: cost, name: No surprise bills, text: "Each job shows what it costs to run, so you always know what you're paying for." }
 
 levels:
