@@ -4,6 +4,8 @@ export interface Env {
   TURNSTILE_SECRET?: string;
   DISCORD_WEBHOOK?: string;    // channel → Integrations → Webhooks
   DISCORD_PING_USER_ID?: string; // William's Discord user id: lead pings @mention him
+  DISCORD_MEETINGS_WEBHOOK?: string; // #meetings: cal.com bookings land here
+  CALCOM_WEBHOOK_SECRET?: string;    // signs /api/calcom; made and kept by `autobrowse site call calcom POST /v2/webhooks`
   RESEND_API_KEY?: string;
   LEAD_TO?: string;            // where the notification goes
   LEAD_FROM?: string;          // a sender on a domain verified in Resend
