@@ -128,7 +128,7 @@ levels:
 
 catalog:
   id: services
-  h2: Rock-solid software for *every part of your business.*
+  h2: Dependable software for *every part of your business.*
   cta: Tell me where to start
   groups:
     - for: Win more clients
