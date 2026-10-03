@@ -17,6 +17,7 @@ nav:
 nav_cta: Win back my clients
 
 hero:
+  proof: Built by the engineer behind a Government of Canada system used by 17,000+ staff.
   h1: Book *{until} client meetings in {days} days* from clients you've worked with,
   h1_tail: with my personalized lead reactivation system
   lede: |

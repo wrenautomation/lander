@@ -267,6 +267,7 @@ const pitches = defineCollection({
     ...page,
     // The first screen: who it's for and the pain (lede), what Wren does, then the form beside it (ask).
     hero: z.strictObject({
+      proof: z.string().optional(),     // one real line above the headline
       h1: z.string(),
       h1_tail: z.string().optional(),   // the headline's last clause, set a step smaller on its own line
       lede: z.string(),                 // blank line = paragraph. Open with the reader: **For owners of ...**
@@ -331,6 +332,7 @@ const hub = defineCollection({
     hero: z.strictObject({
       proof: z.string(),                // one real line above the headline
       h1: z.string(),
+      h1_tail: z.string().optional(),   // a step smaller on its own line, in ink
       lede: z.string(),
       checks: z.array(z.string()).length(3),
       to_form: z.string(),              // one line pointing at the form beside it (below it on a phone)

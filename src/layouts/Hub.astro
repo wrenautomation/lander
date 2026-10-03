@@ -59,7 +59,7 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
   <div class="wrap hero-grid hub-hero">
     <div class="copy">
       <p class="kicker"><i></i>{p.hero.proof}</p>
-      <h1 set:html={rich(p.hero.h1)} />
+      <h1><Fragment set:html={rich(p.hero.h1)} />{p.hero.h1_tail && <span class="tail"> {p.hero.h1_tail}</span>}</h1>
       <div class="lede" set:html={richParas(p.hero.lede)} />
       <ul class="checks big">{p.hero.checks.map((c) => <li set:html={rich(c)} />)}</ul>
       <p class="to-form"><a href="#apply" data-cta><span>{p.hero.to_form}</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h10.5M9 4l4 4-4 4" /></svg></a></p>

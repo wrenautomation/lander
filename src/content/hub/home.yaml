@@ -23,17 +23,18 @@ nav:
     to: "#services"
     menu:
       - { label: Lead reactivation, note: For recruiting companies, what: Win new business from past clients already in your ATS., to: /recruiting/lead-reactivation }
-nav_cta: Get in touch
+nav_cta: Get a free audit
 
 hero:
-  proof: Works past the demo. Built by an engineer who's shipped production systems.
-  h1: "Drowning in work as you grow? *Scale sustainably.*"
+  proof: You'll work with an engineer whose Government of Canada system serves 17,000+ staff.
+  h1: "Drowning in work as you grow? *I'll help you scale sustainably*"
+  h1_tail: by building you custom software and automations.
   lede: "As your company grows, every problem gets bigger and every task takes longer. The companies that scale well fix that early. I build **integrated software** that **takes the work off your shoulders**: lead gen, hiring outreach, onboarding, timesheets, admin, or anything else that slows you down."
   checks:
     - Reduce busywork by up to 60%[^1]
     - Fully managed, integrated system
     - Better margins as you grow
-  to_form: Your next stage of growth, without the busywork, is a few steps away.
+  to_form: Start with a free audit of your bottlenecks. The plan is yours to keep.
 
 pain:
   id: pain
@@ -51,7 +52,7 @@ pain:
   # the offer in one line; *words* get the highlighter
   fix: "**I'll fix any bottleneck in your business.** You get *your time back.*"
   cta: Keep more of what you earn
-  assure: "Free call. If it's not a fit, I'll tell you."
+  assure: "Free audit. If it's not a fit, I'll tell you."
   chart:
     h: Net profit margin by team size
     axis: People on the team
@@ -86,7 +87,7 @@ levels:
   h2: Most companies jump into AI *without a solid foundation.*
   text: "88% of companies now use AI somewhere, yet nearly two-thirds haven't started scaling it.[^3] AI can't run on scattered data and processes nobody wrote down."
   cta: Find my level
-  how: "Walk me through a normal week. I'll tell you your level."
+  how: "In your free audit, walk me through a normal week. I'll tell you your level and what to fix first."
   word: Level
   most: 4
   most_note: Most jump in here
@@ -228,6 +229,8 @@ faq:
       a: "Look for work that repeats, follows the same steps every time and eats hours: moving data between tools, follow-ups, scheduling, reports."
     - q: How much of my team's time does this take?
       a: An hour with you and 45 minutes each with three or four of your people in the first two weeks. After that, a 20-minute check-in each week.
+    - q: What do I get from the free audit?
+      a: "On one call, I map where your team's hours go, find your biggest bottleneck and tell you what to fix first. You keep the plan, whether or not you hire me."
     - q: What happens after launch?
       a: I stay on. I keep what I built tuned as you grow and add one new AI job every month. If something I built breaks by my mistake, I fix it free.
 
@@ -267,12 +270,13 @@ about:
 close:
   h2: You're one call from *a company that scales properly.*
   reason: You started your company for *freedom.* Don't let growth turn it into a harder job than the one you left.
-  text: One short form, then a call.
+  text: One short form, then your free audit call. You keep the plan either way.
   cta: Get started
 
 ask:
-  h2: Find out where you can scale.
-  cta: Show me where to start
+  h2: Get a free audit of where you can scale.
+  cta: Get my free audit
+  assure: Free, one call, and you keep the plan. If it's not a fit, I'll tell you.
   opens_with: bottleneck
   submit: Send
   sending: Sending…

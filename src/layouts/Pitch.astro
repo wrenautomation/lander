@@ -53,6 +53,7 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
 <section class="hero" id="top">
   <div class="wrap hero-grid">
     <div class="copy">
+      {p.hero.proof && <p class="kicker"><i></i>{p.hero.proof}</p>}
       <h1 class:list={{ long: p.hero.h1.length > 60 }}><Fragment set:html={rich(p.hero.h1)} />{p.hero.h1_tail && <span class="tail"> {p.hero.h1_tail}</span>}</h1>
       <div class="lede" set:html={richParas(p.hero.lede)} />
       {p.hero.promise && (
