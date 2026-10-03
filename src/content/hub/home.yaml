@@ -128,8 +128,8 @@ levels:
 
 catalog:
   id: services
-  h2: Every part of your company *that has to scale.*
-  cta: Tell me what to scale first
+  h2: Rock-solid software for *every part of your business.*
+  cta: Tell me where to start
   groups:
     - for: Win more clients
       link: { label: "Recruiting? Lead reactivation", to: /recruiting/lead-reactivation }
