@@ -64,7 +64,7 @@ const { s } = Astro.props as { s: C };
                   )}
                 </div>
                 <h3>{x.name}</h3>
-                <p>{x.text}</p>
+                <p set:html={rich(x.text)} />
                 <p class="gets"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h10.5M9 4l4 4-4 4" /></svg>{x.gets}</p>
               </li>
             ))}
