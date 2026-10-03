@@ -230,6 +230,9 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 /* the headline's starred part is the promise: success green, like the target line */
 .hero h1 em{color:var(--win)}
 .hero h1 .tail{display:block;margin-top:.25em;font-size:.62em;line-height:1.1;letter-spacing:-.01em;color:var(--ink-2)}
+/* the aside beside the tail: small, green, a highlighter under it */
+.hero h1 .note{display:inline-block;margin-left:.3em;font-size:clamp(17px,.9rem + .5vw,22px);font-weight:600;letter-spacing:0;vertical-align:.25em;color:var(--win);background:linear-gradient(transparent 58%,rgba(23,128,61,.16) 0);padding-inline:3px;white-space:nowrap}
+@media (max-width:719px){.hero h1 .note{display:table;margin:.4em 0 0}}
 /* below desktop the form follows the headline, so it's on the first screen; the lede and promise come after */
 @media (max-width:1023px){
   .hero-grid{display:flex;flex-direction:column}

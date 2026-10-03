@@ -20,6 +20,7 @@ hero:
   proof: Built by the engineer behind a Government of Canada system used by 17,000+ staff.
   h1: Book *{until} client meetings in {days} days* from clients you've worked with,
   h1_tail: with my personalized lead reactivation system
+  h1_note: (No results? You don't pay.)
   lede: |
     Your past clients are hiring again. Every role they fill through another company is a fee you lose. Don't hand those relationships to a competitor.
 
@@ -29,8 +30,8 @@ hero:
     h: My personal guarantee
     items:
       - If you don't have {until} meetings booked after {days} days, I keep working until you do.
-      - If I don't get you any results, you don't pay a dime.
-      - Works with your ATS and inbox. I do the setup. You give me one 30-minute call and one export.
+      - I never put your client relationships at risk. Every message is personal and written in your voice.
+      - I do the setup and connect your ATS, CRM, inboxes and any other tools you use. All you do is hop on a call for next steps.
   by: If it doesn't fit how your company works, I change the system to fit.
 
 problem:

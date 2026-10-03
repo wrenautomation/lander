@@ -270,6 +270,7 @@ const pitches = defineCollection({
       proof: z.string().optional(),     // one real line above the headline
       h1: z.string(),
       h1_tail: z.string().optional(),   // the headline's last clause, set a step smaller on its own line
+      h1_note: z.string().optional(),   // a short aside beside the tail, in the empty space at its end
       lede: z.string(),                 // blank line = paragraph. Open with the reader: **For owners of ...**
       second: z.string().optional(), second_to: z.string(),  // the quiet link under the lede; with no text, a bare arrow down that invites the scroll
       by: z.string(),                   // one line beside William's photo
