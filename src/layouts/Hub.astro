@@ -35,17 +35,17 @@ const yTicks = Array.from({ length: top / STEP + 1 }, (_, i) => i * STEP);
 const X = (k: number) => ((k + 0.5) / pts.length) * 100, Y = (v: number) => (v / top) * 100; // % across, % up
 const line = (f: (x: typeof pts[number]) => number) => pts.map((x, k) => `${X(k)},${100 - Y(f(x))}`).join(' ');
 const site = (await getEntry('site', 'site'))!.data;
-const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap';
 const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
 ---
 <!doctype html>
 <html lang="en" class="pitch hub" data-niche={p.form_value}>
 <head>
-  <Head title={bare(p.title)} description={bare(p.description)} fonts={FONTS} theme="#ffffff" faq={p.faq.items} services={p.catalog.groups.flatMap((g) => g.items)} />
+  <Head title={bare(p.title)} description={bare(p.description)} fonts="general-sans" theme="#ffffff" faq={p.faq.items} services={p.catalog.groups.flatMap((g) => g.items)} />
   <meta name="color-scheme" content="light">
   <script is:inline>
-    /* motion on: the scroll-drawn parts start undrawn. Off for ?static and reduced motion, so the page reads as-is. */
-    try{var q=new URLSearchParams(location.search),h=document.documentElement;if(!q.has('static')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)h.classList.add('js')}catch(e){}
+    /* motion on: the scroll-drawn parts start undrawn. Off for ?static, reduced motion, data saver, a 2g/3g link and
+       low-end devices (2 cores or 2GB), so the page reads as-is and nothing waits on an animation. */
+    try{var q=new URLSearchParams(location.search),h=document.documentElement;var c=navigator.connection,lite=c&&(c.saveData||/(^|-)[23]g$/.test(c.effectiveType||''))||(navigator.hardwareConcurrency||8)<=2||(navigator.deviceMemory||8)<=2;if(!lite&&!q.has('static')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)h.classList.add('js')}catch(e){}
   </script>
 </head>
 <body>
@@ -70,9 +70,9 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
 
 <section class="sec pain-sec" id={p.pain.id}>
   <div class="wrap">
+    <h2 class="lead" set:html={rich(p.pain.h2)} />
     <div class="grid">
       <div class="head">
-        <h2 set:html={rich(p.pain.h2)} />
         <p class="punch" set:html={rich(p.pain.punch)} />
         <p class="manage" set:html={rich(p.pain.manage.h)} />
         <ul class="checks crosses">{p.pain.manage.items.map((x) => <li set:html={rich(x)} />)}</ul>
@@ -108,7 +108,7 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
 
 <Values s={p.values} />
 
-<Levels s={p.levels} face={p.about.photo} />
+<Levels s={p.levels} face="/face.jpg" />
 
 {cases && (
 <section class="sec cases">

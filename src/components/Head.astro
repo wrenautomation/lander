@@ -33,8 +33,12 @@ const ld = !noindex && structuredData({ site, url: canonical, title, description
 <meta property="og:image" content={new URL(image, Astro.site)}>
 <meta name="twitter:card" content="summary_large_image">
 {ld && <script type="application/ld+json" set:html={ld} />}
-{fonts === FONTS ? <>
+{fonts === 'general-sans' ? <>
+{/* self-hosted (faces in pitch.css): no third-party hop before the text can draw; the headline and body weights preload */}
+<link rel="preload" href="/fonts/general-sans-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/general-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+</> : fonts === FONTS ? <>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </> : <link rel="preconnect" href={new URL(fonts).origin} crossorigin>}
-<link href={fonts} rel="stylesheet">
+{fonts !== 'general-sans' && <link href={fonts} rel="stylesheet">}

@@ -30,17 +30,17 @@ import { bare, rich, richParas } from '../lib/text';
 const { entry } = Astro.props as { entry: CollectionEntry<'pitches'> };
 const { p, offer } = await loadPitch(entry);
 const site = (await getEntry('site', 'site'))!.data;
-const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap';
 ---
 <!doctype html>
 <html lang="en" class="pitch" data-niche={p.form_value}>
 <head>
-  <Head title={bare(p.title)} description={bare(p.description)} fonts={FONTS} theme="#ffffff" faq={p.faq.items} services={[{ name: offer.name, text: p.description }]} />
+  <Head title={bare(p.title)} description={bare(p.description)} fonts="general-sans" theme="#ffffff" faq={p.faq.items} services={[{ name: offer.name, text: p.description }]} />
   <meta name="color-scheme" content="light">
   <script is:inline>
-    /* motion on: the scroll-drawn parts start undrawn. Off for ?static and reduced motion, so the page reads as-is. */
+    /* motion on: the scroll-drawn parts start undrawn. Off for ?static, reduced motion, data saver, a 2g/3g link and
+       low-end devices (2 cores or 2GB), so the page reads as-is and nothing waits on an animation. */
     /* ?prompts prints each empty image slot's prompt on the tile. */
-    try{var q=new URLSearchParams(location.search),h=document.documentElement;if(q.has('prompts'))h.classList.add('prompts');if(!q.has('static')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)h.classList.add('js')}catch(e){}
+    try{var q=new URLSearchParams(location.search),h=document.documentElement;if(q.has('prompts'))h.classList.add('prompts');var c=navigator.connection,lite=c&&(c.saveData||/(^|-)[23]g$/.test(c.effectiveType||''))||(navigator.hardwareConcurrency||8)<=2||(navigator.deviceMemory||8)<=2;if(!lite&&!q.has('static')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)h.classList.add('js')}catch(e){}
   </script>
 </head>
 <body>

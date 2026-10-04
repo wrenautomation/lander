@@ -128,7 +128,7 @@ questions:
 
 about_h2: About
 # The About photo. Remove the line to hide the slot.
-photo: /headshot.png
+photo: /headshot.jpg
 about:
   - I'm William. I'm a software engineering student at the University of Waterloo, and Wren Automation is the business I'm building.
   - "My work so far has been internships: data cleaning, pipelines that connect systems, and CRMs. The two builds above came out of that work."

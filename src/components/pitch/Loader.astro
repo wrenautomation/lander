@@ -3,6 +3,7 @@
 // first paint, so the page never shows and then gets covered. A fast load fades it off. A slow one (still loading at
 // 400ms) shows the mark on it, filling rust from the feet up toward 80%; when the page is ready it fills the rest,
 // and the screen lifts as the hero rises (window.wrenShown, read by pitch.ts).
+// Ready means the page and its fonts, not every image and third-party script (those load on behind it).
 // Kept up at least 700ms once shown so it never flickers; lifts at 6s whatever is still loading. Motion only (html.js).
 ---
 <div class="loader" aria-hidden="true"><i class="bird"></i><b></b></div>
@@ -14,5 +15,6 @@
   function ready(){if(done)return;done=1;clearTimeout(t);
     if(!shown){h.classList.add('quick');setTimeout(function(){h.classList.remove('loading','quick')},250);return res()}
     setTimeout(function(){h.classList.add('ready');setTimeout(res,450);setTimeout(function(){h.classList.remove('loading','slow','ready')},1300)},Math.max(0,700-(performance.now()-shown)))}
-  if(document.readyState==='complete')ready();else addEventListener('load',ready);setTimeout(ready,6000)})();
+  function go(){var f=document.fonts?document.fonts.ready:Promise.resolve();Promise.race([f,new Promise(function(r){setTimeout(r,1500)})]).then(ready,ready)}
+  if(document.readyState!=='loading')go();else addEventListener('DOMContentLoaded',go);setTimeout(ready,6000)})();
 </script>

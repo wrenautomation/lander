@@ -255,6 +255,10 @@ if (motion) {
           .set(jump, { clearProps: 'backgroundColor', rotation: 0, ...off }, t + 2);
         t += 2.2;
       }
+      // where the story starts: a cue over level one, then a line along the floor as each level builds
+      const start = $('.start', el), track = $('.track', el);
+      if (start && !flat) tl.fromTo(start, { opacity: 0, y: -6 }, { opacity: 1, y: 0, duration: 0.35 }, t - 0.2).to(start, { opacity: 0, duration: 0.3 }, t + 0.5);
+      if (track && !flat) tl.fromTo(track, { opacity: 0.7, width: '0%' }, { width: '100%', duration: rows.length * 0.5, ease: 'none' }, t).to(track, { opacity: 0, duration: 0.5 }, t + rows.length * 0.5 + 0.2);
       rows.forEach((li, i) => {
         const at = t + i * 0.5;
         if (gate && li.previousElementSibling === gate) tl.to(gate, { opacity: 1, duration: 0.4 }, at - 0.2);
@@ -281,9 +285,11 @@ if (motion) {
     gsap.to(o, { v: end, duration: 0.6, ease: 'power2.out', onStart: () => { f.style.minWidth = `${f.getBoundingClientRect().width}px`; }, onUpdate: () => { f.textContent = fmt(o.v) + m[2]; }, scrollTrigger: { trigger: f, start: 'top 90%', once: true } });
   }
 
-  // a section on its way out dims a little, so the next one reads as a new slide
+  // a section on its way out dims a little, so the next one reads as a new slide. Phones show one card or button at a
+  // time, so the dim waits until the section's end is nearly off the top: nothing still being read goes gray.
+  const phone = matchMedia('(max-width:719px)').matches;
   for (const w of $$('.sec>.wrap')) {
-    gsap.to(w, { opacity: 0.55, ease: 'none', scrollTrigger: { trigger: w.parentElement, start: 'bottom 40%', end: 'bottom top', scrub: true } });
+    gsap.to(w, { opacity: 0.55, ease: 'none', scrollTrigger: { trigger: w.parentElement, start: phone ? 'bottom 12%' : 'bottom 40%', end: 'bottom top', scrub: true } });
   }
   // a sticky heading leaves with its last item, not after it: gone before the item reaches the top
   for (const h of $$('.head.sticky')) {

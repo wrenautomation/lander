@@ -27,7 +27,7 @@ nav_cta: Get a free audit
 
 hero:
   proof: You'll work with an engineer whose Government of Canada system serves 17,000+ staff.
-  h1: Drowning in work as you grow?
+  h1: More clients, same team.
   h1_tail: "Custom automations for your sales, hiring and operations, so you *scale sustainably.*"
   lede: "As your company gets bigger, your problems do too. The companies that scale well fix that early. I build **integrated software** that **takes the work off your shoulders**: lead gen, hiring outreach, onboarding, timesheets, admin, or anything else that slows you down."
   checks:
@@ -38,7 +38,7 @@ hero:
 
 pain:
   id: pain
-  h2: Scaling without a foundation is *like pouring water into a leaky bucket.*
+  h2: Scaling without a foundation is a *leaky bucket.*
   punch: "You grow, but you end up busier, more stressed and keeping less of what you earn."
   manage:
     h: "As you scale, you end up juggling:"
@@ -92,6 +92,7 @@ levels:
   most: 4
   most_note: Most jump in here
   fall: Nothing under it
+  start: Start here
   gate: { after: 3, name: AI-ready }
   # brick: the block this level adds, on top of the ones below. fix: the bubble over the stack, what we build there.
   # has: what now exists. lacks: what's still missing.
@@ -165,7 +166,7 @@ catalog:
 
 compare:
   id: compare
-  h2: You should *work with me.*
+  h2: Built around your company, *with costs that stay flat.*
   us: Wren
   them: [Another hire, Off-the-shelf software, Another agency, Freelancers]
   # each cell: the mark, then why in a few words. Wren first, then `them` in order.
@@ -263,7 +264,7 @@ about:
         - { n: "200+", label: hours of lookups cut }
         - { n: "8+", label: hours a week back for the professor }
   proves: "These weren't business automations, but they hold up with thousands of people using them."
-  photo: /headshot.png
+  photo: /headshot.jpg
   sign: William Jin · Toronto
   cta: Talk to me directly
 
