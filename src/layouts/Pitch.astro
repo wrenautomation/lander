@@ -66,7 +66,7 @@ const site = (await getEntry('site', 'site'))!.data;
     <Apply a={p.ask} offer={offer} email={site.email} path={p.path} />
     {p.hero.scene && <Scene s={p.hero.scene} />}
     <p class="by">
-      <img src={p.about.photo} alt="" width="96" height="96">
+      <img src="/face.jpg" alt="" width="96" height="96">
       <span><b>{p.about.sign}</b>{p.hero.by}</span>
     </p>
   </div>
