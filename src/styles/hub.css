@@ -15,7 +15,6 @@
 .js .to-form svg{animation:nudge 1.8s ease-in-out 2s 3}
 @keyframes nudge{0%,55%,to{transform:none}25%{transform:translateX(5px)}}
 @media (max-width:1023px){.to-form svg{rotate:90deg}}
-.js:not(.arrived) .hero :is(.kicker,.checks,.to-form){opacity:0;animation:show .01s 2.5s forwards}
 @media (min-width:1024px){
   .hub-hero{grid-template-rows:1fr}
   .hub-hero .copy{grid-column:1/7;align-self:center;padding-block:48px}

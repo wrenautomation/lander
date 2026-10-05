@@ -54,24 +54,29 @@ body{position:relative;background:none;color:var(--ink);font-family:var(--sans);
 .backdrop.dark svg{color:var(--cream);opacity:.07}
 
 /* the load screen (Loader.astro): a plain gray screen over the page from the first paint. A fast load fades it off;
-   past 400ms the mark shows, filling rust from the feet up toward 80% with a rule drawing under it; when the page is
+   past 900ms the mark shows with a line of text under it, filling rust from the feet up toward 80% with a rule drawing under it; when the page is
    ready both finish, then the screen lifts as the hero rises.
-   html classes: loading (from the start), quick (fast load, fading off), slow (mark shown), ready (finishing). */
+   html classes: loading (from the start), quick (fast load, fading off), slow (mark shown), slower (3s: second line),
+   ready (finishing). */
 .loader{display:none}
 .js.loading .loader{position:fixed;inset:0;z-index:200;display:grid;place-content:center;justify-items:center;gap:20px;background:#F3F1EC;pointer-events:none}
 .js.loading .loader>*{opacity:0}
 .js.slow .loader>*{opacity:1;transition:opacity .25s}
 .js.quick .loader{opacity:0;transition:opacity .2s}
+.loader p{display:grid;margin-top:4px;font-size:14px;color:var(--ink-2);text-align:center}
+.loader p span{grid-area:1/1;transition:opacity .3s}
+.loader p span+span,.slower .loader p span:first-child{opacity:0}
+.slower .loader p span+span{opacity:1}
 .loader .bird{position:relative;width:84px;color:rgba(14,14,14,.08)}
 .loader .bird::after{content:"";position:absolute;inset:0;background:var(--acc);clip-path:inset(100% 0 0 0)}
 .loader b{width:84px;height:2px;background:var(--rule);overflow:hidden}
 .loader b::after{content:"";display:block;height:100%;background:var(--acc);transform:scaleX(0);transform-origin:left}
 .slow .loader .bird::after{clip-path:inset(20% 0 0 0);transition:clip-path 3s cubic-bezier(.2,.7,.3,1)}
 .slow .loader b::after{transform:scaleX(.8);transition:transform 3s cubic-bezier(.2,.7,.3,1)}
-.ready .loader .bird::after{clip-path:inset(0);transition-duration:.35s}
-.ready .loader b::after{transform:none;transition-duration:.35s}
-.js.ready .loader{animation:lift .8s cubic-bezier(.76,0,.24,1) .35s forwards}
-.ready .loader>*{animation:away .5s var(--out) .35s forwards}
+.ready .loader .bird::after{clip-path:inset(0);transition-duration:.2s}
+.ready .loader b::after{transform:none;transition-duration:.2s}
+.js.ready .loader{animation:lift .5s cubic-bezier(.76,0,.24,1) .2s forwards}
+.ready .loader>*{animation:away .4s var(--out) .2s forwards}
 @keyframes away{to{opacity:0;transform:translateY(-28px)}}
 @keyframes lift{from{clip-path:inset(0)}to{clip-path:inset(0 0 100% 0);visibility:hidden}}
 img{display:block;max-width:100%;height:auto}
@@ -230,7 +235,6 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 .hero .kicker{display:inline-flex;align-items:center;gap:10px;padding:7px 15px 7px 11px;border:1px solid var(--rule);border-radius:999px;background:var(--paper);box-shadow:0 1px 2px rgba(14,14,14,.04);font-size:13.5px;font-weight:500;line-height:1.3;color:var(--ink-2)}
 .hero .kicker i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 4px rgba(168,59,18,.14)}
 .hero .kicker+h1{margin-top:clamp(18px,3vh,28px)}
-.js:not(.arrived) .hero .kicker{opacity:0;animation:show .01s 2.5s forwards}
 /* the headline's starred part is the promise: success green, like the target line */
 .hero h1 em{color:var(--win)}
 .hero h1 .tail{display:block;margin-top:.25em;font-size:.62em;line-height:1.1;letter-spacing:-.01em;color:var(--ink-2)}
@@ -802,10 +806,12 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .sign-off .bird{flex:none;width:1.12em}
 .sign-off span{font-size:.5em;letter-spacing:-.03em}
 
-/* motion on: the hero's parts wait for pitch.ts to bring them in (html.arrived); a stalled script still shows them 2.5s
-   after the page (or its load screen) is up */
-.js:not(.arrived) .hero :is(h1,.lede,.promise,.more,.scene,.by){opacity:0;animation:show .01s 2.5s forwards}
-.js.loading .hero :is(h1,.lede,.promise,.more,.scene,.by,.kicker,.checks,.ctas){animation-play-state:paused}
+/* motion on: the hero's copy rises together as the load screen goes, in CSS so it never waits on the script.
+   The thread waits for pitch.ts to play it (html.arrived); a stalled script still shows it 2.5s after the page is up. */
+.js .hero :is(.kicker,h1,.lede,.promise,.checks,.more,.ctas,.to-form,.by){animation:enter .6s var(--out) .05s backwards}
+.js:not(.arrived) .hero .scene{opacity:0;animation:show .01s 2.5s forwards}
+.js.loading .hero :is(.kicker,h1,.lede,.promise,.checks,.more,.ctas,.to-form,.by,.scene){animation-play-state:paused}
+@keyframes enter{from{opacity:0;transform:translateY(12px)}}
 @keyframes show{to{opacity:1}}
 
 @media (prefers-reduced-motion:reduce){

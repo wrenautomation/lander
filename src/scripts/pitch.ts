@@ -55,13 +55,7 @@ const OUT = 'expo.out';
 if (motion) {
   // the first screen waits for the page to be up: at load, or as a slow load's screen lifts (Loader.astro)
   const shown = (window as { wrenShown?: Promise<void> }).wrenShown ?? Promise.resolve();
-  const hero = $$('.hero :is(.kicker,h1,.lede,.promise,.checks,.more,.ctas,.to-form,.by)');
-  // the first screen arrives all at once: headline and copy rise together. The form panel is never held back.
-  // A reload that goes back down the page shows it whole.
-  if (!landY) {
-    gsap.set(hero, { opacity: 0, y: 12 });
-    shown.then(() => gsap.to(hero, { opacity: 1, y: 0, duration: 0.7, ease: OUT, delay: 0.05 }));
-  }
+  // the hero's copy rises in CSS as the load screen goes (pitch.css), so text never waits on this script
   root.classList.add('arrived');
   // the form's light runs round its edge until the reader starts on it
   const panel = $('.hero .panel');
