@@ -1,0 +1,26 @@
+---
+// A signup form for one marketing topic (wren designs/2026-10-04-borrowed-ui.md, M2). Posts to /api/subscribe, which
+// asks wren to mail a confirm link; nothing goes out until that click. `text` is the exact line beside the button
+// and wren keeps it as proof, so bump `version` whenever it changes. No page uses it yet: a page adds it once it
+// names a topic.
+const { topic, text, version, path, button = 'Sign up' } = Astro.props as {
+  topic: string; text: string; version: string; path: string; button?: string;
+};
+const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+<form class="subscribe" id="subscribe" method="post" action="/api/subscribe">
+  <p>{text}</p>
+  <label class="field"><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+  <input type="hidden" name="topic" value={topic}>
+  <input type="hidden" name="text" value={text}>
+  <input type="hidden" name="text_version" value={version}>
+  <input type="hidden" name="page" value={path}>
+  <label class="hp" aria-hidden="true">Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+  {turnstile && <div class="cf-turnstile" data-sitekey={turnstile} data-size="flexible" data-theme="light"></div>}
+  <button class="btn ink" type="submit">{button}</button>
+  <p class="done" data-subscribed hidden>Check your inbox and click the link in my email to confirm.</p>
+</form>
+{turnstile && <script is:inline async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>}
+<script is:inline>
+  if (new URLSearchParams(location.search).get('subscribed') === '1') document.querySelector('[data-subscribed]')?.removeAttribute('hidden');
+</script>

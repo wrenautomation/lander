@@ -10,4 +10,5 @@ export interface Env {
   LEAD_TO?: string;            // where the notification goes
   LEAD_FROM?: string;          // a sender on a domain verified in Resend
   EXPORT_TOKEN?: string;       // bearer for /api/export, shared with wren (WREN_SITE_EXPORT_TOKEN)
+  WREN_MARKETING_URL?: string; // wren's Marketing service via the phone Worker (wrangler.toml); signups are signed with EXPORT_TOKEN
 }
