@@ -144,7 +144,7 @@ input[role=switch]::after{content:'';position:absolute;top:3px;left:3px;width:18
 input[role=switch]:checked{background:var(--acc)}input[role=switch]:checked::after{left:23px}input[role=switch]:focus-visible,select:focus-visible,.btn:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 select{font:inherit;padding:10px 12px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:0;max-width:100%}
 .row{display:flex;flex-wrap:wrap;gap:8px}hr{border:0;border-top:1px solid var(--rule);margin:48px 0 24px}form{margin:0}
-</style></head><body><main><header><img src="/brand/wren-mark.png" alt="">Wren Automation</header>${body}</main>
+</style></head><body><main><header><img src="/brand/wren-mark-224.png" alt="">Wren Automation</header>${body}</main>
 <script>
 document.querySelectorAll('form[data-auto]').forEach(function(f){f.submit()});
 document.querySelectorAll('[data-save]').forEach(function(i){i.addEventListener('change',function(){i.form.submit()})});

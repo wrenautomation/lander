@@ -11,12 +11,11 @@ import Arrow from '../components/pitch/Arrow.astro';
 import data from '../data/offers.json';
 
 const offer = data.offers.find((o) => o.id === 'reactivation')!;
-const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap';
 ---
 <!doctype html>
 <html lang="en" class="pitch" data-niche="recruiting">
 <head>
-  <Head title={`${offer.name}, made for you | Wren Automation`} description={offer.promise} fonts={FONTS} theme="#ffffff" noindex />
+  <Head title={`${offer.name}, made for you | Wren Automation`} description={offer.promise} fonts="general-sans" theme="#ffffff" noindex />
   <meta name="color-scheme" content="light">
   <style>
     .watch{padding:clamp(20px,4vh,40px) 0 clamp(48px,8vh,96px)}
@@ -41,6 +40,7 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
   </style>
 </head>
 <body>
+<Fragment set:html="<!--email_off-->" />{/* Cloudflare leaves the addresses alone: no render-blocking email-decode script */}
 <main class="watch">
   <div class="wrap">
     <div class="bar"><a class="home" href="/"><img src="/brand/wren-icon.png" alt="" width="28" height="28">Wren Automation</a></div>
@@ -63,5 +63,6 @@ const FONTS = 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&dis
 <Consent />
 <script src="../scripts/hit.ts"></script>
 <Analytics />
+<Fragment set:html="<!--/email_off-->" />
 </body>
 </html>

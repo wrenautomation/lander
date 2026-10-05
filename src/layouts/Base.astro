@@ -23,10 +23,12 @@ const { title, description, hue, niche, image, noindex = false } = Astro.props a
   </script>
 </head>
 <body>
+<Fragment set:html="<!--email_off-->" />{/* Cloudflare leaves the addresses alone: no render-blocking email-decode script */}
   <slot />
   <script src="../scripts/motion.ts"></script>
   <Consent />
   <script src="../scripts/hit.ts"></script>
   <Analytics />
+<Fragment set:html="<!--/email_off-->" />
 </body>
 </html>

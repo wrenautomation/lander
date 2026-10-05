@@ -80,6 +80,7 @@ body{position:relative;background:none;color:var(--ink);font-family:var(--sans);
 @keyframes away{to{opacity:0;transform:translateY(-28px)}}
 @keyframes lift{from{clip-path:inset(0)}to{clip-path:inset(0 0 100% 0);visibility:hidden}}
 img{display:block;max-width:100%;height:auto}
+picture{display:contents} /* Photo.astro: the img stays the box the layout styles */
 a{color:inherit;text-decoration:none}
 button,input,textarea{font:inherit;color:inherit}
 ul,ol{list-style:none}
@@ -127,7 +128,7 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 /* the stamp: the pfp itself, a cream bird on a rust square. .bird is the mark in the current text colour. */
 .stamp{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:var(--acc)}
 .stamp::before{content:"";width:72%;background:var(--cream)}
-.stamp::before,.bird{display:block;aspect-ratio:1048/957;-webkit-mask:url(/brand/wren-mark-512.png) center/contain no-repeat;mask:url(/brand/wren-mark-512.png) center/contain no-repeat}
+.stamp::before,.bird{display:block;aspect-ratio:1048/957;-webkit-mask:url(/brand/wren-mark-256.png) center/contain no-repeat;mask:url(/brand/wren-mark-256.png) center/contain no-repeat}
 .bird{background:currentColor}
 .brand .name{font-weight:600;font-size:19px;letter-spacing:-.02em;white-space:nowrap}
 .links{display:flex;gap:30px;margin-left:auto;font-size:14.5px;color:var(--ink-2)}

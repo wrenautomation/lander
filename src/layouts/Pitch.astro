@@ -8,6 +8,7 @@ import '../styles/cursor.css';
 import type { CollectionEntry } from 'astro:content';
 import { getEntry } from 'astro:content';
 import Head from '../components/Head.astro';
+import Photo from '../components/Photo.astro';
 import Analytics from '../components/Analytics.astro';
 import Consent from '../components/Consent.astro';
 import Arrow from '../components/pitch/Arrow.astro';
@@ -44,6 +45,7 @@ const site = (await getEntry('site', 'site'))!.data;
   </script>
 </head>
 <body>
+<Fragment set:html="<!--email_off-->" />{/* Cloudflare leaves the addresses alone: no render-blocking email-decode script */}
 <Loader />
 <Backdrop />
 
@@ -156,7 +158,7 @@ const site = (await getEntry('site', 'site'))!.data;
 
 <section class="sec about" id="about">
   <div class="wrap grid">
-    <img class="photo" src={p.about.photo} alt={site.name} width="640" height="640" loading="lazy">
+    <Photo class="photo" src={p.about.photo} alt={site.name} width={560} height={746} sizes="(min-width: 900px) 220px, 100vw" />
     <div class="head">
       <h2 set:html={rich(p.about.h2)} />
       {p.about.paras.map((x) => <p class="para" set:html={rich(x)} />)}
@@ -204,5 +206,6 @@ const site = (await getEntry('site', 'site'))!.data;
 <Consent />
 <script src="../scripts/hit.ts"></script>
 <Analytics />
+<Fragment set:html="<!--/email_off-->" />
 </body>
 </html>

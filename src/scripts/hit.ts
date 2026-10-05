@@ -36,11 +36,13 @@ if (!q.has('static') && !q.has('probe')) {
 
   const view = crypto.randomUUID?.() ?? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
   let depth = 0, cta = 0, touched = 0, shown = document.hidden ? 0 : performance.now(), secs = 0;
+  let queued = false; // scrollHeight forces layout: read it once a frame, not on every scroll event
   const measure = () => {
+    queued = false;
     const h = document.documentElement.scrollHeight - innerHeight;
     depth = Math.max(depth, h > 0 ? Math.min(100, Math.round((scrollY / h) * 100)) : 100);
   };
-  measure(); addEventListener('scroll', measure, { passive: true });
+  measure(); addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(measure); } }, { passive: true });
   document.querySelectorAll('a[data-cta], a[href="#ask"], a[href="#apply"]').forEach((a) => a.addEventListener('click', () => { cta = 1; }));
   document.querySelector('form[data-lead]')?.addEventListener('focusin', () => { touched = 1; });
 

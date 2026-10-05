@@ -18,7 +18,8 @@
     "db:attribution": "wrangler d1 execute wren-leads --remote --file scripts/attribution.sql",
     "forget": "wrangler d1 execute wren-leads --remote --command \"delete from leads where email = '$EMAIL'\"",
     "check": "astro check && tsc -p functions",
-    "images": "node scripts/images.mjs"
+    "images": "node scripts/images.mjs",
+    "photos": "python3 scripts/photos.py"
   },
   "dependencies": {
     "astro": "^7.3.2",

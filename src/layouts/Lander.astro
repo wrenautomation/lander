@@ -5,6 +5,8 @@ import { getEntry } from 'astro:content';
 import Base from './Base.astro';
 import Band from '../components/Band.astro';
 import Mark from '../components/Mark.astro';
+import Photo from '../components/Photo.astro';
+import Turnstile from '../components/Turnstile.astro';
 import Demo from '../components/Demo.astro';
 import Trace from '../components/Trace.astro';
 import Theme from '../components/Theme.astro';
@@ -44,7 +46,7 @@ const multi = new Set(['note', 'questions']);
       <h1 set:html={inline(n.h1)} />
       <div class="lede pp" set:html={paras(n.lede)} />
       <a class="btn" href="#ask">{site.cta}</a>
-      <p class="who">{site.photo && <img src={site.photo} alt="" width="34" height="34">}<span set:html={inline(n.who)} /></p>
+      <p class="who">{site.photo && <Photo src={site.photo} alt="" width={34} height={34} sizes="34px" eager />}<span set:html={inline(n.who)} /></p>
     </div>
     <Demo demo={n.demo} />
   </div>
@@ -197,7 +199,7 @@ const multi = new Set(['note', 'questions']);
 
 <section class="s" id="about">
   <div class="wrap about">
-    <div class:list={["photo", { empty: !site.photo }]}>{site.photo && <img src={site.photo} alt={site.name} loading="lazy">}</div>
+    <div class:list={["photo", { empty: !site.photo }]}>{site.photo && <Photo src={site.photo} alt={site.name} width={560} height={746} sizes="160px" />}</div>
     <div>
     <h2>{site.about_h2}</h2>
       {site.about.map((p, i) => <p style={i === 0 ? 'margin-top:.6rem' : undefined}>{p}</p>)}
@@ -242,5 +244,5 @@ const multi = new Set(['note', 'questions']);
 </main>
 <Foot site={site} />
 
-{turnstile && <script is:inline async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>}
+{turnstile && <Turnstile />}
 </Base>

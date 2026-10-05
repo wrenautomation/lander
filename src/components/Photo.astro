@@ -1,0 +1,13 @@
+---
+// A photo from public/ served small: AVIF, then WebP, at 320 and 560 wide (made by scripts/photos.py), the original as the fallback.
+const { src, alt, sizes, class: cls, width, height, eager = false } = Astro.props as {
+  src: string; alt: string; sizes: string; class?: string; width: number; height: number; eager?: boolean;
+};
+const base = src.replace(/\.\w+$/, '');
+const set = (ext: string) => `${base}-320.${ext} 320w, ${base}-560.${ext} 560w`;
+---
+<picture>
+  <source type="image/avif" srcset={set('avif')} sizes={sizes}>
+  <source type="image/webp" srcset={set('webp')} sizes={sizes}>
+  <img class={cls} src={src} alt={alt} width={width} height={height} loading={eager ? 'eager' : 'lazy'} decoding="async">
+</picture>

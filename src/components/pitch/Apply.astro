@@ -7,6 +7,7 @@ import type { CollectionEntry } from 'astro:content';
 import { fieldName, OTHER, otherName } from '../../lib/offers';
 import { linked, rich } from '../../lib/text';
 import Arrow from './Arrow.astro';
+import Turnstile from '../Turnstile.astro';
 
 type Pitch = CollectionEntry<'pitches'>['data'];
 type Offer = CollectionEntry<'offers'>['data'];
@@ -87,9 +88,4 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   {a.nofit_h && <div class="result" id="applied-nofit" data-result="nofit" tabindex="-1"><h3 set:html={rich(a.nofit_h)} /><p>{a.nofit}</p></div>}
   <div class="result" id="applied-error" data-result="error" tabindex="-1" role="alert"><p>{a.error} <a href={`mailto:${email}`}>{email}</a></p></div>
 </div>
-{/* the bot check loads off the first paint: on the first touch of the form, or once the page has settled */}
-{turnstile && <script is:inline>
-  (function(){var on=0;function load(){if(on)return;on=1;var s=document.createElement('script');s.src='https://challenges.cloudflare.com/turnstile/v0/api.js';s.async=true;document.head.appendChild(s)}
-  document.querySelectorAll('form[data-lead]').forEach(function(f){['focusin','pointerdown'].forEach(function(e){f.addEventListener(e,load,{once:true})})});
-  addEventListener('load',function(){setTimeout(function(){(window.requestIdleCallback||setTimeout)(load)},1500)})})();
-</script>}
+{turnstile && <Turnstile />}

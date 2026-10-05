@@ -20,8 +20,9 @@ const wing = dark ? `backdrop-wing-${dark}` : 'backdrop-wing';
       const room = root.scrollHeight - innerHeight;
       root.style.setProperty('--p', room > 0 ? (scrollY / room).toFixed(4) : '0.5');
     };
-    addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(move); } }, { passive: true });
-    addEventListener('resize', move);
+    const frame = () => { if (!queued) { queued = true; requestAnimationFrame(move); } };
+    addEventListener('scroll', frame, { passive: true });
+    addEventListener('resize', frame);
     move();
   }
 </script>
