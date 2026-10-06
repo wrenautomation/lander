@@ -12,7 +12,7 @@ const targets = z.array(z.strictObject({ what: z.string(), how: z.string() }));
 const niches = defineCollection({
   loader: one('niches'),
   schema: z.strictObject({
-    hue: z.enum(['rust', 'green', 'red']),
+    hue: z.enum(['lavender', 'green', 'red']),
     title: z.string(),            // <title> and the email subject line
     description: z.string().optional(), // the search result snippet, ~155 characters; the lede when left out
     h1: z.string(),               // **bold** allowed: the accent colour

@@ -50,7 +50,7 @@
 .hub .sec .wrap>.btn{margin-top:clamp(24px,2.6vw,36px)}
 
 /* ---------- the pain: a full-width headline, then the words left, net margin by team size right, in a gray
-   window. The rust line is sourced and printed; the green aim line is drawn, never printed ---------- */
+   window. The lavender line is sourced and printed; the green aim line is drawn, never printed ---------- */
 .pain-sec .grid{align-items:center}
 /* the headline on one line over both columns; the chart starts lower, level with the copy */
 .pain-sec h2.lead{margin-bottom:clamp(24px,3vw,44px)}
@@ -66,7 +66,7 @@
 .values .head .intro{margin-inline:auto;max-width:40em;text-wrap:balance}
 .values .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,22px);list-style:none;margin:0;padding:0}
 .values .cards>li{padding:clamp(10px,1vw,12px);background:#F3F1EC;border-radius:calc(var(--r) + 4px);box-shadow:inset 0 0 0 1px rgba(14,14,14,.05);transition:transform .35s var(--out),box-shadow .35s var(--out)}
-.values .cards>li:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 1px rgba(168,59,18,.25)}
+.values .cards>li:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 1px rgba(130,112,176,.25)}
 .values h3,.values .cards>li>p{padding-inline:clamp(6px,.8vw,10px)}
 /* each card's scene: a white strip, small type, green for what worked, red for what went wrong */
 .va{position:relative;height:104px;padding:12px 16px;border-radius:10px;background:var(--paper);box-shadow:0 1px 0 rgba(14,14,14,.04);font-size:12.5px;line-height:1.2;overflow:hidden}
@@ -244,7 +244,7 @@
 .table td small{padding-top:3px;font-size:14.5px;line-height:1.35;color:var(--ink-2)}
 .table td.us small{color:var(--ink);font-weight:500}
 .table thead th{text-align:left}
-.table .us{background:rgba(168,59,18,.05)}
+.table .us{background:rgba(130,112,176,.05)}
 .table thead .us{color:var(--acc);font-size:16px;box-shadow:inset 0 3px 0 var(--acc)}
 .table i{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;vertical-align:middle}
 .table i svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
@@ -278,7 +278,7 @@
 .svc h3+p{margin-top:5px;font-size:16px;line-height:1.5;color:var(--ink-2)}
 .svc .gets{display:flex;align-items:center;gap:7px;margin-top:8px;font-size:15.5px;line-height:1.35;font-weight:600;color:var(--win)}
 .svc .gets svg{flex:none;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-/* a scene: a light gray window with white parts in it, small type; green for what's done, rust for what's written
+/* a scene: a light gray window with white parts in it, small type; green for what's done, lavender for what's written
    for them. The skeleton lines (u) stand for text. */
 .ui{position:relative;height:112px;padding:10px;border-radius:14px;background:#F3F1EC;box-shadow:inset 0 0 0 1px rgba(14,14,14,.05);font-size:12.5px;line-height:1.2;overflow:hidden}
 .ui svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -291,8 +291,8 @@
 .ui.email .rcpt i{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--paper)}
 .ui.email .rcpt svg{width:11px;height:11px}
 .ui.email .mine{display:flex;align-items:center;gap:8px}
-.ui.email .mine u{background:rgba(168,59,18,.3)}
-.ui.email .mine em{padding:3px 7px;border-radius:99px;background:rgba(168,59,18,.09);color:var(--acc);font-size:11.5px;font-weight:600;white-space:nowrap}
+.ui.email .mine u{background:rgba(130,112,176,.3)}
+.ui.email .mine em{padding:3px 7px;border-radius:99px;background:rgba(130,112,176,.09);color:var(--acc);font-size:11.5px;font-weight:600;white-space:nowrap}
 .ui.email .snd{display:flex;justify-content:flex-end}
 .ui.email .snd b{display:grid;font-weight:600}
 .ui.email .snd em{grid-area:1/1;display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:4px 11px;border-radius:7px}
@@ -308,7 +308,7 @@
 .ui.people li{display:flex;align-items:center;gap:9px;padding:4px 5px 4px 4px;border-radius:9px}
 .ui.people i{flex:none;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--paper-2)}
 .ui.people svg{width:11px;height:11px}
-.ui.people b{margin-left:auto;padding:3px 8px;border-radius:99px;background:rgba(168,59,18,.09);color:var(--acc);font-size:11.5px;font-weight:600}
+.ui.people b{margin-left:auto;padding:3px 8px;border-radius:99px;background:rgba(130,112,176,.09);color:var(--acc);font-size:11.5px;font-weight:600}
 .ui.people b.rep{background:rgba(23,128,61,.1);color:var(--win)}
 .ui.onboard{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);align-items:center;gap:10px}
 .ui.onboard ul{display:grid;gap:8px;padding:12px;border-radius:10px}
@@ -339,7 +339,7 @@
 .ui.report .cht i:last-child{background:var(--win)}
 .ui.report .srcs{display:flex;align-items:center;gap:6px}
 .ui.report .srcs span{margin-right:2px;color:var(--ink-2);font-size:11.5px}
-.ui.report .srcs b{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;border-radius:99px;background:rgba(168,59,18,.09);color:var(--acc);font-size:11.5px;font-weight:600}
+.ui.report .srcs b{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;border-radius:99px;background:rgba(130,112,176,.09);color:var(--acc);font-size:11.5px;font-weight:600}
 .ui.report .srcs svg{width:10px;height:10px}
 /* past work (about): one thing going in, the result coming out */
 .mini{display:grid;grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr);align-items:center;padding:6px;background:#F3F1EC;border-radius:14px;box-shadow:inset 0 0 0 1px rgba(14,14,14,.05)}

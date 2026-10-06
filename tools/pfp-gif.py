@@ -1,5 +1,5 @@
 """
-The profile pictures: the Wren mark in cream on rust, so it stands out in
+The profile pictures: the Wren mark in cream on Smoky Lavender, so it stands out in
 a white inbox or feed. wren-pfp.png is the still one (Instagram, LinkedIn,
 YouTube); the GIF lights the circuit dots gold one after another, then
 2.6 s still. Frame 0 is the plain mark, which
@@ -10,7 +10,7 @@ autobrowse (`profile-photo`, or the domain plan's photoUrl).
 import math
 from PIL import Image, ImageDraw, ImageChops
 SRC = "public/brand/wren-pfp-source.png"
-RUST = (168, 59, 18)                     # --acc on the site
+LAVENDER = (130, 112, 176)               # Smoky Lavender, #8270B0: the brand colour
 CREAM = (250, 247, 242)                  # --paper
 GOLD = (255, 200, 87)                    # a lit dot
 NODES = [(255, 959), (546, 1197), (983, 1128), (1177, 1013), (1239, 857), (1122, 806)]
@@ -18,7 +18,7 @@ OUT, STEP, REST = 400, 50, 2600          # px, ms a frame, ms of stillness
 src = Image.open(SRC).convert("L")
 S = src.size[0]
 dark = src.point(lambda v: 255 if v < 128 else 0)  # where the bird is
-base = Image.new("RGB", (S, S), RUST)
+base = Image.new("RGB", (S, S), LAVENDER)
 base.paste(Image.new("RGB", (S, S), CREAM), (0, 0), dark)
 base.resize((1000, 1000), Image.LANCZOS).save("public/brand/wren-pfp.png")
 

@@ -1,6 +1,6 @@
 ---
 name: Wren Automation
-description: Pitch pages set like a partner's letter, told in pictures. White paper, black ink, General Sans, faces and diagrams, the brand's rust in a few set places.
+description: Pitch pages set like a partner's letter, told in pictures. White paper, black ink, General Sans, faces and diagrams, the brand's lavender in a few set places.
 colors:
   paper: "#FFFFFF"
   paper-2: "#F4F1EC"
@@ -9,9 +9,9 @@ colors:
   ink-3: "#9C9C96"
   rule: "rgba(14,14,14,.13)"
   line: "rgba(14,14,14,.38)"
-  rust: "#A83B12"
+  lavender: "#7969A3"
+  lavender-brand: "#8270B0"
   cream: "#FAF7F2"
-  cream-2: "#EFDDD3"
 typography:
   display:
     fontFamily: "General Sans, ui-sans-serif, system-ui, sans-serif"
@@ -71,21 +71,21 @@ spacing:
   max: "1320px"
 components:
   button:
-    backgroundColor: "{colors.rust}"
+    backgroundColor: "{colors.lavender}"
     textColor: "{colors.cream}"
     rounded: "{rounded.none}"
     padding: "1.15em 1.6em"
   button-hover:
     backgroundColor: "{colors.ink}"
-  button-on-rust:
+  button-on-lavender:
     backgroundColor: "{colors.cream}"
     textColor: "{colors.ink}"
   seal:
-    backgroundColor: "{colors.rust}"
+    backgroundColor: "{colors.lavender}"
     textColor: "{colors.cream}"
     rounded: "{rounded.none}"
   back-cover:
-    backgroundColor: "{colors.rust}"
+    backgroundColor: "{colors.lavender}"
     textColor: "{colors.cream}"
   field:
     backgroundColor: "transparent"
@@ -108,7 +108,7 @@ The hub (/) and the pitch pages (/recruiting/lead-reactivation) read like a lett
 
 Most readers only look at headings and pictures, so the pictures carry the story: faces for trust, an example thread in the first screen, a photo per half, and a small diagram under every step. Diagrams are drawn in code and always shown whole. Motion brings things in as you scroll; it never hides anything behind a click.
 
-White screen, black text. The brand's rust, the one on the pfp and banners, fills only a few set places so it reads as a signature, not a theme: the stamp, the buttons and the back cover. Everywhere else it is a small mark. Checks are green circles; the headline's starred promise ("20 client meetings in 90 days") is the same success green, like the target line; a no in the comparison is a red cross. Light page, no dark areas. Behind the middle of the page, one large simplified wren (the silhouette with only the wing loop cut out, 3.5% ink), fixed, drifting up slowly as you read. One quiet watermark, not a pattern. A slow load (still loading at 400ms) gets a gray load screen: the mark fills rust, then the screen lifts. A fast load never sees it. Panels are flat white, never gradients. Diagram windows are light gray (#F3F1EC) with white nodes; black windows on white read too harsh (William, 2026-09-29).
+White screen, black text. The brand's lavender, the one on the pfp and banners, fills only a few set places so it reads as a signature, not a theme: the stamp, the buttons and the back cover. Everywhere else it is a small mark. Checks are green circles; the headline's starred promise ("20 client meetings in 90 days") is the same success green, like the target line; a no in the comparison is a red cross. Light page, no dark areas. Behind the middle of the page, one large simplified wren (the silhouette with only the wing loop cut out, 3.5% ink), fixed, drifting up slowly as you read. One quiet watermark, not a pattern. A slow load (still loading at 400ms) gets a gray load screen: the mark fills lavender, then the screen lifts. A fast load never sees it. Panels are flat white, never gradients. Diagram windows are light gray (#F3F1EC) with white nodes; black windows on white read too harsh (William, 2026-09-29).
 
 It rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mock, no eyebrows above headings, no stock photos.
 
@@ -119,19 +119,18 @@ It rejects the SaaS landing page: no floating pill nav, no glow, no dashboard mo
 - Pictures before paragraphs: faces, image slots, step diagrams.
 - Motion as a slideshow: things arrive as they're reached; sections dim as they leave.
 - All photos greyscale.
-- The pfp in the corner of every screen: a cream bird on a rust square.
-- The page ends on a rust back cover, like the banners.
+- The pfp in the corner of every screen: a cream bird on a lavender square.
+- The page ends on a lavender back cover, like the banners.
 
 Scope: this records `src/styles/pitch.css`. The privacy and 404 pages still use `global.css`, the previous system.
 
 ## Colors
 
-Black on white, with the brand's rust in set places. The rust and cream are sampled from the pfp (`public/brand/wren-pfp.png`).
+Black on white, with the brand's lavender in set places. The pfp, banners and icon are Smoky Lavender #8270B0 with a cream bird (`public/brand/wren-pfp.png`, made by `tools/pfp-gif.py` and `tools/banners.py`). The site fills a step deeper so cream and white text pass.
 
 ### Primary
-- **Rust** (rust, #A83B12, 6.4:1 on white): fills the stamp, buttons and the back cover (closing screen and footer); text selection. Elsewhere marks only: the steps rule and nodes, the selected-answer dot, the reply rule in the example thread, the hot row and hot bar in a diagram, tags, errors, focus rings.
-- **Cream** (cream, #FAF7F2): the pfp's bird. Text, marks and buttons on rust only (5.9:1).
-- **Cream Grey** (cream-2): secondary text on rust (4.8:1).
+- **Lavender** (lavender, #7969A3, 4.8:1 on white): fills the stamp, buttons and the back cover (closing screen and footer); text selection. Elsewhere marks only: the steps rule and nodes, the selected-answer dot, the reply rule in the example thread, the hot row and hot bar in a diagram, tags, errors, focus rings.
+- **Cream** (cream, #FAF7F2): the pfp's bird. Text, marks and buttons on lavender only (4.5:1). No dimmer secondary cream: it would fail on lavender, so hierarchy on the back cover comes from size.
 
 ### Neutral
 - **Paper** (paper): the page and the form panel. Pure white.
@@ -143,7 +142,7 @@ Black on white, with the brand's rust in set places. The rust and cream are samp
 - **Field Line** (line): field underlines; ink on focus.
 
 ### Named Rules
-**The Set Places Rule.** Rust fills exactly three things: the stamp, buttons and the back cover. Anything else rust is a dot, a line, a thin bar or a tag. A new rust area needs a reason as strong as those.
+**The Set Places Rule.** Lavender fills exactly three things: the stamp, buttons and the back cover. Anything else lavender is a dot, a line, a thin bar or a tag. A new lavender area needs a reason as strong as those.
 **The White Page Rule.** No black blocks. Separation comes from black rules. The only colored blocks are the seal and the back cover.
 
 ## Typography
@@ -179,7 +178,7 @@ Pictures carry the page. Three kinds, all greyscale:
 - **Real photo:** William's headshot (hero byline, about, closing screen, the call diagram).
 - **The mark:** the bird, drawn with a CSS mask (`public/brand/wren-mark-512.png`) so it takes the text color: cream in the stamp, seal and sign-off.
 - **Image slots:** each has a `file` and the `prompt` that makes it, in the pitch yaml. The picture lives at `src/assets/img/<file>` and Astro resizes it. Until it exists the slot draws a hatched paper-2 tile with a faint bird mark (a face: initials). `?prompts` on the URL prints each prompt on its tile; `npm run images` lists what's missing. Pictures are generated (Higgsfield), never stock.
-- **Diagrams:** drawn in code (Art.astro), one per step: `call` (two video tiles, a file chip), `rows` (a cleaned list with marks: ok, moved, out, hot), `flow` (nodes on a wire, a rust runner), `bars` (thin bars, one rust). Always whole on the page.
+- **Diagrams:** drawn in code (Art.astro), one per step: `call` (two video tiles, a file chip), `rows` (a cleaned list with marks: ok, moved, out, hot), `flow` (nodes on a wire, a lavender runner), `bars` (thin bars, one lavender). Always whole on the page.
 
 Prompt style: black-and-white editorial photography, natural light, fine grain, no text or logos. Faces: head and shoulders, light grey backdrop, 85mm, square. Scenes: candid, 4:3.
 
@@ -216,40 +215,40 @@ Rounded (D39): cards 18px, windows 22px, nodes 14px, inputs 10px, chips pills. B
 
 ### Buttons
 - **Shape:** square (0). Small uppercase label, arrow after it. No shadow.
-- Rust, cream text. Hover turns ink. On rust (the back cover) the button is cream with ink text.
+- Lavender, cream text. Hover turns ink. On lavender (the back cover) the button is cream with ink text.
 
 ### Application panel
 - **Style:** a floating white card (hairline border, 22px corners, soft lift).
-- **Choices:** rounded tiles with a small gap. A checked row turns ink with white text and a rust dot.
+- **Choices:** rounded tiles with a small gap. A checked row turns ink with white text and a lavender dot.
 - **Progress:** "Question 1 of 5" label plus thin segments that fill ink.
-- **Fields:** boxed (hairline, 10px corners), a soft rust ring on focus. Invalid turns the line rust with a rust note.
+- **Fields:** boxed (hairline, 10px corners), a soft lavender ring on focus. Invalid turns the line lavender with a lavender note.
 - **After sending:** the header and form hide. A fit with a calendar takes the whole first screen.
 
 ### Example thread (hero)
-- A label, then two messages between hairlines: face, name, role, time, text. The reply is indented behind a rust rule. A rust-dot tag says what it means.
+- A label, then two messages between hairlines: face, name, role, time, text. The reply is indented behind a lavender rule. A lavender-dot tag says what it means.
 
 ### Navigation
-- Sticky translucent white bar with a blur, 64px (56px on phones), hairline below. The hub shows the email beside the button from 1180px. The stamp (the pfp: a cream bird on a 32px rust square, 28px on phones) and the name left, text links, the rust button right. Links hide under 820px.
+- Sticky translucent white bar with a blur, 64px (56px on phones), hairline below. The hub shows the email beside the button from 1180px. The stamp (the pfp: a cream bird on a 32px lavender square, 28px on phones) and the name left, text links, the lavender button right. Links hide under 820px.
 
 ### Problem (problem, agitate)
 - Two screens, each read without scrolling on a laptop. First, full width: three unmarked questions and the fix line at one size (up to 46px, balanced lines), an ink rule between, then the goal. Second, one column: the pain, then the button.
 - The pain steers the eye: a big first line, a smaller grey middle with the key phrases in ink, the bad things crossed out, a big last line. Tight gaps.
-- The X is a true red (#D2281E, `--bad`), set apart from the rust.
+- The X is a true red (#D2281E, `--bad`), set apart from the lavender.
 
 ### How it works (benefits, flows)
 - Three rows: a flow diagram (7 of 12 columns) beside the headline, text and button; sides swap each row. Phones: text above the diagram.
-- A flow is a light gray window (#F3F1EC, faint inset ring, no glow); white rounded nodes with an uppercase header over a rule; faint gray curves with open ports between them. Rust marks only what matters (the lit row, the bell, the booked dot).
-- Branches: a node that fans out to several small nodes (icon + name), one per source or channel, drawn as a fan of curves. Brand icons keep their colors (LinkedIn blue, X black); rust rings the one that fires.
+- A flow is a light gray window (#F3F1EC, faint inset ring, no glow); white rounded nodes with an uppercase header over a rule; faint gray curves with open ports between them. Lavender marks only what matters (the lit row, the bell, the booked dot).
+- Branches: a node that fans out to several small nodes (icon + name), one per source or channel, drawn as a fan of curves. Brand icons keep their colors (LinkedIn blue, X black); lavender rings the one that fires.
 - Importance by size and tone, not more boxes: what's ruled out is crossed through with its reason, smaller and grey; branches that didn't fire fade, their wires faint.
 - One line joins the three: out the bottom of one diagram, an elbow through the gap, into the top of the next. On phones it runs down the left gutter, clear of the text.
 
 ### Steps timeline
-- A hairline rail that fills rust as you scroll. Round nodes turn rust as the fill passes. Step timing beside the step name. A diagram under each step's text.
-- The build uses the same timeline, with a week chart in the sticky heading: one bar per stage, overlapping; a bar lights ink as you reach its stage; the ongoing stage runs off the chart in rust.
+- A hairline rail that fills lavender as you scroll. Round nodes turn lavender as the fill passes. Step timing beside the step name. A diagram under each step's text.
+- The build uses the same timeline, with a week chart in the sticky heading: one bar per stage, overlapping; a bar lights ink as you reach its stage; the ongoing stage runs off the chart in lavender.
 - Diagrams: call, rows, flow, bars, merge (source boxes wired by curves into one ink block).
 
 ### Back cover (closing screen and footer)
-- One rust block, cream text, like the pfp and the banners.
+- One lavender block, cream text, like the pfp and the banners.
 - The ask alone, a cream button. No portrait: William's face shows once, large, in About (D15).
 - Footer under a faint cream rule: email, fine print, then the sign-off: the bird and "Wren Automation" set as wide as the page.
 - The phone float button hides here; the cover has its own.
@@ -260,7 +259,7 @@ Rounded (D39): cards 18px, windows 22px, nodes 14px, inputs 10px, chips pills. B
 - **Do** set everything in General Sans; headings 500 with tight tracking.
 - **Do** lead with a picture, a face or a diagram where a paragraph would go.
 - **Do** keep diagrams whole; motion only brings them in.
-- **Do** keep rust fills to the stamp, buttons, the seal and the back cover; marks elsewhere.
+- **Do** keep lavender fills to the stamp, buttons, the seal and the back cover; marks elsewhere.
 - **Do** keep question 1 in the first phone screen.
 
 ### Don't:
@@ -268,4 +267,4 @@ Rounded (D39): cards 18px, windows 22px, nodes 14px, inputs 10px, chips pills. B
 - **Don't** pin sections or hide content behind clicks.
 - **Don't** add eyebrows or kickers above headings.
 - **Don't** use italics, a serif, rounded buttons, glow, dark windows or glass.
-- **Don't** add a dark theme, a black section, or a rust section beyond the seal and the back cover.
+- **Don't** add a dark theme, a black section, or a lavender section beyond the seal and the back cover.

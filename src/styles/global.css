@@ -14,8 +14,8 @@
 /* hairlines on black read thinner than on paper, so the dark trace is lighter than the text is dark, and the bands sit less faded */
 [data-theme=dark] .band{opacity:.8}
 /* one accent per niche. It marks where a person acts (filled nodes, buttons, the mailto) and where a result lands (figures, eyebrow labels). Traces stay grey. */
-[data-hue=rust]{ --acc:#a83b12; --on-acc:#fff; --lbl:#a83b12 }
-[data-hue=rust][data-theme=dark]{ --acc:#e8875a; --on-acc:#161311; --lbl:#e8875a }
+[data-hue=lavender]{ --acc:#7969a3; --on-acc:#fff; --lbl:#7969a3 }
+[data-hue=lavender][data-theme=dark]{ --acc:#a89bc8; --on-acc:#161311; --lbl:#a89bc8 }
 [data-hue=green]{ --acc:#206b4e; --on-acc:#fff; --lbl:#206b4e }
 [data-hue=green][data-theme=dark]{ --acc:#5ec394; --on-acc:#161311; --lbl:#5ec394 }
 [data-hue=red]{ --acc:#b2232b; --on-acc:#fff; --lbl:#b2232b }

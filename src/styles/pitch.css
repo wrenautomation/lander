@@ -1,8 +1,8 @@
 /* Pitch pages (/recruiting/lead-reactivation) and the hub (/, plus hub.css): the partner's letter, told in pictures. White page, black text, hairline rules on
    a 12-column grid. One sans throughout (General Sans), no italics. The form sits in the first screen on a white card.
    Pictures carry the story: faces, image slots (a plain tile until the file exists), and a diagram per step drawn in
-   code, each in a light gray window (.flow, .window). Rounded corners, square buttons. Rust is the brand's (the pfp's
-   rust, the bird's cream on it), used in few places so it carries: the stamp, the buttons and the back cover (closing
+   code, each in a light gray window (.flow, .window). Rounded corners, square buttons. Lavender is the brand's (the pfp's
+   lavender, the bird's cream on it), used in few places so it carries: the stamp, the buttons and the back cover (closing
    screen and footer); marks elsewhere. A light page; diagrams sit in light gray windows.
    html.js = motion on (set in Pitch.astro's head); without it everything renders whole and still. */
 
@@ -19,11 +19,10 @@
   --mute:#6E6E68;    /* small grey text: 5.1:1 on white, 4.5:1 on paper-2 */
   --rule:rgba(14,14,14,.13);
   --line:rgba(14,14,14,.38); /* field underlines */
-  --acc:#A83B12;     /* brand rust (the pfp): 6.4:1 on white */
+  --acc:#7969A3;     /* brand lavender, a step deeper than the pfp's #8270B0 so cream and white text pass: 4.8:1 on white */
   --win:#136B35;     /* success: the result the page promises (the goal, the client count), 6.6:1 on white, 5.2:1 on its own tint */
-  --bad:#D2281E;     /* the X on a crossed-out item: a true red, apart from the rust */
-  --cream:#FAF7F2;   /* the pfp's bird: text and marks on rust only, 5.9:1 */
-  --cream-2:#EFDDD3; /* secondary text on rust, 4.8:1 */
+  --bad:#D2281E;     /* the X on a crossed-out item: a true red, apart from the lavender */
+  --cream:#FAF7F2;   /* the pfp's bird: text and marks on lavender only, 4.5:1 */
   --sans:'General Sans',ui-sans-serif,system-ui,sans-serif;
   --gut:clamp(16px,3.2vw,40px);
   --max:1360px;
@@ -42,19 +41,19 @@ html{background:var(--paper)}
 body{position:relative;background:none;color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip;caret-color:var(--acc)}
 @media print{.backdrop,.loader{display:none}}
 
-/* the backdrop (Backdrop.astro): one large simplified wren in faint rust behind the middle of the page, fixed, drifting
+/* the backdrop (Backdrop.astro): one large simplified wren in faint lavender behind the middle of the page, fixed, drifting
    from 8vh low to 8vh high over the whole read. Wide enough on a phone to run off both edges. */
 .backdrop{position:fixed;inset:0;z-index:-1;display:grid;place-items:center;overflow:hidden;pointer-events:none}
 .backdrop svg{width:max(560px,min(76vw,1080px));height:auto;color:var(--acc);opacity:.055;transform:translate3d(0,calc(8vh - var(--p,.5) * 16vh),0)}
 /* a dark band's copy: fixed like the page's bird, but clipped to its band (clip-path on the band clips fixed children),
-   so the one bird reads as cream across the rust */
+   so the one bird reads as cream across the lavender */
 .close,.foot{position:relative;clip-path:inset(0)}
 .close>.wrap,.foot>.wrap{position:relative;z-index:1}
 .backdrop.dark{z-index:0}
 .backdrop.dark svg{color:var(--cream);opacity:.07}
 
 /* the load screen (Loader.astro): a plain gray screen over the page from the first paint. A fast load fades it off;
-   past 900ms the mark shows with a line of text under it, filling rust from the feet up toward 80% with a rule drawing under it; when the page is
+   past 900ms the mark shows with a line of text under it, filling lavender from the feet up toward 80% with a rule drawing under it; when the page is
    ready both finish, then the screen lifts as the hero rises.
    html classes: loading (from the start), quick (fast load, fading off), slow (mark shown), slower (3s: second line),
    ready (finishing). */
@@ -125,7 +124,7 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 .top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.8);-webkit-backdrop-filter:saturate(1.6) blur(16px);backdrop-filter:saturate(1.6) blur(16px);border-bottom:1px solid var(--rule)}
 .bar{display:flex;align-items:center;gap:clamp(16px,3vw,40px);height:var(--bar)}
 .brand{display:inline-flex;align-items:center;gap:10px}
-/* the stamp: the pfp itself, a cream bird on a rust square. .bird is the mark in the current text colour. */
+/* the stamp: the pfp itself, a cream bird on a lavender square. .bird is the mark in the current text colour. */
 .stamp{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:var(--acc)}
 .stamp::before{content:"";width:72%;background:var(--cream)}
 .stamp::before,.bird{display:block;aspect-ratio:1048/957;-webkit-mask:url(/brand/wren-mark-256.png) center/contain no-repeat;mask:url(/brand/wren-mark-256.png) center/contain no-repeat}
@@ -161,11 +160,11 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 
 /* ---------- the first screen ---------- */
 .hero{overflow-x:clip;--top:clamp(28px,7vh,96px);position:relative;isolation:isolate}
-/* the first screen's ground: a warm rust glow from the top right (behind the form) and a dot grid that fades out
+/* the first screen's ground: a warm lavender glow from the top right (behind the form) and a dot grid that fades out
    toward the copy and the fold */
 .hero::before,.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none}
-.hero::before{background:radial-gradient(60% 70% at 88% 30%,rgba(168,59,18,.10),transparent 70%),radial-gradient(40% 50% at 8% 100%,rgba(168,59,18,.05),transparent 70%)}
-.hero::after{background:radial-gradient(rgba(168,59,18,.22) 1px,transparent 1.4px) 0 0/22px 22px;-webkit-mask:radial-gradient(55% 75% at 85% 35%,#000,transparent 75%);mask:radial-gradient(55% 75% at 85% 35%,#000,transparent 75%)}
+.hero::before{background:radial-gradient(60% 70% at 88% 30%,rgba(130,112,176,.10),transparent 70%),radial-gradient(40% 50% at 8% 100%,rgba(130,112,176,.05),transparent 70%)}
+.hero::after{background:radial-gradient(rgba(130,112,176,.22) 1px,transparent 1.4px) 0 0/22px 22px;-webkit-mask:radial-gradient(55% 75% at 85% 35%,#000,transparent 75%);mask:radial-gradient(55% 75% at 85% 35%,#000,transparent 75%)}
 .hero-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--cg)}
 .copy{padding-top:var(--top)}
 .lede{font-size:clamp(18px,.95rem + .5vw,23px);line-height:1.45;color:var(--ink-2);max-width:31em;margin-top:clamp(20px,3.4vh,36px)}
@@ -243,9 +242,9 @@ a:hover>.arr,button:hover>.arr{transform:translate(2px,-2px)}
 /* a long headline (one that carries the whole offer) sets smaller, so the lede and the promise still make the first screen */
 @media (min-width:720px){.hero h1.long{font-size:clamp(2.6rem,1.2rem + 3.1vw,4.4rem)}}
 /* the headline's last clause: a step down, so the promise reads first */
-/* the proof line over the headline, a pill with a rust dot */
+/* the proof line over the headline, a pill with a lavender dot */
 .hero .kicker{display:inline-flex;align-items:center;gap:10px;padding:7px 15px 7px 11px;border:1px solid var(--rule);border-radius:999px;background:var(--paper);box-shadow:0 1px 2px rgba(14,14,14,.04);font-size:14.5px;font-weight:500;line-height:1.3;color:var(--ink-2)}
-.hero .kicker i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 4px rgba(168,59,18,.14)}
+.hero .kicker i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 4px rgba(130,112,176,.14)}
 .hero .kicker+h1{margin-top:clamp(18px,3vh,28px)}
 /* the headline's starred part is the promise: success green, like the target line */
 .hero h1 em{color:var(--win)}
@@ -316,7 +315,7 @@ legend{font-size:clamp(21px,1.1rem + .6vw,27px);font-weight:400;line-height:1.2;
 label.field small{font-size:12px;margin-left:6px}
 .field input,.field textarea,.step textarea,.choices .other{width:100%;background:var(--paper);color:var(--ink);border:1px solid rgba(14,14,14,.16);border-radius:10px;padding:11px 14px;font-size:16.5px;caret-color:var(--acc);outline:none;box-shadow:0 1px 2px rgba(14,14,14,.04);transition:border-color .25s var(--out),box-shadow .25s var(--out)}
 .field :is(input,textarea):hover,.step textarea:hover,.choices .other:hover{border-color:rgba(14,14,14,.28)}
-.field :is(input,textarea):focus,.step textarea:focus,.choices .other:focus{border-color:var(--acc);box-shadow:0 0 0 4px rgba(168,59,18,.12)}
+.field :is(input,textarea):focus,.step textarea:focus,.choices .other:focus{border-color:var(--acc);box-shadow:0 0 0 4px rgba(130,112,176,.12)}
 .field textarea,.step textarea{resize:vertical;min-height:84px}
 .choices .other{margin-top:2px;animation:rise .35s var(--out)}
 .choices .other[hidden]{display:none}
@@ -328,7 +327,7 @@ label.field small{font-size:12px;margin-left:6px}
 .consent{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.45;color:var(--ink-2)}
 .consent input{width:20px;height:20px;margin:0;accent-color:var(--acc);flex:none}
 .consent a{color:var(--ink)}
-.field.invalid input{border-color:var(--acc);box-shadow:0 0 0 4px rgba(168,59,18,.12)}
+.field.invalid input{border-color:var(--acc);box-shadow:0 0 0 4px rgba(130,112,176,.12)}
 .contact .btn{margin-top:1.4rem}
 .cf-turnstile{margin-top:1rem}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
@@ -438,12 +437,12 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
   .bn .say,.bn.flip .say{padding:0}
 }
 
-/* a flow: a light gray product window with white nodes, wired in code; rust marks the live thing. The tokens are
+/* a flow: a light gray product window with white nodes, wired in code; lavender marks the live thing. The tokens are
    redefined inside it, so every node rule reads the same on either ground. */
 .flow,.window{--paper-2:#F3F1EC;--rule:rgba(14,14,14,.09);background:#F3F1EC;border-radius:calc(var(--r) + 4px);box-shadow:inset 0 0 0 1px rgba(14,14,14,.05)}
 .flow{position:relative;display:grid;gap:40px 52px;align-items:start;padding:clamp(20px,2.6vw,40px);font-size:13.5px;line-height:1.35}
 .flow .edges{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-/* replay: shows once a diagram is whole, lined up with its first node. Rust like every action; green stays for results. */
+/* replay: shows once a diagram is whole, lined up with its first node. Lavender like every action; green stays for results. */
 .flow.replayable{padding-top:58px}
 .flow .replay{position:absolute;top:16px;left:clamp(20px,2.6vw,40px);z-index:2;display:inline-flex;align-items:center;gap:7px;padding:7px 13px 7px 10px;background:var(--paper);color:var(--ink-2);border:1px solid var(--rule);border-radius:999px;font-family:var(--sans);font-weight:500;font-size:12.5px;line-height:1;cursor:var(--cur-on);opacity:0;visibility:hidden;transition:opacity .4s var(--out),visibility 0s .4s,background-color .25s var(--out),color .25s var(--out),border-color .25s var(--out)}
 .flow.whole .replay{opacity:1;visibility:visible;transition-delay:0s}
@@ -465,7 +464,7 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .flow i svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round}
 .av{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--paper-2);font-size:11px;font-weight:600;color:var(--ink-2)}
 
-/* branches: one node fans out to a node per source or channel (icon + name), rust ring on the one that fires */
+/* branches: one node fans out to a node per source or channel (icon + name), lavender ring on the one that fires */
 .chs{display:flex;flex-direction:column;justify-content:center;gap:10px}
 .ch{display:flex;align-items:center;gap:8px;padding:6px 14px 6px 6px;border-radius:999px;font-size:12.5px;font-weight:500;white-space:nowrap;transition:opacity .4s var(--out)}
 .ch i{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;border:1px solid var(--rule);color:var(--ink);outline:1px solid transparent;outline-offset:3px;transition:border-color .4s var(--out),color .4s var(--out),outline-color .4s var(--out)}
@@ -473,12 +472,12 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .ch i.li{background:#0A66C2;border-color:#0A66C2;color:#fff}
 .ch i.xx{background:#000;border-color:#000;color:#fff}
 .ch i.xx svg{width:13px;height:13px;stroke-width:1.2}
-.ch.on i{outline-color:rgba(168,59,18,.45)}
-/* every channel gets its own fill, white mark on top; the one that fires (job posts) is the brand's rust */
+.ch.on i{outline-color:rgba(130,112,176,.45)}
+/* every channel gets its own fill, white mark on top; the one that fires (job posts) is the brand's lavender */
 .ch i:is(.ic-jobs,.ic-fund,.ic-news,.ic-email,.ic-text){color:#fff;border-color:transparent}
 .ch i.ic-jobs{background:var(--acc)}
 .ch i.ic-fund{background:#0E8A74}
-.ch i.ic-news{background:#6E49C9}
+.ch i.ic-news{background:#C2410C}
 .ch i.ic-email{background:#D93A2B}
 .ch i.ic-text{background:#2FA84F}
 .ch.on span{color:var(--acc)}
@@ -501,7 +500,7 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .list li.out .now{margin-left:auto;font-size:11.5px;color:var(--mute)}
 @keyframes strike{from{transform:scaleX(0)}}
 .list li.lit .nm{font-size:14.5px;font-weight:600}
-.list li.lit{z-index:1;background:rgba(168,59,18,.07);border-top-color:transparent;box-shadow:inset 0 0 0 1px rgba(168,59,18,.3)}
+.list li.lit{z-index:1;background:rgba(130,112,176,.07);border-top-color:transparent;box-shadow:inset 0 0 0 1px rgba(130,112,176,.3)}
 .list li.lit .now{display:flex;align-items:center;gap:7px;color:var(--ink);font-weight:500}
 .list li.lit .now::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc)}
 .spark{position:relative;margin-top:14px}
@@ -556,7 +555,7 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .inbox li p span{display:block;width:fit-content;max-width:100%;font-size:12px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .inbox li :is(b,p span,em,.av){transition:color .45s var(--out) var(--d,0s),font-size .5s var(--out) var(--d,0s),opacity .5s var(--out) var(--d,0s),background-size .45s var(--out) calc(var(--d,0s) + .3s)}
 .inbox em{display:flex;align-items:center;gap:6px;font-style:normal;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
-.inbox.sorted .warm{background:rgba(168,59,18,.07);box-shadow:inset 0 0 0 1px rgba(168,59,18,.3)}
+.inbox.sorted .warm{background:rgba(130,112,176,.07);box-shadow:inset 0 0 0 1px rgba(130,112,176,.3)}
 .inbox.sorted .warm :is(span,em){color:var(--ink)}
 .inbox.sorted .warm .av{background:var(--acc);color:#fff}
 .inbox.sorted .warm em::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc)}
@@ -636,8 +635,8 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .pic.plan li b{flex:1;height:6px;border-radius:3px;background:var(--rule)}
 .pic.plan li:nth-child(2) b{flex:.75}
 .pic.plan li:nth-child(3) b{flex:.55}
-/* then: the outcome, ringed in rust */
-.then .pic{place-content:center stretch;box-shadow:inset 0 0 0 1px rgba(168,59,18,.35),0 1px 2px rgba(14,14,14,.04)}
+/* then: the outcome, ringed in lavender */
+.then .pic{place-content:center stretch;box-shadow:inset 0 0 0 1px rgba(130,112,176,.35),0 1px 2px rgba(14,14,14,.04)}
 .pic.meet ul{display:grid;gap:8px}
 .pic.meet li{display:flex;align-items:center;gap:10px;font-size:12.5px;white-space:nowrap;overflow:hidden}
 .pic.meet li::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--acc)}
@@ -788,11 +787,11 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .qa h3{font-size:clamp(18px,1rem + .3vw,21px);font-weight:500;letter-spacing:-.01em;margin-bottom:8px}
 .qa p{color:var(--ink-2);max-width:40em}
 
-/* the back cover: the last screen and the footer, cream on rust like the pfp and the banners */
+/* the back cover: the last screen and the footer, cream on lavender like the pfp and the banners */
 .close,.foot{background:var(--acc);color:var(--cream)}
 .close{padding-block:clamp(80px,10vw,152px) clamp(40px,4vw,64px)}
 .close h2{font-size:clamp(2.6rem,1.4rem + 4vw,5rem);max-width:15ch}
-.close p{font-size:18px;color:var(--cream-2);margin-top:1.5rem;max-width:36em}
+.close p{font-size:18px;color:var(--cream);margin-top:1.5rem;max-width:36em}
 .close .btn{grid-column:1/-1;justify-self:start;margin-top:2.2rem;background:var(--cream);color:var(--ink)}
 .close .btn:hover{background:var(--ink);color:var(--cream)}
 .close :focus-visible,.foot :focus-visible{outline-color:var(--cream)}
@@ -805,7 +804,7 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .close .vs p{margin:0;max-width:none;padding-block:16px 18px;border-top:1px solid rgba(250,247,242,.28);font-size:clamp(15px,.9rem + .25vw,18px);line-height:1.4}
 .close .vs .hd{border-top:0;padding-block:0 12px;font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
 .close .vs .win{color:var(--cream)}
-.close .vs .lose{color:var(--cream-2)}
+.close .vs .lose{color:var(--cream)}
 .close .vs p.win:not(.hd){font-weight:500}
 @media (min-width:900px){
   .close:has(.vs) .grid>.head{grid-column:1/6;grid-row:1}
@@ -816,7 +815,7 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .foot .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:14px 32px;padding-top:36px;border-top:1px solid rgba(250,247,242,.28)}
 .foot .mail{font-weight:500;text-decoration:underline;text-decoration-color:rgba(250,247,242,.45)}
 .foot .mail:hover{text-decoration-color:var(--cream)}
-.foot .fine{flex-basis:100%;font-size:13px;color:var(--cream-2)}
+.foot .fine{flex-basis:100%;font-size:13px;color:var(--cream)}
 .foot .fine a{text-decoration:underline}
 /* the sign-off: the banner's lockup, set as wide as the page */
 .sign-off{flex-basis:100%;display:flex;align-items:center;gap:.22em;margin-block:clamp(28px,4vw,56px) clamp(20px,3vw,40px);font-size:clamp(2.1rem,9.8vw,9rem);font-weight:600;letter-spacing:-.045em;line-height:1;white-space:nowrap}
@@ -851,14 +850,14 @@ h2 .cite{font-size:.36em}
 .sources a:hover{color:var(--acc)}
 .sources li:target{color:var(--ink)}
 
-/* the form's light: a rust glint runs round the card's edge until the reader starts on the form (pitch.ts) */
+/* the form's light: a lavender glint runs round the card's edge until the reader starts on the form (pitch.ts) */
 @property --beam{syntax:'<angle>';inherits:false;initial-value:0deg}
 .hero .panel{position:relative}
-.hero .panel::before{content:"";position:absolute;inset:-1px;z-index:1;padding:2px;border-radius:inherit;background:conic-gradient(from var(--beam),transparent 0 70%,rgba(168,59,18,.35) 84%,var(--acc) 93%,#E9926A 96%,transparent 98%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .8s;pointer-events:none}
+.hero .panel::before{content:"";position:absolute;inset:-1px;z-index:1;padding:2px;border-radius:inherit;background:conic-gradient(from var(--beam),transparent 0 70%,rgba(130,112,176,.35) 84%,var(--acc) 93%,#B9ADD6 96%,transparent 98%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .8s;pointer-events:none}
 .hero .panel.beam::before{opacity:1;animation:beam 4s linear infinite}
-.hero .panel.beam{box-shadow:var(--lift),0 0 0 6px rgba(168,59,18,.05)}
+.hero .panel.beam{box-shadow:var(--lift),0 0 0 6px rgba(130,112,176,.05)}
 @keyframes beam{to{--beam:360deg}}
-/* the money lost: a rust rule draws under it when the reader reaches it (pitch.ts); whole without motion */
+/* the money lost: a lavender rule draws under it when the reader reaches it (pitch.ts); whole without motion */
 .pain em{color:var(--ink);font-weight:600;background:linear-gradient(var(--acc),var(--acc)) 0 100%/100% 2px no-repeat;padding-bottom:2px}
 .js .pain em{background-size:0 2px;transition:background-size .9s var(--out)}
 .js .pain em.drawn{background-size:100% 2px}

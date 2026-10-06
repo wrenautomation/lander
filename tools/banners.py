@@ -1,11 +1,11 @@
 """
-The social banners: the Wren lockup in cream on rust, matching the profile
+The social banners: the Wren lockup in cream on Smoky Lavender, matching the profile
 pictures. One file per platform size, the lockup inside each one's safe area
 (YouTube crops hardest: only the middle 1546x423 shows everywhere). Run from
 the repo root: python3 tools/banners.py (Pillow).
 """
 from PIL import Image
-RUST = (168, 59, 18)                     # --acc on the site
+LAVENDER = (130, 112, 176)               # Smoky Lavender, #8270B0: the brand colour
 CREAM = (250, 247, 242)                  # --paper
 SIZES = {                                # name: (width, height, lockup width)
     "x": (1500, 500, 620),
@@ -15,7 +15,7 @@ SIZES = {                                # name: (width, height, lockup width)
 lockup = Image.open("public/brand/wren-lockup-white.png").convert("RGBA")
 alpha = lockup.getchannel("A")
 for name, (w, h, lw) in SIZES.items():
-    img = Image.new("RGB", (w, h), RUST)
+    img = Image.new("RGB", (w, h), LAVENDER)
     lh = round(lw * lockup.height / lockup.width)
     a = alpha.resize((lw, lh), Image.LANCZOS)
     img.paste(Image.new("RGB", (lw, lh), CREAM), ((w - lw) // 2, (h - lh) // 2), a)

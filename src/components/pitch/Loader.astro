@@ -1,7 +1,7 @@
 ---
 // The load screen, first thing in <body> on every pitch page and the hub. A plain gray screen covers the page from the
 // first paint, so the page never shows and then gets covered. A load under 900ms just fades it off. A slower one shows
-// the mark filling rust toward 80% with a line under it ("Serving your page", then "Hang tight, almost there" at 3s);
+// the mark filling lavender toward 80% with a line under it ("Serving your page", then "Hang tight, almost there" at 3s);
 // when the page is ready it fills the rest and the screen lifts as the hero rises (window.wrenShown, read by pitch.ts).
 // Ready means the page's three font weights, nothing else: the CSS is already in (this script runs after it) and the
 // scripts load on behind it. Kept up at least 400ms once shown so it never flickers; lifts at 4s whatever is still loading.
