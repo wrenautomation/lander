@@ -1,10 +1,10 @@
 // POST /api/hit. One row per page view from src/scripts/hit.ts, keyed by the view id the page made. The page posts
 // once on arrival (so a bounce still counts) and again when hidden, with how far they read; the second post raises
 // the first row's numbers, never lowers them. Each row carries the visitor cookie's id (functions/_shared/visitor.ts),
-// or none without consent. The answer says the consent state, so the page knows to show the cookie banner.
+// or none without consent. The answer says the consent state, so the page knows to show the cookie banner, and
+// whether to record this view (src/scripts/replay.ts): only with a yes, the replay keys set, and in REPLAY_SAMPLE.
+import { type Env, replayOn } from '../_shared/env';
 import { visitorOf, withVisitor } from '../_shared/visitor';
-
-interface Env { DB: D1Database }
 
 const s = (v: unknown, n: number) => (typeof v === 'string' ? v.slice(0, n) : '');
 const i = (v: unknown, max: number) => Math.min(max, Math.max(0, Math.round(Number(v) || 0)));
@@ -27,5 +27,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     s(b.r, 40), s(b.utm_source, 100), s(b.utm_medium, 100), s(b.utm_campaign, 100), s(b.utm_content, 100), s(b.ref, 200),
     request.headers.get('cf-ipcountry') || '', s(request.headers.get('user-agent'), 300),
   ).run();
-  return withVisitor(Response.json({ consent: visitor.consent }), visitor);
+  // an empty REPLAY_SAMPLE reads as unset (1), "0" turns recording off
+  const replay = visitor.consent === 'yes' && replayOn(env) && Math.random() < Number(env.REPLAY_SAMPLE || 1);
+  return withVisitor(Response.json({ consent: visitor.consent, replay }), visitor);
 };

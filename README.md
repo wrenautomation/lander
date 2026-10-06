@@ -85,6 +85,8 @@ The workflow needs four repo secrets: `CLOUDFLARE_API_TOKEN` (dash → My Profil
 | `CALCOM_WEBHOOK_SECRET` | `wrangler pages secret put` | `autobrowse site call calcom POST /v2/webhooks --body '{"subscriberUrl":"https://wrenautomation.com/api/calcom","keep":"CALCOM_WEBHOOK_SECRET"}'` makes and keeps it | `/api/calcom` answers 503: no booking pings |
 | `RESEND_API_KEY` | `wrangler pages secret put` | resend.com → API keys; first verify `wrenautomation.com` under Domains (3 DNS records) | leads land in D1 only, no email ping |
 | `EXPORT_TOKEN` | `wrangler pages secret put` | any long random string; the same value is wren's `WREN_SITE_EXPORT_TOKEN` | `/api/export` answers 404, so `wren email clicks` can't read clicks |
+| `REPLAY_KEY_ID` / `REPLAY_SECRET` / `REPLAY_BUCKET` / `REPLAY_REGION` | `wrangler pages secret put` (all four; a var and a secret can't share a name) | wren terraform: IAM user `lander-replays`, the private files bucket | no session replay; `/api/replay` answers 404 |
+| `REPLAY_SAMPLE` / `REPLAY_MAX_BYTES` | optional `[vars]` | share of consenting views recorded (default 1); gzip bytes per view (default 5000000) | defaults |
 | `LEAD_TO` / `LEAD_FROM` | `wrangler.toml` `[vars]` | already set; `LEAD_FROM` must be on the verified domain | — |
 
 `.env` and secrets are read at build/deploy time: change one → push again (or `npm run deploy`). The two `PUBLIC_` values also live as GitHub secrets; change both places. `.env` and `.dev.vars` are never committed.
@@ -97,6 +99,8 @@ Consent (`functions/_shared/consent.ts`): in the EU/EEA, UK, Switzerland, Brazil
 
 - **Cloudflare Web Analytics** (if the token is set): visits, referrers, per page. Cookieless.
 - **Our own beacon** (`src/scripts/hit.ts` → `/api/hit` → `hits` table): one row per page view, posted on arrival and raised when the tab hides. Page, % scrolled, seconds visible, clicked the CTA, touched the form, viewport width, visitor, and what it arrived from: `r` (email link code), utm, external referrer. Those params are then stripped from the address bar. Skipped with `?static` / `?probe`.
+- **Events** (`src/scripts/hit.ts` → `/api/events` → `events` table): what a visitor did, batched and sent when the tab hides. `cta` (label, target), `form.start`, `form.submit`, `book.click`, `video.play`, `video.progress` (25/50/75/100), and a click on any `[data-signal="<name>"]` as `<name>`. Same view id and visitor as the hit.
+- **Session replay** (`src/scripts/replay.ts` → `/api/replay` → S3 `site/replays/<view>/` + `replays` table): only with a cookie yes and the replay keys set. rrweb, every input masked, `[data-private]` blocked. A chunk every 10 s, gzipped into S3 (expires after 90 days), capped at `REPLAY_MAX_BYTES` a view. wren plays them. A real 1-minute read measured about 950 KB raw, 100 KB stored.
 - **Links out** (`/go/<channel>[/<campaign>[/<content>]]`, registry `src/data/links.json`): put these in bios, video descriptions and posts. They 302 to the channel's page with utm set. `/go/yt/launch-video` → `/?utm_source=youtube&utm_medium=organic&utm_campaign=launch-video`. An unknown channel still works (source = its name). `?to=/some/page` picks the page.
 - **Leads** (`leads` table): the niche-page form, plus the utm and referrer the visitor arrived with, visitor, first and last touch (JSON), country, ip, user agent.
 - **Applications** (`applications` table): the pitch-page form. Offer, name, email, firm, note, every answer as JSON keyed by question id, `fit` (1/0 by the offer's rule), page, utm, ref, `r`, visitor, first and last touch, country, ip, user agent. The ping says "Came from: …". A fit applicant is told so on the page; Discord and email ping either way.
@@ -147,6 +151,9 @@ functions/_shared/         env, form checks (Turnstile, bots), notify (Discord +
 functions/api/apply.ts     POST for pitch pages: offer check, answers, fit, D1, notify
 functions/api/lead.ts      POST for niche pages
 functions/api/hit.ts       POST for the beacon
-schema.sql                 leads, hits, applications (safe to re-run)
+functions/api/events.ts    POST for click/form/video events
+functions/api/replay.ts    POST for session replay chunks (to S3)
+src/scripts/replay.ts      the rrweb recorder, loaded only when /api/hit says replay
+schema.sql                 leads, hits, applications, events, replays (safe to re-run)
 public/_redirects          /ria and /insurance to /
 ```

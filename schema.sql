@@ -92,3 +92,36 @@ create index if not exists ix_applications_ts on applications (ts);
 
 -- 2026-09-29 attribution: visitor cookie, first/last touch (JSON, from hits), email link code r. A database made
 -- before then: npm run db:attribution (once).
+
+-- 2026-10-06 signals (wren designs/2026-10-06-signals.md). One row per thing a visitor did on a page
+-- (src/scripts/hit.ts): cta, form.start, form.submit, book.click, video.play, video.progress, or any
+-- [data-signal] name. view = the hits row's view; props = JSON, 1 KB max.
+create table if not exists events (
+  id integer primary key autoincrement,
+  ts text not null,
+  view text not null,
+  visitor text,
+  page text not null,
+  name text not null,
+  props text not null default '{}'
+);
+create index if not exists ix_events_visitor on events (visitor);
+create index if not exists ix_events_ts on events (ts);
+
+-- one row per recorded page view (src/scripts/replay.ts → functions/api/replay.ts). The chunks themselves are in
+-- S3 at site/replays/<view>/<seq>.json (gzip). bytes = gzip bytes stored; capped = hit REPLAY_MAX_BYTES.
+-- first_touch = the visitor's first touch when the view started (JSON, as applications.first_touch), null if none.
+create table if not exists replays (
+  id integer primary key autoincrement,
+  view text not null unique,
+  visitor text,
+  page text not null,
+  started text not null,
+  last text not null,
+  chunks integer not null default 0,
+  bytes integer not null default 0,
+  w integer,
+  country text,
+  capped integer not null default 0,
+  first_touch text
+);

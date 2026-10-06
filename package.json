@@ -23,7 +23,9 @@
   },
   "dependencies": {
     "astro": "^7.3.2",
-    "gsap": "^3.15.0"
+    "aws4fetch": "^1.0.20",
+    "gsap": "^3.15.0",
+    "rrweb": "2.1.7"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
