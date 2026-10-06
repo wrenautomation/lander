@@ -4,7 +4,7 @@ import { getEntry } from 'astro:content';
 import { structuredData, type QA, type Service } from '../lib/structured-data';
 const { title, description, image = '/brand/wren-lockup.png', noindex = false, fonts = 'geist', theme, faq, services } = Astro.props as {
   title: string; description: string; image?: string; noindex?: boolean;
-  fonts?: 'geist' | 'general-sans'; theme?: string; // a layout with its own type and one fixed theme colour
+  fonts?: 'geist' | 'inter'; theme?: string; // a layout with its own type and one fixed theme colour
   faq?: QA[]; services?: Service[]; // the page's questions and what it sells, for the structured data
 };
 // build.format 'file' gives pathname "/x.html"; the served URL is "/x" (Pages redirects .html away)
@@ -18,8 +18,8 @@ const ld = !noindex && structuredData({ site, url: canonical, title, description
 <title>{title}</title>
 <meta name="description" content={description}>
 {noindex ? <meta name="robots" content="noindex"> : <link rel="canonical" href={canonical}>}
-<link rel="icon" href="/brand/wren-icon.png">
-<link rel="apple-touch-icon" href="/brand/wren-icon.png">
+<link rel="icon" href="/brand/wren-icon.png?v=lavender">
+<link rel="apple-touch-icon" href="/brand/wren-icon.png?v=lavender">
 {theme ? <meta name="theme-color" content={theme}> : <>
 <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#110e0c" media="(prefers-color-scheme: dark)">
@@ -33,9 +33,6 @@ const ld = !noindex && structuredData({ site, url: canonical, title, description
 <meta name="twitter:card" content="summary_large_image">
 {ld && <script type="application/ld+json" set:html={ld} />}
 {/* both faces are self-hosted (pitch.css, global.css): no third-party hop before the text can draw */}
-{fonts === 'general-sans' ? <>
-{/* the headline and body weights preload */}
-<link rel="preload" href="/fonts/general-sans-500.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/general-sans-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/general-sans-600.woff2" as="font" type="font/woff2" crossorigin>
-</> : <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>}
+{fonts === 'inter'
+  ? <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  : <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>}
