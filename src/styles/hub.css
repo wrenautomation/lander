@@ -17,7 +17,9 @@
 @media (max-width:1023px){.to-form svg{rotate:90deg}}
 @media (min-width:1024px){
   .hub-hero{grid-template-rows:1fr}
-  .hub-hero .copy{grid-column:1/7;align-self:center;padding-block:48px}
+  /* the copy takes the gutter column too, and the headline scales with it: two lines at any desktop width */
+  .hub-hero .copy{grid-column:1/8;align-self:center;padding-block:48px;padding-right:clamp(24px,2.5vw,48px);container-type:inline-size}
+  .hub-hero h1{font-size:clamp(2.4rem,8cqi,4.4rem);max-width:none;text-wrap:balance}
   .hub-hero .panel{grid-column:8/13;grid-row:1;align-self:center;margin-block:40px}
 }
 @media (max-width:1023px){
