@@ -332,7 +332,8 @@ const hub = defineCollection({
     ...page,
     hero: z.strictObject({
       proof: z.string(),                // one real line above the headline
-      h1: z.string(),
+      h1: z.string(),                   // the hook, biggest, on its own line
+      h1_rest: z.string().optional(),   // the rest of the headline, a step smaller on the next line
       h1_tail: z.string().optional(),   // a step smaller on its own line, in ink
       lede: z.string(),
       checks: z.array(z.string()).length(3),

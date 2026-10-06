@@ -3,7 +3,9 @@
 
 /* ---------- the first screen: proof line, headline, lede, three checks, the button; the form beside ---------- */
 @media (min-width:720px){.hub-hero h1{font-size:clamp(2.6rem,1.2rem + 3.3vw,4.6rem)}}
-.hub-hero h1 .tail{margin-top:.35em;font-size:.68em;color:var(--ink)}
+/* the copywriter's break: the hook big on its own line, the rest of the question a step down, the subhead below */
+.hub-hero h1 .rest{display:block;margin-top:.12em;font-size:.64em;line-height:1.12;letter-spacing:-.02em;text-wrap:balance}
+.hub-hero h1 .tail{margin-top:.55em;font-size:.44em;color:var(--ink)}
 .checks.big{margin-top:clamp(20px,3.2vh,32px);gap:12px}
 .checks.big li{padding-left:32px;font-size:17px;font-weight:500;line-height:1.4}
 .checks.big li::before{left:0;top:.08em;width:20px;height:20px;border:0;border-radius:50%;background:var(--win) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4l2.6 2.6L12 5.6' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat;transform:none}
@@ -19,7 +21,7 @@
   .hub-hero{grid-template-rows:1fr}
   /* the copy takes the gutter column too, and the headline scales with it: two balanced lines at any desktop width */
   .hub-hero .copy{grid-column:1/9;align-self:center;padding-block:48px;padding-right:clamp(24px,2.5vw,48px);container-type:inline-size}
-  .hub-hero h1{font-size:clamp(1.9rem,5.75cqi,4.2rem);max-width:none;text-wrap:balance}
+  .hub-hero h1{font-size:clamp(2.4rem,8.2cqi,5.4rem);max-width:none;text-wrap:balance}
   /* the form is the smaller card here, so the headline leads: four columns, tighter type and spacing */
   .hub-hero .panel{grid-column:9/13;grid-row:1;align-self:center;margin-block:40px;padding:clamp(20px,1.8vw,30px)}
   .hub-hero .panel h2{font-size:clamp(1.3rem,.9rem + .7vw,1.7rem)}
@@ -33,7 +35,8 @@
 @media (max-width:1023px){
   .hub-hero .copy{display:block;padding-top:clamp(22px,4vh,40px)}
   .hub-hero h1{padding:0;text-wrap:pretty}
-  @media (max-width:719px){.hub-hero h1{font-size:min(8.9vw,2.6rem)}}
+  .hub-hero h1 .tail{font-size:.54em}
+  @media (max-width:719px){.hub-hero h1{font-size:min(10.2vw,3.4rem)}.hub-hero h1 .rest{font-size:.7em}.hub-hero h1 .tail{font-size:.6em}}
   .hub-hero .lede{margin-top:18px}
   .hub-hero .panel{margin-block:36px 44px}
 }
