@@ -7,7 +7,7 @@
 # the market: why margins shrink, why AI stalls. Rules: prices off the page. Proof is real only.
 # No client cases until there are real ones. Every outside figure carries a [^n] marker to `sources` at the end.
 # Notes on how they're used:
-#   The hero's "up to 60%" takes the low end of McKinsey's 60 to 70%, as a ceiling, not a measured result.
+#   McKinsey (source 1) has no marker on the page now; kept so the numbers stay put.
 #   The pain chart is Promethean's net margin after tax by headcount (0-9, 10-24, 25-49, 50+ FTE); they blame
 #     management layers, support roles and coordination. Their sample is digital agencies, so the key names them;
 #     the copy stays general. The green line is our aim, not data: drawn gentler (still falling), never printed.
@@ -27,11 +27,11 @@ nav_cta: Get a free audit
 
 hero:
   proof: You'll work with an engineer whose Government of Canada system serves 17,000+ staff.
-  h1: What if your team brought in more revenue without longer hours?
+  h1: More revenue without hiring or overtime?
   h1_tail: "Custom automations for your sales, hiring, and operations, so you *scale sustainably.*"
   lede: "As your company gets bigger, your problems do too. The companies that scale well fix that early. I build **integrated software** that **takes the work off your shoulders**: lead gen, hiring outreach, onboarding, timesheets, admin, or anything else that slows you down."
   checks:
-    - Reduce busywork by up to 60%[^1]
+    - Automate your busywork
     - Fully managed, integrated system
     - Better margins as you grow
   to_form: Start with a free audit of your bottlenecks. The plan is yours to keep.
