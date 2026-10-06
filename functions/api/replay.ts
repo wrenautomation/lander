@@ -19,7 +19,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   if (Number(request.headers.get('content-length')) > MAX_BODY) return new Response(null, { status: 413 });
   const body = await request.arrayBuffer();
   if (body.byteLength > MAX_BODY) return new Response(null, { status: 413 });
-  try { if (!Array.isArray(JSON.parse(new TextDecoder().decode(body)))) throw 0; } catch { return new Response(null, { status: 400 }); }
+  let events: { timestamp?: unknown }[];
+  try { events = JSON.parse(new TextDecoder().decode(body)); if (!Array.isArray(events)) throw 0; } catch { return new Response(null, { status: 400 }); }
 
   const row = await env.DB.prepare('select visitor, bytes from replays where view = ?').bind(view).first<{ visitor: string | null; bytes: number }>();
   if (row && row.visitor !== visitor.id) return new Response(null, { status: 403 });
@@ -36,6 +37,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   if (!put.ok) { console.error('replay put', put.status, await put.text()); return new Response(null, { status: 502 }); }
 
   const now = new Date().toISOString();
+  // the chunk lands ~10s after its first event: date the view from the events' own span (relative, so client clock skew is moot)
+  const ts = events.map((e) => Number(e?.timestamp)).filter(Number.isFinite);
+  const span = ts.length ? Math.min(600_000, Math.max(0, Math.max(...ts) - Math.min(...ts))) : 0;
+  const started = new Date(Date.now() - span).toISOString();
   // what first brought this visitor, as /api/apply stores it; read once, on the view's first chunk
   const first = row ? null : (await history(env.DB, visitor.id)).first;
   const w = Math.min(10000, Math.max(0, Math.round(Number(q.get('w')) || 0)));
@@ -43,7 +48,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     `insert into replays (view, visitor, page, started, last, chunks, bytes, w, country, first_touch) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
      on conflict (view) do update set last = excluded.last, chunks = max(chunks, excluded.chunks), bytes = bytes + excluded.bytes
      where replays.visitor is excluded.visitor`,
-  ).bind(view, visitor.id, (q.get('page') || '').slice(0, 200), now, now, seq + 1, gz.byteLength, w, request.headers.get('cf-ipcountry') || '',
+  ).bind(view, visitor.id, (q.get('page') || '').slice(0, 200), started, now, seq + 1, gz.byteLength, w, request.headers.get('cf-ipcountry') || '',
     first ? JSON.stringify(first) : null).run();
   return new Response(null, { status: 204 });
 };
