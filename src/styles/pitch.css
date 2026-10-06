@@ -1,15 +1,14 @@
 /* Pitch pages (/recruiting/lead-reactivation) and the hub (/, plus hub.css): the partner's letter, told in pictures. White page, black text, hairline rules on
-   a 12-column grid. One sans throughout (General Sans), no italics. The form sits in the first screen on a white card.
+   a 12-column grid. One sans throughout (Inter), no italics. The form sits in the first screen on a white card.
    Pictures carry the story: faces, image slots (a plain tile until the file exists), and a diagram per step drawn in
    code, each in a light gray window (.flow, .window). Rounded corners, square buttons. Lavender is the brand's (the pfp's
    lavender, the bird's cream on it), used in few places so it carries: the stamp, the buttons and the back cover (closing
    screen and footer); marks elsewhere. A light page; diagrams sit in light gray windows.
    html.js = motion on (set in Pitch.astro's head); without it everything renders whole and still. */
 
-/* General Sans, self-hosted from Fontshare (free licence) */
-@font-face{font-family:'General Sans';src:url(/fonts/general-sans-400.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:'General Sans';src:url(/fonts/general-sans-500.woff2) format('woff2');font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:'General Sans';src:url(/fonts/general-sans-600.woff2) format('woff2');font-weight:600;font-style:normal;font-display:swap}
+/* Inter, self-hosted (SIL OFL, via Fontsource): one variable file, weight and optical size, so headlines take the
+   display cut on their own */
+@font-face{font-family:Inter;src:url(/fonts/inter-latin.woff2) format('woff2-variations'),url(/fonts/inter-latin.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
 :root{
   --paper:#FFFFFF;
   --paper-2:#F4F1EC;
@@ -23,7 +22,7 @@
   --win:#136B35;     /* success: the result the page promises (the goal, the client count), 6.6:1 on white, 5.2:1 on its own tint */
   --bad:#D2281E;     /* the X on a crossed-out item: a true red, apart from the lavender */
   --cream:#FAF7F2;   /* the pfp's bird: text and marks on lavender only, 4.5:1 */
-  --sans:'General Sans',ui-sans-serif,system-ui,sans-serif;
+  --sans:Inter,ui-sans-serif,system-ui,sans-serif;
   --gut:clamp(16px,3.2vw,40px);
   --max:1360px;
   --cg:clamp(16px,2vw,24px);

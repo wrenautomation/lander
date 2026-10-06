@@ -16,5 +16,5 @@
   function ready(){if(done)return;done=1;clearTimeout(t);clearTimeout(t2);
     if(!shown){h.classList.add('quick');setTimeout(function(){h.classList.remove('loading','quick')},200);return res()}
     setTimeout(function(){h.classList.add('ready');setTimeout(res,250);setTimeout(function(){h.classList.remove('loading','slow','slower','ready')},800)},Math.max(0,400-(performance.now()-shown)))}
-  var f=document.fonts;Promise.all(f?[400,500,600].map(function(w){return f.load(w+' 1em "General Sans"')}):[]).then(ready,ready);setTimeout(ready,4000)})();
+  var f=document.fonts;Promise.all(f?[400,500,600].map(function(w){return f.load(w+' 1em Inter')}):[]).then(ready,ready);setTimeout(ready,4000)})();
 </script>

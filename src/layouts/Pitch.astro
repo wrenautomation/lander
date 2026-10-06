@@ -35,7 +35,7 @@ const site = (await getEntry('site', 'site'))!.data;
 <!doctype html>
 <html lang="en" class="pitch" data-niche={p.form_value}>
 <head>
-  <Head title={bare(p.title)} description={bare(p.description)} fonts="general-sans" theme="#ffffff" faq={p.faq.items} services={[{ name: offer.name, text: p.description }]} />
+  <Head title={bare(p.title)} description={bare(p.description)} fonts="inter" theme="#ffffff" faq={p.faq.items} services={[{ name: offer.name, text: p.description }]} />
   <meta name="color-scheme" content="light">
   <script is:inline>
     /* motion on: the scroll-drawn parts start undrawn. Off for ?static, reduced motion, data saver, a 2g/3g link and

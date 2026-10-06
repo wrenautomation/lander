@@ -129,10 +129,9 @@ function page(body: string, status = 200): Response {
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex"><title>Your emails | Wren Automation</title><link rel="icon" href="/brand/wren-mark.png">
 <style>
-@font-face{font-family:'General Sans';src:url(/fonts/general-sans-400.woff2) format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'General Sans';src:url(/fonts/general-sans-600.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:Inter;src:url(/fonts/inter-latin.woff2) format('woff2');font-weight:100 900;font-display:swap}
 :root{--paper:#fff;--paper-2:#F4F1EC;--ink:#0E0E0E;--mute:#6E6E68;--rule:rgba(14,14,14,.13);--acc:#7969A3;--cream:#FAF7F2}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 'General Sans',ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 Inter,ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 main{max-width:600px;margin:0 auto;padding:32px 16px 64px}header{display:flex;align-items:center;gap:10px;margin-bottom:40px;font-weight:600}header img{width:28px;height:28px}
 h1{font-size:32px;line-height:1.15;margin:0 0 6px}h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:40px 0 8px}p{margin:0 0 16px}.mute{color:var(--mute)}
 .btn{display:inline-flex;align-items:center;padding:1em 1.4em;background:var(--acc);color:var(--cream);font:600 12.5px/1 inherit;font-family:inherit;letter-spacing:.08em;text-transform:uppercase;border:0;border-radius:0;cursor:pointer}
