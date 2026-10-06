@@ -32,9 +32,9 @@
       },
       {
         "rule": "design-system-font",
-        "value": "geist",
+        "value": "inter",
         "createdAt": "2026-09-29T19:20:19.941Z",
-        "reason": "agent: default fonts of the older /agencies niche design (PRODUCT.md: /agencies stays on the older design); pitch pages pass their own"
+        "reason": "agent: one font site-wide since 2026-10-06"
       },
       {
         "rule": "design-system-font",

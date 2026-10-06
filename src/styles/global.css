@@ -21,11 +21,11 @@
 [data-hue=red]{ --acc:#b2232b; --on-acc:#fff; --lbl:#b2232b }
 [data-hue=red][data-theme=dark]{ --acc:#ee7676; --on-acc:#161311; --lbl:#ee7676 }
 
-/* Geist, variable 300-700, Latin only (self-hosted from Google Fonts, OFL) */
-@font-face{font-family:Geist;src:url(/fonts/geist-latin.woff2) format('woff2');font-weight:300 700;font-style:normal;font-display:swap}
+/* Inter, variable 100-900 with optical size, Latin only (self-hosted, OFL) */
+@font-face{font-family:Inter;src:url(/fonts/inter-latin.woff2) format('woff2-variations'),url(/fonts/inter-latin.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-html,body{margin:0;background:var(--paper);color:var(--ink);font-family:Geist,system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
 body{overflow-x:hidden}
 img{max-width:100%;display:block}
 picture{display:contents}

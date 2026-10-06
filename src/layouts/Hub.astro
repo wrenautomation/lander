@@ -41,7 +41,7 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
 <!doctype html>
 <html lang="en" class="pitch hub" data-niche={p.form_value}>
 <head>
-  <Head title={bare(p.title)} description={bare(p.description)} fonts="inter" theme="#ffffff" faq={p.faq.items} services={p.catalog.groups.flatMap((g) => g.items)} />
+  <Head title={bare(p.title)} description={bare(p.description)} theme="#ffffff" faq={p.faq.items} services={p.catalog.groups.flatMap((g) => g.items)} />
   <meta name="color-scheme" content="light">
   <script is:inline>
     /* motion on: the scroll-drawn parts start undrawn. Off for ?static, reduced motion, data saver, a 2g/3g link and

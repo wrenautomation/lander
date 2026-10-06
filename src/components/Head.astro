@@ -2,9 +2,9 @@
 // Everything in <head> every page shares: meta, social cards, structured data, icons, fonts. Layouts add their own scripts after it.
 import { getEntry } from 'astro:content';
 import { structuredData, type QA, type Service } from '../lib/structured-data';
-const { title, description, image = '/brand/wren-lockup.png', noindex = false, fonts = 'geist', theme, faq, services } = Astro.props as {
+const { title, description, image = '/brand/wren-lockup.png', noindex = false, theme, faq, services } = Astro.props as {
   title: string; description: string; image?: string; noindex?: boolean;
-  fonts?: 'geist' | 'inter'; theme?: string; // a layout with its own type and one fixed theme colour
+  theme?: string; // a layout with one fixed theme colour
   faq?: QA[]; services?: Service[]; // the page's questions and what it sells, for the structured data
 };
 // build.format 'file' gives pathname "/x.html"; the served URL is "/x" (Pages redirects .html away)
@@ -33,6 +33,4 @@ const ld = !noindex && structuredData({ site, url: canonical, title, description
 <meta name="twitter:card" content="summary_large_image">
 {ld && <script type="application/ld+json" set:html={ld} />}
 {/* both faces are self-hosted (pitch.css, global.css): no third-party hop before the text can draw */}
-{fonts === 'inter'
-  ? <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  : <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>}
+<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
