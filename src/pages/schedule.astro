@@ -1,0 +1,115 @@
+---
+// The shell for our own booking calendar (wren designs/2026-10-06-calendar.md). functions/book/[offer].ts serves it
+// at /book/<offer> once BOOKING is "wren" (or for ?via=wren), and functions/booking/[token].ts at /booking/<token>,
+// a booked call's own page. src/scripts/schedule.ts does the rest: open times on the visitor's clock, the form, the
+// confirmation, a new time or a cancel. /schedule on its own is never linked. Not indexed, not in the sitemap.
+import '../styles/pitch.css';
+import '../styles/cursor.css';
+import { getEntry } from 'astro:content';
+import Head from '../components/Head.astro';
+import data from '../data/offers.json';
+
+const site = (await getEntry('site', 'site'))!.data;
+const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const offers = Object.fromEntries(data.offers.filter((o) => o.booking).map((o) => [o.id, { name: o.name, page: o.page }]));
+---
+<!doctype html>
+<html lang="en" class="pitch">
+<head>
+  <Head title="Book a call | Wren Automation" description="Pick a time for a call with William Jin." theme="#ffffff" noindex />
+  <meta name="color-scheme" content="light">
+  <style>
+    .book{padding:clamp(20px,4vh,40px) 0 clamp(48px,8vh,96px)}
+    .book .wrap{max-width:760px}
+    .book .bar{margin-bottom:clamp(28px,6vh,56px)}
+    .book .home{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:600;letter-spacing:-.01em}
+    .book .home img{width:28px;height:28px}
+    .book .label{color:var(--acc)}
+    .book h1{font-size:clamp(2rem,1rem + 2.6vw,3.2rem);margin-top:12px}
+    .book .lede{margin-top:12px}
+    .book .zone{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:28px;font-size:15px;color:var(--ink-2)}
+    .book select,.book textarea{font:inherit;font-size:15px;padding:8px 10px;border:1px solid var(--rule);border-radius:10px;background:var(--paper);color:var(--ink);max-width:100%}
+    .book .days{display:flex;gap:8px;overflow-x:auto;margin-top:20px;padding-bottom:6px;scrollbar-width:thin}
+    .book .day{flex:none;display:grid;gap:2px;min-width:64px;padding:10px 12px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);color:var(--ink);font:inherit;font-size:13px;text-align:center;cursor:var(--cur-on)}
+    .book .day b{font-size:19px;font-weight:600}
+    .book .day[aria-selected=true]{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc);color:var(--acc)}
+    .book .times{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;margin-top:20px}
+    .book .time{padding:12px 8px;border:1px solid var(--rule);border-radius:10px;background:var(--paper);color:var(--ink);font:inherit;font-size:15px;font-weight:500;cursor:var(--cur-on)}
+    .book .time:hover,.book .day:hover{border-color:var(--acc)}
+    .book .picked{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding:16px 18px;margin:28px 0 20px;background:var(--paper-2);border-radius:12px}
+    .book .picked b{font-weight:600}
+    .book .link{background:none;border:0;padding:0;font:inherit;color:var(--acc);text-decoration:underline;text-underline-offset:4px;cursor:var(--cur-on)}
+    .book form .btn{margin-top:20px}
+    .book .hp{position:absolute;left:-9999px}
+    .book .cf-turnstile{margin-top:16px}
+    .book .alert{margin-top:20px;padding:14px 16px;border-radius:12px;background:var(--paper-2)}
+    .book .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+    .book .btn.ghost{background:none;color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule)}
+    .book .btn.ghost:hover{box-shadow:inset 0 0 0 1px var(--ink)}
+    .book textarea{width:100%;min-height:84px;margin-top:8px}
+    .book [hidden]{display:none!important}
+    html.embed .book{padding-top:0}html.embed .book .bar{display:none}
+    @media (max-width:640px){.book form .btn,.book .row .btn{width:100%;justify-content:center}}
+  </style>
+</head>
+<body>
+<main class="book" data-offers={JSON.stringify(offers)} data-email={site.email}>
+  <div class="wrap">
+    <div class="bar"><a class="home" href="/"><img src="/brand/wren-icon.png" alt="" width="28" height="28">Wren Automation</a></div>
+
+    <section data-pick hidden>
+      <p class="label" data-offer></p>
+      <h1 data-pick-h>Book a call</h1>
+      <p class="lede" data-length>A call with me on Google Meet.</p>
+      <p class="zone"><span>Times in</span><select data-zone aria-label="Time zone"></select></p>
+      <div class="days" data-days role="tablist" aria-label="Day"></div>
+      <div class="times" data-times aria-live="polite"></div>
+      <p class="alert" data-none hidden>No open times right now. Email me at <a data-mail></a> and I'll find one.</p>
+    </section>
+
+    <form data-form hidden novalidate>
+      <p class="picked"><b data-when></b><button type="button" class="link" data-back>Pick another time</button></p>
+      <div class="fields">
+        <label class="field"><span>Name</span><input name="name" autocomplete="name" required maxlength="200"></label>
+        <label class="field"><span>Email</span><input name="email" type="email" autocomplete="email" required maxlength="200"></label>
+      </div>
+      <label class="hp" aria-hidden="true">Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      {turnstile && <div class="cf-turnstile" data-sitekey={turnstile} data-size="flexible" data-theme="light"></div>}
+      <button class="btn" type="submit" data-submit><span>Book the call</span></button>
+    </form>
+
+    <section data-done hidden tabindex="-1">
+      <p class="label">Booked</p>
+      <h1 data-done-h>You're booked</h1>
+      <p class="lede" data-done-when></p>
+      <p class="lede">The calendar invite with the Meet link is on its way to your inbox.</p>
+      <p class="row"><a class="btn ghost" data-manage href="#">Change or cancel</a></p>
+    </section>
+
+    <section data-call hidden>
+      <p class="label" data-call-state></p>
+      <h1 data-call-h></h1>
+      <p class="lede" data-call-when></p>
+      <p class="lede" data-call-join hidden><a data-meet target="_blank" rel="noopener">Join on Google Meet</a></p>
+      <div class="row" data-call-acts hidden>
+        <button class="btn" type="button" data-move><span>Pick a new time</span></button>
+        <button class="btn ghost" type="button" data-cancel><span>Cancel the call</span></button>
+      </div>
+      <div data-cancel-box hidden>
+        <label><span class="mute">Anything I should know? (optional)</span><textarea data-reason maxlength="500"></textarea></label>
+        <div class="row">
+          <button class="btn" type="button" data-cancel-go><span>Cancel the call</span></button>
+          <button class="btn ghost" type="button" data-cancel-keep><span>Keep it</span></button>
+        </div>
+      </div>
+      <p class="row" data-rebook hidden><a class="btn" data-rebook-a href="#">Book another time</a></p>
+    </section>
+
+    <p class="alert" data-error role="alert" hidden></p>
+    <noscript><p class="alert">This page needs JavaScript to show open times. Email me at {site.email} and I'll find one.</p></noscript>
+  </div>
+</main>
+{turnstile && <script is:inline async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>}
+<script src="../scripts/schedule.ts"></script>
+</body>
+</html>

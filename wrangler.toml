@@ -12,3 +12,5 @@ LEAD_TO = "william@wrenautomation.com"
 LEAD_FROM = "Wren site <site@wrenautomation.com>"
 VIDEOS_ORIGIN = "https://d29j9i83p8kh8y.cloudfront.net"  # wren deploy/terraform videos_origin; /v/<id> reads <id>.json there
 WREN_MARKETING_URL = "https://phone.wrenautomation.com/marketing"  # /api/subscribe and /prefs/ call wren here
+WREN_CALENDAR_URL = "https://phone.wrenautomation.com/calendar"  # our own booking calendar (functions/_shared/calendar.ts)
+BOOKING = "calcom"  # "wren": /book/<offer> is our own page; ?via=wren tries it first (functions/_shared/booking.ts)

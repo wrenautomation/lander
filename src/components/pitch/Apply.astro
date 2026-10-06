@@ -79,7 +79,7 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       <>
         <h3 set:html={rich(a.book_h!)} /><p>{a.book}</p>
         <div class="cal" data-cal data-booking={offer.booking}></div>
-        <a class="plain" href={offer.booking} target="_blank" rel="noopener">{offer.booking.replace(/^https:\/\//, '')}</a>
+        <a class="plain" href={`/book/${offer.id}`} target="_blank" rel="noopener">wrenautomation.com/book/{offer.id}</a>
       </>
     ) : (
       <><h3 set:html={rich(a.thanks_h)} /><p>{a.thanks}</p></>

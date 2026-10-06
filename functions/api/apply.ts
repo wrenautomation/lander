@@ -3,7 +3,7 @@
 // and says whether it fits and where to book. JSON for the page's script; a redirect to #applied-* when JS is off.
 import type { Env } from '../_shared/env';
 import { EMAIL, clip, human, isBot, origin, readForm } from '../_shared/form';
-import { bookingLink } from '../_shared/booking';
+import { bookingLink, ownCalendar, ownLink } from '../_shared/booking';
 import { notify } from '../_shared/notify';
 import { cameFrom, history, visitorOf, withVisitor } from '../_shared/visitor';
 import { type Answers, OTHER, answersFrom, fits, invalidAnswers, offerFor, writeInsFrom } from '../../src/lib/offers';
@@ -60,11 +60,13 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     body: [...said, row.note].filter(Boolean).join('\n') || '(no answers)',
     replyTo: email,
   });
+  const tags = {
+    offer: offer.id, application: String(saved.meta.last_row_id), visitor: visitor.id ?? '',
+    utm_source: o.utm_source, utm_medium: o.utm_medium, utm_campaign: o.utm_campaign, utm_content: o.utm_content,
+  };
+  const own = ownCalendar(env, back);
   const booking = row.fit && offer.booking
-    ? bookingLink(offer.booking, {
-        offer: offer.id, application: String(saved.meta.last_row_id), visitor: visitor.id ?? '',
-        utm_source: o.utm_source, utm_medium: o.utm_medium, utm_campaign: o.utm_campaign, utm_content: o.utm_content,
-      })
+    ? own ? ownLink(offer.id, tags, back.searchParams.get('via') === 'wren') : bookingLink(offer.booking, tags)
     : null;
   return reply(200, { ok: true, fit: row.fit, booking });
 };
