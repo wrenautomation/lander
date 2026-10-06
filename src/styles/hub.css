@@ -18,13 +18,22 @@
 @media (min-width:1024px){
   .hub-hero{grid-template-rows:1fr}
   /* the copy takes the gutter column too, and the headline scales with it: two balanced lines at any desktop width */
-  .hub-hero .copy{grid-column:1/8;align-self:center;padding-block:48px;padding-right:clamp(24px,2.5vw,48px);container-type:inline-size}
-  .hub-hero h1{font-size:clamp(1.9rem,6cqi,3.6rem);max-width:none;text-wrap:balance}
-  .hub-hero .panel{grid-column:8/13;grid-row:1;align-self:center;margin-block:40px}
+  .hub-hero .copy{grid-column:1/9;align-self:center;padding-block:48px;padding-right:clamp(24px,2.5vw,48px);container-type:inline-size}
+  .hub-hero h1{font-size:clamp(1.9rem,6cqi,4.2rem);max-width:none;text-wrap:balance}
+  /* the form is the smaller card here, so the headline leads: four columns, tighter type and spacing */
+  .hub-hero .panel{grid-column:9/13;grid-row:1;align-self:center;margin-block:40px;padding:clamp(20px,1.8vw,30px)}
+  .hub-hero .panel h2{font-size:clamp(1.3rem,.9rem + .7vw,1.7rem)}
+  .hub-hero .panel .intro{font-size:14.5px;margin-top:.5rem}
+  .hub-hero .panel form{margin-top:clamp(14px,2vh,20px)}
+  .hub-hero legend{font-size:clamp(18px,.9rem + .4vw,21px);margin-bottom:.8rem}
+  .hub-hero .choice{gap:11px;padding:10px 13px;font-size:15px}
+  .hub-hero .fields{gap:11px}
+  .hub-hero .field input{padding:9px 12px;font-size:15.5px}
 }
 @media (max-width:1023px){
   .hub-hero .copy{display:block;padding-top:clamp(22px,4vh,40px)}
-  .hub-hero h1{padding:0}
+  .hub-hero h1{padding:0;text-wrap:pretty}
+  @media (max-width:719px){.hub-hero h1{font-size:min(8.9vw,2.6rem)}}
   .hub-hero .lede{margin-top:18px}
   .hub-hero .panel{margin-block:36px 44px}
 }
