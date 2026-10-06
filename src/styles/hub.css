@@ -172,9 +172,12 @@
 .stairs .oops{position:absolute;left:0;right:0;bottom:calc(var(--u) * 1.5 - .7em);opacity:0;font-style:normal;font-size:12.5px;font-weight:600;text-align:center;white-space:nowrap;color:var(--bad)}
 /* room for the pin, so it never sits on the bubble */
 .stairs .most .fix{margin-bottom:28px}
-/* the story's start (level one) and a line along the floor as the levels build; both only while it plays */
+/* the story's start (level one), and a line along the floor while the levels build */
 .stairs{position:relative}
-.stairs .start{position:absolute;left:50%;bottom:calc(var(--u) + 14px);display:flex;flex-direction:column;align-items:center;gap:2px;transform:translateX(-50%);opacity:0;font-style:normal;font-size:12.5px;font-weight:600;white-space:nowrap;color:var(--acc)}
+/* the cue sits left of level one's block, clear of its bubble, and stays once shown; the stairs step in to make
+   room for it, since this section's margin is narrow (phones hide it) */
+.stairs{margin-left:52px}
+.stairs .start{position:absolute;right:calc(100% + 8px);bottom:calc(var(--u) / 2);display:flex;align-items:center;gap:4px;width:min-content;transform:translateY(50%);font-style:normal;font-size:12.5px;font-weight:600;line-height:1.2;color:var(--acc)}
 .stairs .start svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .stairs>li.track{position:absolute;left:0;width:100%;top:calc(var(--u) * 5 + var(--gap) * 4 + var(--room) - 2px);display:block;height:2px;background:var(--acc);opacity:0;pointer-events:none}
 .stairs>li.track::after{content:"";position:absolute;right:-1px;top:-4px;width:8px;height:8px;border-top:2px solid var(--acc);border-right:2px solid var(--acc);transform:rotate(45deg)}
@@ -196,7 +199,7 @@
 @media (max-width:899px){
   .levels .act{justify-items:start}
   .levels .how{text-align:left}
-  .stairs{display:block;--u:32px}
+  .stairs{display:block;--u:32px;margin-left:0}
   .stairs>li:not(.gate){padding-block:16px;border-top:1px solid var(--rule)}
   .stairs .up{display:contents}
   .stairs .riser{order:0}

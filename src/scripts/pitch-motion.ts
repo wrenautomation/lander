@@ -224,9 +224,9 @@ export function play({ landY, flows }: { landY: number; flows: Flows | null }) {
           .set(jump, { clearProps: 'backgroundColor', rotation: 0, ...off }, t + 2);
         t += 2.2;
       }
-      // where the story starts: a cue over level one, then a line along the floor as each level builds
+      // where the story starts: a cue beside level one that stays, then a line along the floor as each level builds
       const start = $('.start', el), track = $('.track', el);
-      if (start && !flat) tl.fromTo(start, { opacity: 0, y: -6 }, { opacity: 1, y: 0, duration: 0.35 }, t - 0.2).to(start, { opacity: 0, duration: 0.3 }, t + 0.5);
+      if (start && !flat) tl.fromTo(start, { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.35 }, t - 0.2);
       if (track && !flat) tl.fromTo(track, { opacity: 0.7, width: '0%' }, { width: '100%', duration: rows.length * 0.5, ease: 'none' }, t).to(track, { opacity: 0, duration: 0.5 }, t + rows.length * 0.5 + 0.2);
       rows.forEach((li, i) => {
         const at = t + i * 0.5;

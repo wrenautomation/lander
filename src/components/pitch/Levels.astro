@@ -7,7 +7,7 @@
 // The button says how the call finds your level. On phones each stack lies flat, left to right.
 // The markup is the finished state; pitch.ts (ART.levels) tells the story: the pinned level's block appears alone,
 // shakes with nothing under it and falls, then
-// a cue marks level one and a line runs along the floor as the levels build in order, block on block.
+// a cue left of level one (it stays) and a line runs along the floor as the levels build in order, block on block.
 import type { CollectionEntry } from 'astro:content';
 import { rich } from '../../lib/text';
 import { ICON } from '../../lib/icons';
@@ -32,7 +32,7 @@ const { s, face } = Astro.props as { s: CollectionEntry<'hub'>['data']['levels']
                 {s.items.slice(0, i + 1).map((b, k) => (
                   <span class="spot"><i class:list={['brick', { own: k === i }]}><svg viewBox="0 0 16 16"><path d={ICON[b.icon]} /></svg><span>{b.brick}</span></i></span>
                 ))}
-                {i === 0 && <em class="start">{s.start}<svg viewBox="0 0 16 16"><path d="M8 2.5v10M4 9l4 4 4-4" /></svg></em>}
+                {i === 0 && <em class="start">{s.start}<svg viewBox="0 0 16 16"><path d="M2.5 8h10M9 4l4 4-4 4" /></svg></em>}
                 {i + 1 === s.most && <><em class="oops">{s.fall}</em><span class="pin">{s.most_note}</span></>}
               </div>
             </div>
