@@ -347,16 +347,20 @@ function playFlows(k: Flows) {
       tl.to(chs, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }, 5.4);
       chs.forEach((c, k) => tl.call(() => c.classList.remove('wait'), [], 5.8 + k * 0.3));
     },
-    // replies land and sort themselves; the warm one goes to the calendar; the new-clients line draws in (it climbs on once whole)
+    // replies land and sort themselves; the warm one goes to the calendar; new clients count to 10, then ramp up until the number blurs away
     book: (f, tl, ws) => {
       const inbox = node(f, 'inbox'), cal = node(f, 'cal'), lis = $$('li', inbox), tags = $$('em', inbox);
-      const climb = $('.climb', f);
+      const num = $('[data-count]', f)!, up = $('.up', f), ramp = $('.ramp', f), c = { n: 0 };
+      const show = () => { num.textContent = String(Math.round(c.n)); };
       inbox.classList.remove('sorted');
       gsap.set(lis, { opacity: 0, y: -12 });
       gsap.set(tags, { opacity: 0 });
       gsap.set($$('.busy, .note', cal), { opacity: 0 });
       gsap.set($('.slot', cal), { scaleY: 0 });
-      gsap.set(climb, { clipPath: 'inset(0% 100% 0% 0%)' });
+      num.classList.remove('gone'); num.textContent = '0';
+      gsap.set(num, { clearProps: 'width,marginLeft,opacity,filter' });
+      gsap.set(up, { opacity: 0, scale: 0.5 });
+      gsap.set(ramp, { clipPath: 'inset(-20% 100% -20% 0%)' });
       tl.to(inbox, { opacity: 1, y: 0 }, 0)
         .to(lis, { opacity: 1, y: 0, stagger: 0.25 }, 0.2)
         .to(tags, { opacity: 1, duration: 0.3, stagger: 0.12 }, 1.1)
@@ -368,7 +372,16 @@ function playFlows(k: Flows) {
         .to($('.note', cal), { opacity: 1, duration: 0.4 }, 3.5);
       wire(tl, ws[1], 3.8);
       tl.to(node(f, 'count'), { opacity: 1, y: 0 }, 4.2)
-        .to(climb, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.8, ease: 'power2.inOut' }, 4.4);
+        // 0 to 10 at a walk, along the flat of the ramp
+        .to(c, { n: 10, duration: 1.8, ease: 'none', onUpdate: show }, 4.4)
+        .to(ramp, { clipPath: 'inset(-20% 50% -20% 0%)', duration: 1.8, ease: 'none' }, 4.4)
+        .to(up, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2)' }, 5.2)
+        // then faster and faster, up the steep end, until the number blurs out and only the arrow is left
+        .to(c, { n: 999, duration: 1.8, ease: 'expo.in', onUpdate: show }, 6.3)
+        .to(ramp, { clipPath: 'inset(-20% 0% -20% 0%)', duration: 1.8, ease: 'power2.in' }, 6.3)
+        .to(num, { opacity: 0, filter: 'blur(8px)', duration: 0.9, ease: 'power1.in' }, 7.2)
+        .to(num, { width: 0, marginLeft: -12, duration: 0.5, ease: 'power2.inOut' }, 8.1)
+        .call(() => num.classList.add('gone'), [], 8.6);
     },
   };
   // ghosts: a soft skeleton where each node will land, so a diagram waiting its turn reads as coming, not broken.
