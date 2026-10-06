@@ -347,16 +347,16 @@ function playFlows(k: Flows) {
       tl.to(chs, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }, 5.4);
       chs.forEach((c, k) => tl.call(() => c.classList.remove('wait'), [], 5.8 + k * 0.3));
     },
-    // replies land and sort themselves; the warm one goes to the calendar; the count climbs
+    // replies land and sort themselves; the warm one goes to the calendar; the new-clients line draws in (it climbs on once whole)
     book: (f, tl, ws) => {
       const inbox = node(f, 'inbox'), cal = node(f, 'cal'), lis = $$('li', inbox), tags = $$('em', inbox);
-      const num = $('[data-count]', f)!, segs = $$('.segs i', f), end = Number(num.textContent), c = { n: 0 };
+      const climb = $('.climb', f);
       inbox.classList.remove('sorted');
       gsap.set(lis, { opacity: 0, y: -12 });
       gsap.set(tags, { opacity: 0 });
       gsap.set($$('.busy, .note', cal), { opacity: 0 });
       gsap.set($('.slot', cal), { scaleY: 0 });
-      num.textContent = '0'; segs.forEach((s) => s.classList.add('off'));
+      gsap.set(climb, { clipPath: 'inset(0% 100% 0% 0%)' });
       tl.to(inbox, { opacity: 1, y: 0 }, 0)
         .to(lis, { opacity: 1, y: 0, stagger: 0.25 }, 0.2)
         .to(tags, { opacity: 1, duration: 0.3, stagger: 0.12 }, 1.1)
@@ -368,7 +368,7 @@ function playFlows(k: Flows) {
         .to($('.note', cal), { opacity: 1, duration: 0.4 }, 3.5);
       wire(tl, ws[1], 3.8);
       tl.to(node(f, 'count'), { opacity: 1, y: 0 }, 4.2)
-        .to(c, { n: end, duration: 2, ease: 'power2.out', onUpdate: () => { const n = Math.round(c.n); num.textContent = String(n); segs.forEach((s, k) => s.classList.toggle('off', k >= n)); } }, 4.4);
+        .to(climb, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.8, ease: 'power2.inOut' }, 4.4);
     },
   };
   // ghosts: a soft skeleton where each node will land, so a diagram waiting its turn reads as coming, not broken.
