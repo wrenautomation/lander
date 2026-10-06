@@ -104,8 +104,12 @@
             "required": true,
             "choices": [
               {
-                "id": "v0_1m",
-                "label": "Under $1M"
+                "id": "v0_500k",
+                "label": "Under $500K"
+              },
+              {
+                "id": "v500k_1m",
+                "label": "$500K to $1M"
               },
               {
                 "id": "v1_5m",
@@ -321,8 +325,12 @@
             "required": true,
             "choices": [
               {
-                "id": "v0_1m",
-                "label": "Under $1M"
+                "id": "v0_500k",
+                "label": "Under $500K"
+              },
+              {
+                "id": "v500k_1m",
+                "label": "$500K to $1M"
               },
               {
                 "id": "v1_5m",
@@ -674,8 +682,12 @@
             "required": true,
             "choices": [
               {
-                "id": "v0_1m",
-                "label": "Under $1M"
+                "id": "v0_500k",
+                "label": "Under $500K"
+              },
+              {
+                "id": "v500k_1m",
+                "label": "$500K to $1M"
               },
               {
                 "id": "v1_5m",
