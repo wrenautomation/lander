@@ -2,10 +2,10 @@
    the pain beside its chart window, the builds, the levels, the comparison, the services, the sources. */
 
 /* ---------- the first screen: proof line, headline, lede, three checks, the button; the form beside ---------- */
-@media (min-width:720px){.hub-hero h1{font-size:clamp(2.6rem,1.2rem + 3.3vw,4.6rem)}}
+@media (min-width:720px){.hub-hero h1{font-size:clamp(2.6rem,8.4vw,5.6rem)}}
 /* the copywriter's break: the hook big on its own line, the rest of the question a step down, the subhead below */
-.hub-hero h1 .rest{display:block;margin-top:.12em;font-size:.64em;line-height:1.12;letter-spacing:-.02em;text-wrap:balance}
-.hub-hero h1 .tail{margin-top:.55em;font-size:.44em;color:var(--ink)}
+.hub-hero h1 .rest{display:block;margin-top:.12em;font-size:.66em;line-height:1.12;letter-spacing:-.02em;text-wrap:balance}
+.hub-hero h1 .tail{margin-top:.5em;font-size:.46em;color:var(--ink)}
 .checks.big{margin-top:clamp(20px,3.2vh,32px);gap:12px}
 .checks.big li{padding-left:32px;font-size:17px;font-weight:500;line-height:1.4}
 .checks.big li::before{left:0;top:.08em;width:20px;height:20px;border:0;border-radius:50%;background:var(--win) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4l2.6 2.6L12 5.6' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat;transform:none}
@@ -20,23 +20,23 @@
 @media (min-width:1024px){
   .hub-hero{grid-template-rows:1fr}
   /* the copy takes the gutter column too, and the headline scales with it: two balanced lines at any desktop width */
-  .hub-hero .copy{grid-column:1/9;align-self:center;padding-block:48px;padding-right:clamp(24px,2.5vw,48px);container-type:inline-size}
-  .hub-hero h1{font-size:clamp(2.4rem,8.2cqi,5.4rem);max-width:none;text-wrap:balance}
+  .hub-hero .copy{grid-column:1/9;align-self:center;padding-block:48px;padding-right:clamp(8px,1vw,16px);container-type:inline-size}
+  .hub-hero h1{font-size:clamp(2.4rem,9.6cqi,6.2rem);max-width:none;text-wrap:balance}
   /* the form is the smaller card here, so the headline leads: four columns, tighter type and spacing */
-  .hub-hero .panel{grid-column:9/13;grid-row:1;align-self:center;margin-block:40px;padding:clamp(20px,1.8vw,30px)}
+  .hub-hero .panel{grid-column:9/13;grid-row:1;align-self:center;margin-block:40px;padding:clamp(18px,1.6vw,26px)}
   .hub-hero .panel h2{font-size:clamp(1.3rem,.9rem + .7vw,1.7rem)}
-  .hub-hero .panel .intro{font-size:14.5px;margin-top:.5rem}
+  .hub-hero .panel .intro{font-size:15px;margin-top:.5rem}
   .hub-hero .panel form{margin-top:clamp(14px,2vh,20px)}
   .hub-hero legend{font-size:clamp(18px,.9rem + .4vw,21px);margin-bottom:.8rem}
-  .hub-hero .choice{gap:11px;padding:10px 13px;font-size:15px}
+  .hub-hero .choice{gap:10px;padding:10px 12px;font-size:16px;line-height:1.3}
   .hub-hero .fields{gap:11px}
-  .hub-hero .field input{padding:9px 12px;font-size:15.5px}
+  .hub-hero .field input{padding:9px 12px;font-size:16px}
 }
 @media (max-width:1023px){
   .hub-hero .copy{display:block;padding-top:clamp(22px,4vh,40px)}
   .hub-hero h1{padding:0;text-wrap:pretty}
   .hub-hero h1 .tail{font-size:.54em}
-  @media (max-width:719px){.hub-hero h1{font-size:min(10.2vw,3.4rem)}.hub-hero h1 .rest{font-size:.7em}.hub-hero h1 .tail{font-size:.6em}}
+  @media (max-width:719px){.hub-hero h1{font-size:min(10.2vw,3.4rem)}.hub-hero h1 .rest{font-size:.76em}.hub-hero h1 .tail{font-size:.64em}}
   .hub-hero .lede{margin-top:18px}
   .hub-hero .panel{margin-block:36px 44px}
 }
@@ -107,7 +107,7 @@
 .va .rank i.pick{background:var(--win)}
 .va .rank em{position:absolute;bottom:calc(100% + 4px);left:0;white-space:nowrap;font-style:normal;font-size:11.5px;font-weight:600;color:var(--win)}
 .values h3{margin-top:14px;font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
-.values .cards>li>p{margin-top:6px;padding-bottom:4px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.values .cards>li>p{margin-top:6px;padding-bottom:4px;font-size:16px;line-height:1.5;color:var(--ink-2)}
 .hub .values .wrap>.btn{display:flex;width:max-content;margin:clamp(20px,2vw,28px) auto 0}
 @media (max-width:899px){.values .cards{grid-template-columns:1fr 1fr}}
 @media (max-width:599px){.values .cards{grid-template-columns:1fr}.values .head.wide{text-align:left}}
@@ -115,7 +115,7 @@
 /* the highlighter: the words the reader should carry off */
 .pain-sec .fix em{font-weight:600;color:var(--win);background:linear-gradient(transparent 58%,rgba(23,128,61,.16) 0);padding-inline:2px}
 .pain-sec .act{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin-top:clamp(22px,2.6vw,32px)}
-.pain-sec .assure{max-width:13em;font-size:14px;line-height:1.4;color:var(--ink-2)}
+.pain-sec .assure{max-width:13em;font-size:15px;line-height:1.4;color:var(--ink-2)}
 .margin{display:grid;grid-template-columns:auto 1fr;column-gap:46px;text-align:left}
 .margin>*{grid-column:2}
 .margin .ytitle{grid-column:1;grid-row:1;align-self:center;writing-mode:vertical-rl;rotate:180deg;font-size:13px;color:var(--ink-2)}
@@ -168,11 +168,11 @@
 .levels .head h2{max-width:15em}
 .levels .head .intro{max-width:40em;margin-top:10px}
 .levels .act{display:grid;justify-items:end;gap:10px}
-.levels .how{max-width:15.5em;font-size:14px;line-height:1.4;text-align:right;color:var(--ink-2)}
+.levels .how{max-width:15.5em;font-size:15px;line-height:1.4;text-align:right;color:var(--ink-2)}
 .stairs{--u:clamp(26px,3.6vh,34px);--gap:4px;--room:76px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 0 repeat(2,minmax(0,1fr));list-style:none;margin:clamp(8px,1.6vh,24px) 0 0;padding:0}
 .stairs>li:not(.gate){display:flex;flex-direction:column;min-width:0}
 .stairs .up{display:flex;flex-direction:column;justify-content:flex-end;height:calc(var(--u) * 5 + var(--gap) * 4 + var(--room));padding:0 clamp(5px,.7vw,10px);border-bottom:1.5px solid var(--ink)}
-.stairs .fix{position:relative;display:flex;align-items:flex-start;gap:9px;margin:0 0 16px;padding:9px 11px 10px 9px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px var(--rule),0 6px 18px rgba(14,14,14,.06);font-size:13.5px;line-height:1.4;transform-origin:50% 100%}
+.stairs .fix{position:relative;display:flex;align-items:flex-start;gap:9px;margin:0 0 16px;padding:9px 11px 10px 9px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px var(--rule),0 6px 18px rgba(14,14,14,.06);font-size:14.5px;line-height:1.4;transform-origin:50% 100%}
 .stairs .fix::after{content:"";position:absolute;left:50%;bottom:-6px;width:11px;height:11px;margin-left:-5.5px;background:#fff;box-shadow:1px 1px 0 var(--rule);transform:rotate(45deg)}
 .stairs .fix img{flex:none;width:24px;height:24px;border-radius:50%;object-fit:cover;filter:grayscale(1)}
 .stairs .riser{position:relative;display:flex;flex-direction:column-reverse;gap:var(--gap)}
@@ -198,7 +198,7 @@
 .stairs .lv{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
 .stairs h3{margin-top:3px;font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
 .stairs .pts{display:grid;gap:5px;margin:9px 0 0;padding:0;list-style:none}
-.stairs .pts li{position:relative;padding-left:21px;font-size:13.5px;line-height:1.4}
+.stairs .pts li{position:relative;padding-left:21px;font-size:14.5px;line-height:1.4}
 .stairs .lacks{color:var(--ink-2)}
 .stairs .lacks::before,.stairs .lacks::after{content:"";position:absolute;left:2px;top:.7em;width:10px;height:0;border-top:2px solid var(--bad);transform:rotate(45deg)}
 .stairs .lacks::after{transform:rotate(-45deg)}
@@ -235,17 +235,17 @@
 
 /* ---------- the comparison: Wren's column set apart; on phones the table scrolls under a fixed first column ---------- */
 .table{position:relative;overflow-x:auto;border:1px solid var(--rule);border-radius:var(--r);background:var(--paper);box-shadow:var(--lift);outline-offset:4px}
-.table table{width:100%;min-width:960px;border-collapse:separate;border-spacing:0;font-size:15.5px;line-height:1.35}
+.table table{width:100%;min-width:960px;border-collapse:separate;border-spacing:0;font-size:16.5px;line-height:1.35}
 .table :is(th,td){padding:13px 12px;border-top:1px solid var(--rule);text-align:center;vertical-align:middle}
-.table thead th{border-top:0;padding-block:20px 18px;font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.table thead th{border-top:0;padding-block:20px 18px;font-size:14.5px;font-weight:600;color:var(--ink-2)}
 .table tbody th{text-align:left;font-weight:500;padding-left:clamp(18px,2vw,28px);width:19%}
 .table td .cell{display:flex;align-items:flex-start;gap:10px;text-align:left}
 .table td .cell i{flex:none}
-.table td small{padding-top:3px;font-size:13.5px;line-height:1.35;color:var(--ink-2)}
+.table td small{padding-top:3px;font-size:14.5px;line-height:1.35;color:var(--ink-2)}
 .table td.us small{color:var(--ink);font-weight:500}
 .table thead th{text-align:left}
 .table .us{background:rgba(168,59,18,.05)}
-.table thead .us{color:var(--acc);font-size:15px;box-shadow:inset 0 3px 0 var(--acc)}
+.table thead .us{color:var(--acc);font-size:16px;box-shadow:inset 0 3px 0 var(--acc)}
 .table i{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;vertical-align:middle}
 .table i svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 /* a yes is a green check, a no a red cross; Wren's column gets the solid checks */
@@ -271,12 +271,12 @@
 .svc{padding:10px 10px 16px;border:1px solid var(--rule);border-radius:20px;background:#fff}
 .svc>:not(.ui){margin-inline:8px}
 .grp-hd{display:flex;flex-wrap:wrap;align-content:flex-start;align-items:baseline;justify-content:space-between;gap:6px 20px;line-height:22px;margin-bottom:clamp(14px,1.6vw,20px);padding-bottom:12px;border-bottom:1px solid var(--ink);font-size:clamp(1.35rem,1.1rem + .7vw,1.75rem);font-weight:600;letter-spacing:-.01em;line-height:1.2;color:var(--ink)}
-.grp-hd a{display:inline-flex;align-items:center;gap:6px;font-size:14px;letter-spacing:0;text-transform:none;color:var(--acc);transition:color .25s}
+.grp-hd a{display:inline-flex;align-items:center;gap:6px;font-size:15px;letter-spacing:0;text-transform:none;color:var(--acc);transition:color .25s}
 .grp-hd a:hover{color:var(--ink)}
 .grp-hd .arr svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .svc h3{margin-top:12px;font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
-.svc h3+p{margin-top:5px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
-.svc .gets{display:flex;align-items:center;gap:7px;margin-top:8px;font-size:14.5px;line-height:1.35;font-weight:600;color:var(--win)}
+.svc h3+p{margin-top:5px;font-size:16px;line-height:1.5;color:var(--ink-2)}
+.svc .gets{display:flex;align-items:center;gap:7px;margin-top:8px;font-size:15.5px;line-height:1.35;font-weight:600;color:var(--win)}
 .svc .gets svg{flex:none;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 /* a scene: a light gray window with white parts in it, small type; green for what's done, rust for what's written
    for them. The skeleton lines (u) stand for text. */
@@ -383,6 +383,6 @@
 .work h3{margin-top:-8px;font-size:clamp(18px,1.45vw,21px);font-weight:600;letter-spacing:-.01em;line-height:1.25}
 .wfigs{display:flex;flex-wrap:wrap;gap:6px 28px;margin-top:4px}
 .wfigs .fig{display:grid;font-size:clamp(1.8rem,1.2rem + 1.3vw,2.5rem);letter-spacing:-.03em;color:var(--acc)}
-.work .proves{grid-column:1/-1;margin-top:4px;font-size:16px;line-height:1.5;color:var(--ink-2)}
-.wfigs .fig small{margin:4px 0 0;font-size:13px;font-weight:500;letter-spacing:0;line-height:1.3;color:var(--ink-2)}
+.work .proves{grid-column:1/-1;margin-top:4px;font-size:17px;line-height:1.5;color:var(--ink-2)}
+.wfigs .fig small{margin:4px 0 0;font-size:14px;font-weight:500;letter-spacing:0;line-height:1.3;color:var(--ink-2)}
 @media (max-width:899px){.about .work{grid-template-columns:minmax(0,1fr)}}
