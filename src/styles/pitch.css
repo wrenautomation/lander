@@ -753,8 +753,8 @@ main>section:nth-of-type(even):not(.close){background:rgba(244,241,236,.62)}
 .about h2+.para{margin-top:1.6rem}
 .about .para b{color:var(--ink);font-weight:600}
 .sign{margin-top:1.8rem;font-size:18px;font-weight:600}
-@media (min-width:900px){.about .grid>.photo{grid-column:2/5}.about .grid>.head{grid-column:6/13;align-self:center}}
-@media (max-width:899px){.about .photo{max-width:220px;margin-bottom:28px}}
+@media (min-width:900px){.about .grid .photo{grid-column:1/5}.about .grid>.head{grid-column:6/13;align-self:center}}
+@media (max-width:899px){.about .photo{max-width:320px;margin-bottom:28px}}
 /* my name beside the button, one row */
 .about .signoff{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;margin-top:clamp(20px,2.4vw,30px)}
 .about .signoff>*{margin:0}

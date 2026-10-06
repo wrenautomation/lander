@@ -141,7 +141,7 @@ const YES = 'M3.5 8.5l3 3 6-7', NO = 'M4.5 4.5l7 7M11.5 4.5l-7 7';
 
 <section class="sec about" id="about">
   <div class="wrap grid">
-    <Photo class="photo" src={p.about.photo} alt={site.name} width={560} height={746} sizes="(min-width: 900px) 220px, 100vw" />
+    <Photo class="photo" src={p.about.photo} alt={site.name} width={560} height={746} sizes="(min-width: 900px) 440px, 320px" />
     <div class="head">
       <h2 set:html={rich(p.about.h2)} />
       {p.about.paras.map((x) => <p class="para" set:html={rich(x)} />)}
