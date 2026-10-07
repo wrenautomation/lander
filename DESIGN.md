@@ -152,13 +152,16 @@ Black on white, with the brand's lavender in set places. The pfp, banners and ic
 **Character:** Clean with a little warmth. Hierarchy comes from size and weight, not style.
 
 ### Hierarchy
+One scale, as tokens on `:root` in `pitch.css` (`--t-display` to `--t-label`). Rank the copy in each section and size it by rank: the hook biggest, then pain points and benefits, then supporting text, then fine print. The most important line in a section is the biggest thing in it.
 - **Display** (500, clamp 2.5–5.4rem, 1.04, −0.035em): the hero headline only. Rises in with the rest of the first screen.
 - **Headline** (500, clamp 2–3.4rem, 1.04, −0.035em): section heads and the closing screen. Rise in whole, a short fade.
-- **Title** (500, 20–24px, 1.2): items, steps, terms, form questions, FAQ questions.
-- **Lede** (400, 18–23px, 1.45): the hero paragraph, max 31em. Its bold opener is ink, weight 500.
-- **Body** (400, 17px, 1.6): text, max about 36em.
-- **Small** (400–500, 12.5–15px): the example thread, diagram text, captions.
-- **Label** (600, 11.5–13.5px, +0.09em, uppercase): step timing, tags, buttons, the thread's label. Never above a heading.
+- **Lead** (500, 20–24px, ink): the line a section turns on. The hero's first paragraph, the target, the pain opener and punch, the fix, the closing reason.
+- **Point** (500, 18–20px, ink): pain crosses, benefit checks, the guarantee, the winning side of the close. Read at a glance.
+- **Title** (500, 19–22px, 1.2): items, steps, terms, form questions, FAQ questions.
+- **Body** (400, 18px, 1.5, grey): supporting paragraphs, max about 36em.
+- **Small** (400–500, 15px): the example thread, diagram text, captions, the assure line.
+- **Label** (600, 12.5px, +0.09em, uppercase): step timing, tags, eyebrows. Never above a heading.
+- **Button** (600, 15px, +0.07em, uppercase): mid-size, never small print. 13.5px only in the nav.
 - **Figure** (500, −0.04em, tabular): proof figures (count up).
 
 ### Named Rules
@@ -214,7 +217,7 @@ Rounded (D39): cards 18px, windows 22px, nodes 14px, inputs 10px, chips pills. B
 ## Components
 
 ### Buttons
-- **Shape:** square (0). Small uppercase label, arrow after it. No shadow.
+- **Shape:** square (0). Mid-size uppercase label (15px), arrow after it. No shadow.
 - Lavender, cream text. Hover turns ink. On lavender (the back cover) the button is cream with ink text.
 
 ### Application panel
