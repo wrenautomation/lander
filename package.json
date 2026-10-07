@@ -4,9 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro build && wrangler pages dev dist",
-    "deploy": "astro build && wrangler pages deploy dist --project-name wren-lander",
+    "build": "astro build && node scripts/routes.mjs",
+    "preview": "npm run build && wrangler pages dev dist",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name wren-lander",
     "db:create": "wrangler d1 create wren-leads",
     "db:migrate": "wrangler d1 execute wren-leads --remote --file schema.sql",
     "db:alter": "wrangler d1 execute wren-leads --remote --command \"alter table leads add column name text; alter table leads add column questions text\"",

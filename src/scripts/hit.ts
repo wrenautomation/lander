@@ -9,6 +9,7 @@
 // book.click, video.play, video.progress (25/50/75/100), and a click on any [data-signal="<name>"] as <name>.
 // For heatmaps it also sends `click` (the element's path, where in it, the width bucket; 50 a view), `rage` (3 clicks
 // on one element inside a second) and `scroll` (the deepest point the screen's bottom reached, in percent of the page).
+// An experiment's variant the edge kept ([data-flag][data-shown], functions/_middleware.ts) sends `exp.seen` once.
 // When /api/hit answers replay: true, src/scripts/replay.ts records this view under the same view id.
 import { ask } from './consent';
 
@@ -123,6 +124,12 @@ if (!q.has('static') && !q.has('probe')) {
   };
   document.addEventListener('timeupdate', progress, true);
   document.addEventListener('ended', progress, true);
+
+  const shownFlags = new Set<string>();
+  document.querySelectorAll<HTMLElement>('[data-flag][data-shown]').forEach((el) => {
+    const flag = el.dataset.flag || '', variant = el.dataset.variant || '';
+    if (flag && !shownFlags.has(flag)) { shownFlags.add(flag); track('exp.seen', { flag, variant }); }
+  });
 
   const body = () => JSON.stringify({
     view, page: location.pathname, niche: document.documentElement.dataset.niche || '',
