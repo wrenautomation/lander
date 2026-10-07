@@ -221,6 +221,10 @@ async function manage(token: string) {
     if (!j.ok) return say(SAID[j.error ?? ''] ?? down());
     b = j.booking; say(null); show();
   });
+  // The mail's links: ?do=move or ?do=cancel opens that step.
+  const want = q.get('do');
+  if (b.open && want === 'move') $('[data-move]').click();
+  else if (b.open && want === 'cancel') $('[data-cancel]').click();
 }
 
 for (const a of main.querySelectorAll<HTMLAnchorElement>('[data-mail]')) { a.href = `mailto:${MAIL}`; a.textContent = MAIL; }
