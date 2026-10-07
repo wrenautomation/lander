@@ -7,6 +7,8 @@
 // copied link doesn't credit someone else's email. The form's hidden fields carry this tab's touch as a fallback.
 // What they did on the page goes to /api/events in batches, sent when the tab hides: cta, form.start, form.submit,
 // book.click, video.play, video.progress (25/50/75/100), and a click on any [data-signal="<name>"] as <name>.
+// For heatmaps it also sends `click` (the element's path, where in it, the width bucket; 50 a view), `rage` (3 clicks
+// on one element inside a second) and `scroll` (the deepest point the screen's bottom reached, in percent of the page).
 // When /api/hit answers replay: true, src/scripts/replay.ts records this view under the same view id.
 import { ask } from './consent';
 
@@ -39,11 +41,14 @@ if (!q.has('static') && !q.has('probe')) {
 
   const view = crypto.randomUUID?.() ?? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
   let depth = 0, cta = 0, touched = 0, shown = document.hidden ? 0 : performance.now(), secs = 0;
+  let reach = 0, sentReach = 0; // the screen's bottom, in percent of the page (heatmaps' scroll map)
   let queued = false; // scrollHeight forces layout: read it once a frame, not on every scroll event
   const measure = () => {
     queued = false;
     const h = document.documentElement.scrollHeight - innerHeight;
     depth = Math.max(depth, h > 0 ? Math.min(100, Math.round((scrollY / h) * 100)) : 100);
+    const page = h + innerHeight;
+    reach = Math.max(reach, page > 0 ? Math.min(100, Math.round(((scrollY + innerHeight) / page) * 100)) : 100);
   };
   measure(); addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(measure); } }, { passive: true });
 
@@ -53,6 +58,43 @@ if (!q.has('static') && !q.has('probe')) {
     if (events.length) navigator.sendBeacon('/api/events', new Blob([JSON.stringify({ view, page: location.pathname, events: events.splice(0) })], { type: 'application/json' }));
   };
   const track = (name: string, props?: Record<string, unknown>) => { events.push(props ? { name, props } : { name }); if (events.length >= 50) flush(); };
+
+  // heatmaps (wren rebuilds the page from a replay and finds each path in it)
+  const bucket = () => (innerWidth < 768 ? 'phone' : innerWidth < 1024 ? 'tablet' : innerWidth < 1440 ? 'laptop' : 'wide');
+  const ID = /^[A-Za-z][\w-]*$/;
+  // From an id, a [data-signal] or body down to the element, at most 8 steps: deeper clicks count on the 8th.
+  const pathOf = (el: Element): { path: string; at: Element } => {
+    const chain: string[] = [], els: Element[] = [];
+    for (let e: Element | null = el; e && e !== document.body && e !== document.documentElement; e = e.parentElement) {
+      if (e.id && ID.test(e.id)) { chain.unshift(`#${e.id}`); els.unshift(e); break; }
+      const sig = e.getAttribute('data-signal');
+      if (sig && ID.test(sig)) { chain.unshift(`[data-signal="${sig}"]`); els.unshift(e); break; }
+      const tag = e.tagName.toLowerCase();
+      const same = e.parentElement ? [...e.parentElement.children].filter((c) => c.tagName === e!.tagName) : [];
+      chain.unshift(same.length > 1 ? `${tag}:nth-of-type(${same.indexOf(e) + 1})` : tag);
+      els.unshift(e);
+    }
+    if (!chain[0]?.startsWith('#') && !chain[0]?.startsWith('[')) { chain.unshift('body'); els.unshift(document.body); }
+    return { path: chain.slice(0, 8).join(' > '), at: els[Math.min(7, els.length - 1)] ?? el };
+  };
+  let clicks = 0;
+  const bursts = new Map<string, number[]>();
+  let forwarded: Element | null = null; // a label passes its click on to its input: one click, not two
+  document.addEventListener('click', (e) => {
+    // detail 0: no pointer, as a key press
+    if (!(e.target instanceof Element) || e.target === forwarded || e.detail === 0 || clicks >= 50) return;
+    const control = e.target.closest('label')?.control;
+    if (control && control !== e.target) { forwarded = control; setTimeout(() => { forwarded = null; }); }
+    clicks++;
+    const { path, at } = pathOf(e.target);
+    const r = at.getBoundingClientRect();
+    const f = (v: number, size: number) => (size > 0 ? Math.round(Math.min(1, Math.max(0, v / size)) * 100) / 100 : 0.5);
+    const spot = { path: path.slice(0, 300), fx: f(e.clientX - r.left, r.width), fy: f(e.clientY - r.top, r.height), b: bucket() };
+    track('click', spot);
+    const now = performance.now(), near = (bursts.get(path) ?? []).filter((t) => now - t < 1000);
+    near.push(now); bursts.set(path, near);
+    if (near.length === 3) track('rage', spot);
+  }, true);
 
   document.addEventListener('click', (e) => {
     const t = e.target instanceof Element ? e.target : null;
@@ -91,7 +133,10 @@ if (!q.has('static') && !q.has('probe')) {
       if (r.consent === 'ask') ask();
       if (r.replay) import('./replay').then((m) => m.record(view)).catch(() => {});
     }).catch(() => {});
-  const send = () => { navigator.sendBeacon('/api/hit', new Blob([body()], { type: 'application/json' })); flush(); };
+  const send = () => {
+    if (reach > sentReach) { sentReach = reach; track('scroll', { pct: reach, h: document.documentElement.scrollHeight, b: bucket() }); }
+    navigator.sendBeacon('/api/hit', new Blob([body()], { type: 'application/json' })); flush();
+  };
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) { send(); if (shown) { secs += (performance.now() - shown) / 1000; shown = 0; } }
     else shown = performance.now(); // came back: the same view keeps counting
