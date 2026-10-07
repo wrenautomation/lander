@@ -4,11 +4,12 @@
 import type { Env } from '../_shared/env';
 import { EMAIL, clip, human, isBot, origin, readForm } from '../_shared/form';
 import { bookingLink, ownCalendar, ownLink } from '../_shared/booking';
+import { forwardToDoor, nicheOfPage } from '../_shared/door';
 import { notify } from '../_shared/notify';
 import { cameFrom, history, visitorOf, withVisitor } from '../_shared/visitor';
 import { type Answers, OTHER, answersFrom, fits, invalidAnswers, offerFor, writeInsFrom } from '../../src/lib/offers';
 
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+export const onRequestPost: PagesFunction<Env> = async ({ request, env, waitUntil }) => {
   const wantsJson = (request.headers.get('accept') || '').includes('application/json');
   const back = new URL(request.headers.get('referer') || '/', request.url);
   const visitor = visitorOf(request);
@@ -41,6 +42,12 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     new Date().toISOString(), offer.id, row.name, email, row.phone, row.sms_consent ? 1 : 0, row.firm, row.note, JSON.stringify({ ...answers, ...Object.fromEntries(Object.entries(wrote).map(([id, t]) => [`${id}.${OTHER}`, t])) }), row.fit ? 1 : 0, o.page,
     visitor.id, came.first ? JSON.stringify(came.first) : '', came.last ? JSON.stringify(came.last) : '', o.r || came.last?.r || '', o.utm_source, o.utm_medium, o.utm_campaign, o.utm_content, o.ref, o.country, o.ip, o.ua,
   ).run();
+  // Wren's door, when WREN_DOOR_URL is set: every application, fit or not, with the form's consent box.
+  waitUntil(forwardToDoor(env, {
+    table: 'applications', rowId: Number(saved.meta.last_row_id), name: row.name, email, phone: row.phone, smsConsent: row.sms_consent,
+    note: row.note, niche: nicheOfPage(o.page), page: o.page, offer: offer.id, fit: row.fit, visitor: visitor.id, first: came.first, last: came.last,
+    utm: { source: o.utm_source, medium: o.utm_medium, campaign: o.utm_campaign, content: o.utm_content }, ref: o.ref, r: o.r || came.last?.r || '',
+  }));
 
   // Answers by label, so the ping reads without the offer file open.
   const said = (offer.application?.questions ?? []).flatMap((q) => {

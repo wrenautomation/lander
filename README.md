@@ -85,6 +85,7 @@ The workflow needs four repo secrets: `CLOUDFLARE_API_TOKEN` (dash → My Profil
 | `CALCOM_WEBHOOK_SECRET` | `wrangler pages secret put` | `autobrowse site call calcom POST /v2/webhooks --body '{"subscriberUrl":"https://wrenautomation.com/api/calcom","keep":"CALCOM_WEBHOOK_SECRET"}'` makes and keeps it | `/api/calcom` answers 503: no booking pings |
 | `RESEND_API_KEY` | `wrangler pages secret put` | resend.com → API keys; first verify `wrenautomation.com` under Domains (3 DNS records) | leads land in D1 only, no email ping |
 | `EXPORT_TOKEN` | `wrangler pages secret put` | any long random string; the same value is wren's `WREN_SITE_EXPORT_TOKEN` | `/api/export` answers 404, so `wren email clicks` can't read clicks |
+| `WREN_DOOR_URL` | `wrangler pages secret put` | wren: `wren hooks preset site` prints it once (the hook URL is the secret) | leads and applications stay in D1; nothing reaches wren's speed to lead |
 | `REPLAY_KEY_ID` / `REPLAY_SECRET` / `REPLAY_BUCKET` / `REPLAY_REGION` | `wrangler pages secret put` (all four; a var and a secret can't share a name) | wren terraform: IAM user `lander-replays`, the private files bucket | no session replay; `/api/replay` answers 404 |
 | `REPLAY_SAMPLE` / `REPLAY_MAX_BYTES` | optional `[vars]` | share of consenting views recorded (default 1); gzip bytes per view (default 5000000) | defaults |
 | `LEAD_TO` / `LEAD_FROM` | `wrangler.toml` `[vars]` | already set; `LEAD_FROM` must be on the verified domain | — |
@@ -104,6 +105,7 @@ Consent (`functions/_shared/consent.ts`): in the EU/EEA, UK, Switzerland, Brazil
 - **Links out** (`/go/<channel>[/<campaign>[/<content>]]`, registry `src/data/links.json`): put these in bios, video descriptions and posts. They 302 to the channel's page with utm set. `/go/yt/launch-video` → `/?utm_source=youtube&utm_medium=organic&utm_campaign=launch-video`. An unknown channel still works (source = its name). `?to=/some/page` picks the page.
 - **Leads** (`leads` table): the niche-page form, plus the utm and referrer the visitor arrived with, visitor, first and last touch (JSON), country, ip, user agent.
 - **Applications** (`applications` table): the pitch-page form. Offer, name, email, firm, note, every answer as JSON keyed by question id, `fit` (1/0 by the offer's rule), page, utm, ref, `r`, visitor, first and last touch, country, ip, user agent. The ping says "Came from: …". A fit applicant is told so on the page; Discord and email ping either way.
+- **Into wren** (`functions/_shared/door.ts`): with `WREN_DOOR_URL` set, each stored lead and application is posted to wren's door after the visitor's answer (`waitUntil`, 5 s timeout, a failure is dropped). Id `site:<table>:<row id>`, so a resend enters once. Name, email, phone, note, niche, page, visitor, first and last touch, utm, and the text-consent box where the form has one (pitch pages yes, `/agencies` no). Wren runs speed to lead on it; its texts follow wren's live switches.
 
 ```
 npm run channels        # per channel and campaign by first touch: visitors, reads, form, applied, fit; email codes clicked (-- --days 30)
@@ -147,7 +149,7 @@ src/scripts/pitch.ts       pitch motion, calculator, stepped form
 src/scripts/cal.ts         the Cal.com calendar in the page (embed.js, inline)
 src/scripts/motion.ts      niche motion, theme, form
 src/scripts/hit.ts         the page-view beacon, utm into the forms
-functions/_shared/         env, form checks (Turnstile, bots), notify (Discord + Resend), booking link tags
+functions/_shared/         env, form checks (Turnstile, bots), notify (Discord + Resend), booking link tags, door (rows to wren)
 functions/api/apply.ts     POST for pitch pages: offer check, answers, fit, D1, notify
 functions/api/lead.ts      POST for niche pages
 functions/api/hit.ts       POST for the beacon

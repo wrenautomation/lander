@@ -2,10 +2,11 @@
 // Pitch pages (/, /recruiting/lead-reactivation) post to /api/apply instead.
 import type { Env } from '../_shared/env';
 import { EMAIL, clip, human, isBot, origin, readForm } from '../_shared/form';
+import { forwardToDoor } from '../_shared/door';
 import { notify } from '../_shared/notify';
 import { cameFrom, history, visitorOf, withVisitor } from '../_shared/visitor';
 
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+export const onRequestPost: PagesFunction<Env> = async ({ request, env, waitUntil }) => {
   const wantsJson = (request.headers.get('accept') || '').includes('application/json');
   const back = new URL(request.headers.get('referer') || '/', request.url);
   const visitor = visitorOf(request);
@@ -28,13 +29,19 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   if (!(await human(env, form, o.ip))) return reply(403, false);
 
   const came = await history(env.DB, visitor.id);
-  await env.DB.prepare(
+  const saved = await env.DB.prepare(
     `insert into leads (ts, name, email, phone, note, questions, niche, page, visitor, first_touch, last_touch, r, utm_source, utm_medium, utm_campaign, utm_content, ref, country, ip, ua)
      values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   ).bind(
     new Date().toISOString(), row.name, row.email, row.phone, row.note, row.questions, row.niche, o.page,
     visitor.id, came.first ? JSON.stringify(came.first) : '', came.last ? JSON.stringify(came.last) : '', o.r || came.last?.r || '', o.utm_source, o.utm_medium, o.utm_campaign, o.utm_content, o.ref, o.country, o.ip, o.ua,
   ).run();
+  // Wren's door, when WREN_DOOR_URL is set. The niche form has no text-consent box, so none is sent.
+  waitUntil(forwardToDoor(env, {
+    table: 'leads', rowId: Number(saved.meta.last_row_id), name: row.name, email: row.email, phone: row.phone,
+    note: row.note, niche: row.niche, page: o.page, visitor: visitor.id, first: came.first, last: came.last,
+    utm: { source: o.utm_source, medium: o.utm_medium, campaign: o.utm_campaign, content: o.utm_content }, ref: o.ref, r: o.r || came.last?.r || '',
+  }));
 
   await notify(env, {
     title: `Lead (${row.niche}): ${row.email}`,

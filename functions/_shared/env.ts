@@ -13,6 +13,7 @@ export interface Env {
   EDGE_TOKEN?: string;         // bearer wren posts /api/edge with (WREN_SITE_EDGE_TOKEN); with none set, flags stay at their defaults
   WREN_MARKETING_URL?: string; // wren's Marketing service via the phone Worker (wrangler.toml); signups are signed with EXPORT_TOKEN
   WREN_CALENDAR_URL?: string;  // wren's Calendar service via the phone Worker (wrangler.toml); bookings are signed with EXPORT_TOKEN
+  WREN_DOOR_URL?: string;      // secret: wren's door hook for site leads (`wren hooks preset site` prints it); unset, nothing is forwarded
   BOOKING?: string;            // var: "wren" books on our own calendar, anything else on Cal.com (functions/_shared/booking.ts)
   ASSETS: Fetcher;             // the built site, for pages a function fills or serves
   // Session replay (functions/api/replay.ts). Off until key, secret and bucket are all set.
