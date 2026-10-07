@@ -11,6 +11,23 @@ profiles:
   - https://www.youtube.com/channel/UCJvP02ENWoDeOZxec-hoz9Q
   - https://www.instagram.com/wrenautomation
 
+# "Or message me directly" on the booking page, in this order; the main block when no times are open.
+# Wren's own live accounts only. `label` is what shows; without one, `name` does.
+contact:
+  - name: Email
+    label: william@wrenautomation.com
+    href: mailto:william@wrenautomation.com
+  - name: LinkedIn
+    href: https://www.linkedin.com/company/wrenautomation
+  - name: Instagram
+    label: "@wrenautomation"
+    href: https://www.instagram.com/wrenautomation
+  - name: X
+    label: "@wren_automation"
+    href: https://x.com/wren_automation
+  - name: YouTube
+    href: https://www.youtube.com/channel/UCJvP02ENWoDeOZxec-hoz9Q
+
 # Top bar. Order is fixed; words are yours.
 nav:
   work: Who I've helped

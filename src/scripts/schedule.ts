@@ -29,9 +29,10 @@ const error = $('[data-error]');
 function say(text: string | null) {
   error.textContent = text ?? '';
   on(error, !!text);
+  if (text) error.scrollIntoView({ block: 'nearest' });
 }
 const SAID: Record<string, string> = {
-  taken: 'Someone just took that time. Pick another.',
+  taken: 'That time was just taken. Pick another.',
   turnstile: "The bot check didn't pass. Try again.",
   email: "That email address doesn't look right.",
   name: 'Add your name.',
@@ -70,7 +71,11 @@ zoneSelect.addEventListener('change', () => { zone = zoneSelect.value; day = '';
 function draw() {
   const byDay = new Map<string, string[]>();
   for (const s of slots) { const d = dayOf(s); byDay.set(d, [...(byDay.get(d) ?? []), s]); }
-  on($('[data-none]'), byDay.size === 0);
+  // Booked out: the links are the main block.
+  const out = byDay.size === 0;
+  on($('[data-zone-row]'), !out); on(days, !out); on(times, !out);
+  $('[data-direct]').classList.toggle('out', out);
+  $('[data-direct-h]').textContent = out ? 'No open times right now. Message me directly.' : 'Or message me directly';
   if (!byDay.has(day)) day = byDay.keys().next().value ?? '';
   days.innerHTML = '';
   for (const [d, list] of byDay) {
@@ -230,7 +235,6 @@ async function manage(token: string) {
   else if (b.open && want === 'cancel') $('[data-cancel]').click();
 }
 
-for (const a of main.querySelectorAll<HTMLAnchorElement>('[data-mail]')) { a.href = `mailto:${MAIL}`; a.textContent = MAIL; }
 if (kind === 'booking') void manage(key);
 else void book(key);
 
