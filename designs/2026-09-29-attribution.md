@@ -14,6 +14,7 @@ Know which outreach brings people and which of them apply. Cold email first, the
 - **Views.** `hits` has one row per view, keyed by a view id the page makes. Posted on arrival (a bounce still counts), raised by a beacon when hidden. The upsert only raises numbers, and only for the same visitor.
 - **Forms.** At submit, `/api/apply` and `/api/lead` read the visitor's first and last touch from `hits` and store them as JSON with the `visitor` and `r`. The ping says "Came from: linkedin / organic / profile (2026-09-29), last email r:abc (2026-10-02) · 7 views". The form's hidden fields still carry this tab's touch, as a fallback for a blocked cookie.
 - **Links out.** `/go/<channel>[/<campaign>[/<content>]]` 302s to the channel's page with utm set. Channels live in `src/data/links.json` (yt, li, ig, tt, x, rd, fb, ads, sms, rec). Unknown channel = source is its name, lands on `/`. `?to=/path` picks a local page; anything else is ignored.
+- **Video hop.** `?v=<YouTube id>` on a `/go` link sends them on to `youtube.com/watch?v=<id>` (wren's promo posts). No page of ours loads, so the function writes the `hits` row itself: page `youtube:<id>`, the utm, the visitor with consent, no time on page. Link-preview crawlers aren't counted. Only an 11-character YouTube id passes, so it is never an open redirect.
 - **Report.** `npm run channels [-- --days 30]`: by channel and by campaign (first touch) with visitors, views, time, form reached, applied, fit; plus each email code clicked.
 - **Names.** `/api/export` (Bearer `EXPORT_TOKEN`, 404 without it) returns hits or applications as JSON for wren. wren mints `r` per message, so `wren email clicks` names the company, person and step behind each click.
 
@@ -26,6 +27,7 @@ Know which outreach brings people and which of them apply. Cold email first, the
 - D5. Strip `r` and utm after reading them. Shared links stay clean and don't credit the sender's email.
 - D6. Direct means no touch was ever seen for that visitor. Visitors are counted from 2026-09-29; older rows have no visitor.
 - D7. Posts link themselves, off until wren's `WREN_CONTENT_LINK_SITE` is set. A published post ends with `<site>/go/<code>/<first 8 of the draft id>`, so each post is its own campaign. Only YouTube, LinkedIn and Facebook: a link there is clickable and costs no reach. X, Instagram, TikTok and Reddit carry none; their profile bio link `/go/<code>/bio` counts them. A link that would push past the platform's cap is dropped, never the text.
+- D8 (2026-10-07). A link to our own YouTube video goes through `/go/...?v=<id>`, recorded at the edge, so a promo's click counts like a site link (wren `packages/content/src/funnel.ts`). A hop is one `hits` row with page `youtube:<id>` and no time on page: it counts as a visit from its channel, and a report of our pages alone skips pages that don't start with `/`.
 
 ## Owed
 
