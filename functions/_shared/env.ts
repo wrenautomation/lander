@@ -10,6 +10,7 @@ export interface Env {
   LEAD_TO?: string;            // where the notification goes
   LEAD_FROM?: string;          // a sender on a domain verified in Resend
   EXPORT_TOKEN?: string;       // bearer for /api/export, shared with wren (WREN_SITE_EXPORT_TOKEN)
+  EDGE_TOKEN?: string;         // bearer wren posts /api/edge with (WREN_SITE_EDGE_TOKEN); with none set, flags stay at their defaults
   WREN_MARKETING_URL?: string; // wren's Marketing service via the phone Worker (wrangler.toml); signups are signed with EXPORT_TOKEN
   WREN_CALENDAR_URL?: string;  // wren's Calendar service via the phone Worker (wrangler.toml); bookings are signed with EXPORT_TOKEN
   BOOKING?: string;            // var: "wren" books on our own calendar, anything else on Cal.com (functions/_shared/booking.ts)

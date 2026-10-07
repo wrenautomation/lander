@@ -125,3 +125,10 @@ create table if not exists replays (
   capped integer not null default 0,
   first_touch text
 );
+
+-- what wren pushes to the edge (functions/api/edge.ts): flags, experiment shares, surveys, as one JSON body. One row.
+create table if not exists edge (
+  id integer primary key check (id = 1),
+  body text not null,
+  at text not null
+);
