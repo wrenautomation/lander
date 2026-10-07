@@ -253,6 +253,7 @@ if (box) {
     } catch { /* state stays error */ }
     submit.disabled = false; label.textContent = was;
     box.dataset.state = state;
+    if (state !== 'error') document.dispatchEvent(new Event('wren:sent')); // survey.ts: a form-moment survey may ask now
     const cal = $('[data-cal]', box);
     if (state === 'fit' && booking && cal && !cal.childElementCount) {
       const name = (form.elements.namedItem('name') as HTMLInputElement).value.trim();

@@ -132,3 +132,17 @@ create table if not exists edge (
   body text not null,
   at text not null
 );
+
+-- a visitor's answer to a live site survey (functions/api/answer.ts): only with the cookie yes; the first one per
+-- visitor per survey is kept. wren reads them through /api/export?table=answers.
+create table if not exists answers (
+  id integer primary key autoincrement,
+  ts text not null,
+  survey text not null,
+  visitor text not null,
+  view text not null default '',
+  page text not null default '',
+  value text not null
+);
+create unique index if not exists ux_answers_visitor_survey on answers (visitor, survey);
+create index if not exists ix_answers_ts on answers (ts);

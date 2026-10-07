@@ -11,6 +11,7 @@
 // on one element inside a second) and `scroll` (the deepest point the screen's bottom reached, in percent of the page).
 // An experiment's variant the edge kept ([data-flag][data-shown], functions/_middleware.ts) sends `exp.seen` once.
 // When /api/hit answers replay: true, src/scripts/replay.ts records this view under the same view id.
+// When it answers surveys, src/scripts/survey.ts shows the first one due at its moment (survey.shown, survey.answered).
 import { ask } from './consent';
 
 const q = new URLSearchParams(location.search);
@@ -135,10 +136,11 @@ if (!q.has('static') && !q.has('probe')) {
     view, page: location.pathname, niche: document.documentElement.dataset.niche || '',
     depth, secs: Math.round(secs + (shown ? (performance.now() - shown) / 1000 : 0)), cta, touched, w: innerWidth, ...here,
   });
-  fetch('/api/hit', { method: 'POST', body: body(), headers: { 'content-type': 'application/json' }, keepalive: true })
-    .then((r) => r.json()).then((r: { consent?: string; replay?: boolean }) => {
+  fetch('/api/hit?due=1', { method: 'POST', body: body(), headers: { 'content-type': 'application/json' }, keepalive: true })
+    .then((r) => r.json()).then((r: { consent?: string; replay?: boolean; surveys?: Parameters<typeof import('./survey').surveys>[0] }) => {
       if (r.consent === 'ask') ask();
       if (r.replay) import('./replay').then((m) => m.record(view)).catch(() => {});
+      if (r.surveys?.length) import('./survey').then((m) => m.surveys(r.surveys!, view, track)).catch(() => {});
     }).catch(() => {});
   const send = () => {
     if (reach > sentReach) { sentReach = reach; track('scroll', { pct: reach, h: document.documentElement.scrollHeight, b: bucket() }); }

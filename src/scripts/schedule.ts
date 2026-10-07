@@ -171,6 +171,9 @@ function done(b: View, manage: string) {
   if (embed) a.target = '_top';
   const box = $('[data-done]');
   on(box, true); box.focus();
+  // survey.ts: a booked-moment survey on this page, or the page this is embedded in
+  if (embed) parent.postMessage({ wren: 'booked' }, location.origin);
+  else document.dispatchEvent(new Event('wren:booked'));
 }
 
 // --- /booking/<token>

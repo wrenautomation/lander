@@ -1,5 +1,6 @@
-// GET /api/export?since=<id>&limit=<n>&table=hits|applications|events|replays|exposures: rows newer than an id, for wren
-// to read (exposures: the `exp.seen` events of visitors with the cookie yes, which experiments count)
+// GET /api/export?since=<id>&limit=<n>&table=hits|applications|events|replays|exposures|answers: rows newer than an
+// id, for wren to read (exposures: the `exp.seen` events of visitors with the cookie yes, which experiments count;
+// answers: site survey answers)
 // (`wren email clicks` joins ?r= codes to the emails that carried them; wren's SMS watch texts applicants who
 // ticked the texts box). Bearer EXPORT_TOKEN, a Pages secret; with no secret set the endpoint does not exist.
 import type { Env } from '../_shared/env';
@@ -10,6 +11,7 @@ const TABLES = {
   events: 'select id, ts, view, visitor, page, name, props from events',
   replays: 'select id, view, visitor, page, started, last, chunks, bytes, w, country, capped, first_touch from replays',
   exposures: "select id, ts, view, visitor, page, name, props from events where name = 'exp.seen' and visitor is not null",
+  answers: 'select id, ts, survey, visitor, view, page, value from answers',
 } as const;
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {

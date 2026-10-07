@@ -1,4 +1,4 @@
-// What wren pushes to the edge (POST /api/edge): its site flags, as one row in D1. Each isolate keeps the row for a
+// What wren pushes to the edge (POST /api/edge): its site flags and live site surveys, as one row in D1. Each isolate keeps the row for a
 // minute, so a page costs no D1 read most of the time. A flag picks a variant by its rules, first match wins; on the
 // site only `everyone` and percent rules can match (roles, clients and people are the portal's). The hash is the one
 // wren uses (packages/core/src/flags.ts), so a visitor lands in the same bucket on both sides.
@@ -19,12 +19,24 @@ export interface EdgeFlag {
   fallback: string;
   killed: boolean;
 }
+/** A live site survey (wren packages/core/src/surveys.ts): one question, when it shows and who sees it. */
+export interface EdgeSurvey {
+  key: string;
+  question: string;
+  kind: 'choice' | 'scale' | 'text';
+  choices: string[];
+  /** view: on the page after `after` seconds; exit, form, book, booked: on that moment. */
+  trigger: { on: 'view' | 'exit' | 'form' | 'book' | 'booked'; page?: string; after?: number };
+  /** Every part given must hold: the first touch's channel, a variant of a site flag. */
+  audience: { channels?: string[]; flag?: { key: string; variant: string } };
+}
 export interface EdgeConfig {
   flags: EdgeFlag[];
+  surveys: EdgeSurvey[];
   at: string | null;
 }
 
-const EMPTY: EdgeConfig = { flags: [], at: null };
+const EMPTY: EdgeConfig = { flags: [], surveys: [], at: null };
 const TTL = 60_000;
 let kept: { config: EdgeConfig; until: number } | null = null;
 
@@ -46,7 +58,7 @@ export const forgetEdge = () => { kept = null; };
 const KEY = /^[a-z][a-z0-9_.-]{0,59}$/;
 const strings = (v: unknown) => (Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string').slice(0, 200) : undefined);
 
-/** The flags in a pushed body, each checked; anything malformed is left out. */
+/** The flags and surveys in a pushed body, each checked; anything malformed is left out. */
 export function parseEdge(body: unknown): Omit<EdgeConfig, 'at'> {
   const raw = body && typeof body === 'object' ? (body as { flags?: unknown }).flags : null;
   const flags = (Array.isArray(raw) ? raw : []).flatMap((f): EdgeFlag[] => {
@@ -67,7 +79,49 @@ export function parseEdge(body: unknown): Omit<EdgeConfig, 'at'> {
     });
     return [{ key, variants: vs, rules: rs, fallback, killed: killed === true }];
   });
-  return { flags: flags.slice(0, 200) };
+  return { flags: flags.slice(0, 200), surveys: parseSurveys(body) };
+}
+
+const KINDS = ['choice', 'scale', 'text'] as const;
+const EVENTS = ['view', 'exit', 'form', 'book', 'booked'] as const;
+const PATH = /^\/[A-Za-z0-9/_.-]{0,199}$/;
+
+function parseSurveys(body: unknown): EdgeSurvey[] {
+  const raw = body && typeof body === 'object' ? (body as { surveys?: unknown }).surveys : null;
+  return (Array.isArray(raw) ? raw : []).slice(0, 50).flatMap((x): EdgeSurvey[] => {
+    if (!x || typeof x !== 'object') return [];
+    const { key, question, kind, choices, trigger, audience } = x as Record<string, unknown>;
+    if (typeof key !== 'string' || !KEY.test(key) || typeof question !== 'string' || !question || question.length > 300) return [];
+    if (!KINDS.includes(kind as EdgeSurvey['kind'])) return [];
+    const cs = (strings(choices) ?? []).filter((c) => c.length <= 80).slice(0, 8);
+    if (kind === 'choice' && cs.length < 2) return [];
+    const t = (trigger && typeof trigger === 'object' ? trigger : {}) as Record<string, unknown>;
+    const on = (EVENTS as readonly unknown[]).includes(t.on) ? (t.on as EdgeSurvey['trigger']['on']) : 'view';
+    const after = Number(t.after);
+    const a = (audience && typeof audience === 'object' ? audience : {}) as Record<string, unknown>;
+    const f = a.flag && typeof a.flag === 'object' ? (a.flag as Record<string, unknown>) : null;
+    return [{
+      key, question, kind: kind as EdgeSurvey['kind'], choices: kind === 'choice' ? cs : [],
+      trigger: {
+        on,
+        page: typeof t.page === 'string' && PATH.test(t.page) ? t.page : undefined,
+        after: Number.isFinite(after) && after > 0 ? Math.min(999, Math.round(after)) : undefined,
+      },
+      audience: {
+        channels: strings(a.channels),
+        flag: f && typeof f.key === 'string' && typeof f.variant === 'string' ? { key: f.key, variant: f.variant } : undefined,
+      },
+    }];
+  });
+}
+
+/** An answer as stored, or null when it doesn't fit the question. The same check as wren's answerOf. */
+export function answerOf(s: Pick<EdgeSurvey, 'kind' | 'choices'>, value: unknown): string | null {
+  if (typeof value !== 'string' && typeof value !== 'number') return null;
+  const v = String(value).trim();
+  if (s.kind === 'choice') return s.choices.includes(v) ? v : null;
+  if (s.kind === 'scale') return /^(?:[1-9]|10)$/.test(v) ? v : null;
+  return v.length >= 1 && v.length <= 500 ? v : null;
 }
 
 /** FNV-1a, 32 bits: the same in wren. */

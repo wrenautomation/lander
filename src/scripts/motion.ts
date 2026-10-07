@@ -50,6 +50,7 @@ if (ask) {
       const r = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
       if (!r.ok) throw new Error(String(r.status));
       ask.classList.add('done');
+      document.dispatchEvent(new Event('wren:sent')); // survey.ts: a form-moment survey may ask now
     } catch {
       ask.classList.add('error'); btn.disabled = false;
     }
