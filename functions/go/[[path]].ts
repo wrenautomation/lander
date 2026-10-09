@@ -5,6 +5,8 @@
 // `?v=<YouTube id>` sends them on to that video instead (a promo post, wren's funnel.ts). No page of ours loads,
 // so the hop is recorded here: one `hits` row, page `youtube:<id>`, with the utm, the visitor (with consent) and
 // no time on page. Link previews (crawlers) are not counted. Only a YouTube id goes through: never an open redirect.
+// A hop to one of our pages is logged too: one `clicks` row with the page it went to and the utm, so wren counts
+// each tracked link's clicks (Sites → Links). Crawlers are left out here as well.
 import links from '../../src/data/links.json';
 import type { Env } from '../_shared/env';
 import { visitorOf, withVisitor } from '../_shared/visitor';
@@ -45,6 +47,17 @@ export const onRequestGet: PagesFunction<Env> = ({ request, params, env, waitUnt
   }
   const to = url.searchParams.get('to') || '';
   const target = new URL(PAGE.test(to) ? to : channel.to, url.origin);
+  const ua = request.headers.get('user-agent') || '';
+  if (!BOT.test(ua))
+    waitUntil(
+      env.DB.prepare(
+        `insert into clicks (ts, link, source, medium, campaign, content, page, ref, country)
+         values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      ).bind(
+        new Date().toISOString(), name, channel.source, channel.medium, campaign, content, target.pathname,
+        (request.headers.get('referer') || '').slice(0, 200), request.headers.get('cf-ipcountry') || '',
+      ).run().catch(() => {}),
+    );
   target.searchParams.set('utm_source', channel.source);
   target.searchParams.set('utm_medium', channel.medium);
   if (campaign) target.searchParams.set('utm_campaign', campaign);

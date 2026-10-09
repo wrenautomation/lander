@@ -146,3 +146,21 @@ create table if not exists answers (
 );
 create unique index if not exists ux_answers_visitor_survey on answers (visitor, survey);
 create index if not exists ix_answers_ts on answers (ts);
+
+-- one row per /go/ click that hops to one of our pages (functions/go/[[path]].ts), crawlers left out. link = the
+-- short name in the address (yt, li, ads); page = the path it went to (/o/<slug>, /book); campaign and content as
+-- in the address. wren reads them through /api/export?table=clicks and counts each tracked link's clicks.
+-- Added 2026-10-09: npm run db:migrate (safe to re-run).
+create table if not exists clicks (
+  id integer primary key autoincrement,
+  ts text not null,
+  link text not null,
+  source text not null,
+  medium text not null,
+  campaign text not null default '',
+  content text not null default '',
+  page text not null,
+  ref text,
+  country text
+);
+create index if not exists ix_clicks_ts on clicks (ts);

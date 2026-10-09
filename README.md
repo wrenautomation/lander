@@ -156,6 +156,6 @@ functions/api/hit.ts       POST for the beacon
 functions/api/events.ts    POST for click/form/video events
 functions/api/replay.ts    POST for session replay chunks (to S3)
 src/scripts/replay.ts      the rrweb recorder, loaded only when /api/hit says replay
-schema.sql                 leads, hits, applications, events, replays (safe to re-run)
+schema.sql                 leads, hits, applications, events, replays, answers, clicks (safe to re-run)
 public/_redirects          /ria and /insurance to /
 ```
