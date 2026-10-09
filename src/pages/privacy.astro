@@ -7,7 +7,7 @@ import Base from '../layouts/Base.astro';
 import Mark from '../components/Mark.astro';
 import Foot from '../components/Foot.astro';
 const site = (await getEntry('site', 'site'))!.data;
-const updated = 'October 6, 2026';
+const updated = 'October 9, 2026';
 ---
 <Base title="Privacy | Wren Automation" description="What Wren Automation collects, why, and how to have it deleted." hue="lavender">
 <div class="wrap">
@@ -22,7 +22,7 @@ const updated = 'October 6, 2026';
 <section class="hero">
   <div class="wrap">
     <h1>Privacy</h1>
-    <p class="lede">Wren Automation is one person, William Jin, in Toronto. This page says exactly what this site and my outreach collect. Last updated {updated}.</p>
+    <p class="lede">Wren Automation is one person, William Jin, in Edmonton, Alberta. This page says exactly what this site and my outreach collect. Last updated {updated}.</p>
   </div>
 </section>
 <section class="s">
@@ -54,13 +54,48 @@ const updated = 'October 6, 2026';
     <p>No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. Text opt-in data and consent are never shared with any third party. The only company that sees your number is Telnyx, the carrier that delivers the texts.</p>
 
     <h2>Client work</h2>
-    <p>When I build for a client I handle their data under the agreement we sign, only for that build, and it stays in their systems. Nothing from a client's data ever comes into this site.</p>
+    <p>When I build for a client I handle their data under the agreement we sign, and only for that work. Nothing from a client's data ever comes into this site.</p>
+
+    <h2 id="portal">The client portal</h2>
+    <p>Clients sign in at app.wrenautomation.com. I store your login email, who on your team has access, and a log of what each person did there. I use it to run your account and nothing else.</p>
+
+    <h2 id="connected-accounts">Accounts you connect</h2>
+    <p>In the portal you can connect your own Facebook Page, Instagram, LinkedIn profile or Page, YouTube channel, X, TikTok and Google Business Profile, and your Gmail or Microsoft 365 mailbox. Each one is a normal sign-in on that platform's own page. You see what it asks for and pick the account. I never see your password.</p>
+    <p>What each one is for:</p>
+    <ul>
+      <li>YouTube: upload the videos you approve, show you your channel, videos, comments and stats, and post the comment replies you approve.</li>
+      <li>Google Business Profile: post the updates and review replies you approve, and show you your listing and reviews.</li>
+      <li>LinkedIn: post what you approve to your profile or Page, and show you its comments and follower counts.</li>
+      <li>Facebook, Instagram, X and TikTok: post what you approve, show you comments, messages and post stats, and send the replies you approve.</li>
+      <li>Gmail and Microsoft 365: send the emails you approve from your own address. If your admin allows it, also read new mail so replies show up in your portal inbox.</li>
+    </ul>
+    <p>Nothing is posted or sent from your accounts without your approval.</p>
+
+    <h2>How I store it</h2>
+    <p>The platform gives me a token, not your password. Long-lived tokens are encrypted (AES-256-GCM) and kept in my database under your account only. Short-lived tokens stay in memory. Tokens never appear in logs.</p>
+    <p>I also store what I read from your accounts: posts, comments, messages, mail and stats. You see it in the portal, and I use it to draft posts and replies for you to approve. For a draft, I send the text that task needs to an AI model provider: Anthropic, Google (Gemini), Cohere, or others through OpenRouter. They get that text only, never your tokens or logins. None of it is sold, used for ads, or shared with other clients.</p>
+
+    <h2 id="google">Google user data</h2>
+    <p>Wren's use and transfer of information received from Google APIs to any other app will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements. Google data is used only for the features above, for you. It is never sold, never used for ads, and never used to train AI models. A person reads it only with your permission, for security, or when the law requires it.</p>
+    <p>YouTube features use the YouTube API Services. If you connect a channel, the <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a> and the <a href="https://policies.google.com/privacy">Google Privacy Policy</a> apply.</p>
+
+    <h2 id="disconnecting">Disconnecting</h2>
+    <p>Press Disconnect next to the account in the portal. Its token and the account record are deleted at once, and I can no longer reach it. You can also remove Wren on the platform itself:</p>
+    <ul>
+      <li>Google and YouTube: <a href="https://myaccount.google.com/permissions">your Google account's third-party access page</a>.</li>
+      <li>LinkedIn: Settings &amp; Privacy, Data privacy, Permitted services.</li>
+      <li>Facebook and Instagram: Settings, Business integrations.</li>
+      <li>X: Settings, Security and account access, Apps and sessions.</li>
+      <li>TikTok: Settings and privacy, Security, Manage app permissions.</li>
+      <li>Microsoft: <a href="https://myapps.microsoft.com">My Apps</a>.</li>
+    </ul>
+    <p>To have the rest deleted too, see <a href="/data-deletion">data deletion</a>.</p>
 
     <h2>Who else sees it</h2>
-    <p>Cloudflare hosts the site and the database. Google Workspace carries my email. Resend and Discord deliver the notification when the form is submitted. Telnyx delivers texts. Amazon Web Services stores the visit recordings. Each of them sees the data it needs to do that and nothing else. No advertising networks, no data brokers.</p>
+    <p>Cloudflare hosts the site and the database. Google Workspace carries my email. Resend and Discord deliver the notification when the form is submitted. Telnyx delivers texts. Amazon Web Services stores the visit recordings and hosts the client portal and its database. Restate runs the portal's background work. The AI providers above see the text a draft needs. Each of them sees the data it needs to do that and nothing else. No advertising networks, no data brokers.</p>
 
     <h2>Keeping and deleting</h2>
-    <p>Form submissions are kept while there's a reason to: a live conversation, a build, the records a business has to keep. Page-view rows are kept as counts. Email <a href={`mailto:${site.email}`}>{site.email}</a> and I will tell you what I hold about you, correct it, or delete it. No form, no account, no wait: one email to a person who reads it.</p>
+    <p>Form submissions are kept while there's a reason to: a live conversation, a build, the records a business has to keep. Page-view rows are kept as counts. Email <a href={`mailto:${site.email}`}>{site.email}</a> and I will tell you what I hold about you, correct it, or delete it. No form, no account, no wait: one email to a person who reads it. For data from a connected account, see <a href="/data-deletion">data deletion</a>.</p>
 
     <h2>Changes</h2>
     <p>If this changes, the date at the top changes with it.</p>

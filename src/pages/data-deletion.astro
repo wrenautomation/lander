@@ -1,0 +1,42 @@
+---
+// /data-deletion. How a client removes what Wren holds from a connected social account or mailbox.
+// Meta asks for this URL in app review; TikTok and Google read it too. Keep in step with /privacy "Disconnecting".
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+import Foot from '../components/Foot.astro';
+const site = (await getEntry('site', 'site'))!.data;
+const updated = 'October 9, 2026';
+---
+<Base title="Data deletion | Wren Automation" description="How to have data from an account you connected to Wren deleted." hue="lavender">
+<div class="wrap">
+  <nav class="nav" aria-label="Page">
+    <a href="/" aria-label="Wren Automation, front page"><Mark /></a>
+    <div class="right">
+      <button class="theme" type="button" data-theme-toggle data-to-dark={site.theme.to_dark} data-to-light={site.theme.to_light} aria-label="Switch between light and dark">{site.theme.to_dark}</button>
+    </div>
+  </nav>
+</div>
+<main>
+<section class="hero">
+  <div class="wrap">
+    <h1>Delete your data</h1>
+    <p class="lede">If you connected a social account or mailbox to Wren, here is how to remove what I hold. Last updated {updated}.</p>
+  </div>
+</section>
+<section class="s">
+  <div class="wrap legal">
+    <h2>Disconnect the account</h2>
+    <p>In your Wren portal, press Disconnect next to the account. Its token and the account record are deleted right away, and Wren can no longer read from it or post to it.</p>
+
+    <h2>Remove Wren on the platform</h2>
+    <p>You can also remove Wren in the platform's own settings. This cuts access even if you no longer have a portal login. Where to find it on each platform is on the <a href="/privacy#disconnecting">privacy page</a>.</p>
+
+    <h2>Delete the rest</h2>
+    <p>Email <a href={`mailto:${site.email}`}>{site.email}</a> from the address on your Wren account and ask me to delete your data. I delete the posts, comments, messages, mail and stats I stored from your accounts within 30 days, and reply when it's done. If you want only one account removed, say which.</p>
+    <p>I may keep records the law requires, such as invoices. Those never hold your posts, comments, messages or mail.</p>
+  </div>
+</section>
+</main>
+<Foot site={site} />
+</Base>
