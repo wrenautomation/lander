@@ -28,19 +28,20 @@ const updated = 'October 9, 2026';
 <section class="s">
   <div class="wrap legal">
     <h2>Remove access</h2>
-    <p>In Wren, go to Account, then Social, and press Disconnect next to the account. The access token is deleted right away and the app stops reading the account.</p>
+    <p>In Wren, go to Account, then Social (or Mail for a mailbox), and press Disconnect next to the account. The access token is deleted right away and the app stops reading the account.</p>
     <p>You can also do it from the platform's side:</p>
     <ul>
       <li>Facebook: Settings, then Business integrations. Remove Wren.</li>
       <li>Instagram: Settings, then Apps and websites. Remove Wren.</li>
-      <li>Google and YouTube: <a href="https://security.google.com/settings/security/permissions">security.google.com/settings/security/permissions</a>. Remove Wren.</li>
+      <li>Google (YouTube, Business Profile, Gmail): <a href="https://security.google.com/settings/security/permissions">security.google.com/settings/security/permissions</a>. Remove Wren.</li>
+      <li>Microsoft 365: your admin removes Wren mail under Enterprise applications in Microsoft Entra.</li>
       <li>TikTok: Settings and privacy, then Security, then Apps and services. Remove Wren.</li>
       <li>LinkedIn: Settings, then Data privacy, then Permitted services. Remove Wren.</li>
       <li>X: Settings, then Security and account access, then Apps and sessions. Revoke Wren.</li>
     </ul>
 
     <h2>Delete what the app read</h2>
-    <p>Email <a href={`mailto:${site.email}`}>{site.email}</a> from the address on your Wren login or on the connected account, and say which account. Within 30 days I delete everything the app read from it (posts, their numbers, comments, messages, reviews) along with the connection, and I email you when it's done. Records a business has to keep by law, like invoices, stay only as long as the law requires.</p>
+    <p>Email <a href={`mailto:${site.email}`}>{site.email}</a> from the address on your Wren login or on the connected account, and say which account. Within 30 days I delete everything the app read from it (posts, their numbers, comments, messages, reviews, email summaries) along with the connection, and I email you when it's done. Records a business has to keep by law, like invoices, stay only as long as the law requires.</p>
     <p>The rest of what Wren Automation collects is on the <a href="/privacy">privacy page</a>.</p>
   </div>
 </section>
