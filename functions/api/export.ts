@@ -1,8 +1,8 @@
-// GET /api/export?since=<id>&limit=<n>&table=hits|applications|events|replays|exposures|answers|clicks: rows newer
+// GET /api/export?since=<id>&limit=<n>&table=hits|applications|events|replays|exposures|answers|clicks[&visitor=<id>]: rows newer
 // than an id, for wren to read (exposures: the `exp.seen` events of visitors with the cookie yes, which experiments
 // count; answers: site survey answers; clicks: /go/ hops to our pages, with the page each went to)
 // (`wren email clicks` joins ?r= codes to the emails that carried them; wren's SMS watch texts applicants who
-// ticked the texts box). Bearer EXPORT_TOKEN, a Pages secret; with no secret set the endpoint does not exist.
+// ticked the texts box; a call's brief reads one visitor's pages and replays). Bearer EXPORT_TOKEN, a Pages secret; with no secret set the endpoint does not exist.
 import type { Env } from '../_shared/env';
 
 const TABLES = {
@@ -27,6 +27,10 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   const since = Math.max(0, Number(url.searchParams.get('since')) || 0);
   const limit = Math.min(5000, Math.max(1, Number(url.searchParams.get('limit')) || 1000));
   const select = TABLES[table];
-  const { results } = await env.DB.prepare(`${select} ${select.includes(' where ') ? 'and' : 'where'} id > ? order by id limit ?`).bind(since, limit).all();
+  // One visitor's rows: every table but clicks carries the visitor id.
+  const visitor = table === 'clicks' ? '' : (url.searchParams.get('visitor') || '').slice(0, 64);
+  const where = `${select} ${select.includes(' where ') ? 'and' : 'where'} ${visitor ? 'visitor = ? and ' : ''}id > ? order by id limit ?`;
+  const binds = visitor ? [visitor, since, limit] : [since, limit];
+  const { results } = await env.DB.prepare(where).bind(...binds).all();
   return Response.json({ [table]: results }, { headers: { 'cache-control': 'no-store' } });
 };
