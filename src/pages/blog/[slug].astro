@@ -1,0 +1,52 @@
+---
+// /blog/<slug>: one post from src/content/blog. Under it, the newsletter signup; the same post goes out as the email.
+// A thin bar along the top tracks how far down the reader is, and figures rise in as they scroll into view (CSS only,
+// off under reduced motion).
+import type { GetStaticPaths } from 'astro';
+import { getEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Mark from '../../components/Mark.astro';
+import Foot from '../../components/Foot.astro';
+import Subscribe from '../../components/Subscribe.astro';
+import { SIGNUP, day, postPath, posts, type Post } from '../../lib/blog';
+import '../../styles/blog.css';
+
+export const getStaticPaths = (async () =>
+  (await posts()).map((p) => ({ params: { slug: p.id }, props: { post: p } }))) satisfies GetStaticPaths;
+
+const { post } = Astro.props as { post: Post };
+const { Content } = await render(post);
+const site = (await getEntry('site', 'site'))!.data;
+---
+<Base title={`${post.data.title} | Wren Automation`} description={post.data.description} hue="lavender">
+<div class="read-bar" aria-hidden="true"></div>
+<div class="wrap">
+  <nav class="nav" aria-label="Page">
+    <a href="/" aria-label="Wren Automation, front page"><Mark /></a>
+    <div class="right">
+      <a href="/blog">Blog</a>
+      <button class="theme" type="button" data-theme-toggle data-to-dark={site.theme.to_dark} data-to-light={site.theme.to_light} aria-label="Switch between light and dark">{site.theme.to_dark}</button>
+    </div>
+  </nav>
+</div>
+<main>
+<article>
+  <header class="post-hero">
+    <div class="wrap post-head">
+      <p class="post-date"><time datetime={post.data.date.toISOString().slice(0, 10)}>{day(post.data.date)}</time>{post.data.draft && ' · draft'}</p>
+      <h1>{post.data.title}</h1>
+      <p class="lede">{post.data.description}</p>
+    </div>
+  </header>
+  <section class="s">
+    <div class="wrap post"><Content /></div>
+  </section>
+</article>
+<section class="s">
+  <div class="wrap post-signup">
+    <Subscribe topic={SIGNUP.topic} text={SIGNUP.text} version={SIGNUP.version} path={postPath(post)} button={SIGNUP.button} />
+  </div>
+</section>
+</main>
+<Foot site={site} />
+</Base>

@@ -7,7 +7,7 @@ import Base from '../layouts/Base.astro';
 import Mark from '../components/Mark.astro';
 import Foot from '../components/Foot.astro';
 const site = (await getEntry('site', 'site'))!.data;
-const updated = 'October 6, 2026';
+const updated = 'October 11, 2026';
 ---
 <Base title="Privacy | Wren Automation" description="What Wren Automation collects, why, and how to have it deleted." hue="lavender">
 <div class="wrap">
@@ -30,6 +30,9 @@ const updated = 'October 6, 2026';
     <h2>The form</h2>
     <p>If you fill in the audit form I store what you typed (name, email, phone, what eats your week, your questions) with the page you sent it from, the campaign or referring link that brought you, your country, your IP address and your browser's user-agent string. It goes into a Cloudflare D1 database and I get a notification. I use it to reply to you and to prepare the call. It is never sold, rented, or added to a marketing list.</p>
     <p>The form is checked for bots by Cloudflare Turnstile, under its <a href="https://www.cloudflare.com/turnstile-privacy-policy/">privacy addendum</a>.</p>
+
+    <h2 id="newsletter">The newsletter</h2>
+    <p>If you sign up for new posts by email I store your address, the page you signed up on, the exact words next to the button, your IP address and your browser's user-agent, as proof you asked. Nothing goes out until you click the link in my confirm email. After that you get one email per post, sent from portal@wrenautomation.com. Every email has a one-click unsubscribe and a link to a page where you can pause, get fewer, or stop everything. I keep the record of your yes and your unsubscribe so I can show I only mailed people who asked.</p>
 
     <h2>Page views</h2>
     <p>Each page view writes one row: the page, how far down it you scrolled, how long it was visible, whether you clicked through to the form or touched a field, your viewport width, your country, the referring link and your user-agent. No IP address. It also notes a few clicks: the buttons that lead to the form or a booking, starting or sending the form, and how much of a video you watched. And for heatmaps, which part of the page each click lands on and how far down you got, never what you type. Heatmaps only show them as totals per page.</p>

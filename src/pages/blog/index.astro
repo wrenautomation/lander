@@ -1,0 +1,54 @@
+---
+// /blog: every published post, newest first, and the newsletter signup. Kept out of search until the first post is up.
+import { getEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Mark from '../../components/Mark.astro';
+import Foot from '../../components/Foot.astro';
+import Subscribe from '../../components/Subscribe.astro';
+import { SIGNUP, day, postPath, posts } from '../../lib/blog';
+import '../../styles/blog.css';
+
+const all = await posts();
+const site = (await getEntry('site', 'site'))!.data;
+---
+<Base title="Blog | Wren Automation" description="What I build for Wren and for clients, and what it did." hue="lavender" noindex={!all.length}>
+<div class="wrap">
+  <nav class="nav" aria-label="Page">
+    <a href="/" aria-label="Wren Automation, front page"><Mark /></a>
+    <div class="right">
+      <button class="theme" type="button" data-theme-toggle data-to-dark={site.theme.to_dark} data-to-light={site.theme.to_light} aria-label="Switch between light and dark">{site.theme.to_dark}</button>
+    </div>
+  </nav>
+</div>
+<main>
+<section class="post-hero">
+  <div class="wrap post-head">
+    <h1>Blog</h1>
+    <p class="lede">What I build for Wren and for clients, and what it did. Also as a <a href="/blog/rss.xml">feed</a>.</p>
+  </div>
+</section>
+<section class="s">
+  <div class="wrap post-col">
+    {all.length ? (
+      <ol class="post-list">
+        {all.map((p) => (
+          <li>
+            <a href={postPath(p)}>
+              <span class="post-date">{day(p.data.date)}{p.data.draft && ' · draft'}</span>
+              <span class="post-title">{p.data.title}</span>
+              <span class="post-desc">{p.data.description}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    ) : <p class="post-desc">The first post is on its way.</p>}
+  </div>
+</section>
+<section class="s">
+  <div class="wrap post-signup">
+    <Subscribe topic={SIGNUP.topic} text={SIGNUP.text} version={SIGNUP.version} path="/blog" button={SIGNUP.button} />
+  </div>
+</section>
+</main>
+<Foot site={site} />
+</Base>

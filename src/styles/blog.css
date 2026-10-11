@@ -1,0 +1,57 @@
+/* The blog: /blog and /blog/<slug>. Prose on one narrow column, the global tokens, no new colours. */
+/* one column for everything, in rem so the body's larger type doesn't shift its edge */
+.post-head,.post,.post-signup,.post-col{max-width:44rem}
+.post-date{font-size:14px;color:var(--mute);margin:0 0 .6rem}
+.post-hero{padding:3rem 0 0}
+.post-hero h1{font-size:clamp(1.85rem,1.1rem + 2.4vw,2.75rem);line-height:1.12;letter-spacing:-.02em}
+.post-hero .lede{font-size:1.1rem;color:var(--mute);margin:1rem 0 0}
+
+/* the post body: what Markdown makes */
+.post{font-size:1.05rem;line-height:1.7}
+.post :is(p,ul,ol,blockquote,pre,table){margin:0 0 1.15rem}
+.post :is(h2,h3){line-height:1.2;letter-spacing:-.01em;margin:2.2rem 0 .7rem}
+.post h2{font-size:1.45rem}
+.post h3{font-size:1.15rem}
+.post :is(ul,ol){padding-left:1.25rem}
+.post li{margin:0 0 .4rem}
+.post a{color:var(--ink);text-decoration-color:var(--acc);text-underline-offset:3px}
+.post strong{font-weight:600}
+.post blockquote{border-left:2px solid var(--acc);padding:.1rem 0 .1rem 1rem;color:var(--mute)}
+.post code{font-size:.92em;background:var(--soft);padding:.1em .3em;border-radius:2px}
+.post pre{background:var(--soft);border:1px solid var(--rule);padding:1rem;overflow-x:auto;font-size:14px;line-height:1.55}
+.post pre code{background:none;padding:0}
+.post :is(img,video,figure){display:block;max-width:100%;height:auto;margin:1.8rem 0;border:1px solid var(--rule);border-radius:2px}
+.post figure img{margin:0;border:0}
+.post figcaption{font-size:14px;color:var(--mute);padding:.6rem .2rem 0}
+.post table{border-collapse:collapse;width:100%;font-size:15px;display:block;overflow-x:auto}
+.post :is(th,td){border-bottom:1px solid var(--rule);padding:.5rem .6rem;text-align:left}
+.post hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
+
+/* the list on /blog */
+.post-list{list-style:none;padding:0;margin:0}
+.post-list li{border-top:1px solid var(--rule)}
+.post-list li:last-child{border-bottom:1px solid var(--rule)}
+.post-list a{display:grid;gap:.3rem;padding:1.3rem 0;text-decoration:none;color:inherit}
+.post-list .post-date{margin:0}
+.post-title{font-size:1.25rem;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.post-list a:hover .post-title{color:var(--acc)}
+.post-desc{color:var(--mute)}
+
+/* the signup */
+.post-signup .subscribe{border-top:1px solid var(--rule);padding-top:1.6rem}
+.post-signup .subscribe>*{max-width:30rem}
+.post-signup .subscribe>p{margin:0;color:var(--ink)}
+.post-signup .done{color:var(--acc);font-weight:600}
+
+/* motion, driven by the reader's own scroll: the bar tracks the page, figures rise in once */
+.read-bar{position:fixed;inset:0 0 auto 0;height:2px;background:var(--acc);transform-origin:0 50%;transform:scaleX(0);z-index:50;pointer-events:none}
+@supports (animation-timeline:scroll()){
+  .read-bar{animation:read-grow linear both;animation-timeline:scroll(root)}
+  .post :is(img,video,figure){animation:read-rise linear both;animation-timeline:view();animation-range:entry 0% entry 60%}
+}
+@keyframes read-grow{to{transform:scaleX(1)}}
+@keyframes read-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@supports not (animation-timeline:scroll()){.read-bar{display:none}}
+.no-motion .read-bar{display:none}
+.no-motion .post :is(img,video,figure){animation:none}
+@media (prefers-reduced-motion:reduce){.read-bar{display:none}.post :is(img,video,figure){animation:none}}
