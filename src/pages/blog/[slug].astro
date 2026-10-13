@@ -8,6 +8,9 @@ import Base from '../../layouts/Base.astro';
 import Mark from '../../components/Mark.astro';
 import Foot from '../../components/Foot.astro';
 import Subscribe from '../../components/Subscribe.astro';
+import Compare from '../../components/blog/Compare.astro';
+import Note from '../../components/blog/Note.astro';
+import Steps from '../../components/blog/Steps.astro';
 import { SIGNUP, day, postPath, posts, type Post } from '../../lib/blog';
 import '../../styles/blog.css';
 
@@ -39,7 +42,7 @@ const site = (await getEntry('site', 'site'))!.data;
     </div>
   </header>
   <section class="s">
-    <div class="wrap post"><Content /></div>
+    <div class="wrap post"><Content components={{ Compare, Note, Steps }} /></div>
   </section>
 </article>
 <section class="s">

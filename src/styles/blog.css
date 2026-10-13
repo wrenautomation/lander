@@ -55,3 +55,28 @@
 .no-motion .read-bar{display:none}
 .no-motion .post :is(img,video,figure){animation:none}
 @media (prefers-reduced-motion:reduce){.read-bar{display:none}.post :is(img,video,figure){animation:none}}
+
+/* .mdx posts: the components in src/components/blog, passed to every post, so a post uses them with no import */
+.b-steps ol{list-style:none;padding:0;counter-reset:b-step}
+.b-steps li{counter-increment:b-step;position:relative;padding:0 0 0 2.6rem;margin:0 0 1.2rem}
+.b-steps li::before{content:counter(b-step);position:absolute;left:0;top:.1rem;width:1.75rem;height:1.75rem;display:grid;place-items:center;font-size:14px;font-weight:600;color:var(--acc);border:1px solid var(--acc);border-radius:2px}
+.b-note{border:1px solid var(--rule);border-left:2px solid var(--acc);background:var(--soft);padding:1rem 1.2rem;margin:1.8rem 0}
+.b-note>:last-child{margin-bottom:0}
+.b-note-h{font-weight:600;color:var(--ink);margin:0 0 .4rem}
+.b-compare{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.8rem 0}
+.b-compare::before,.b-compare::after{grid-row:1;font-size:14px;font-weight:600;color:var(--mute)}
+.b-compare::before{content:attr(data-before);grid-column:1}
+.b-compare::after{content:attr(data-after);grid-column:2;color:var(--acc)}
+.b-compare ul{grid-row:2;margin:0;border-top:1px solid var(--rule);padding:.8rem 0 0 1.25rem}
+.b-compare ul:last-of-type{grid-column:2}
+.b-compare hr{display:none}
+@media (max-width:640px){
+  .b-compare{grid-template-columns:1fr}
+  .b-compare::after{grid-row:3;grid-column:1}
+  .b-compare ul:last-of-type{grid-row:4;grid-column:1}
+}
+@supports (animation-timeline:view()){
+  .b-steps li,.b-compare ul{animation:read-rise linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+}
+.no-motion :is(.b-steps li,.b-compare ul){animation:none}
+@media (prefers-reduced-motion:reduce){:is(.b-steps li,.b-compare ul){animation:none}}

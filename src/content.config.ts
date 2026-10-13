@@ -425,10 +425,10 @@ const hub = defineCollection({
   }),
 });
 
-// The blog (wren designs/2026-10-11-newsletter.md): one Markdown file per post, its file name the slug. A draft builds
-// in dev only. Each published post is also the newsletter issue `wren newsletter send <slug>` mails.
+// The blog (wren designs/2026-10-11-newsletter.md): one Markdown file per post, its file name the slug; .mdx when it
+// uses the components in src/components/blog. A draft builds in dev only. Each published post is also the newsletter issue `wren newsletter send <slug>` mails.
 const blog = defineCollection({
-  loader: glob({ pattern: '*.md', base: './src/content/blog' }),
+  loader: glob({ pattern: '*.{md,mdx}', base: './src/content/blog' }),
   schema: z.strictObject({
     title: z.string(),            // the h1, <title> and the email subject
     description: z.string(),      // the search snippet and the line under the title, ~155 characters

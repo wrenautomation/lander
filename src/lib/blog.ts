@@ -17,11 +17,22 @@ export const day = (d: Date) =>
 /**
  * A post's Markdown as a plain-text email: links read "words (url)", an image or an embed points at the post,
  * headings and emphasis lose their marks. The visuals live on the page; the email sends people there.
+ * An .mdx post's imports go; any other component (over however many lines) becomes one line to the page.
  */
 export function emailText(body: string, url: string): string {
+  const see = `(See it on the page: ${url})`;
   return body
     .replace(/<!--[\s\S]*?-->/g, '')
-    .replace(/^\s*<[^>]+>.*$/gm, `(See it on the page: ${url})`)
+    .replace(/^(import|export)\s.*$/gm, '')
+    // the blog components keep their words: Steps and Note lose only their tags, Compare labels its two lists
+    .replace(/^<Compare\s+before="([^"]*)"\s+after="([^"]*)"\s*>\s*\n([\s\S]*?)\n\s*<\/Compare>/gm, (_, a: string, b: string, inner: string) => {
+      const [one = '', two = ''] = inner.trim().split(/\n\s*---\s*\n/);
+      return `${a}:\n${one.trim()}\n\n${b}:\n${two.trim()}`;
+    })
+    .replace(/^<Note\s+title="([^"]*)"\s*>[ \t]*$/gm, '$1:')
+    .replace(/^<\/?(Steps|Note)>[ \t]*$/gm, '')
+    .replace(/^<([A-Z]\w*)\b[\s\S]*?(<\/\1>|\/>)[ \t]*$/gm, see)
+    .replace(/^\s*<[^>]+>.*$/gm, see)
     .replace(/!\[([^\]]*)\]\([^)]*\)/g, (_, alt: string) => `(${alt ? `${alt}: ` : ''}see it on the page: ${url})`)
     .replace(/\[([^\]]+)\]\(([^)\s]+)[^)]*\)/g, '$1 ($2)')
     .replace(/^#{1,6}\s+/gm, '')

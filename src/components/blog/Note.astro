@@ -1,0 +1,6 @@
+---
+// <Note title="..."> in an .mdx post: a boxed aside, for the one thing a skimmer must not miss.
+interface Props { title?: string }
+const { title } = Astro.props;
+---
+<aside class="b-note">{title && <p class="b-note-h">{title}</p>}<slot /></aside>

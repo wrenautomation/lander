@@ -1,0 +1,7 @@
+---
+// <Compare before="By hand" after="With Wren"> in an .mdx post: two columns side by side (stacked on a phone).
+// Put two Markdown lists inside it with a --- line between them: the first is the before, the second the after.
+interface Props { before: string; after: string }
+const { before, after } = Astro.props;
+---
+<div class="b-compare" data-before={before} data-after={after}><slot /></div>

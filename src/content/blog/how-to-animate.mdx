@@ -1,0 +1,34 @@
+---
+title: How to add a post with moving parts
+description: The three blocks an .mdx post can use, and what each becomes in the email.
+date: 2026-10-13
+draft: true
+---
+
+This file stays a draft. Name a post `.mdx` instead of `.md` to use the blocks below. No import line needed.
+
+<Steps>
+
+1. The steps come in one at a time as the reader scrolls.
+2. Write them as a normal numbered list inside the block.
+3. In the email they read as the same list.
+
+</Steps>
+
+<Note title="Keep it short">
+One thing a skimmer must not miss. In the email the title becomes the first line.
+</Note>
+
+<Compare before="By hand" after="With Wren">
+
+- Copy the lead into the CRM
+- Write the follow-up
+
+---
+
+- The lead lands in the CRM
+- The follow-up is drafted for you
+
+</Compare>
+
+Leave a blank line inside `Steps` and `Compare` so the list inside reads as Markdown. In `Compare`, a `---` line splits the before list from the after list.
