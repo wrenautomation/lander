@@ -5,6 +5,7 @@
     "li": { "source": "linkedin", "medium": "organic", "to": "/" },
     "ig": { "source": "instagram", "medium": "organic", "to": "/" },
     "tt": { "source": "tiktok", "medium": "organic", "to": "/" },
+    "th": { "source": "threads", "medium": "organic", "to": "/" },
     "x": { "source": "x", "medium": "organic", "to": "/" },
     "rd": { "source": "reddit", "medium": "organic", "to": "/" },
     "fb": { "source": "facebook", "medium": "organic", "to": "/" },
