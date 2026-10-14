@@ -11,7 +11,7 @@ This file stays a draft. Copy it to a new name, which becomes the address: `my-p
 
 Write Markdown. **Bold**, [links](https://wrenautomation.com), lists and images all work. Put images in `public/blog/` and link them as `/blog/name.png`. On the page they rise in as the reader scrolls to them.
 
-For steps that come in one by one, a boxed note or a before and after, name the file `.mdx`. `how-to-animate.mdx` shows each one.
+For steps that come in one by one, a boxed note, a before and after, a figure that builds as you scroll or a sourced number, name the file `.mdx`. `how-to-animate.mdx` shows each one.
 
 ## Going live
 

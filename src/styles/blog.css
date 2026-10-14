@@ -20,9 +20,9 @@
 .post code{font-size:.92em;background:var(--soft);padding:.1em .3em;border-radius:2px}
 .post pre{background:var(--soft);border:1px solid var(--rule);padding:1rem;overflow-x:auto;font-size:14px;line-height:1.55}
 .post pre code{background:none;padding:0}
-.post :is(img,video,figure){display:block;max-width:100%;height:auto;margin:1.8rem 0;border:1px solid var(--rule);border-radius:2px}
+.post :is(img,video,figure:not(.b-fig)){display:block;max-width:100%;height:auto;margin:1.8rem 0;border:1px solid var(--rule);border-radius:2px}
 .post figure img{margin:0;border:0}
-.post figcaption{font-size:14px;color:var(--mute);padding:.6rem .2rem 0}
+.post figure:not(.b-fig) figcaption{font-size:14px;color:var(--mute);padding:.6rem .2rem 0}
 .post table{border-collapse:collapse;width:100%;font-size:15px;display:block;overflow-x:auto}
 .post :is(th,td){border-bottom:1px solid var(--rule);padding:.5rem .6rem;text-align:left}
 .post hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
@@ -47,13 +47,14 @@
 .read-bar{position:fixed;inset:0 0 auto 0;height:2px;background:var(--acc);transform-origin:0 50%;transform:scaleX(0);z-index:50;pointer-events:none}
 @supports (animation-timeline:scroll()){
   .read-bar{animation:read-grow linear both;animation-timeline:scroll(root)}
-  .post :is(img,video,figure){animation:read-rise linear both;animation-timeline:view();animation-range:entry 0% entry 60%}
+  .post :is(img,video,figure:not(.b-fig)){animation:read-rise linear both;animation-timeline:view();animation-range:entry 0% entry 60%}
 }
 @keyframes read-grow{to{transform:scaleX(1)}}
 @keyframes read-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @supports not (animation-timeline:scroll()){.read-bar{display:none}}
 .no-motion .read-bar{display:none}
 .no-motion .post :is(img,video,figure){animation:none}
+.no-motion .b-fig *{transition:none !important;animation:none !important}
 @media (prefers-reduced-motion:reduce){.read-bar{display:none}.post :is(img,video,figure){animation:none}}
 
 /* .mdx posts: the components in src/components/blog, passed to every post, so a post uses them with no import */
@@ -80,3 +81,170 @@
 }
 .no-motion :is(.b-steps li,.b-compare ul){animation:none}
 @media (prefers-reduced-motion:reduce){:is(.b-steps li,.b-compare ul){animation:none}}
+
+/* ---------- the scroll-built figures (src/components/blog, src/scripts/blog.ts) ----------
+   Drawn art stays light in both themes: a warm gray window, white parts, the lavender accent on the one part to
+   watch. Until src/scripts/blog.ts arms a figure ([data-armed]) it shows its end state, so no script, ?static
+   and reduced motion all read whole. Motion is transform and opacity only, on a critically damped curve. */
+.b-fig{
+  --spring:cubic-bezier(.22,1,.36,1);--speed:1;
+  --win:#f3f1ec;--win-ink:#1b1714;--win-mute:#6d665e;--win-rule:#e2ddd3;--fig-acc:#7969a3;
+  margin:2.4rem 0;
+}
+[data-theme=dark] .b-fig{--win-rule:#d9d3c8}
+.b-iso{
+  --anatomy-card:#f3f1ec;--anatomy-paper:#f3f1ec;--anatomy-face:#fff;--anatomy-top:#fff;
+  --anatomy-shade-0:#dcd8cf;--anatomy-shade-1:#e5e1d9;--anatomy-shade-2:#ede9e2;--anatomy-shade-3:#f6f4ef;
+  --anatomy-lit-top:#fff;--anatomy-lit-shade:#efecf6;
+  --anatomy-hi:#2a2520;--anatomy-mid:#8b8378;--anatomy-lo:#b8b0a4;--anatomy-faint:#d6d0c5;--anatomy-lit:var(--fig-acc);
+  --anatomy-halo:#8a8070;--anatomy-halo-opacity:.3;--anatomy-dot:#3a3530;--anatomy-weight:.6px;
+  --anatomy-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+.b-plate{position:relative;padding:44px 18px 40px;background:var(--anatomy-card);border:1px solid var(--win-rule);border-radius:6px;overflow:hidden}
+.b-corners{position:absolute;inset:16px 18px;pointer-events:none;z-index:1}
+.b-corners span{position:absolute;color:var(--win-mute);font-family:var(--anatomy-mono);font-size:10.5px;line-height:1;letter-spacing:.04em;white-space:nowrap}
+.b-corners [data-corner=fig]{top:0;left:0;color:var(--win-ink)}
+.b-corners [data-corner=title]{top:0;right:0;text-transform:uppercase;letter-spacing:.1em;max-width:70%;overflow:hidden;text-overflow:ellipsis}
+.b-corners [data-corner=hint]{bottom:0;left:0;text-transform:uppercase;letter-spacing:.1em}
+.b-corners [data-corner=readout]{bottom:0;right:0;color:var(--win-ink);font-variant-numeric:tabular-nums}
+@media (hover:none){.b-corners [data-corner=hint]{display:none}}
+
+/* the anatomy kit's drawing classes (src/lib/iso-kit.ts, ISO_CSS), on the palette above */
+.iso-svg{display:block;width:100%;height:auto;overflow:visible}
+.iso-svg path,.iso-svg circle,.iso-svg ellipse{vector-effect:non-scaling-stroke}
+.iso-fill{fill:var(--anatomy-paper);stroke:none}
+.iso-solid[data-lit]>.iso-fill{fill:var(--anatomy-face)}
+.iso-shade,.iso-top{stroke:none}
+.iso-shade[data-shade="0"]{fill:var(--anatomy-shade-0)}
+.iso-shade[data-shade="1"]{fill:var(--anatomy-shade-1)}
+.iso-shade[data-shade="2"]{fill:var(--anatomy-shade-2)}
+.iso-shade[data-shade="3"]{fill:var(--anatomy-shade-3)}
+.iso-top{fill:var(--anatomy-top)}
+.iso-solid[data-lit]>.iso-top{fill:var(--anatomy-lit-top)}
+.iso-solid[data-lit]>.iso-shade{fill:var(--anatomy-lit-shade)}
+.iso-solid[data-lit]>.iso-edge{stroke:var(--anatomy-lit)}
+.iso-halo{fill:var(--anatomy-halo);stroke:none;filter:blur(9px);opacity:var(--anatomy-halo-opacity);transform:translateY(3px)}
+.iso-line{fill:none;stroke:var(--anatomy-lo);stroke-width:var(--anatomy-weight);stroke-linecap:round;stroke-linejoin:round}
+.iso-line[data-tone=hi]{stroke:var(--anatomy-hi)}
+.iso-line[data-tone=mid]{stroke:var(--anatomy-mid)}
+.iso-line[data-tone=faint]{stroke:var(--anatomy-faint)}
+.iso-line[data-tone=lit]{stroke:var(--anatomy-lit)}
+.iso-dots circle{fill:var(--anatomy-dot);stroke:none;opacity:.32}
+.iso-dots[data-tone=hi] circle{opacity:.85}
+.iso-dots[data-tone=mid] circle{opacity:.45}
+.iso-dots[data-tone=lo] circle{opacity:.22}
+.iso-face-text{fill:var(--anatomy-mid);font-family:var(--anatomy-mono);letter-spacing:.04em}
+.iso-face-text[data-tone=hi]{fill:var(--anatomy-hi)}
+
+/* the list under a drawn figure: each line lights with its part */
+.b-fig .b-items{margin-top:.9rem}
+.b-fig .b-items :is(ul,ol){list-style:none;padding:0;margin:0;counter-reset:b-part}
+.b-iso .b-items li{counter-increment:b-part;position:relative;padding:.45rem 0 .45rem 2.4rem;margin:0;border-top:1px solid var(--rule);transition:opacity .35s,color .35s}
+.b-iso .b-items li:last-child{border-bottom:1px solid var(--rule)}
+.b-iso .b-items li::before{content:counter(b-part,decimal-leading-zero);position:absolute;left:0;top:.62rem;font:600 11px/1 var(--anatomy-mono);color:var(--mute);transition:color .35s}
+.b-iso .b-items li::after{content:"";position:absolute;left:1.55rem;top:.95rem;width:6px;height:6px;border-radius:50%;background:var(--acc);transition:transform .45s var(--spring),opacity .3s}
+.b-iso[data-armed] .b-items li:not(.on){opacity:.45}
+.b-iso[data-armed] .b-items li:not(.on)::after{transform:scale(0);opacity:0}
+.b-fig[data-picking] .b-items li.hot{opacity:1;color:var(--ink)}
+.b-fig[data-picking] .b-items li.hot::before{color:var(--acc)}
+
+/* the rack: each unit fades in pulled out, slides home and lights up */
+.b-iso [data-part]{transition:transform calc(900ms / var(--speed)) var(--spring),opacity calc(450ms / var(--speed)) ease-out}
+.b-iso[data-armed] [data-part]:not(.on){transform:translate(var(--dx),var(--dy));opacity:0}
+.fig-led{fill:var(--fig-acc);transition:fill .3s}
+.b-iso[data-armed] [data-part]:not(.on) .fig-led{fill:var(--anatomy-faint)}
+.b-iso [data-part].hot .iso-edge{stroke:var(--fig-acc)}
+.b-iso[data-done][data-vis] .fig-led{animation:b-blink 3.2s steps(1,end) infinite}
+@keyframes b-blink{0%,92%{opacity:1}94%{opacity:.35}}
+
+/* the water line: unsealed joints drip into the tray; a collar drops on, the drip stops, the sight glass fills */
+.fig-drip{opacity:0}
+.fig-drip ellipse{fill:var(--fig-acc);transform-box:fill-box;transform-origin:50% 0}
+[data-crack]{opacity:0;transition:opacity .4s}
+.b-iso [data-crack] .iso-line{stroke:var(--fig-acc)}
+.b-iso[data-armed] [data-crack]:not(.on){opacity:1}
+.b-iso[data-armed] .fig-drip:not(.on){opacity:1}
+.b-iso[data-armed][data-vis] .fig-drip:not(.on) ellipse{animation:b-drip 1.5s cubic-bezier(.55,0,1,.45) var(--late) infinite}
+@keyframes b-drip{0%{transform:translateY(0) scale(.2);opacity:0}25%{transform:translateY(0) scale(1);opacity:1}88%{opacity:1}100%{transform:translateY(var(--fall));opacity:0}}
+[data-puddle]{opacity:0;transition:opacity .6s}
+.b-iso[data-armed] [data-puddle]:not(.on){opacity:1}
+.fig-glass{fill:var(--anatomy-shade-1)}
+.fig-level{fill:var(--fig-acc);opacity:.7;transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(calc(var(--k,var(--steps)) / var(--steps)));transition:transform calc(900ms / var(--speed)) var(--spring)}
+
+/* light windows for the flat figures: Fan and Timeline */
+.b-win{background:var(--win);border:1px solid var(--win-rule);border-radius:6px;padding:16px 18px 20px;color:var(--win-ink)}
+.b-win-head{display:flex;justify-content:space-between;gap:1rem;font:10.5px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.04em;color:var(--win-mute);margin-bottom:18px}
+.b-win-head span:first-child{color:var(--win-ink)}
+.b-win-head span:last-child{text-transform:uppercase;letter-spacing:.1em;text-align:right}
+
+/* Fan: one source, a wire to each line */
+.b-fan{--row:46px}
+.b-fan-grid{display:grid;grid-template-columns:minmax(6.5rem,8.5rem) minmax(2.5rem,1fr) minmax(0,2.4fr);align-items:center}
+.b-fan-src span{display:block;background:#fff;border:1px solid var(--win-rule);border-radius:4px;padding:.7rem .8rem;font-weight:600;font-size:15px;line-height:1.25;box-shadow:0 1px 2px rgba(27,23,20,.06)}
+.b-fan-wires{width:100%;height:calc(var(--n) * var(--row));display:block}
+/* the wires stretch with the box, so they draw in by a clip, left to right, not by dash length */
+.b-fan-wires path{fill:none;stroke:var(--fig-acc);stroke-width:1.4;vector-effect:non-scaling-stroke;clip-path:inset(-4px -4px -4px -4px);transition:clip-path calc(700ms / var(--speed)) var(--spring)}
+.b-fan[data-armed] .b-fan-wires path:not(.on){clip-path:inset(-4px 100% -4px -4px)}
+.b-fan .b-items{margin:0}
+.b-fan .b-items li{position:relative;z-index:0;height:var(--row);display:block;align-content:center;margin:0;padding:0 .8rem;font-size:14.5px;line-height:1.25;color:var(--win-mute);transition:opacity .4s,transform .5s var(--spring)}
+.b-fan .b-items li::before{content:"";position:absolute;inset:4px 0;z-index:-1;background:#fff;border:1px solid var(--win-rule);border-radius:4px;transition:border-color .25s}
+.b-fan .b-items li strong{color:var(--win-ink)}
+.b-fan .b-items li.hot::before{border-color:var(--fig-acc)}
+.b-fan[data-armed] .b-items li:not(.on){opacity:.3;transform:translateX(-6px)}
+@media (max-width:640px){.b-fan{--row:52px}.b-fan-grid{grid-template-columns:5.6rem 1.6rem minmax(0,1fr)}.b-fan-src span{font-size:13.5px;padding:.6rem}.b-fan .b-items li{font-size:13px}}
+
+/* Timeline: stops on a line; each stretch of line lights as the stop after it does */
+.b-tl .b-items{margin:0}
+.b-tl .b-items :is(ol,ul){display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:12px}
+.b-tl .b-items li{position:relative;padding:22px 0 0;margin:0;font-size:14px;line-height:1.35;color:var(--win-mute);transition:opacity .4s,transform .5s var(--spring)}
+.b-tl .b-items li strong{display:block;color:var(--win-ink);font-size:15px;margin-bottom:.15rem}
+.b-tl .b-items li::before{content:"";position:absolute;z-index:1;left:0;top:2px;width:11px;height:11px;border-radius:50%;box-sizing:border-box;background:var(--fig-acc);border:1.5px solid var(--fig-acc);transition:background .3s,border-color .3s,transform .45s var(--spring)}
+.b-tl .b-items li:not(:last-child)::after{content:"";position:absolute;left:6px;top:7px;width:calc(100% + 12px);height:1.5px;background:linear-gradient(var(--fig-acc),var(--fig-acc)) 0 0/100% 100% no-repeat,var(--win-rule);transition:background-size calc(600ms / var(--speed)) var(--spring)}
+.b-tl[data-armed] .b-items li:not(.on){opacity:.4}
+.b-tl[data-armed] .b-items li:not(.on)::before{background:#fff;border-color:var(--win-mute);transform:scale(.75)}
+.b-tl[data-armed] .b-items li:not(:has(+ li.on))::after{background-size:0 100%,auto}
+@media (max-width:640px){
+  .b-tl .b-items :is(ol,ul){grid-template-columns:1fr;gap:16px}
+  .b-tl .b-items li{padding:0 0 0 26px}
+  .b-tl .b-items li:not(:last-child)::after{left:5px;top:7px;width:1.5px;height:calc(100% + 16px);background-size:100% 100%,auto}
+  .b-tl[data-armed] .b-items li:not(:has(+ li.on))::after{background-size:100% 0,auto}
+}
+
+/* Stat: one sourced number, counted up once */
+.b-stat{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:1.4rem 0;display:grid;grid-template-columns:auto 1fr;gap:.4rem 1.4rem;align-items:center}
+.b-stat-n{margin:0;font-size:clamp(2.6rem,1.8rem + 3vw,4rem);font-weight:600;letter-spacing:-.045em;line-height:1;color:var(--acc);font-variant-numeric:tabular-nums}
+.b-stat-t{font-size:1rem;color:var(--ink)}
+.b-stat-t>p{margin:0}
+.b-stat .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.b-stat[data-armed]:not([data-done]) .b-stat-t{opacity:.5;transition:opacity .6s}
+.b-stat .b-stat-t{transition:opacity .6s}
+@media (max-width:560px){.b-stat{grid-template-columns:1fr}}
+
+/* off under reduced motion, whatever the script did */
+@media (prefers-reduced-motion:reduce){
+  .b-fig *{transition:none !important;animation:none !important}
+}
+
+/* the bar on top: sticks, frosts what scrolls under it, and names the section being read */
+.post-bar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--paper) 78%,transparent);-webkit-backdrop-filter:saturate(1.6) blur(14px);backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid transparent;transition:border-color .3s}
+.post-bar:has(.post-at:not(:empty)){border-bottom-color:var(--rule)}
+.post-bar .nav{gap:1rem}
+.post-at{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;font-weight:600;color:var(--ink);text-align:center}
+.post-at.swap{animation:at-swap .45s cubic-bezier(.22,1,.36,1)}
+@keyframes at-swap{from{opacity:0;transform:translateY(6px);filter:blur(3px)}}
+@media (max-width:520px){.post-at{text-align:left;font-size:13px}}
+
+/* the title block settles in on load, a line at a time */
+.post-hero :is(.post-date,h1,.lede){animation:hero-in .9s cubic-bezier(.22,1,.36,1) both}
+.post-hero h1{animation-delay:.08s}
+.post-hero .lede{animation-delay:.18s}
+@keyframes hero-in{from{opacity:0;transform:translateY(14px);filter:blur(6px)}}
+
+/* /blog rows rise in order, and press like a button */
+.post-list li{animation:hero-in .8s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(.12s + var(--i,0) * .07s)}
+.post-list a{transition:transform .15s ease-out}
+.post-list a:active{transform:scale(.985)}
+.post-signup .btn{transition:transform .12s ease-out}
+
+.no-motion :is(.post-hero .post-date,.post-hero h1,.post-hero .lede,.post-list li,.post-at){animation:none}
+@media (prefers-reduced-motion:reduce){:is(.post-hero .post-date,.post-hero h1,.post-hero .lede,.post-list li,.post-at){animation:none}}

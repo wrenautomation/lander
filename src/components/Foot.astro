@@ -1,14 +1,23 @@
 ---
-// Footer for every page. Copy is in site.yaml.
+// Footer for every page. Copy is in site.yaml. Above it, the newsletter signup; the blog pages pass signup={false}
+// because they carry the full form already.
 import Mark from './Mark.astro';
-const { site } = Astro.props;
+import Subscribe from './Subscribe.astro';
+import { SIGNUP } from '../lib/blog';
+const { site, signup = true } = Astro.props;
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY; // invisible mode requires naming Cloudflare's Turnstile Privacy Addendum
 const year = new Date().getFullYear();
 ---
 <div class="wrap">
   <footer>
+    {signup && <div class="news"><Subscribe compact topic={SIGNUP.topic} text={SIGNUP.text} version={SIGNUP.version} path={Astro.url.pathname} button={SIGNUP.button} /> <a href="/blog">Read the blog</a></div>}
     <div><Mark /></div>
     <div><a href={`mailto:${site.email}`}>{site.email}</a></div>
     <div class="fine">© {year} Wren Automation · {site.city} · {site.fine}{turnstile && <> {site.fine_turnstile} <a href="https://www.cloudflare.com/turnstile-privacy-policy/">{site.fine_turnstile_link}</a>.</>} <a href="/privacy">{site.fine_privacy}</a> · <a href="/terms">{site.fine_terms}</a> · <button type="button" class="cookies-link" data-cookies>{site.fine_cookies}</button></div>
   </footer>
 </div>
+<style>
+  .news{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px 28px;padding:1.6rem 0 1.8rem;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);color:var(--ink);--sub-on:var(--paper)}
+  .news :global(.subscribe){flex:1 1 22rem}
+  .news > a{font-size:14px;line-height:1.5;color:var(--mute);text-decoration:underline;text-underline-offset:3px}
+</style>

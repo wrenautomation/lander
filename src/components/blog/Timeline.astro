@@ -1,0 +1,13 @@
+---
+// <Timeline title="..."> around a Markdown list of stops, "**When**: what happens". A line runs through the stops
+// and lights each one in turn as the reader scrolls. Across on a wide screen, down on a phone. In the email: the
+// title, then the list, colons and all; on the page the bold "when" sits on its own line, so its colon goes.
+import { listItems } from '../../lib/figures';
+const { title, fig = 'Fig. 1' } = Astro.props as { title: string; fig?: string };
+const list = (await Astro.slots.render('default')).replace(/<\/strong>:\s*/g, '</strong>');
+const n = listItems(list).length;
+---
+<figure class="b-fig b-win b-tl" data-fig="timeline" data-steps={n} style={`--n:${n}`}>
+  <div class="b-win-head" aria-hidden="true"><span>{fig}</span><span>{title}</span></div>
+  <div class="b-items"><Fragment set:html={list} /></div>
+</figure>

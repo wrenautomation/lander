@@ -1,0 +1,9 @@
+---
+// <Stat n="23" suffix="%"> around one sentence that finishes the number and links its source. The number counts up
+// once as it scrolls in. In the email: "23% " then the sentence. Only figures with a source.
+const { n, prefix = '', suffix = '' } = Astro.props as { n: string; prefix?: string; suffix?: string };
+---
+<figure class="b-fig b-stat" data-fig="stat" data-steps="1" data-n={n.replace(/,/g, '')}>
+  <p class="b-stat-n" aria-hidden="true">{prefix}<span data-count>{n}</span>{suffix}</p>
+  <figcaption class="b-stat-t"><span class="sr">{prefix}{n}{suffix} </span><slot /></figcaption>
+</figure>

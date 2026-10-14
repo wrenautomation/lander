@@ -1,0 +1,20 @@
+---
+// The card every drawn figure sits in (the anatomy skill's plate): Fig n and the title on top, the hint and the
+// live readout at the bottom, the list it draws under it. The list is the content: readers, screen readers and the
+// email all get it. src/scripts/blog.ts steps the figure as it scrolls in; with no script it shows the end state.
+const { kind, fig, title, hint, unit, steps, svg, list } = Astro.props as {
+  kind: string; fig: string; title: string; hint: string; unit: string; steps: number; svg: string; list: string;
+};
+---
+<figure class="b-fig b-iso" data-fig={kind} data-steps={steps} data-unit={unit}>
+  <div class="b-plate">
+    <div class="b-corners" aria-hidden="true">
+      <span data-corner="fig">{fig}</span>
+      <span data-corner="title">{title}</span>
+      <span data-corner="hint">{hint}</span>
+      <span data-corner="readout" data-readout>{steps} of {steps} {unit}</span>
+    </div>
+    <Fragment set:html={svg} />
+  </div>
+  <figcaption class="b-items"><Fragment set:html={list} /></figcaption>
+</figure>

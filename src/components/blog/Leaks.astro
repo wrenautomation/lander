@@ -1,0 +1,14 @@
+---
+// <Leaks title="..."> around a Markdown list: a water line with one leaking joint per item. As the reader scrolls
+// in, a collar drops onto each joint, its drip stops, and the tank at the end fills a notch. In the email: the
+// title, then the list.
+import Plate from './Plate.astro';
+import { leaks, listItems } from '../../lib/figures';
+const { title, fig = 'Fig. 1', hint = 'Point at a line', unit = 'sealed' } = Astro.props as {
+  title: string; fig?: string; hint?: string; unit?: string;
+};
+const list = await Astro.slots.render('default');
+const items = listItems(list);
+const { svg } = leaks(items.length, `A water line with ${items.length} leaking joints: ${items.join('; ')}.`);
+---
+<Plate kind="leaks" fig={fig} title={title} hint={hint} unit={unit} steps={items.length} svg={svg} list={list} />

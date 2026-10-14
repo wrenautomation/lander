@@ -1,0 +1,13 @@
+---
+// <Rack title="..."> around a Markdown list: an equipment rack with one unit per item. As the reader scrolls in,
+// the units slide home one at a time and their lights come on. In the email: the title, then the list.
+import Plate from './Plate.astro';
+import { listItems, rack } from '../../lib/figures';
+const { title, fig = 'Fig. 1', hint = 'Point at a line', unit = 'running' } = Astro.props as {
+  title: string; fig?: string; hint?: string; unit?: string;
+};
+const list = await Astro.slots.render('default');
+const items = listItems(list);
+const { svg } = rack(items.length, `An equipment rack with ${items.length} units: ${items.join('; ')}.`);
+---
+<Plate kind="rack" fig={fig} title={title} hint={hint} unit={unit} steps={items.length} svg={svg} list={list} />

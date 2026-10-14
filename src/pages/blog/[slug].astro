@@ -1,7 +1,8 @@
 ---
 // /blog/<slug>: one post from src/content/blog. Under it, the newsletter signup; the same post goes out as the email.
-// A thin bar along the top tracks how far down the reader is, and figures rise in as they scroll into view (CSS only,
-// off under reduced motion).
+// A thin bar along the top tracks how far down the reader is; the sticky bar under it names the section being read.
+// The figures in src/components/blog build as they scroll in (src/scripts/blog.ts). All of it is off under reduced
+// motion, and the page reads whole without it.
 import type { GetStaticPaths } from 'astro';
 import { getEntry, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
@@ -11,6 +12,11 @@ import Subscribe from '../../components/Subscribe.astro';
 import Compare from '../../components/blog/Compare.astro';
 import Note from '../../components/blog/Note.astro';
 import Steps from '../../components/blog/Steps.astro';
+import Rack from '../../components/blog/Rack.astro';
+import Leaks from '../../components/blog/Leaks.astro';
+import Fan from '../../components/blog/Fan.astro';
+import Timeline from '../../components/blog/Timeline.astro';
+import Stat from '../../components/blog/Stat.astro';
 import { SIGNUP, day, postPath, posts, type Post } from '../../lib/blog';
 import '../../styles/blog.css';
 
@@ -23,14 +29,17 @@ const site = (await getEntry('site', 'site'))!.data;
 ---
 <Base title={`${post.data.title} | Wren Automation`} description={post.data.description} hue="lavender">
 <div class="read-bar" aria-hidden="true"></div>
+<div class="post-bar">
 <div class="wrap">
   <nav class="nav" aria-label="Page">
     <a href="/" aria-label="Wren Automation, front page"><Mark /></a>
+    <span class="post-at" data-at aria-hidden="true"></span>
     <div class="right">
       <a href="/blog">Blog</a>
       <button class="theme" type="button" data-theme-toggle data-to-dark={site.theme.to_dark} data-to-light={site.theme.to_light} aria-label="Switch between light and dark">{site.theme.to_dark}</button>
     </div>
   </nav>
+</div>
 </div>
 <main>
 <article>
@@ -42,7 +51,7 @@ const site = (await getEntry('site', 'site'))!.data;
     </div>
   </header>
   <section class="s">
-    <div class="wrap post"><Content components={{ Compare, Note, Steps }} /></div>
+    <div class="wrap post"><Content components={{ Compare, Note, Steps, Rack, Leaks, Fan, Timeline, Stat }} /></div>
   </section>
 </article>
 <section class="s">
@@ -51,5 +60,6 @@ const site = (await getEntry('site', 'site'))!.data;
   </div>
 </section>
 </main>
-<Foot site={site} />
+<Foot site={site} signup={false} />
+<script src="../../scripts/blog.ts"></script>
 </Base>

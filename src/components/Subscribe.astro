@@ -1,25 +1,80 @@
 ---
 // A signup form for one marketing topic (wren designs/2026-10-04-borrowed-ui.md, M2). Posts to /api/subscribe, which
 // asks wren to mail a confirm link; nothing goes out until that click. `text` is the exact line beside the button
-// and wren keeps it as proof, so bump `version` whenever it changes. The blog uses it (src/lib/blog.ts SIGNUP).
-const { topic, text, version, path, button = 'Sign up' } = Astro.props as {
-  topic: string; text: string; version: string; path: string; button?: string;
+// and wren keeps it as proof, so bump `version` whenever it changes. The blog uses it (src/lib/blog.ts SIGNUP), and
+// so does every footer, `compact`: one line, the field and the button side by side, colours from the footer.
+// With the script on it posts in place and shows the answer where the button was; without it, it posts and the
+// page comes back with ?subscribed=1.
+const { topic, text, version, path, button = 'Sign up', compact = false } = Astro.props as {
+  topic: string; text: string; version: string; path: string; button?: string; compact?: boolean;
 };
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
-<form class="subscribe" id="subscribe" method="post" action="/api/subscribe">
-  <p>{text}</p>
-  <label class="field"><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+<form class:list={['subscribe', { compact }]} id="subscribe" method="post" action="/api/subscribe" data-subscribe>
+  <p class="sub-text">{text}</p>
+  <div class="sub-row">
+    <label class="field"><span>Email</span><input name="email" type="email" autocomplete="email" placeholder={compact ? 'you@company.com' : undefined} required></label>
+    <button class="btn ink" type="submit"><span class="sub-label">{button}</span></button>
+  </div>
   <input type="hidden" name="topic" value={topic}>
   <input type="hidden" name="text" value={text}>
   <input type="hidden" name="text_version" value={version}>
   <input type="hidden" name="page" value={path}>
   <label class="hp" aria-hidden="true">Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
   {turnstile && <div class="cf-turnstile" data-sitekey={turnstile} data-size="flexible" data-theme="light"></div>}
-  <button class="btn ink" type="submit">{button}</button>
-  <p class="done" data-subscribed hidden>Check your inbox and click the link in my email to confirm.</p>
+  <p class="done" data-subscribed role="status" hidden>Check your inbox and click the link in my email to confirm.</p>
+  <p class="sub-err" data-sub-err role="alert" hidden>That didn't go through. Try again in a minute, or email me.</p>
 </form>
 {turnstile && <script is:inline async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>}
 <script is:inline>
   if (new URLSearchParams(location.search).get('subscribed') === '1') document.querySelector('[data-subscribed]')?.removeAttribute('hidden');
 </script>
+<script>
+  // post in place: the button shows it is working, then the answer takes its row
+  for (const form of document.querySelectorAll<HTMLFormElement>('form[data-subscribe]')) {
+    const btn = form.querySelector('button')!;
+    const done = form.querySelector<HTMLElement>('[data-subscribed]')!;
+    const err = form.querySelector<HTMLElement>('[data-sub-err]')!;
+    form.addEventListener('submit', async (e) => {
+      if (!form.checkValidity()) return;
+      e.preventDefault();
+      if (form.classList.contains('busy')) return;
+      form.classList.add('busy'); btn.disabled = true; err.hidden = true;
+      let ok = false;
+      try {
+        const r = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { accept: 'application/json' } });
+        ok = r.ok && (await r.json().catch(() => ({ ok: false }))).ok === true;
+      } catch { ok = false; }
+      form.classList.remove('busy'); btn.disabled = false;
+      if (ok) { form.classList.add('is-sent'); done.hidden = false; }
+      else err.hidden = false;
+    });
+  }
+</script>
+<style>
+  .subscribe{display:grid;gap:.9rem}
+  .sub-row{display:grid;gap:.9rem}
+  .subscribe button{transition:transform .12s ease-out,opacity .2s}
+  .subscribe button:active{transform:scale(.97)}
+  .subscribe.busy button{opacity:.6}
+  .subscribe.busy .sub-label{animation:sub-busy 1s ease-in-out infinite alternate}
+  @keyframes sub-busy{to{opacity:.35}}
+  .subscribe.is-sent .sub-row{display:none}
+  .done{margin:0;animation:sub-in .5s cubic-bezier(.22,1,.36,1)}
+  .sub-err{margin:0;font-size:14px}
+  @keyframes sub-in{from{opacity:0;transform:translateY(6px)}}
+  @media (prefers-reduced-motion:reduce){.done{animation:none}.subscribe.busy .sub-label{animation:none}}
+
+  /* the footer's one-line form: no label above the field, colours taken from the footer */
+  .compact{gap:.6rem;max-width:34rem}
+  .compact .sub-text{margin:0;font-size:14px}
+  .compact .sub-row{grid-template-columns:minmax(0,1fr) auto;gap:0}
+  .compact .field{margin:0}
+  .compact .field span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .compact input{margin:0;height:44px;padding:0 .8rem;font:inherit;font-size:16px;color:inherit;background:transparent;border:1px solid color-mix(in srgb,currentColor 40%,transparent);border-right:0;border-radius:0;width:100%}
+  .compact input::placeholder{color:currentColor;opacity:.5}
+  .compact input:focus{outline:2px solid currentColor;outline-offset:-2px}
+  .compact button{min-height:44px;height:44px;padding:0 1rem;width:auto;border-radius:0;color:inherit;background:currentColor;border:1px solid currentColor;cursor:pointer}
+  .compact button .sub-label{color:var(--sub-on,var(--paper));font:600 13px/1 inherit;font-family:inherit;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+  .compact .done,.compact .sub-err{font-size:14px}
+</style>

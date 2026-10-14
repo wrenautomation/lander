@@ -1,0 +1,22 @@
+---
+// <Fan title="..." from="One idea"> around a Markdown list: one source wired out to each item. The wires draw in
+// one at a time as the reader scrolls. Keep each item short, one line on a phone. In the email: the title, then
+// the list.
+import { listItems } from '../../lib/figures';
+const { title, from, fig = 'Fig. 1' } = Astro.props as { title: string; from: string; fig?: string };
+const list = await Astro.slots.render('default');
+const n = listItems(list).length;
+const H = n * 10;
+---
+<figure class="b-fig b-win b-fan" data-fig="fan" data-steps={n} style={`--n:${n}`}>
+  <div class="b-win-head" aria-hidden="true"><span>{fig}</span><span>{title}</span></div>
+  <div class="b-fan-grid">
+    <div class="b-fan-src"><span>{from}</span></div>
+    <svg class="b-fan-wires" viewBox={`0 0 100 ${H}`} preserveAspectRatio="none" aria-hidden="true">
+      {Array.from({ length: n }, (_, i) => (
+        <path data-part={i} d={`M0 ${H / 2}C55 ${H / 2} 45 ${i * 10 + 5} 100 ${i * 10 + 5}`} />
+      ))}
+    </svg>
+    <div class="b-items"><Fragment set:html={list} /></div>
+  </div>
+</figure>

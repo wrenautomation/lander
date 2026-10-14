@@ -1,15 +1,25 @@
 ---
-// The footer on every pitch page and the hub: the email, the fine print, the lockup back to the top.
+// The footer on every pitch page and the hub: the newsletter signup, the email, the fine print, the lockup back to
+// the top.
 const { site } = Astro.props as { site: { email: string; city: string; fine: string; fine_turnstile: string; fine_turnstile_link: string; fine_privacy: string; fine_cookies: string } };
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 const year = new Date().getFullYear();
 import Backdrop from './Backdrop.astro';
+import Subscribe from '../Subscribe.astro';
+import { SIGNUP } from '../../lib/blog';
 ---
 <footer class="foot">
   <Backdrop dark="foot" />
   <div class="wrap">
+    <div class="news"><Subscribe compact topic={SIGNUP.topic} text={SIGNUP.text} version={SIGNUP.version} path={Astro.url.pathname} button={SIGNUP.button} /> <a class="blog" href="/blog">Read the blog</a></div>
     <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
     <p class="fine">© {year} Wren Automation · {site.city} · {site.fine}{turnstile && <> {site.fine_turnstile} <a href="https://www.cloudflare.com/turnstile-privacy-policy/">{site.fine_turnstile_link}</a>.</>} <a href="/privacy">{site.fine_privacy}</a> · <button type="button" class="cookies-link" data-cookies>{site.fine_cookies}</button></p>
     <a class="sign-off" href="#top" aria-label="Wren Automation, top of page"><i class="bird" aria-hidden="true"></i><span>Wren Automation</span></a>
   </div>
 </footer>
+<style>
+  .news{flex-basis:100%;display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px 28px;padding-bottom:28px;margin-bottom:4px;border-bottom:1px solid rgba(250,247,242,.28);--sub-on:var(--acc)}
+  .news :global(.subscribe){flex:1 1 22rem}
+  .blog{font-size:14px;line-height:1.5;text-decoration:underline;text-decoration-color:rgba(250,247,242,.45)}
+  .blog:hover{text-decoration-color:var(--cream)}
+</style>

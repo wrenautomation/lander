@@ -12,6 +12,7 @@ const all = await posts();
 const site = (await getEntry('site', 'site'))!.data;
 ---
 <Base title="Blog | Wren Automation" description="What I build for Wren and for clients, and what it did." hue="lavender" noindex={!all.length}>
+<div class="post-bar">
 <div class="wrap">
   <nav class="nav" aria-label="Page">
     <a href="/" aria-label="Wren Automation, front page"><Mark /></a>
@@ -19,6 +20,7 @@ const site = (await getEntry('site', 'site'))!.data;
       <button class="theme" type="button" data-theme-toggle data-to-dark={site.theme.to_dark} data-to-light={site.theme.to_light} aria-label="Switch between light and dark">{site.theme.to_dark}</button>
     </div>
   </nav>
+</div>
 </div>
 <main>
 <section class="post-hero">
@@ -31,8 +33,8 @@ const site = (await getEntry('site', 'site'))!.data;
   <div class="wrap post-col">
     {all.length ? (
       <ol class="post-list">
-        {all.map((p) => (
-          <li>
+        {all.map((p, i) => (
+          <li style={`--i:${i}`}>
             <a href={postPath(p)}>
               <span class="post-date">{day(p.data.date)}{p.data.draft && ' · draft'}</span>
               <span class="post-title">{p.data.title}</span>
@@ -50,5 +52,5 @@ const site = (await getEntry('site', 'site'))!.data;
   </div>
 </section>
 </main>
-<Foot site={site} />
+<Foot site={site} signup={false} />
 </Base>

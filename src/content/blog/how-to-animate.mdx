@@ -1,6 +1,6 @@
 ---
 title: How to add a post with moving parts
-description: The three blocks an .mdx post can use, and what each becomes in the email.
+description: The blocks an .mdx post can use, and what each becomes in the email.
 date: 2026-10-13
 draft: true
 ---
@@ -32,3 +32,43 @@ One thing a skimmer must not miss. In the email the title becomes the first line
 </Compare>
 
 Leave a blank line inside `Steps` and `Compare` so the list inside reads as Markdown. In `Compare`, a `---` line splits the before list from the after list.
+
+## Figures that build as you scroll
+
+Each one wraps a short list. On the page the list is drawn and builds one line at a time; in the email it is the title, then the list. Keep items short: one line on a phone.
+
+<Rack title="A rack, one unit per line" fig="Fig. 1">
+
+- **First**: slides in and lights up
+- **Second**: then this one
+- **Third**: and so on, up to eight
+
+</Rack>
+
+<Leaks title="Leaks, one joint per line" fig="Fig. 2">
+
+- **First**: a collar seals this joint
+- **Second**: and the tank fills a notch
+
+</Leaks>
+
+<Fan title="One source, many outputs" from="One idea" fig="Fig. 3">
+
+- **First**: a wire to each line
+- **Second**: up to eight
+
+</Fan>
+
+<Timeline title="Stops in order" fig="Fig. 4">
+
+- **Day 1**: the first stop
+- **Day 3**: the next
+- **Day 7**: the last
+
+</Timeline>
+
+<Stat n="23" suffix="%">
+is how a Stat reads: the number, then the sentence that finishes it, with its source linked.
+</Stat>
+
+`Rack` and `Leaks` take `unit` for the counter at the bottom ("running", "sealed"). `Stat` takes `prefix`, `n` and `suffix`; only use a number you can source. Only one figure animates at a time, and readers who ask for less motion see each one finished.

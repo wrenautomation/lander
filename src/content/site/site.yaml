@@ -185,7 +185,7 @@ thanks_h: Got it, thanks.
 thanks: Look for an email from william@wrenautomation.com within a business day. If it isn't there, check spam or email me directly. Talk soon.
 
 # Bottom of every page. `fine` is the privacy line; keep it true (see README, "What gets measured").
-fine: Your email is used to reply to you, never for a subscription or a marketing list.
+fine: If you write to me or fill in a form, I use your email only to reply. Only people who sign up and confirm get the newsletter.
 # Appended only when Turnstile is on. Cloudflare requires the link for invisible mode.
 fine_turnstile: The form is checked for bots by Cloudflare Turnstile, under its
 fine_turnstile_link: privacy addendum

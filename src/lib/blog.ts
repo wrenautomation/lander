@@ -14,10 +14,15 @@ export const postPath = (p: Post) => `/blog/${p.id}`;
 export const day = (d: Date) =>
   d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 
+// The scroll-built figures in src/components/blog wrap a Markdown list, so the email keeps every word of them.
+const FIGURE_OPEN = /^<(?:Rack|Leaks|Fan|Timeline)\b([^>]*)>[ \t]*$/gm;
+const attr = (attrs: string, name: string) => attrs.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1] ?? '';
+
 /**
  * A post's Markdown as a plain-text email: links read "words (url)", an image or an embed points at the post,
  * headings and emphasis lose their marks. The visuals live on the page; the email sends people there.
- * An .mdx post's imports go; any other component (over however many lines) becomes one line to the page.
+ * An .mdx post's imports go. The blog components keep their words: a figure's title heads its list, a Stat's number
+ * leads its sentence. Any other component (over however many lines) becomes one line to the page.
  */
 export function emailText(body: string, url: string): string {
   const see = `(See it on the page: ${url})`;
@@ -30,7 +35,11 @@ export function emailText(body: string, url: string): string {
       return `${a}:\n${one.trim()}\n\n${b}:\n${two.trim()}`;
     })
     .replace(/^<Note\s+title="([^"]*)"\s*>[ \t]*$/gm, '$1:')
-    .replace(/^<\/?(Steps|Note)>[ \t]*$/gm, '')
+    // a Stat's number leads its sentence; a figure's title heads its list
+    .replace(/^<Stat\b([^>]*)>\s*\n([\s\S]*?)\n\s*<\/Stat>/gm, (_, a: string, inner: string) =>
+      `${attr(a, 'prefix')}${attr(a, 'n')}${attr(a, 'suffix')} ${inner.trim()}`)
+    .replace(FIGURE_OPEN, (_, a: string) => (attr(a, 'title') ? `${attr(a, 'title')}:` : ''))
+    .replace(/^<\/?(Steps|Note|Rack|Leaks|Fan|Timeline)>[ \t]*$/gm, '')
     .replace(/^<([A-Z]\w*)\b[\s\S]*?(<\/\1>|\/>)[ \t]*$/gm, see)
     .replace(/^\s*<[^>]+>.*$/gm, see)
     .replace(/!\[([^\]]*)\]\([^)]*\)/g, (_, alt: string) => `(${alt ? `${alt}: ` : ''}see it on the page: ${url})`)
