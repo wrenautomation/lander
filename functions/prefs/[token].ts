@@ -23,10 +23,10 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, params })
   const q = new URL(request.url).searchParams;
   const named = esc(p.named ?? 'this list');
   if (q.get('confirm') === '1')
-    return page(`<h1>Confirm your signup</h1><p>Press the button to start getting ${named}.</p>${act('confirm', 'Confirm', true)}`);
+    return page(`<h1>Confirm your signup</h1><p>Press the button to start getting ${named}.</p>${act('confirm', 'Confirm', true)}`, 200, p.from);
   if (q.get('off') === '1' && p.topic)
-    return page(`<h1>Unsubscribe</h1><p>Press the button to stop getting ${named}.</p>${act('off', 'Unsubscribe', true)}`);
-  return page(flash(q, p) + prefsOf(p));
+    return page(`<h1>Unsubscribe</h1><p>Press the button to stop getting ${named}.</p>${act('off', 'Unsubscribe', true)}`, 200, p.from);
+  return page(flash(q, p) + prefsOf(p), 200, p.from);
 };
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env, params }) => {
@@ -125,9 +125,11 @@ function broken(status: number): Response {
     : `<h1>Something broke on my end</h1><p>Try again in a minute.</p>`, gone ? 404 : 502);
 }
 
-function page(body: string, status = 200): Response {
+/** `from`: a client's name on its own list's page; null is Wren's own. */
+function page(body: string, status = 200, from: string | null = null): Response {
+  const who = from ? esc(from) : 'Wren Automation';
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex"><title>Your emails | Wren Automation</title><link rel="icon" href="/brand/wren-mark.png">
+<meta name="robots" content="noindex"><title>Your emails | ${who}</title>${from ? '' : '<link rel="icon" href="/brand/wren-mark.png">'}
 <style>
 @font-face{font-family:Inter;src:url(/fonts/inter-latin.woff2) format('woff2');font-weight:100 900;font-display:swap}
 :root{--paper:#fff;--paper-2:#F4F1EC;--ink:#0E0E0E;--mute:#6E6E68;--rule:rgba(14,14,14,.13);--acc:#7969A3;--cream:#FAF7F2}
@@ -143,7 +145,7 @@ input[role=switch]::after{content:'';position:absolute;top:3px;left:3px;width:18
 input[role=switch]:checked{background:var(--acc)}input[role=switch]:checked::after{left:23px}input[role=switch]:focus-visible,select:focus-visible,.btn:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 select{font:inherit;padding:10px 12px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:0;max-width:100%}
 .row{display:flex;flex-wrap:wrap;gap:8px}hr{border:0;border-top:1px solid var(--rule);margin:48px 0 24px}form{margin:0}
-</style></head><body><main><header><img src="/brand/wren-mark-224.png" alt="">Wren Automation</header>${body}</main>
+</style></head><body><main><header>${from ? '' : '<img src="/brand/wren-mark-224.png" alt="">'}${who}</header>${body}</main>
 <script>
 document.querySelectorAll('form[data-auto]').forEach(function(f){f.submit()});
 document.querySelectorAll('[data-save]').forEach(function(i){i.addEventListener('change',function(){i.form.submit()})});

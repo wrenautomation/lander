@@ -31,4 +31,6 @@ export interface Prefs {
   topics: { name: string; publicName: string; line: string; cadence: string; on: boolean }[];
   topic: string | null;
   named: string | null;
+  /** A client's name when it's that client's list; null is Wren's own. */
+  from?: string | null;
 }
