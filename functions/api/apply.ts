@@ -5,6 +5,7 @@ import type { Env } from '../_shared/env';
 import { EMAIL, clip, human, isBot, origin, readForm } from '../_shared/form';
 import { bookingLink, ownCalendar, ownLink } from '../_shared/booking';
 import { forwardToDoor, nicheOfPage } from '../_shared/door';
+import { pushApplication } from '../_shared/forms';
 import { notify } from '../_shared/notify';
 import { cameFrom, history, visitorOf, withVisitor } from '../_shared/visitor';
 import { type Answers, OTHER, answersFrom, fits, invalidAnswers, offerFor, writeInsFrom } from '../../src/lib/offers';
@@ -48,6 +49,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, waitUnti
     note: row.note, niche: nicheOfPage(o.page), page: o.page, offer: offer.id, fit: row.fit, visitor: visitor.id, first: came.first, last: came.last,
     utm: { source: o.utm_source, medium: o.utm_medium, campaign: o.utm_campaign, content: o.utm_content }, ref: o.ref, r: o.r || came.last?.r || '',
   }));
+
+  // Texts OK and a phone: wren's first text runs now (functions/_shared/forms.ts).
+  if (row.sms_consent) waitUntil(pushApplication(env, Number(saved.meta.last_row_id)));
 
   // Answers by label, so the ping reads without the offer file open.
   const said = (offer.application?.questions ?? []).flatMap((q) => {
