@@ -200,6 +200,7 @@ if (box) {
   const pips = $$('.pips i', box); // one bar per step, filled up to the current one
   const show = (i: number, focus = true) => {
     cur = i;
+    if (focus) document.dispatchEvent(new CustomEvent('wren:form', { detail: { step: i, of: steps.length } })); // hit.ts: form.step
     steps.forEach((s, j) => s.classList.toggle('on', j === i));
     pips.forEach((p, j) => p.classList.toggle('on', j <= i));
     if (back) back.hidden = i === 0;
@@ -253,6 +254,7 @@ if (box) {
     } catch { /* state stays error */ }
     submit.disabled = false; label.textContent = was;
     box.dataset.state = state;
+    document.dispatchEvent(new CustomEvent('wren:form', { detail: { result: state } })); // hit.ts: form.result
     if (state !== 'error') document.dispatchEvent(new Event('wren:sent')); // survey.ts: a form-moment survey may ask now
     const cal = $('[data-cal]', box);
     if (state === 'fit' && booking && cal && !cal.childElementCount) {

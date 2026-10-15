@@ -5,7 +5,7 @@
 // What brought them rides only on the view they arrived on: ?r= (a code on the link in one of our emails), utm_*
 // (a /go link or a tagged post), or another site's referrer. Those params are then taken off the address bar, so a
 // copied link doesn't credit someone else's email. The form's hidden fields carry this tab's touch as a fallback.
-// What they did on the page goes to /api/events in batches, sent when the tab hides: cta, form.start, form.submit,
+// What they did on the page goes to /api/events in batches, sent when the tab hides: cta, form.start, form.step, form.submit, form.result,
 // book.click, video.play, video.progress (25/50/75/100), and a click on any [data-signal="<name>"] as <name>.
 // For heatmaps it also sends `click` (the element's path, where in it, the width bucket; 50 a view), `rage` (3 clicks
 // on one element inside a second) and `scroll` (the deepest point the screen's bottom reached, in percent of the page).
@@ -113,6 +113,11 @@ if (!q.has('static') && !q.has('probe')) {
     if (!started) { started = true; track('form.start'); }
   });
   document.addEventListener('submit', (e) => { if (e.target instanceof Element && e.target.matches('form[data-lead]')) track('form.submit'); }, true);
+  // The stepped form says which step is on screen and how a send ended (pitch.ts), so a drop-off and a failed send differ.
+  document.addEventListener('wren:form', (e) => {
+    const d = (e as CustomEvent<{ step?: number; of?: number; result?: string }>).detail ?? {};
+    if (d.result) { track('form.result', { state: d.result }); flush(); } else track('form.step', { step: d.step, of: d.of });
+  });
   // media events don't bubble: listen in the capture phase. Each mark fires once per video.
   const marks = new WeakMap<HTMLVideoElement, Set<number>>();
   document.addEventListener('play', (e) => { if (e.target instanceof HTMLVideoElement) track('video.play'); }, true);

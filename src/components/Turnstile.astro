@@ -1,9 +1,9 @@
 ---
 // Cloudflare's bot check, loaded off the first paint: on the first touch of a lead form, or once the page has settled.
-// The widget itself is the form's own <div class="cf-turnstile">.
+// The widget itself is the form's own <div class="cf-turnstile">. A page with two forms carries this twice; the script loads once.
 ---
 <script is:inline>
-  (function(){var on=0;function load(){if(on)return;on=1;var s=document.createElement('script');s.src='https://challenges.cloudflare.com/turnstile/v0/api.js';s.async=true;document.head.appendChild(s)}
+  (function(){var on=0;function load(){if(on||window.__wrenTs)return;on=1;window.__wrenTs=1;var s=document.createElement('script');s.src='https://challenges.cloudflare.com/turnstile/v0/api.js';s.async=true;document.head.appendChild(s)}
   document.querySelectorAll('form[data-lead]').forEach(function(f){['focusin','pointerdown'].forEach(function(e){f.addEventListener(e,load,{once:true})})});
   addEventListener('load',function(){setTimeout(function(){(window.requestIdleCallback||setTimeout)(load)},1500)})})();
 </script>
