@@ -38,9 +38,6 @@
 .post-desc{color:var(--mute)}
 
 /* the signup */
-.post-signup .subscribe{border-top:1px solid var(--rule);padding-top:1.6rem}
-.post-signup .subscribe>*{max-width:30rem}
-.post-signup .subscribe>p{margin:0;color:var(--ink)}
 .post-signup .done{color:var(--acc);font-weight:600}
 
 /* motion, driven by the reader's own scroll: the bar tracks the page, figures rise in once */

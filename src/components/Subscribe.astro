@@ -9,11 +9,16 @@ const { topic, text, version, path, button = 'Sign up', compact = false } = Astr
   topic: string; text: string; version: string; path: string; button?: string; compact?: boolean;
 };
 const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+// The full form shows the first sentence as its heading and the rest as fine print; the words stay `text` exactly.
+const cut = text.indexOf('. ');
+const head = !compact && cut > 0 ? text.slice(0, cut) : null;
+const fine = head ? text.slice(cut + 2) : text;
 ---
 <form class:list={['subscribe', { compact }]} id="subscribe" method="post" action="/api/subscribe" data-subscribe>
-  <p class="sub-text">{text}</p>
+  {head && <p class="sub-head">{head}</p>}
+  <p class="sub-text">{fine}</p>
   <div class="sub-row">
-    <label class="field"><span>Email</span><input name="email" type="email" autocomplete="email" placeholder={compact ? 'you@company.com' : undefined} required></label>
+    <label class="field"><span>Email</span><input name="email" type="email" autocomplete="email" placeholder="you@company.com" required></label>
     <button class="btn ink" type="submit"><span class="sub-label">{button}</span></button>
   </div>
   <input type="hidden" name="topic" value={topic}>
@@ -64,6 +69,26 @@ const turnstile = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   .sub-err{margin:0;font-size:14px}
   @keyframes sub-in{from{opacity:0;transform:translateY(6px)}}
   @media (prefers-reduced-motion:reduce){.done{animation:none}.subscribe.busy .sub-label{animation:none}}
+
+  /* the full form (blog): one panel, heading, fine print, then the field and the button joined on one line */
+  .subscribe:not(.compact){gap:0;padding:1.5rem 1.5rem 1.4rem;border:1px solid var(--rule);background:color-mix(in srgb,var(--soft) 60%,var(--paper));max-width:34rem}
+  .sub-head{margin:0;font-size:1.15rem;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+  .subscribe:not(.compact) .sub-text{margin:.35rem 0 1.1rem;font-size:14px;color:var(--mute)}
+  .subscribe:not(.compact) .sub-row{grid-template-columns:minmax(0,1fr) auto;gap:0}
+  .subscribe:not(.compact) .field{margin:0}
+  .subscribe:not(.compact) .field span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .subscribe:not(.compact) input{margin:0;height:48px;padding:0 .9rem;font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-right:0;border-radius:0;width:100%;transition:border-color .15s}
+  .subscribe:not(.compact) input::placeholder{color:var(--mute);opacity:.7}
+  .subscribe:not(.compact) input:focus{outline:none;border-color:var(--ink)}
+  .subscribe:not(.compact) button{min-height:48px;height:48px;width:auto;padding:0 1.2rem;font-size:13px;white-space:nowrap}
+  .subscribe:not(.compact) .cf-turnstile{margin-top:.8rem}
+  .subscribe:not(.compact) .done,.subscribe:not(.compact) .sub-err{margin-top:.2rem;font-size:14px}
+  @media (max-width:420px){
+    .subscribe:not(.compact){padding:1.2rem}
+    .subscribe:not(.compact) .sub-row{grid-template-columns:1fr;gap:.6rem}
+    .subscribe:not(.compact) input{border-right:1px solid var(--rule)}
+    .subscribe:not(.compact) button{width:100%}
+  }
 
   /* the footer's one-line form: no label above the field, colours taken from the footer */
   .compact{gap:.6rem;max-width:34rem}
