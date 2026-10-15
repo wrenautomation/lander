@@ -161,6 +161,16 @@ for (const m of $$('[data-menu]')) {
   for (const a of $$('a', m)) a.addEventListener('click', () => { set(false); (document.activeElement as HTMLElement | null)?.blur(); });
 }
 
+/* ---------- the phone menu: one button folds the links into a panel under the bar ---------- */
+const burger = $<HTMLButtonElement>('[data-burger]'), bar = $('[data-nav]');
+if (burger && bar) {
+  const set = (on: boolean) => { bar.classList.toggle('open', on); burger.setAttribute('aria-expanded', String(on)); };
+  burger.addEventListener('click', () => set(!bar.classList.contains('open')));
+  document.addEventListener('click', (e) => { if (!bar.contains(e.target as Node)) set(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+  for (const a of $$('.links a', bar)) a.addEventListener('click', () => set(false));
+}
+
 /* ---------- the form: contact details (after an opening question, on the hub), then one question at a time, then fetch ---------- */
 const box = $('[data-apply]');
 if (box) {

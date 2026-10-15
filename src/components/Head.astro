@@ -20,10 +20,8 @@ const ld = !noindex && structuredData({ site, url: canonical, title, description
 {noindex ? <meta name="robots" content="noindex"> : <link rel="canonical" href={canonical}>}
 <link rel="icon" href="/brand/wren-icon.png?v=lavender">
 <link rel="apple-touch-icon" href="/brand/wren-icon.png?v=lavender">
-{theme ? <meta name="theme-color" content={theme}> : <>
-<meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#110e0c" media="(prefers-color-scheme: dark)">
-</>}
+{/* a page with a theme toggle: the bar starts light; Base's script and the toggle set it to the reader's choice */}
+<meta name="theme-color" content={theme ?? '#faf7f2'} data-theme-color={theme ? undefined : ''}>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wren Automation">
 <meta property="og:url" content={canonical}>

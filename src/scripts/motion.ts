@@ -15,9 +15,10 @@ const BP = '(max-width:839px)'; // same number as global.css
 const tb = document.querySelector<HTMLButtonElement>('[data-theme-toggle]')!;
 const setTheme = (t: string, save = true) => {
   root.dataset.theme = t; const l = t === 'dark' ? tb.dataset.toLight! : tb.dataset.toDark!; tb.setAttribute('aria-label', l); tb.title = l;
+  const bar = document.querySelector<HTMLMetaElement>('meta[data-theme-color]'); if (bar) bar.content = t === 'dark' ? '#161311' : '#faf7f2';
   if (save) try { localStorage.setItem('wren-theme', t); } catch {}
 };
-setTheme(q.get('theme') || root.dataset.theme || 'dark', false);
+setTheme(q.get('theme') || root.dataset.theme || 'light', false);
 tb.onclick = () => {
   const flip = () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
   const d = document as Document & { startViewTransition?: (cb: () => void) => unknown };
