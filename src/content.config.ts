@@ -72,7 +72,7 @@ const site = defineCollection({
     profiles: z.array(z.url()),   // Wren's own live profiles elsewhere; search engines read them as the same company
     // The booking page's "Or message me directly" links: an email or a page, never a script.
     contact: z.array(z.strictObject({ name: z.string(), label: z.string().optional(), href: z.string().regex(/^(mailto:|https:\/\/)/) })),
-    nav: z.strictObject({ work: z.string(), offer: z.string(), about: z.string(), contact: z.string() }),
+    nav: z.strictObject({ work: z.string(), offer: z.string(), about: z.string(), blog: z.string(), contact: z.string() }),
     theme: z.strictObject({ to_dark: z.string(), to_light: z.string() }),
     cta: z.string(),
     mid_cta: z.string(), // the link to the form after the case studies and after the offer

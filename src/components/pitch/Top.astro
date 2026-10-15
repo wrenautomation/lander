@@ -14,7 +14,7 @@ const { nav, cta, to = '#apply', hub = false, contact } = Astro.props as { nav: 
         <button type="button" aria-expanded="false" aria-haspopup="true">{n.label}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 6.5 8 10l3.5-3.5" /></svg></button>
         <div class="drop">{n.menu.map((m) => <a href={m.to}><b>{m.label}</b>{m.note && <span>{m.note}</span>}{m.what && <em class="what"><span>{m.what}</span></em>}</a>)}</div>
       </div>
-    ) : <a href={n.to}>{n.label}</a>)}</nav>
+    ) : <a href={n.to}>{n.label}</a>)}<a href="/blog">Blog</a></nav>
     {contact && <a class="contact" href={`mailto:${contact}`}>{contact}</a>}
     <a class="btn ink sm" href={to} data-cta={to === '#apply' ? '' : undefined}><span>{cta}</span><Arrow /></a>
   </div>
