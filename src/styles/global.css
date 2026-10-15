@@ -38,8 +38,6 @@ p{margin:0}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-.mark.l{display:block} .mark.d{display:none}
-[data-theme=dark] .mark.l{display:none} [data-theme=dark] .mark.d{display:block}
 
 /* hairline trace bands */
 .band{display:block;width:100%;height:56px;color:var(--trace);opacity:.65}
@@ -51,7 +49,7 @@ p{margin:0}
 /* nav */
 .nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--rule)}
 .brand{display:inline-flex;align-items:center;gap:.55rem;text-decoration:none;color:var(--ink)}
-.brand .mark{height:26px;width:auto}
+.brand .mark{display:block;height:26px;width:auto;border-radius:6px}
 .brand .name{font-weight:600;font-size:15px;letter-spacing:-.01em;white-space:nowrap}
 .nav .right{display:flex;align-items:center;gap:1rem;font-size:15px;font-weight:500}
 .nav .links{display:none;gap:1.4rem}
@@ -59,7 +57,9 @@ p{margin:0}
 .nav .links a:hover{text-decoration:underline;text-underline-offset:5px;text-decoration-color:var(--acc)}
 .nav .contact{text-decoration:none}
 .theme{display:inline-grid;place-items:center;width:32px;height:32px;padding:0;border:1px solid var(--rule);background:transparent;color:var(--mute);border-radius:2px;cursor:var(--cur-on)}
-.theme:hover{color:var(--ink)}
+.theme{transition:color .2s,background .2s,border-color .2s}
+.theme:hover{color:var(--ink);background:var(--soft);border-color:color-mix(in srgb,var(--ink) 25%,var(--rule))}
+.theme:active{transform:scale(.94)}
 .theme svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
 .theme svg{grid-area:1/1;transition:opacity .25s,transform .35s}
 .theme .moon{opacity:0;transform:rotate(-60deg) scale(.6)} [data-theme=dark] .theme .sun{opacity:0;transform:rotate(60deg) scale(.6)} [data-theme=dark] .theme .moon{opacity:1;transform:none}

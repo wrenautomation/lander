@@ -31,11 +31,29 @@
 .post-list{list-style:none;padding:0;margin:0}
 .post-list li{border-top:1px solid var(--rule)}
 .post-list li:last-child{border-bottom:1px solid var(--rule)}
-.post-list a{display:grid;gap:.3rem;padding:1.3rem 0;text-decoration:none;color:inherit}
+.post-list a{position:relative;display:grid;gap:.3rem;padding:1.4rem 2.2rem 1.4rem 0;text-decoration:none;color:inherit}
 .post-list .post-date{margin:0}
 .post-title{font-size:1.25rem;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
-.post-list a:hover .post-title{color:var(--acc)}
 .post-desc{color:var(--mute)}
+/* hover: the row's words shift right a step and an arrow slides in; the band behind it fades up */
+.post-list a::before{content:"";position:absolute;inset:0 -1rem;background:var(--soft);opacity:0;transition:opacity .25s;z-index:-1}
+.post-list a::after{content:"→";position:absolute;right:.4rem;top:50%;color:var(--acc);font-size:1.2rem;opacity:0;transform:translate(-8px,-50%);transition:opacity .25s,transform .35s cubic-bezier(.22,1,.36,1)}
+.post-list a>*{transition:transform .35s cubic-bezier(.22,1,.36,1),color .2s}
+.post-list li{position:relative;isolation:isolate}
+@media (hover:hover){
+  .post-list a:hover::before{opacity:1}
+  .post-list a:hover::after{opacity:1;transform:translate(0,-50%)}
+  .post-list a:hover>*{transform:translateX(6px)}
+  .post-list a:hover .post-title{color:var(--acc)}
+}
+.post-list a:active>*{transform:translateX(3px)}
+.post-list a:focus-visible{outline-offset:4px}
+.no-motion .post-list :is(a>*,a::before,a::after){transition:none}
+@media (prefers-reduced-motion:reduce){.post-list :is(a>*,a::before,a::after){transition:none}}
+
+/* the signup sits on the same column as the list, with room above it */
+.post-signup{padding-top:1rem}
+.post-hero+.s{padding-top:2.5rem}
 
 /* the signup */
 .post-signup .done{color:var(--acc);font-weight:600}
@@ -237,10 +255,8 @@
 .post-hero .lede{animation-delay:.18s}
 @keyframes hero-in{from{opacity:0;transform:translateY(14px);filter:blur(6px)}}
 
-/* /blog rows rise in order, and press like a button */
+/* /blog rows rise in order */
 .post-list li{animation:hero-in .8s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(.12s + var(--i,0) * .07s)}
-.post-list a{transition:transform .15s ease-out}
-.post-list a:active{transform:scale(.985)}
 .post-signup .btn{transition:transform .12s ease-out}
 
 .no-motion :is(.post-hero .post-date,.post-hero h1,.post-hero .lede,.post-list li,.post-at){animation:none}

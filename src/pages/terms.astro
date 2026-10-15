@@ -4,6 +4,7 @@
 import { getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Mark from '../components/Mark.astro';
+import Theme from '../components/Theme.astro';
 import Foot from '../components/Foot.astro';
 const site = (await getEntry('site', 'site'))!.data;
 const updated = 'October 9, 2026';
@@ -13,7 +14,7 @@ const updated = 'October 9, 2026';
   <nav class="nav" aria-label="Page">
     <a href="/" aria-label="Wren Automation, front page"><Mark /></a>
     <div class="right">
-      <button class="theme" type="button" data-theme-toggle data-to-dark={site.theme.to_dark} data-to-light={site.theme.to_light} aria-label="Switch between light and dark">{site.theme.to_dark}</button>
+      <Theme to_dark={site.theme.to_dark} to_light={site.theme.to_light} />
     </div>
   </nav>
 </div>
