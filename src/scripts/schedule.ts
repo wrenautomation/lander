@@ -100,7 +100,7 @@ async function loadSlots(): Promise<boolean> {
   const r = await fetch('/api/slots').then((x) => (x.ok ? x.json() : null)).catch(() => null) as { length: number; slots: string[] } | null;
   if (!r) { say(down()); return false; }
   slots = r.slots;
-  $('[data-length]').textContent = `A ${r.length}-minute call with me on Google Meet.`;
+  $('[data-length]').textContent = `A ${r.length}-minute call with me on Google Meet. I record calls for my notes.`;
   draw();
   return true;
 }

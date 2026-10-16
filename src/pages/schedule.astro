@@ -69,7 +69,7 @@ const offers = Object.fromEntries(data.offers.filter((o) => o.booking).map((o) =
     <section data-pick hidden>
       <p class="label" data-offer></p>
       <h1 data-pick-h>Book a call</h1>
-      <p class="lede" data-length>A call with me on Google Meet.</p>
+      <p class="lede" data-length>A call with me on Google Meet. I record calls for my notes.</p>
       <p class="zone" data-zone-row><span>Times in</span><select data-zone aria-label="Time zone"></select></p>
       <div class="days" data-days role="tablist" aria-label="Day"></div>
       <div class="times" data-times aria-live="polite"></div>
@@ -99,6 +99,7 @@ const offers = Object.fromEntries(data.offers.filter((o) => o.booking).map((o) =
       <h1 data-done-h>You're booked</h1>
       <p class="lede" data-done-when></p>
       <p class="lede">The calendar invite with the Meet link is on its way to your inbox.</p>
+      <p class="lede">I record calls so I can keep good notes. If you'd rather I didn't, say so at the start.</p>
       <p class="row"><a class="btn ghost" data-manage href="#">Change or cancel</a></p>
     </section>
 
