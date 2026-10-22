@@ -16,6 +16,7 @@ import Steps from '../../components/blog/Steps.astro';
 import Rack from '../../components/blog/Rack.astro';
 import Leaks from '../../components/blog/Leaks.astro';
 import Fan from '../../components/blog/Fan.astro';
+import Hairline from '../../components/Hairline.astro';
 import Timeline from '../../components/blog/Timeline.astro';
 import Stat from '../../components/blog/Stat.astro';
 import { SIGNUP, day, postPath, posts, type Post } from '../../lib/blog';
@@ -52,7 +53,7 @@ const site = (await getEntry('site', 'site'))!.data;
     </div>
   </header>
   <section class="s">
-    <div class="wrap post"><Content components={{ Compare, Note, Steps, Rack, Leaks, Fan, Timeline, Stat }} /></div>
+    <div class="wrap post"><Content components={{ Compare, Note, Steps, Rack, Leaks, Fan, Timeline, Stat, Hairline }} /></div>
   </section>
 </article>
 <section class="s">

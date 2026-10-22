@@ -1,0 +1,62 @@
+---
+// A hairline line figure (@lucasmarkes/hairline, MIT; designs/2026-10-11-design-kits.md in wren): an isometric
+// drawing that answers the pointer. For the lander and the blog, never the portal. It never plays on its own, so it
+// keeps the lander's one-motion-at-a-time rule; under reduced motion the library holds it still.
+// The box holds the figure's 5:4 shape before the script draws it, so nothing shifts. The colours are the page's
+// tokens, so the theme toggle recolours it. An email of a post that uses it gets one line to the page instead.
+import type { HTMLAttributes } from 'astro/types';
+
+type Name =
+  | 'basket' | 'branches' | 'cabinet' | 'dish' | 'drawer' | 'elevator' | 'exploded' | 'format' | 'hub'
+  | 'keyboard' | 'laptop' | 'lockers' | 'loupe' | 'padlock' | 'patch' | 'phone' | 'phosphor' | 'plot' | 'plug'
+  | 'query' | 'rail' | 'rebuild' | 'relay' | 'riffle' | 'router' | 'settle' | 'sieve' | 'slow' | 'stack'
+  | 'terminal' | 'terrain' | 'turntable' | 'vault';
+
+type Props = HTMLAttributes<'div'> & {
+  /** Which figure. */
+  figure: Name;
+  /** The accessible name; none keeps the figure's own description. */
+  label?: string;
+  /** How strongly it answers the pointer, 0 to 1. */
+  intensity?: number;
+};
+
+const { figure, label, intensity, class: cls, ...rest } = Astro.props;
+---
+<div
+  class:list={['hairline', cls]}
+  data-hairline={figure}
+  data-label={label}
+  data-intensity={intensity}
+  {...rest}
+></div>
+
+<style>
+  .hairline {
+    aspect-ratio: 5 / 4;
+    width: 100%;
+    --hairline-plate: var(--paper);
+    --hairline-hi: var(--ink);
+    --hairline-edge: var(--trace);
+    --hairline-mid: var(--mute);
+    --hairline-lo: var(--rule);
+  }
+</style>
+
+<script>
+  const boxes = [...document.querySelectorAll<HTMLElement>('[data-hairline]')];
+  // The library loads only on a page that has a figure.
+  if (boxes.length) {
+    import('@lucasmarkes/hairline').then((lib) => {
+      for (const el of boxes) {
+        const draw = (lib as unknown as Record<string, (el: HTMLElement, o: object) => unknown>)[el.dataset.hairline ?? ''];
+        if (!draw) continue;
+        const n = Number(el.dataset.intensity);
+        draw(el, {
+          ...(el.dataset.label ? { label: el.dataset.label } : {}),
+          ...(Number.isFinite(n) && el.dataset.intensity ? { intensity: n } : {}),
+        });
+      }
+    });
+  }
+</script>
