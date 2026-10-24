@@ -13,7 +13,9 @@ const hex = (b: ArrayBuffer) => [...new Uint8Array(b)].map((x) => x.toString(16)
 /** Hex HMAC-SHA256 of the body, as the phone Worker checks it. */
 export async function signBody(shared: string, body: string): Promise<string> {
   const enc = new TextEncoder();
-  const key = await crypto.subtle.importKey('raw', enc.encode(shared), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const key = await crypto.subtle.importKey('raw', enc.encode(shared), { name: 'HMAC', hash: 'SHA-256' }, false, [
+    'sign',
+  ]);
   return hex(await crypto.subtle.sign('HMAC', key, enc.encode(body)));
 }
 
@@ -25,7 +27,10 @@ export async function pushApplication(env: Env, application: number): Promise<vo
     await fetch(env.WREN_FORMS_URL, {
       method: 'POST',
       headers: { 'content-type': 'application/json', [SIGNATURE_HEADER]: await signBody(env.EXPORT_TOKEN, body) },
-      body, signal: AbortSignal.timeout(TIMEOUT_MS),
+      body,
+      signal: AbortSignal.timeout(TIMEOUT_MS),
     });
-  } catch { /* the pass finds it */ }
+  } catch {
+    /* the pass finds it */
+  }
 }

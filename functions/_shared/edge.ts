@@ -53,10 +53,13 @@ export async function edgeConfig(env: Env, now = Date.now()): Promise<EdgeConfig
 }
 
 /** Forget the kept row: the next read goes to D1. After a push. */
-export const forgetEdge = () => { kept = null; };
+export const forgetEdge = () => {
+  kept = null;
+};
 
 const KEY = /^[a-z][a-z0-9_.-]{0,59}$/;
-const strings = (v: unknown) => (Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string').slice(0, 200) : undefined);
+const strings = (v: unknown) =>
+  Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string').slice(0, 200) : undefined;
 
 /** The flags and surveys in a pushed body, each checked; anything malformed is left out. */
 export function parseEdge(body: unknown): Omit<EdgeConfig, 'at'> {
@@ -71,11 +74,15 @@ export function parseEdge(body: unknown): Omit<EdgeConfig, 'at'> {
       const o = r as Record<string, unknown>;
       if (typeof o.variant !== 'string' || !vs.includes(o.variant)) return [];
       const p = Number(o.percent);
-      return [{
-        variant: o.variant,
-        roles: strings(o.roles), clients: strings(o.clients), people: strings(o.people),
-        percent: o.percent === undefined || !Number.isFinite(p) ? undefined : Math.min(100, Math.max(0, p)),
-      }];
+      return [
+        {
+          variant: o.variant,
+          roles: strings(o.roles),
+          clients: strings(o.clients),
+          people: strings(o.people),
+          percent: o.percent === undefined || !Number.isFinite(p) ? undefined : Math.min(100, Math.max(0, p)),
+        },
+      ];
     });
     return [{ key, variants: vs, rules: rs, fallback, killed: killed === true }];
   });
@@ -91,7 +98,8 @@ function parseSurveys(body: unknown): EdgeSurvey[] {
   return (Array.isArray(raw) ? raw : []).slice(0, 50).flatMap((x): EdgeSurvey[] => {
     if (!x || typeof x !== 'object') return [];
     const { key, question, kind, choices, trigger, audience } = x as Record<string, unknown>;
-    if (typeof key !== 'string' || !KEY.test(key) || typeof question !== 'string' || !question || question.length > 300) return [];
+    if (typeof key !== 'string' || !KEY.test(key) || typeof question !== 'string' || !question || question.length > 300)
+      return [];
     if (!KINDS.includes(kind as EdgeSurvey['kind'])) return [];
     const cs = (strings(choices) ?? []).filter((c) => c.length <= 80).slice(0, 8);
     if (kind === 'choice' && cs.length < 2) return [];
@@ -100,18 +108,26 @@ function parseSurveys(body: unknown): EdgeSurvey[] {
     const after = Number(t.after);
     const a = (audience && typeof audience === 'object' ? audience : {}) as Record<string, unknown>;
     const f = a.flag && typeof a.flag === 'object' ? (a.flag as Record<string, unknown>) : null;
-    return [{
-      key, question, kind: kind as EdgeSurvey['kind'], choices: kind === 'choice' ? cs : [],
-      trigger: {
-        on,
-        page: typeof t.page === 'string' && PATH.test(t.page) ? t.page : undefined,
-        after: Number.isFinite(after) && after > 0 ? Math.min(999, Math.round(after)) : undefined,
+    return [
+      {
+        key,
+        question,
+        kind: kind as EdgeSurvey['kind'],
+        choices: kind === 'choice' ? cs : [],
+        trigger: {
+          on,
+          page: typeof t.page === 'string' && PATH.test(t.page) ? t.page : undefined,
+          after: Number.isFinite(after) && after > 0 ? Math.min(999, Math.round(after)) : undefined,
+        },
+        audience: {
+          channels: strings(a.channels),
+          flag:
+            f && typeof f.key === 'string' && typeof f.variant === 'string'
+              ? { key: f.key, variant: f.variant }
+              : undefined,
+        },
       },
-      audience: {
-        channels: strings(a.channels),
-        flag: f && typeof f.key === 'string' && typeof f.variant === 'string' ? { key: f.key, variant: f.variant } : undefined,
-      },
-    }];
+    ];
   });
 }
 

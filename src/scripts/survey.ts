@@ -5,13 +5,36 @@
 // At most one card a visit, each survey once on this browser (the server keeps the first answer too), and never on
 // a page with a lead form until that form is sent. The answer goes to /api/answer.
 
-type Due = { key: string; question: string; kind: 'choice' | 'scale' | 'text'; choices: string[]; trigger: { on: string; after?: number } };
+type Due = {
+  key: string;
+  question: string;
+  kind: 'choice' | 'scale' | 'text';
+  choices: string[];
+  trigger: { on: string; after?: number };
+};
 type Track = (name: string, props?: Record<string, unknown>) => void;
 
-const SEEN = 'wren-surveys', VISIT = 'wren-survey-visit';
-const seen = (): string[] => { try { return JSON.parse(localStorage.getItem(SEEN) || '[]'); } catch { return []; } };
-const keep = (key: string) => { try { localStorage.setItem(SEEN, JSON.stringify([...seen(), key].slice(-50))); } catch {} };
-const visited = () => { try { return sessionStorage.getItem(VISIT) === '1'; } catch { return false; } };
+const SEEN = 'wren-surveys',
+  VISIT = 'wren-survey-visit';
+const seen = (): string[] => {
+  try {
+    return JSON.parse(localStorage.getItem(SEEN) || '[]');
+  } catch {
+    return [];
+  }
+};
+const keep = (key: string) => {
+  try {
+    localStorage.setItem(SEEN, JSON.stringify([...seen(), key].slice(-50)));
+  } catch {}
+};
+const visited = () => {
+  try {
+    return sessionStorage.getItem(VISIT) === '1';
+  } catch {
+    return false;
+  }
+};
 
 const CSS = `
 .survey{position:fixed;z-index:60;left:16px;right:16px;bottom:16px;max-width:420px;margin:0 0 0 auto;padding:16px 18px;background:#0E0E0E;color:#FAF7F2;font:14px/1.5 Inter,system-ui,sans-serif;border:1px solid #2d2823;border-radius:2px;transition:opacity .24s ease,transform .24s ease}
@@ -36,45 +59,74 @@ export function surveys(due: Due[], view: string, track: Track) {
   const left = due.filter((s) => !done.has(s.key));
   if (!left.length) return;
   const gated = !!document.querySelector('form[data-lead]');
-  let sent = false, up = false;
+  let sent = false,
+    up = false;
 
   const show = (s: Due) => {
     if (up || visited() || (gated && !sent)) return;
     up = true;
-    try { sessionStorage.setItem(VISIT, '1'); } catch {}
+    try {
+      sessionStorage.setItem(VISIT, '1');
+    } catch {}
     keep(s.key);
     track('survey.shown', { survey: s.key });
     if (!document.getElementById('survey-css')) {
-      const st = document.createElement('style'); st.id = 'survey-css'; st.textContent = CSS; document.head.append(st);
+      const st = document.createElement('style');
+      st.id = 'survey-css';
+      st.textContent = CSS;
+      document.head.append(st);
     }
     const card = document.createElement('section');
-    card.className = 'survey'; card.setAttribute('role', 'region'); card.setAttribute('aria-label', 'A question'); card.dataset.in = '';
-    const q = document.createElement('p'); q.textContent = s.question;
+    card.className = 'survey';
+    card.setAttribute('role', 'region');
+    card.setAttribute('aria-label', 'A question');
+    card.dataset.in = '';
+    const q = document.createElement('p');
+    q.textContent = s.question;
     const close = document.createElement('button');
-    close.type = 'button'; close.className = 'close'; close.setAttribute('aria-label', 'Not now'); close.textContent = '×';
-    const gone = () => { card.dataset.in = ''; setTimeout(() => card.remove(), 240); };
+    close.type = 'button';
+    close.className = 'close';
+    close.setAttribute('aria-label', 'Not now');
+    close.textContent = '×';
+    const gone = () => {
+      card.dataset.in = '';
+      setTimeout(() => card.remove(), 240);
+    };
     close.onclick = gone;
     const answer = (value: string) => {
-      fetch('/api/answer', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ survey: s.key, value, view, page: location.pathname }) }).catch(() => {});
+      fetch('/api/answer', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ survey: s.key, value, view, page: location.pathname }),
+      }).catch(() => {});
       track('survey.answered', { survey: s.key });
       card.replaceChildren(Object.assign(document.createElement('p'), { textContent: 'Thanks. I read every answer.' }));
       setTimeout(gone, 1800);
     };
     const pick = (label: string) => {
-      const b = document.createElement('button'); b.type = 'button'; b.className = 'pick'; b.textContent = label;
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'pick';
+      b.textContent = label;
       b.onclick = () => answer(label);
       return b;
     };
     let body: HTMLElement;
     if (s.kind === 'choice') {
-      body = document.createElement('div'); body.className = 'row';
+      body = document.createElement('div');
+      body.className = 'row';
       body.append(...s.choices.map(pick));
     } else if (s.kind === 'scale') {
       body = document.createElement('div');
-      const grid = document.createElement('div'); grid.className = 'scale';
+      const grid = document.createElement('div');
+      grid.className = 'scale';
       grid.append(...Array.from({ length: 10 }, (_, i) => pick(String(i + 1))));
-      const ends = document.createElement('div'); ends.className = 'ends';
-      ends.append(Object.assign(document.createElement('span'), { textContent: 'Low' }), Object.assign(document.createElement('span'), { textContent: 'High' }));
+      const ends = document.createElement('div');
+      ends.className = 'ends';
+      ends.append(
+        Object.assign(document.createElement('span'), { textContent: 'Low' }),
+        Object.assign(document.createElement('span'), { textContent: 'High' }),
+      );
       body.append(grid, ends);
     } else {
       const f = document.createElement('form');
@@ -82,13 +134,23 @@ export function surveys(due: Due[], view: string, track: Track) {
       input.setAttribute('aria-label', 'Your answer');
       const go = Object.assign(document.createElement('button'), { type: 'submit', textContent: 'Send' });
       f.append(input, go);
-      f.onsubmit = (e) => { e.preventDefault(); const v = input.value.trim(); if (v) answer(v); };
+      f.onsubmit = (e) => {
+        e.preventDefault();
+        const v = input.value.trim();
+        if (v) answer(v);
+      };
       body = f;
     }
     card.append(q, close, body);
     document.body.append(card);
-    requestAnimationFrame(() => requestAnimationFrame(() => { delete card.dataset.in; }));
-    addEventListener('keydown', (e) => { if (e.key === 'Escape' && card.isConnected) gone(); });
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        delete card.dataset.in;
+      }),
+    );
+    addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && card.isConnected) gone();
+    });
   };
 
   const after = (s: Due) => setTimeout(() => show(s), (s.trigger.after ?? 0) * 1000);
@@ -101,11 +163,23 @@ export function surveys(due: Due[], view: string, track: Track) {
   for (const s of left) {
     const on = s.trigger.on;
     if (on === 'view') after(s);
-    else if (on === 'exit') document.addEventListener('mouseout', (e) => { if (!e.relatedTarget && e.clientY <= 0) show(s); });
-    else if (on === 'book') document.addEventListener('click', (e) => { if (e.target instanceof Element && e.target.closest('a[data-book]')) show(s); }, true);
+    else if (on === 'exit')
+      document.addEventListener('mouseout', (e) => {
+        if (!e.relatedTarget && e.clientY <= 0) show(s);
+      });
+    else if (on === 'book')
+      document.addEventListener(
+        'click',
+        (e) => {
+          if (e.target instanceof Element && e.target.closest('a[data-book]')) show(s);
+        },
+        true,
+      );
     else if (on === 'booked') {
       document.addEventListener('wren:booked', () => after(s));
-      addEventListener('message', (e) => { if (e.origin === location.origin && e.data?.wren === 'booked') after(s); });
+      addEventListener('message', (e) => {
+        if (e.origin === location.origin && e.data?.wren === 'booked') after(s);
+      });
     } else if (on === 'form') forms.push(s);
   }
 }

@@ -1,9 +1,10 @@
 // /llms.txt: the site in plain Markdown for AI assistants and answer engines (the llmstxt.org format). Built from the
 // same content files as the pages, so it never drifts from them. No prices, as on the pages.
-import type { APIRoute } from 'astro';
+
 import { getCollection, getEntry } from 'astro:content';
+import type { APIRoute } from 'astro';
 import { loadHub, loadPitch } from '../lib/pitch';
-import { CITE, bare, plain } from '../lib/text';
+import { bare, CITE, plain } from '../lib/text';
 
 type QA = { q: string; a: string };
 type Source = { text: string; url: string };
@@ -12,11 +13,14 @@ type Source = { text: string; url: string };
 const named = (title: string) => bare(title).replace(/\s*\|\s*Wren Automation$/, '');
 // a [^n] marker becomes a link to its source, so a figure travels with where it came from
 const cited = (s: string, sources: Source[] = []) =>
-  bare(s.replace(CITE, (_, n: string) => {
-    const url = sources[Number(n) - 1]?.url;
-    return url ? ` ([source](${url}))` : '';
-  }));
-const questions = (items: QA[], sources?: Source[]) => items.flatMap((x) => [`### ${bare(x.q)}`, '', cited(x.a, sources), '']);
+  bare(
+    s.replace(CITE, (_, n: string) => {
+      const url = sources[Number(n) - 1]?.url;
+      return url ? ` ([source](${url}))` : '';
+    }),
+  );
+const questions = (items: QA[], sources?: Source[]) =>
+  items.flatMap((x) => [`### ${bare(x.q)}`, '', cited(x.a, sources), '']);
 
 export const GET: APIRoute = async ({ site: origin }) => {
   const at = (path: string) => new URL(path, origin).href;
@@ -38,11 +42,18 @@ export const GET: APIRoute = async ({ site: origin }) => {
     '',
     `- [Wren Automation](${at(hub.path)}): ${bare(hub.description)}`,
     ...pitches.map((p) => `- [${named(p.title)}](${at(p.path)}): ${bare(p.description)}`),
-    ...niches.map((n) => `- [${named(n.data.title)}](${at(`/${n.id}`)}): ${plain(n.data.description ?? n.data.lede).trim()}`),
+    ...niches.map(
+      (n) => `- [${named(n.data.title)}](${at(`/${n.id}`)}): ${plain(n.data.description ?? n.data.lede).trim()}`,
+    ),
     '',
     '## Services',
     '',
-    ...hub.catalog.groups.flatMap((g) => [`### ${g.for}`, '', ...g.items.map((s) => `- **${s.name}**: ${s.text} ${s.gets}`), '']),
+    ...hub.catalog.groups.flatMap((g) => [
+      `### ${g.for}`,
+      '',
+      ...g.items.map((s) => `- **${s.name}**: ${s.text} ${s.gets}`),
+      '',
+    ]),
     '## Questions',
     '',
     ...questions(hub.faq.items, hub.sources.items),

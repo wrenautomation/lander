@@ -5,7 +5,7 @@
 import data from '../../src/data/offers.json';
 import { type BookingView, bookSig, calendar, meetings } from '../_shared/calendar';
 import type { Env } from '../_shared/env';
-import { EMAIL, clip, human, isBot, origin, readForm } from '../_shared/form';
+import { clip, EMAIL, human, isBot, origin, readForm } from '../_shared/form';
 import { visitorOf, withVisitor } from '../_shared/visitor';
 
 type Offer = { id: string; name: string; booking?: string | null };
@@ -15,7 +15,8 @@ const CODE = /^[A-Za-z0-9_-]{8,40}$/;
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env, waitUntil }) => {
   const visitor = visitorOf(request);
-  const reply = (status: number, body: Record<string, unknown>) => withVisitor(Response.json(body, { status, headers: { 'cache-control': 'no-store' } }), visitor);
+  const reply = (status: number, body: Record<string, unknown>) =>
+    withVisitor(Response.json(body, { status, headers: { 'cache-control': 'no-store' } }), visitor);
 
   const form = await readForm(request);
   if (!form) return reply(400, { ok: false, error: 'form' });
@@ -37,14 +38,25 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, waitUnti
   const application = clip(form.get('application'), 64);
   const source = Object.fromEntries(
     Object.entries({
-      utm_source: o.utm_source, utm_medium: o.utm_medium, utm_campaign: o.utm_campaign, utm_content: o.utm_content,
-      ref: o.ref, page: o.page || `/book/${offer.id}`, visitor: visitor.id ?? '',
+      utm_source: o.utm_source,
+      utm_medium: o.utm_medium,
+      utm_campaign: o.utm_campaign,
+      utm_content: o.utm_content,
+      ref: o.ref,
+      page: o.page || `/book/${offer.id}`,
+      visitor: visitor.id ?? '',
     }).filter(([, v]) => v),
   );
   const res = await calendar<BookingView & { manage: string }>(env, 'book', {
-    offer: offer.id, start, name, email, zone: ZONE.test(zone) ? zone : 'America/Toronto',
-    ...(CODE.test(r) ? { code: r } : {}), ...(/^\d{1,12}$/.test(application) ? { application } : {}),
-    source, sig: await bookSig(env.EXPORT_TOKEN, offer.id, start, email),
+    offer: offer.id,
+    start,
+    name,
+    email,
+    zone: ZONE.test(zone) ? zone : 'America/Toronto',
+    ...(CODE.test(r) ? { code: r } : {}),
+    ...(/^\d{1,12}$/.test(application) ? { application } : {}),
+    source,
+    sig: await bookSig(env.EXPORT_TOKEN, offer.id, start, email),
   });
   if (!res.data) {
     const error = res.status === 409 ? 'taken' : res.status === 400 ? 'invalid' : 'down';
@@ -53,8 +65,22 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, waitUnti
   const b = res.data;
   // The next list read sees the slot gone.
   waitUntil(caches.default.delete(new Request(new URL('/api/slots', request.url).toString())).catch(() => false));
-  waitUntil(meetings(env, 'booked', b, [
-    [`offer ${offer.id}`, r ? `r ${r}` : '', o.utm_campaign ? `utm_campaign ${o.utm_campaign}` : ''].filter(Boolean).join(' · '),
-  ], email));
-  return reply(200, { ok: true, booking: { start: b.start, end: b.end, zone: b.zone, title: b.title, meetUrl: b.meetUrl }, manage: new URL(b.manage).pathname });
+  waitUntil(
+    meetings(
+      env,
+      'booked',
+      b,
+      [
+        [`offer ${offer.id}`, r ? `r ${r}` : '', o.utm_campaign ? `utm_campaign ${o.utm_campaign}` : '']
+          .filter(Boolean)
+          .join(' · '),
+      ],
+      email,
+    ),
+  );
+  return reply(200, {
+    ok: true,
+    booking: { start: b.start, end: b.end, zone: b.zone, title: b.title, meetUrl: b.meetUrl },
+    manage: new URL(b.manage).pathname,
+  });
 };

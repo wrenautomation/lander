@@ -26,21 +26,37 @@ const totals = `count(*) visitors, sum(s.views) views, round(avg(s.secs)) avg_se
   sum(s.cta) to_form, sum(s.touched) form_touched, sum(coalesce(a.applied, 0)) applied, sum(coalesce(a.fit, 0)) fit`;
 
 const run = (sql) => {
-  const out = execFileSync('npx', ['wrangler', 'd1', 'execute', 'wren-leads', where, '--json', '--command', sql], { encoding: 'utf8' });
+  const out = execFileSync('npx', ['wrangler', 'd1', 'execute', 'wren-leads', where, '--json', '--command', sql], {
+    encoding: 'utf8',
+  });
   return JSON.parse(out)[0].results;
 };
-const show = (title, rows) => { console.log(`\n${title}`); rows.length ? console.table(rows) : console.log('  (none yet)'); };
+const show = (title, rows) => {
+  console.log(`\n${title}`);
+  rows.length ? console.table(rows) : console.log('  (none yet)');
+};
 
-console.log(`Last ${days === 3650 ? 'all' : days} days. Visitors counted from 2026-09-29, when the visitor cookie started.`);
-show('By channel (first touch)', run(`${base}
+console.log(
+  `Last ${days === 3650 ? 'all' : days} days. Visitors counted from 2026-09-29, when the visitor cookie started.`,
+);
+show(
+  'By channel (first touch)',
+  run(`${base}
   select coalesce(f.channel, 'direct') channel, ${totals}
-  from seen s left join first f using (visitor) left join app a using (visitor) group by 1 order by visitors desc`));
-show('By campaign (first touch, utm and /go links)', run(`${base}
+  from seen s left join first f using (visitor) left join app a using (visitor) group by 1 order by visitors desc`),
+);
+show(
+  'By campaign (first touch, utm and /go links)',
+  run(`${base}
   select f.utm_source source, f.utm_medium medium, coalesce(nullif(f.utm_campaign, ''), '-') campaign, ${totals}
   from seen s join first f using (visitor) left join app a using (visitor) where f.utm_source != ''
-  group by 1, 2, 3 order by visitors desc`));
-show('Email link clicks (?r=, name them with: wren email clicks)', run(`
+  group by 1, 2, 3 order by visitors desc`),
+);
+show(
+  'Email link clicks (?r=, name them with: wren email clicks)',
+  run(`
   select h.r, min(h.ts) first_click, count(distinct h.visitor) visitors,
     (select count(*) from hits x where x.visitor in (select visitor from hits where r = h.r)) views,
     (select max(fit) from applications p where p.visitor in (select visitor from hits where r = h.r)) applied_fit
-  from hits h where h.r != '' and h.ts >= ${since} group by h.r order by first_click desc limit 100`));
+  from hits h where h.r != '' and h.ts >= ${since} group by h.r order by first_click desc limit 100`),
+);

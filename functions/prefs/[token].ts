@@ -4,12 +4,14 @@
 // itself, with a button for when scripts are off. A mail app's one-click unsubscribe (RFC 8058) posts
 // `List-Unsubscribe=One-Click` to the ?off=1 address. Kept out of search: noindex, and not in the sitemap.
 import type { Env } from '../_shared/env';
-import { type Prefs, marketing } from '../_shared/marketing';
+import { marketing, type Prefs } from '../_shared/marketing';
 
 const TOKEN = /^[A-Za-z0-9_-]{8,600}\.[A-Za-z0-9_-]{16,40}$/;
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 const FREQ: [Prefs['frequency'], string][] = [
-  ['as_sent', 'Whenever I send'], ['weekly', 'Once a week at most'], ['monthly', 'Once a month at most'],
+  ['as_sent', 'Whenever I send'],
+  ['weekly', 'Once a week at most'],
+  ['monthly', 'Once a month at most'],
 ];
 type Visit = { ip?: string; ua?: string };
 type Result = { status: number; data: { prefs: Prefs; event: number | null } | null };
@@ -23,9 +25,17 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, params })
   const q = new URL(request.url).searchParams;
   const named = esc(p.named ?? 'this list');
   if (q.get('confirm') === '1')
-    return page(`<h1>Confirm your signup</h1><p>Press the button to start getting ${named}.</p>${act('confirm', 'Confirm', true)}`, 200, p.from);
+    return page(
+      `<h1>Confirm your signup</h1><p>Press the button to start getting ${named}.</p>${act('confirm', 'Confirm', true)}`,
+      200,
+      p.from,
+    );
   if (q.get('off') === '1' && p.topic)
-    return page(`<h1>Unsubscribe</h1><p>Press the button to stop getting ${named}.</p>${act('off', 'Unsubscribe', true)}`, 200, p.from);
+    return page(
+      `<h1>Unsubscribe</h1><p>Press the button to stop getting ${named}.</p>${act('off', 'Unsubscribe', true)}`,
+      200,
+      p.from,
+    );
   return page(flash(q, p) + prefsOf(p), 200, p.from);
 };
 
@@ -34,10 +44,16 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, params }
   if (!TOKEN.test(token)) return broken(404);
   const form = await request.formData().catch(() => null);
   if (!form) return broken(400);
-  const visit: Visit = { ip: request.headers.get('cf-connecting-ip') || undefined, ua: request.headers.get('user-agent')?.slice(0, 300) };
+  const visit: Visit = {
+    ip: request.headers.get('cf-connecting-ip') || undefined,
+    ua: request.headers.get('user-agent')?.slice(0, 300),
+  };
   const set = (change: unknown): Promise<Result> => marketing(env, 'set', { token, change, ...visit });
   const back = (was: string, event?: number | null) =>
-    Response.redirect(new URL(`/prefs/${token}?was=${was}${event ? `&event=${event}` : ''}`, request.url).toString(), 303);
+    Response.redirect(
+      new URL(`/prefs/${token}?was=${was}${event ? `&event=${event}` : ''}`, request.url).toString(),
+      303,
+    );
 
   const oneClick = form.get('List-Unsubscribe') === 'One-Click';
   const what = oneClick ? 'off' : String(form.get('do') ?? '');
@@ -79,23 +95,38 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, params }
 
 /** A one-button form posting `do`; `auto` posts itself as soon as the page loads. */
 const act = (what: string, label: string, auto = false, fields: Record<string, string | number> = {}, cls = '') =>
-  `<form method="post"${auto ? ' data-auto' : ''}><input type="hidden" name="do" value="${what}">${Object.entries(fields)
-    .map(([k, v]) => `<input type="hidden" name="${k}" value="${esc(String(v))}">`).join('')}<button class="btn ${cls}">${label}</button></form>`;
+  `<form method="post"${auto ? ' data-auto' : ''}><input type="hidden" name="do" value="${what}">${Object.entries(
+    fields,
+  )
+    .map(([k, v]) => `<input type="hidden" name="${k}" value="${esc(String(v))}">`)
+    .join('')}<button class="btn ${cls}">${label}</button></form>`;
 
 function flash(q: URLSearchParams, p: Prefs): string {
   const named = esc(p.named ?? 'that list');
   const line = (text: string, undo = '') => `<div class="flash" role="status"><p>${text}</p>${undo}</div>`;
   switch (q.get('was')) {
-    case 'in': return line(`Confirmed. You'll get ${named}.`);
-    case 'late': return line(`That link is more than 7 days old. Sign up again and I'll send a new one.`);
-    case 'off': return line(`You're off ${named}.`, p.topic ? act('topic', 'Undo', false, { topic: p.topic, on: 1 }, 'ghost') : '');
+    case 'in':
+      return line(`Confirmed. You'll get ${named}.`);
+    case 'late':
+      return line(`That link is more than 7 days old. Sign up again and I'll send a new one.`);
+    case 'off':
+      return line(
+        `You're off ${named}.`,
+        p.topic ? act('topic', 'Undo', false, { topic: p.topic, on: 1 }, 'ghost') : '',
+      );
     case 'all': {
       const event = Number(q.get('event'));
-      return line(`You're off everything. I won't email you again.`, event ? act('undo', 'Undo', false, { event }, 'ghost') : '');
+      return line(
+        `You're off everything. I won't email you again.`,
+        event ? act('undo', 'Undo', false, { event }, 'ghost') : '',
+      );
     }
-    case 'back': return line('Undone. Your settings are back.');
-    case 'saved': return line('Saved.');
-    default: return '';
+    case 'back':
+      return line('Undone. Your settings are back.');
+    case 'saved':
+      return line('Saved.');
+    default:
+      return '';
   }
 }
 
@@ -104,14 +135,21 @@ function prefsOf(p: Prefs): string {
   if (p.everything)
     return `${head}<p>You're unsubscribed from everything, so I won't email you. To come back, sign up again on my site.</p>`;
   const lists = p.topics.length
-    ? p.topics.map((t) => `<form method="post" class="topic"><input type="hidden" name="do" value="topic"><input type="hidden" name="topic" value="${esc(t.name)}">
+    ? p.topics
+        .map(
+          (
+            t,
+          ) => `<form method="post" class="topic"><input type="hidden" name="do" value="topic"><input type="hidden" name="topic" value="${esc(t.name)}">
 <label><span><b>${esc(t.publicName)}</b><span>${esc(t.line)}</span><span class="mute">Sent ${esc(t.cadence)}</span></span>
-<input type="checkbox" name="on" value="1" role="switch" data-save${t.on ? ' checked' : ''}></label><noscript><button class="btn ghost">Save</button></noscript></form>`).join('')
+<input type="checkbox" name="on" value="1" role="switch" data-save${t.on ? ' checked' : ''}></label><noscript><button class="btn ghost">Save</button></noscript></form>`,
+        )
+        .join('')
     : `<p>There's nothing to sign up for right now.</p>`;
   const until = p.pausedUntil ? new Date(p.pausedUntil) : null;
-  const paused = until && until > new Date()
-    ? `<p>Paused until ${until.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })}.</p>${act('pause', 'Resume now', false, { days: 0 }, 'ghost')}`
-    : `<div class="row">${act('pause', 'Pause 30 days', false, { days: 30 }, 'ghost')}${act('pause', 'Pause 90 days', false, { days: 90 }, 'ghost')}</div>`;
+  const paused =
+    until && until > new Date()
+      ? `<p>Paused until ${until.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })}.</p>${act('pause', 'Resume now', false, { days: 0 }, 'ghost')}`
+      : `<div class="row">${act('pause', 'Pause 30 days', false, { days: 30 }, 'ghost')}${act('pause', 'Pause 90 days', false, { days: 90 }, 'ghost')}</div>`;
   return `${head}<h2>Lists</h2>${lists}
 <h2>How often</h2><form method="post"><input type="hidden" name="do" value="frequency"><select name="frequency" aria-label="How often" data-save>${FREQ.map(([v, l]) => `<option value="${v}"${p.frequency === v ? ' selected' : ''}>${l}</option>`).join('')}</select><noscript><button class="btn ghost">Save</button></noscript></form>
 <h2>Take a break</h2>${paused}
@@ -120,9 +158,12 @@ function prefsOf(p: Prefs): string {
 
 function broken(status: number): Response {
   const gone = status === 404 || status === 401 || status === 400;
-  return page(gone
-    ? `<h1>This link doesn't work</h1><p>It may be cut off or old. Open the newest email from me and use the link at the bottom.</p>`
-    : `<h1>Something broke on my end</h1><p>Try again in a minute.</p>`, gone ? 404 : 502);
+  return page(
+    gone
+      ? `<h1>This link doesn't work</h1><p>It may be cut off or old. Open the newest email from me and use the link at the bottom.</p>`
+      : `<h1>Something broke on my end</h1><p>Try again in a minute.</p>`,
+    gone ? 404 : 502,
+  );
 }
 
 /** `from`: a client's name on its own list's page; null is Wren's own. */
@@ -153,7 +194,9 @@ document.querySelectorAll('[data-save]').forEach(function(i){i.addEventListener(
   return new Response(html, {
     status,
     headers: {
-      'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store', 'x-robots-tag': 'noindex',
+      'content-type': 'text/html; charset=utf-8',
+      'cache-control': 'no-store',
+      'x-robots-tag': 'noindex',
       'referrer-policy': 'no-referrer',
     },
   });

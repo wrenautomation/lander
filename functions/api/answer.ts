@@ -11,13 +11,22 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const visitor = visitorOf(request);
   if (!visitor.id || !visitor.had) return new Response(null, { status: 403 });
   let b: Record<string, unknown>;
-  try { b = await request.json(); } catch { return new Response(null, { status: 400 }); }
+  try {
+    b = await request.json();
+  } catch {
+    return new Response(null, { status: 400 });
+  }
   const survey = (await edgeConfig(env)).surveys.find((x) => x.key === b.survey);
   if (!survey) return new Response(null, { status: 404 });
   const value = answerOf(survey, b.value);
   if (value === null) return new Response(null, { status: 400 });
   const r = await env.DB.prepare(
     'insert into answers (ts, survey, visitor, view, page, value) values (?, ?, ?, ?, ?, ?) on conflict (visitor, survey) do nothing',
-  ).bind(new Date().toISOString(), survey.key, visitor.id, s(b.view, 40), s(b.page, 200), value).run();
-  return withVisitor(Response.json({ saved: r.meta.changes > 0 }, { headers: { 'cache-control': 'no-store' } }), visitor);
+  )
+    .bind(new Date().toISOString(), survey.key, visitor.id, s(b.view, 40), s(b.page, 200), value)
+    .run();
+  return withVisitor(
+    Response.json({ saved: r.meta.changes > 0 }, { headers: { 'cache-control': 'no-store' } }),
+    visitor,
+  );
 };

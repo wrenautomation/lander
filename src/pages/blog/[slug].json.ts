@@ -1,7 +1,7 @@
 // /blog/<slug>.json: one post as its newsletter issue. `wren newsletter send <slug>` reads it, so the email is the
 // post itself and never a second copy to keep in step.
 import type { APIRoute, GetStaticPaths } from 'astro';
-import { emailText, postPath, posts, type Post } from '../../lib/blog';
+import { emailText, type Post, postPath, posts } from '../../lib/blog';
 
 export const getStaticPaths = (async () =>
   (await posts()).map((p) => ({ params: { slug: p.id }, props: { post: p } }))) satisfies GetStaticPaths;

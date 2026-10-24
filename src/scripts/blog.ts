@@ -17,8 +17,19 @@ const figs: Fig[] = [...document.querySelectorAll<HTMLElement>('[data-fig]')].ma
   const steps = Number(el.dataset.steps) || 0;
   const items = [...el.querySelectorAll('.b-items li')];
   const parts = Array.from({ length: steps }, (_, i) =>
-    [...el.querySelectorAll(`[data-part="${i}"],[data-drip="${i}"],[data-puddle="${i}"],[data-crack="${i}"]`), items[i]].filter((x): x is Element => !!x));
-  return { el, kind: el.dataset.fig || '', steps, parts, readout: el.querySelector('[data-readout]'), unit: el.dataset.unit || '' };
+    [
+      ...el.querySelectorAll(`[data-part="${i}"],[data-drip="${i}"],[data-puddle="${i}"],[data-crack="${i}"]`),
+      items[i],
+    ].filter((x): x is Element => !!x),
+  );
+  return {
+    el,
+    kind: el.dataset.fig || '',
+    steps,
+    parts,
+    readout: el.querySelector('[data-readout]'),
+    unit: el.dataset.unit || '',
+  };
 });
 
 // pointing at a line of the list, or at its part in the drawing, picks both out
@@ -42,7 +53,9 @@ const setStep = (f: Fig, k: number) => {
 };
 
 // figures rest off screen
-const seen = new IntersectionObserver((es) => es.forEach((e) => (e.target as HTMLElement).toggleAttribute('data-vis', e.isIntersecting)));
+const seen = new IntersectionObserver((es) =>
+  es.forEach((e) => (e.target as HTMLElement).toggleAttribute('data-vis', e.isIntersecting)),
+);
 figs.forEach((f) => seen.observe(f.el));
 
 if (!still && figs.length) {
@@ -70,14 +83,20 @@ if (!still && figs.length) {
     }
     playing = false;
   };
-  const enter = new IntersectionObserver((es) => {
-    for (const e of es) {
-      if (!e.isIntersecting) continue;
-      enter.unobserve(e.target);
-      const f = figs.find((x) => x.el === e.target);
-      if (f) { queue.push(f); void play(); }
-    }
-  }, { threshold: 0.35, rootMargin: '0px 0px -8% 0px' });
+  const enter = new IntersectionObserver(
+    (es) => {
+      for (const e of es) {
+        if (!e.isIntersecting) continue;
+        enter.unobserve(e.target);
+        const f = figs.find((x) => x.el === e.target);
+        if (f) {
+          queue.push(f);
+          void play();
+        }
+      }
+    },
+    { threshold: 0.35, rootMargin: '0px 0px -8% 0px' },
+  );
   figs.forEach((f) => enter.observe(f.el));
 }
 
@@ -87,7 +106,7 @@ function count(f: Fig, ms: number) {
   const t0 = performance.now();
   const tick = (t: number) => {
     const p = Math.min(1, (t - t0) / ms);
-    out.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))).toLocaleString('en-US');
+    out.textContent = Math.round(end * (1 - (1 - p) ** 3)).toLocaleString('en-US');
     if (p < 1) requestAnimationFrame(tick);
   };
   requestAnimationFrame(tick);
@@ -112,6 +131,15 @@ if (at && title) {
       if (name && !still) at.classList.add('swap');
     }
   };
-  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener(
+    'scroll',
+    () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    },
+    { passive: true },
+  );
   update();
 }

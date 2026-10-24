@@ -1,0 +1,23 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": {
+    "includes": ["**/*.ts", "**/*.mjs", "!**/dist", "!**/.wrangler", "!**/.astro", "!**/*.d.ts"]
+  },
+  "formatter": { "indentStyle": "space", "indentWidth": 2, "lineWidth": 120 },
+  "javascript": { "formatter": { "quoteStyle": "single", "semicolons": "always" } },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "style": { "noNonNullAssertion": "off" },
+      "suspicious": { "useIterableCallbackReturn": "off" }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/lib/iso-kit.ts"],
+      "linter": { "enabled": false }
+    }
+  ]
+}
