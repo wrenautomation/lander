@@ -7,10 +7,12 @@ import type { Env } from '../_shared/env';
 
 const TABLES = {
   hits: 'select id, ts, view, visitor, page, depth, secs, cta, touched, w, r, utm_source, utm_medium, utm_campaign, utm_content, ref, country from hits',
-  applications: 'select id, ts, offer, visitor, name, email, phone, sms_consent, firm, fit, page, first_touch, last_touch, r, utm_source, utm_medium, utm_campaign from applications',
+  applications:
+    'select id, ts, offer, visitor, name, email, phone, sms_consent, firm, fit, page, first_touch, last_touch, r, utm_source, utm_medium, utm_campaign from applications',
   events: 'select id, ts, view, visitor, page, name, props from events',
   replays: 'select id, view, visitor, page, started, last, chunks, bytes, w, country, capped, first_touch from replays',
-  exposures: "select id, ts, view, visitor, page, name, props from events where name = 'exp.seen' and visitor is not null",
+  exposures:
+    "select id, ts, view, visitor, page, name, props from events where name = 'exp.seen' and visitor is not null",
   answers: 'select id, ts, survey, visitor, view, page, value from answers',
   clicks: 'select id, ts, link, source, medium, campaign, content, page, ref, country from clicks',
 } as const;
@@ -19,7 +21,8 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   if (!env.EXPORT_TOKEN) return new Response(null, { status: 404 });
   const given = request.headers.get('authorization') || '';
   const want = `Bearer ${env.EXPORT_TOKEN}`;
-  const a = new TextEncoder().encode(given), b = new TextEncoder().encode(want);
+  const a = new TextEncoder().encode(given),
+    b = new TextEncoder().encode(want);
   if (a.byteLength !== b.byteLength || !crypto.subtle.timingSafeEqual(a, b)) return new Response(null, { status: 401 });
   const url = new URL(request.url);
   const asked = url.searchParams.get('table') || '';
@@ -31,6 +34,8 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   const visitor = table === 'clicks' ? '' : (url.searchParams.get('visitor') || '').slice(0, 64);
   const where = `${select} ${select.includes(' where ') ? 'and' : 'where'} ${visitor ? 'visitor = ? and ' : ''}id > ? order by id limit ?`;
   const binds = visitor ? [visitor, since, limit] : [since, limit];
-  const { results } = await env.DB.prepare(where).bind(...binds).all();
+  const { results } = await env.DB.prepare(where)
+    .bind(...binds)
+    .all();
   return Response.json({ [table]: results }, { headers: { 'cache-control': 'no-store' } });
 };

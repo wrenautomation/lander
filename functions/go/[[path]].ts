@@ -20,11 +20,15 @@ const PAGE = /^\/(?:[a-z0-9-]+(?:\/[a-z0-9-]+)*)?$/;
 const VIDEO = /^[A-Za-z0-9_-]{11}$/;
 const REPO = /^[a-z0-9][a-z0-9-]{0,39}$/;
 // The fetchers that unfurl a link in a feed or a chat: not a person clicking.
-const BOT = /bot|crawl|spider|preview|facebookexternalhit|embedly|slack|discord|whatsapp|telegram|linkedinbot|twitterbot|redditbot/i;
+const BOT =
+  /bot|crawl|spider|preview|facebookexternalhit|embedly|slack|discord|whatsapp|telegram|linkedinbot|twitterbot|redditbot/i;
 
 export const onRequestGet: PagesFunction<Env> = ({ request, params, env, waitUntil }) => {
   const url = new URL(request.url);
-  const parts = ([] as string[]).concat(params.path ?? []).filter((p) => WORD.test(p)).slice(0, 3);
+  const parts = ([] as string[])
+    .concat(params.path ?? [])
+    .filter((p) => WORD.test(p))
+    .slice(0, 3);
   const [name = 'go', campaign = '', content = ''] = parts.map((p) => p.toLowerCase());
   const channel = CHANNELS[name] ?? { source: name, medium: 'link', to: '/' };
   const video = url.searchParams.get('v') || '';
@@ -36,11 +40,22 @@ export const onRequestGet: PagesFunction<Env> = ({ request, params, env, waitUnt
         env.DB.prepare(
           `insert into hits (view, visitor, ts, page, depth, secs, cta, touched, w, r, utm_source, utm_medium, utm_campaign, utm_content, ref, country, ua)
            values (?, ?, ?, ?, 0, 0, 0, 0, 0, '', ?, ?, ?, ?, ?, ?, ?)`,
-        ).bind(
-          crypto.randomUUID(), visitor.id, new Date().toISOString(), `youtube:${video}`,
-          channel.source, channel.medium, campaign, content, (request.headers.get('referer') || '').slice(0, 200),
-          request.headers.get('cf-ipcountry') || '', ua.slice(0, 300),
-        ).run().catch(() => {}),
+        )
+          .bind(
+            crypto.randomUUID(),
+            visitor.id,
+            new Date().toISOString(),
+            `youtube:${video}`,
+            channel.source,
+            channel.medium,
+            campaign,
+            content,
+            (request.headers.get('referer') || '').slice(0, 200),
+            request.headers.get('cf-ipcountry') || '',
+            ua.slice(0, 300),
+          )
+          .run()
+          .catch(() => {}),
       );
     const out = new Response(null, {
       status: 302,
@@ -58,10 +73,20 @@ export const onRequestGet: PagesFunction<Env> = ({ request, params, env, waitUnt
       env.DB.prepare(
         `insert into clicks (ts, link, source, medium, campaign, content, page, ref, country)
          values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      ).bind(
-        new Date().toISOString(), name, channel.source, channel.medium, campaign, content, page,
-        (request.headers.get('referer') || '').slice(0, 200), request.headers.get('cf-ipcountry') || '',
-      ).run().catch(() => {}),
+      )
+        .bind(
+          new Date().toISOString(),
+          name,
+          channel.source,
+          channel.medium,
+          campaign,
+          content,
+          page,
+          (request.headers.get('referer') || '').slice(0, 200),
+          request.headers.get('cf-ipcountry') || '',
+        )
+        .run()
+        .catch(() => {}),
     );
   if (REPO.test(repo))
     return new Response(null, {
@@ -72,5 +97,8 @@ export const onRequestGet: PagesFunction<Env> = ({ request, params, env, waitUnt
   target.searchParams.set('utm_medium', channel.medium);
   if (campaign) target.searchParams.set('utm_campaign', campaign);
   if (content) target.searchParams.set('utm_content', content);
-  return new Response(null, { status: 302, headers: { location: target.pathname + target.search, 'cache-control': 'no-store' } });
+  return new Response(null, {
+    status: 302,
+    headers: { location: target.pathname + target.search, 'cache-control': 'no-store' },
+  });
 };

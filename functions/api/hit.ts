@@ -14,7 +14,11 @@ const i = (v: unknown, max: number) => Math.min(max, Math.max(0, Math.round(Numb
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   let b: Record<string, unknown>;
-  try { b = await request.json(); } catch { return new Response(null, { status: 400 }); }
+  try {
+    b = await request.json();
+  } catch {
+    return new Response(null, { status: 400 });
+  }
   const view = s(b.view, 40);
   if (!/^[A-Za-z0-9-]{8,40}$/.test(view)) return new Response(null, { status: 400 });
   const visitor = visitorOf(request);
@@ -25,15 +29,38 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
      on conflict (view) do update set depth = max(depth, excluded.depth), secs = max(secs, excluded.secs),
        cta = max(cta, excluded.cta), touched = max(touched, excluded.touched)
      where hits.visitor is excluded.visitor`,
-  ).bind(
-    view, visitor.id, new Date().toISOString(), s(b.page, 200), s(b.niche, 40), i(b.depth, 100), i(b.secs, 86400), i(b.cta, 1), i(b.touched, 1), i(b.w, 10000),
-    s(b.r, 40), s(b.utm_source, 100), s(b.utm_medium, 100), s(b.utm_campaign, 100), s(b.utm_content, 100), s(b.ref, 200),
-    request.headers.get('cf-ipcountry') || '', s(request.headers.get('user-agent'), 300),
-  ).run();
+  )
+    .bind(
+      view,
+      visitor.id,
+      new Date().toISOString(),
+      s(b.page, 200),
+      s(b.niche, 40),
+      i(b.depth, 100),
+      i(b.secs, 86400),
+      i(b.cta, 1),
+      i(b.touched, 1),
+      i(b.w, 10000),
+      s(b.r, 40),
+      s(b.utm_source, 100),
+      s(b.utm_medium, 100),
+      s(b.utm_campaign, 100),
+      s(b.utm_content, 100),
+      s(b.ref, 200),
+      request.headers.get('cf-ipcountry') || '',
+      s(request.headers.get('user-agent'), 300),
+    )
+    .run();
   // an empty REPLAY_SAMPLE reads as unset (1), "0" turns recording off
   const replay = visitor.consent === 'yes' && replayOn(env) && Math.random() < Number(env.REPLAY_SAMPLE || 1);
-  const due = visitor.id && new URL(request.url).searchParams.has('due') ? await surveysDue(env, visitor.id, s(b.page, 200)) : [];
-  return withVisitor(Response.json(due.length ? { consent: visitor.consent, replay, surveys: due } : { consent: visitor.consent, replay }), visitor);
+  const due =
+    visitor.id && new URL(request.url).searchParams.has('due') ? await surveysDue(env, visitor.id, s(b.page, 200)) : [];
+  return withVisitor(
+    Response.json(
+      due.length ? { consent: visitor.consent, replay, surveys: due } : { consent: visitor.consent, replay },
+    ),
+    visitor,
+  );
 };
 
 const SEARCH = new Set(['google', 'bing', 'duckduckgo', 'yahoo', 'ecosia', 'brave']);
@@ -41,9 +68,12 @@ type First = { r: string; utm_source: string; utm_medium: string; ref: string };
 /** A first touch's channel, as wren's touchChannel (packages/core/src/clients/touch.ts) names it. */
 function channelOf(t: First | null): string {
   if (!t) return 'direct';
-  const source = t.utm_source.trim().toLowerCase(), medium = t.utm_medium.trim().toLowerCase();
+  const source = t.utm_source.trim().toLowerCase(),
+    medium = t.utm_medium.trim().toLowerCase();
   let host: string[] = [];
-  try { host = new URL(t.ref).hostname.split('.'); } catch {}
+  try {
+    host = new URL(t.ref).hostname.split('.');
+  } catch {}
   if (t.r) return 'email';
   if (source === 'sms') return 'sms';
   if (medium === 'paid' || medium === 'cpc') return 'ads';
@@ -58,13 +88,21 @@ async function surveysDue(env: Env, visitor: string, page: string): Promise<Omit
   const path = page.length > 1 ? page.replace(/\/$/, '') : page;
   const here = config.surveys.filter((x) => !x.trigger.page || x.trigger.page === path);
   if (!here.length) return [];
-  const answered = new Set((await env.DB.prepare('select survey from answers where visitor = ?').bind(visitor).all<{ survey: string }>()).results.map((a) => a.survey));
+  const answered = new Set(
+    (
+      await env.DB.prepare('select survey from answers where visitor = ?').bind(visitor).all<{ survey: string }>()
+    ).results.map((a) => a.survey),
+  );
   const open = here.filter((x) => !answered.has(x.key));
   if (!open.length) return [];
   const channel = open.some((x) => x.audience.channels?.length)
-    ? channelOf(await env.DB.prepare(
-      `select r, utm_source, utm_medium, ref from hits where visitor = ? and (r != '' or utm_source != '' or ref != '') order by id limit 1`,
-    ).bind(visitor).first<First>())
+    ? channelOf(
+        await env.DB.prepare(
+          `select r, utm_source, utm_medium, ref from hits where visitor = ? and (r != '' or utm_source != '' or ref != '') order by id limit 1`,
+        )
+          .bind(visitor)
+          .first<First>(),
+      )
     : '';
   return open
     .filter((x) => !x.audience.channels?.length || x.audience.channels.includes(channel))

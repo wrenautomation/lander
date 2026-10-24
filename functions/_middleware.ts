@@ -7,7 +7,7 @@
 //     pick and no id, so the exposure is stored without a visitor and never counted.
 //   - A flag wren hasn't pushed: the first variant in the markup shows, the rest go. A page reads right either way.
 // A page that was rewritten goes out `Cache-Control: private`: a shared cache must never hold one visitor's pick.
-import { edgeConfig, type EdgeFlag, variantOf } from './_shared/edge';
+import { type EdgeFlag, edgeConfig, variantOf } from './_shared/edge';
 import type { Env } from './_shared/env';
 import { visitorOf, withVisitor } from './_shared/visitor';
 
@@ -35,7 +35,8 @@ export const onRequest: PagesFunction<Env> = async ({ request, env, next }) => {
   const rewritten = new HTMLRewriter()
     .on('[data-flag]', {
       element(el) {
-        const key = el.getAttribute('data-flag') || '', variant = el.getAttribute('data-variant') || '';
+        const key = el.getAttribute('data-flag') || '',
+          variant = el.getAttribute('data-variant') || '';
         if (pick(key, variant) !== variant) el.remove();
         else if (flags.has(key)) el.setAttribute('data-shown', '');
       },

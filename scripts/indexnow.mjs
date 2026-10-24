@@ -4,10 +4,12 @@
 //   node scripts/indexnow.mjs ping      after: submits them (--all submits every sitemap page, for a first run by hand)
 // Only changed pages go out: the engines ask for that, and a page resubmitted on every push gets ignored.
 // The key is public by design; public/<key>.txt proves the site is ours. Never fails the deploy.
-import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const LIST = '.indexnow';
-const key = readdirSync('public').find((f) => /^[0-9a-f]{32}\.txt$/.test(f))?.slice(0, 32);
+const key = readdirSync('public')
+  .find((f) => /^[0-9a-f]{32}\.txt$/.test(f))
+  ?.slice(0, 32);
 const sitemap = () => [...readFileSync('dist/sitemap.xml', 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
 const built = (url) => {
   const path = new URL(url).pathname;
@@ -30,7 +32,10 @@ async function changed() {
   const out = [];
   for (const url of sitemap()) {
     if (!existsSync(built(url))) continue;
-    const live = await fetch(url, { signal: AbortSignal.timeout(10_000) }).then((r) => (r.ok ? r.text() : ''), () => '');
+    const live = await fetch(url, { signal: AbortSignal.timeout(10_000) }).then(
+      (r) => (r.ok ? r.text() : ''),
+      () => '',
+    );
     if (words(live) !== words(readFileSync(built(url), 'utf8'))) out.push(url);
   }
   writeFileSync(LIST, out.join('\n'));

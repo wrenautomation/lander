@@ -6,13 +6,21 @@ export function ask() {
   if (box) box.hidden = false;
 }
 
-box?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach((b) => b.addEventListener('click', () => {
-  box.hidden = true;
-  fetch('/api/consent', { method: 'POST', body: JSON.stringify({ choice: b.dataset.choice }), headers: { 'content-type': 'application/json' } }).catch(() => {});
-}));
+box?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach((b) =>
+  b.addEventListener('click', () => {
+    box.hidden = true;
+    fetch('/api/consent', {
+      method: 'POST',
+      body: JSON.stringify({ choice: b.dataset.choice }),
+      headers: { 'content-type': 'application/json' },
+    }).catch(() => {});
+  }),
+);
 
 // "Cookie settings" in a footer: the banner again, so a yes can become a no
-document.querySelectorAll<HTMLElement>('[data-cookies]').forEach((b) => b.addEventListener('click', () => {
-  ask();
-  box?.querySelector<HTMLButtonElement>('[data-choice=no]')?.focus();
-}));
+document.querySelectorAll<HTMLElement>('[data-cookies]').forEach((b) =>
+  b.addEventListener('click', () => {
+    ask();
+    box?.querySelector<HTMLButtonElement>('[data-choice=no]')?.focus();
+  }),
+);

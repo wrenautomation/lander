@@ -4,7 +4,9 @@
 // email's link rides through for src/scripts/hit.ts, which also puts it on the Book button.
 import data from '../../src/data/offers.json';
 
-interface Env { ASSETS: Fetcher }
+interface Env {
+  ASSETS: Fetcher;
+}
 type Offer = { id: string; name: string; promise: string; page?: string | null; video?: string };
 
 const OFFERS = data.offers as Offer[];
@@ -20,15 +22,52 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, params, env })
   const video = offer.video;
   const shell = await env.ASSETS.fetch(new URL('/v', request.url));
   const out = new HTMLRewriter()
-    .on('title', { element: (e) => { e.setInnerContent(`${offer.name} | Wren Automation`); } })
-    .on('meta[property="og:title"]', { element: (e) => { e.setAttribute('content', offer.name); } })
-    .on('meta[property="og:url"]', { element: (e) => { e.setAttribute('content', url.origin + url.pathname); } })
-    .on('.watch .label', { element: (e) => { e.remove(); } })
-    .on('.watch h1', { element: (e) => { e.setInnerContent(offer.name); } })
-    .on('.watch .lede', { element: (e) => { e.setInnerContent(offer.promise); } })
-    .on('a[data-book]', { element: (e) => { e.setAttribute('href', `/book/${offer.id}`); } })
-    .on('a[data-how]', { element: (e) => { if (offer.page) e.setAttribute('href', offer.page); else e.remove(); } })
-    .on('video[data-video]', { element: (e) => { e.setAttribute('src', video); } })
+    .on('title', {
+      element: (e) => {
+        e.setInnerContent(`${offer.name} | Wren Automation`);
+      },
+    })
+    .on('meta[property="og:title"]', {
+      element: (e) => {
+        e.setAttribute('content', offer.name);
+      },
+    })
+    .on('meta[property="og:url"]', {
+      element: (e) => {
+        e.setAttribute('content', url.origin + url.pathname);
+      },
+    })
+    .on('.watch .label', {
+      element: (e) => {
+        e.remove();
+      },
+    })
+    .on('.watch h1', {
+      element: (e) => {
+        e.setInnerContent(offer.name);
+      },
+    })
+    .on('.watch .lede', {
+      element: (e) => {
+        e.setInnerContent(offer.promise);
+      },
+    })
+    .on('a[data-book]', {
+      element: (e) => {
+        e.setAttribute('href', `/book/${offer.id}`);
+      },
+    })
+    .on('a[data-how]', {
+      element: (e) => {
+        if (offer.page) e.setAttribute('href', offer.page);
+        else e.remove();
+      },
+    })
+    .on('video[data-video]', {
+      element: (e) => {
+        e.setAttribute('src', video);
+      },
+    })
     .transform(shell);
   const headers = new Headers(out.headers);
   headers.set('cache-control', 'public, max-age=300');

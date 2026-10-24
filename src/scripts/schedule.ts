@@ -4,9 +4,22 @@
 // ?embed=1 is the pitch page's fit block: no header, and the frame's height goes to the parent.
 
 type Offers = Record<string, { name: string; page: string | null }>;
-type View = { start: string; end: string; zone: string; title: string; offer: string | null; meetUrl: string | null; state: 'booked' | 'cancelled'; open: boolean };
+type View = {
+  start: string;
+  end: string;
+  zone: string;
+  title: string;
+  offer: string | null;
+  meetUrl: string | null;
+  state: 'booked' | 'cancelled';
+  open: boolean;
+};
 type Turnstile = { reset: (el?: Element) => void };
-declare global { interface Window { turnstile?: Turnstile } }
+declare global {
+  interface Window {
+    turnstile?: Turnstile;
+  }
+}
 
 const main = document.querySelector<HTMLElement>('main.book')!;
 const $ = <T extends HTMLElement = HTMLElement>(s: string) => main.querySelector<T>(s)!;
@@ -18,12 +31,28 @@ const embed = q.has('embed');
 if (embed) document.documentElement.classList.add('embed');
 
 let zone = 'America/Toronto';
-try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || zone; } catch {}
+try {
+  zone = Intl.DateTimeFormat().resolvedOptions().timeZone || zone;
+} catch {}
 
-const on = (el: HTMLElement, shown: boolean) => { el.hidden = !shown; };
-const fmt = (iso: string, o: Intl.DateTimeFormatOptions, z = zone) => new Intl.DateTimeFormat('en-US', { timeZone: z, ...o }).format(new Date(iso));
-const longWhen = (iso: string) => fmt(iso, { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
-const dayOf = (iso: string) => new Intl.DateTimeFormat('en-CA', { timeZone: zone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(iso));
+const on = (el: HTMLElement, shown: boolean) => {
+  el.hidden = !shown;
+};
+const fmt = (iso: string, o: Intl.DateTimeFormatOptions, z = zone) =>
+  new Intl.DateTimeFormat('en-US', { timeZone: z, ...o }).format(new Date(iso));
+const longWhen = (iso: string) =>
+  fmt(iso, {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short',
+  });
+const dayOf = (iso: string) =>
+  new Intl.DateTimeFormat('en-CA', { timeZone: zone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(
+    new Date(iso),
+  );
 
 const error = $('[data-error]');
 function say(text: string | null) {
@@ -40,9 +69,17 @@ const SAID: Record<string, string> = {
 };
 const down = () => `Something broke on my end. Try again in a minute, or email me at ${MAIL}.`;
 
-async function post<T>(url: string, body: BodyInit, json = false): Promise<{ status: number; j: T & { ok: boolean; error?: string } }> {
+async function post<T>(
+  url: string,
+  body: BodyInit,
+  json = false,
+): Promise<{ status: number; j: T & { ok: boolean; error?: string } }> {
   try {
-    const r = await fetch(url, { method: 'POST', body, headers: json ? { 'content-type': 'application/json' } : { accept: 'application/json' } });
+    const r = await fetch(url, {
+      method: 'POST',
+      body,
+      headers: json ? { 'content-type': 'application/json' } : { accept: 'application/json' },
+    });
     return { status: r.status, j: await r.json() };
   } catch {
     return { status: 0, j: { ok: false, error: 'down' } as T & { ok: boolean; error?: string } };
@@ -61,35 +98,54 @@ let picked: (iso: string) => void = () => {};
 
 function zones() {
   let all: string[] = [];
-  try { all = (Intl as unknown as { supportedValuesOf: (k: string) => string[] }).supportedValuesOf('timeZone'); } catch {}
+  try {
+    all = (Intl as unknown as { supportedValuesOf: (k: string) => string[] }).supportedValuesOf('timeZone');
+  } catch {}
   if (!all.includes(zone)) all.unshift(zone);
   zoneSelect.innerHTML = '';
   for (const z of all) zoneSelect.add(new Option(z.replace(/_/g, ' '), z, false, z === zone));
 }
-zoneSelect.addEventListener('change', () => { zone = zoneSelect.value; day = ''; draw(); });
+zoneSelect.addEventListener('change', () => {
+  zone = zoneSelect.value;
+  day = '';
+  draw();
+});
 
 function draw() {
   const byDay = new Map<string, string[]>();
-  for (const s of slots) { const d = dayOf(s); byDay.set(d, [...(byDay.get(d) ?? []), s]); }
+  for (const s of slots) {
+    const d = dayOf(s);
+    byDay.set(d, [...(byDay.get(d) ?? []), s]);
+  }
   // Booked out: the links are the main block.
   const out = byDay.size === 0;
-  on($('[data-zone-row]'), !out); on(days, !out); on(times, !out);
+  on($('[data-zone-row]'), !out);
+  on(days, !out);
+  on(times, !out);
   $('[data-direct]').classList.toggle('out', out);
   $('[data-direct-h]').textContent = out ? 'No open times right now. Message me directly.' : 'Or message me directly';
   if (!byDay.has(day)) day = byDay.keys().next().value ?? '';
   days.innerHTML = '';
   for (const [d, list] of byDay) {
     const b = document.createElement('button');
-    b.type = 'button'; b.className = 'day'; b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', String(d === day));
+    b.type = 'button';
+    b.className = 'day';
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-selected', String(d === day));
     const first = list[0]!;
     b.innerHTML = `<span>${fmt(first, { weekday: 'short' })}</span><b>${fmt(first, { day: 'numeric' })}</b><span>${fmt(first, { month: 'short' })}</span>`;
-    b.addEventListener('click', () => { day = d; draw(); });
+    b.addEventListener('click', () => {
+      day = d;
+      draw();
+    });
     days.append(b);
   }
   times.innerHTML = '';
   for (const s of byDay.get(day) ?? []) {
     const b = document.createElement('button');
-    b.type = 'button'; b.className = 'time'; b.textContent = fmt(s, { hour: 'numeric', minute: '2-digit' });
+    b.type = 'button';
+    b.className = 'time';
+    b.textContent = fmt(s, { hour: 'numeric', minute: '2-digit' });
     b.addEventListener('click', () => picked(s));
     times.append(b);
   }
@@ -97,8 +153,13 @@ function draw() {
 }
 
 async function loadSlots(): Promise<boolean> {
-  const r = await fetch('/api/slots').then((x) => (x.ok ? x.json() : null)).catch(() => null) as { length: number; slots: string[] } | null;
-  if (!r) { say(down()); return false; }
+  const r = (await fetch('/api/slots')
+    .then((x) => (x.ok ? x.json() : null))
+    .catch(() => null)) as { length: number; slots: string[] } | null;
+  if (!r) {
+    say(down());
+    return false;
+  }
   slots = r.slots;
   $('[data-length]').textContent = `A ${r.length}-minute call with me on Google Meet. I record calls for my notes.`;
   draw();
@@ -110,26 +171,41 @@ async function loadSlots(): Promise<boolean> {
 const form = $<HTMLFormElement>('[data-form]');
 const submit = $<HTMLButtonElement>('[data-submit]');
 let start = '';
-$('[data-back]').addEventListener('click', () => { on(form, false); on(pick, true); say(null); });
+$('[data-back]').addEventListener('click', () => {
+  on(form, false);
+  on(pick, true);
+  say(null);
+});
 
 function choose(iso: string) {
   start = iso;
   $('[data-when]').textContent = longWhen(iso);
-  on(pick, false); on(form, true); say(null);
+  on(pick, false);
+  on(form, true);
+  say(null);
   form.querySelector<HTMLInputElement>('input[name=name]:not([hidden])')?.focus();
 }
 
 async function busy<T>(run: () => Promise<T>): Promise<T> {
-  const label = submit.querySelector('span')!, was = label.textContent;
-  submit.disabled = true; label.textContent = 'One moment';
-  try { return await run(); } finally { submit.disabled = false; label.textContent = was; }
+  const label = submit.querySelector('span')!,
+    was = label.textContent;
+  submit.disabled = true;
+  label.textContent = 'One moment';
+  try {
+    return await run();
+  } finally {
+    submit.disabled = false;
+    label.textContent = was;
+  }
 }
 
 // --- /book/<offer>
 
 function touch(): Record<string, string> {
   let t: Record<string, string> = {};
-  try { t = JSON.parse(sessionStorage.getItem('wren-touch') || 'null') || {}; } catch {}
+  try {
+    t = JSON.parse(sessionStorage.getItem('wren-touch') || 'null') || {};
+  } catch {}
   const out: Record<string, string> = {};
   for (const k of ['r', 'application', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref']) {
     const v = q.get(k) || t[k];
@@ -164,18 +240,25 @@ async function book(offer: string) {
     if (j.ok) return done(j.booking, j.manage);
     window.turnstile?.reset();
     say(SAID[j.error ?? ''] ?? down());
-    if (j.error === 'taken') { on(form, false); on(pick, true); await loadSlots(); say(SAID.taken!); }
+    if (j.error === 'taken') {
+      on(form, false);
+      on(pick, true);
+      await loadSlots();
+      say(SAID.taken!);
+    }
   });
 }
 
 function done(b: View, manage: string) {
-  on(form, false); on(pick, false);
+  on(form, false);
+  on(pick, false);
   $('[data-done-when]').textContent = longWhen(b.start);
   const a = $<HTMLAnchorElement>('[data-manage]');
   a.href = manage;
   if (embed) a.target = '_top';
   const box = $('[data-done]');
-  on(box, true); box.focus();
+  on(box, true);
+  box.focus();
   // survey.ts: a booked-moment survey on this page, or the page this is embedded in
   if (embed) parent.postMessage({ wren: 'booked' }, location.origin);
   else document.dispatchEvent(new Event('wren:booked'));
@@ -192,7 +275,9 @@ async function manage(token: string) {
   if (!got.j.ok) return say(SAID[got.j.error ?? ''] ?? down());
   let b = got.j.booking;
   const show = () => {
-    on(pick, false); on(form, false); on($('[data-cancel-box]'), false);
+    on(pick, false);
+    on(form, false);
+    on($('[data-cancel-box]'), false);
     $('[data-call-state]').textContent = b.state === 'cancelled' ? 'Cancelled' : b.open ? 'Your call' : 'Past call';
     $('[data-call-h]').textContent = b.title;
     $('[data-call-when]').textContent = longWhen(b.start);
@@ -207,7 +292,8 @@ async function manage(token: string) {
   };
   show();
   $('[data-move]').addEventListener('click', async () => {
-    on($('[data-call]'), false); say(null);
+    on($('[data-call]'), false);
+    say(null);
     $('[data-pick-h]').textContent = 'Pick a new time';
     zones();
     on(pick, true);
@@ -217,17 +303,32 @@ async function manage(token: string) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const { j } = await busy(() => call('move', { start }));
-    if (j.ok) { b = j.booking; say(null); return show(); }
+    if (j.ok) {
+      b = j.booking;
+      say(null);
+      return show();
+    }
     say(SAID[j.error ?? ''] ?? down());
-    if (j.error === 'taken') { on(form, false); on(pick, true); await loadSlots(); say(SAID.taken!); }
+    if (j.error === 'taken') {
+      on(form, false);
+      on(pick, true);
+      await loadSlots();
+      say(SAID.taken!);
+    }
   });
-  $('[data-cancel]').addEventListener('click', () => { on($('[data-call-acts]'), false); on($('[data-cancel-box]'), true); $('[data-reason]').focus(); });
+  $('[data-cancel]').addEventListener('click', () => {
+    on($('[data-call-acts]'), false);
+    on($('[data-cancel-box]'), true);
+    $('[data-reason]').focus();
+  });
   $('[data-cancel-keep]').addEventListener('click', show);
   $('[data-cancel-go]').addEventListener('click', async () => {
     const reason = $<HTMLTextAreaElement>('[data-reason]').value.trim();
     const { j } = await call('cancel', reason ? { reason } : {});
     if (!j.ok) return say(SAID[j.error ?? ''] ?? down());
-    b = j.booking; say(null); show();
+    b = j.booking;
+    say(null);
+    show();
   });
   // The mail's links: ?do=move or ?do=cancel opens that step.
   const want = q.get('do');
@@ -240,7 +341,8 @@ else void book(key);
 
 // The pitch page sizes its frame to the page.
 if (embed && window.parent !== window) {
-  const tell = () => window.parent.postMessage({ wrenBook: Math.ceil(document.documentElement.scrollHeight) }, location.origin);
+  const tell = () =>
+    window.parent.postMessage({ wrenBook: Math.ceil(document.documentElement.scrollHeight) }, location.origin);
   new ResizeObserver(tell).observe(document.body);
 }
 

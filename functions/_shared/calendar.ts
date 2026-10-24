@@ -9,7 +9,9 @@ const hex = (b: ArrayBuffer) => [...new Uint8Array(b)].map((x) => x.toString(16)
 /** HMAC-SHA256 of `book:<offer>:<start>:<email>`, the same as wren's `bookSig`. */
 export async function bookSig(shared: string, offer: string, start: string, email: string): Promise<string> {
   const enc = new TextEncoder();
-  const key = await crypto.subtle.importKey('raw', enc.encode(shared), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const key = await crypto.subtle.importKey('raw', enc.encode(shared), { name: 'HMAC', hash: 'SHA-256' }, false, [
+    'sign',
+  ]);
   return hex(await crypto.subtle.sign('HMAC', key, enc.encode(`book:${offer}:${start}:${email.trim().toLowerCase()}`)));
 }
 
@@ -31,10 +33,16 @@ export interface BookingView {
 }
 
 /** One `Calendar/<handler>` call. `data` is null on any failure; `status` says which, `error` wren's words. */
-export async function calendar<T>(env: Env, handler: string, body: unknown): Promise<{ status: number; data: T | null; error: string }> {
+export async function calendar<T>(
+  env: Env,
+  handler: string,
+  body: unknown,
+): Promise<{ status: number; data: T | null; error: string }> {
   if (!env.WREN_CALENDAR_URL) return { status: 503, data: null, error: 'off' };
   const r = await fetch(`${env.WREN_CALENDAR_URL}/${handler}`, {
-    method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body),
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(body),
   }).catch(() => null);
   if (!r) return { status: 502, data: null, error: 'unreachable' };
   if (r.ok) return { status: r.status, data: (await r.json().catch(() => null)) as T | null, error: '' };
@@ -43,7 +51,10 @@ export async function calendar<T>(env: Env, handler: string, body: unknown): Pro
 }
 
 // Text a booker typed never reaches Discord as markdown or a mention.
-const plain = (s: unknown, max = 200) => String(s ?? '').replace(/[*_`~|>@#\\]/g, '').slice(0, max);
+const plain = (s: unknown, max = 200) =>
+  String(s ?? '')
+    .replace(/[*_`~|>@#\\]/g, '')
+    .slice(0, max);
 // His clock: Toronto. "Fri Oct 3, 2:00 PM ET"
 export const when = (iso: string) =>
   `${new Date(iso).toLocaleString('en-US', { timeZone: 'America/Toronto', weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })} ET`;
@@ -51,7 +62,13 @@ export const when = (iso: string) =>
 const HEAD = { booked: '📅 **Call booked**', moved: '🔁 **Call moved**', cancelled: '❌ **Call cancelled**' } as const;
 
 /** Pings William in #meetings, as cal.com's webhook did. A failed ping is swallowed: the booking stands. */
-export async function meetings(env: Env, what: keyof typeof HEAD, b: BookingView, extra: string[] = [], email = ''): Promise<void> {
+export async function meetings(
+  env: Env,
+  what: keyof typeof HEAD,
+  b: BookingView,
+  extra: string[] = [],
+  email = '',
+): Promise<void> {
   if (!env.DISCORD_MEETINGS_WEBHOOK) return;
   const ping = env.DISCORD_PING_USER_ID;
   const lines = [
@@ -60,8 +77,12 @@ export async function meetings(env: Env, what: keyof typeof HEAD, b: BookingView
     ...extra.map((l) => plain(l, 300)),
   ];
   await fetch(env.DISCORD_MEETINGS_WEBHOOK, {
-    method: 'POST', headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ content: `${ping ? `<@${ping}> ` : ''}${lines.join('\n')}`, allowed_mentions: { parse: [], users: ping ? [ping] : [] } }),
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      content: `${ping ? `<@${ping}> ` : ''}${lines.join('\n')}`,
+      allowed_mentions: { parse: [], users: ping ? [ping] : [] },
+    }),
   }).catch(() => {});
 }
 

@@ -17,7 +17,8 @@
     "channels": "node scripts/channels.mjs",
     "db:attribution": "wrangler d1 execute wren-leads --remote --file scripts/attribution.sql",
     "forget": "wrangler d1 execute wren-leads --remote --command \"delete from leads where email = '$EMAIL'\"",
-    "check": "astro check && tsc -p functions",
+    "lint": "biome check --error-on-warnings .",
+    "check": "npm run lint && astro check && tsc -p functions",
     "images": "node scripts/images.mjs",
     "photos": "python3 scripts/photos.py"
   },
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@biomejs/biome": "2.5.14",
     "@cloudflare/workers-types": "^5.20260915.1",
     "typescript": "^6.0.3",
     "wrangler": "^4.131.2",

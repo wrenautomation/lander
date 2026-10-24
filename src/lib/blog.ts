@@ -1,5 +1,5 @@
 // The blog's posts and each post's email version (wren designs/2026-10-11-newsletter.md).
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';
 
 export type Post = CollectionEntry<'blog'>;
 
@@ -26,30 +26,37 @@ const attr = (attrs: string, name: string) => attrs.match(new RegExp(`\\b${name}
  */
 export function emailText(body: string, url: string): string {
   const see = `(See it on the page: ${url})`;
-  return body
-    .replace(/<!--[\s\S]*?-->/g, '')
-    .replace(/^(import|export)\s.*$/gm, '')
-    // the blog components keep their words: Steps and Note lose only their tags, Compare labels its two lists
-    .replace(/^<Compare\s+before="([^"]*)"\s+after="([^"]*)"\s*>\s*\n([\s\S]*?)\n\s*<\/Compare>/gm, (_, a: string, b: string, inner: string) => {
-      const [one = '', two = ''] = inner.trim().split(/\n\s*---\s*\n/);
-      return `${a}:\n${one.trim()}\n\n${b}:\n${two.trim()}`;
-    })
-    .replace(/^<Note\s+title="([^"]*)"\s*>[ \t]*$/gm, '$1:')
-    // a Stat's number leads its sentence; a figure's title heads its list
-    .replace(/^<Stat\b([^>]*)>\s*\n([\s\S]*?)\n\s*<\/Stat>/gm, (_, a: string, inner: string) =>
-      `${attr(a, 'prefix')}${attr(a, 'n')}${attr(a, 'suffix')} ${inner.trim()}`)
-    .replace(FIGURE_OPEN, (_, a: string) => (attr(a, 'title') ? `${attr(a, 'title')}:` : ''))
-    .replace(/^<\/?(Steps|Note|Rack|Leaks|Fan|Timeline)>[ \t]*$/gm, '')
-    .replace(/^<([A-Z]\w*)\b[\s\S]*?(<\/\1>|\/>)[ \t]*$/gm, see)
-    .replace(/^\s*<[^>]+>.*$/gm, see)
-    .replace(/!\[([^\]]*)\]\([^)]*\)/g, (_, alt: string) => `(${alt ? `${alt}: ` : ''}see it on the page: ${url})`)
-    .replace(/\[([^\]]+)\]\(([^)\s]+)[^)]*\)/g, '$1 ($2)')
-    .replace(/^#{1,6}\s+/gm, '')
-    .replace(/(\*\*|__)(.+?)\1/g, '$2')
-    .replace(/(^|[^*\w])[*_]([^*_\n]+)[*_]/g, '$1$2')
-    .replace(/`([^`]+)`/g, '$1')
-    .replace(/\n{3,}/g, '\n\n')
-    .trim();
+  return (
+    body
+      .replace(/<!--[\s\S]*?-->/g, '')
+      .replace(/^(import|export)\s.*$/gm, '')
+      // the blog components keep their words: Steps and Note lose only their tags, Compare labels its two lists
+      .replace(
+        /^<Compare\s+before="([^"]*)"\s+after="([^"]*)"\s*>\s*\n([\s\S]*?)\n\s*<\/Compare>/gm,
+        (_, a: string, b: string, inner: string) => {
+          const [one = '', two = ''] = inner.trim().split(/\n\s*---\s*\n/);
+          return `${a}:\n${one.trim()}\n\n${b}:\n${two.trim()}`;
+        },
+      )
+      .replace(/^<Note\s+title="([^"]*)"\s*>[ \t]*$/gm, '$1:')
+      // a Stat's number leads its sentence; a figure's title heads its list
+      .replace(
+        /^<Stat\b([^>]*)>\s*\n([\s\S]*?)\n\s*<\/Stat>/gm,
+        (_, a: string, inner: string) => `${attr(a, 'prefix')}${attr(a, 'n')}${attr(a, 'suffix')} ${inner.trim()}`,
+      )
+      .replace(FIGURE_OPEN, (_, a: string) => (attr(a, 'title') ? `${attr(a, 'title')}:` : ''))
+      .replace(/^<\/?(Steps|Note|Rack|Leaks|Fan|Timeline)>[ \t]*$/gm, '')
+      .replace(/^<([A-Z]\w*)\b[\s\S]*?(<\/\1>|\/>)[ \t]*$/gm, see)
+      .replace(/^\s*<[^>]+>.*$/gm, see)
+      .replace(/!\[([^\]]*)\]\([^)]*\)/g, (_, alt: string) => `(${alt ? `${alt}: ` : ''}see it on the page: ${url})`)
+      .replace(/\[([^\]]+)\]\(([^)\s]+)[^)]*\)/g, '$1 ($2)')
+      .replace(/^#{1,6}\s+/gm, '')
+      .replace(/(\*\*|__)(.+?)\1/g, '$2')
+      .replace(/(^|[^*\w])[*_]([^*_\n]+)[*_]/g, '$1$2')
+      .replace(/`([^`]+)`/g, '$1')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim()
+  );
 }
 
 /** The signup under every post. Bump `version` whenever `text` changes: wren keeps the exact words as proof. */

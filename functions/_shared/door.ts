@@ -31,7 +31,11 @@ export interface DoorRow {
 /** The market a page is for: its first path segment (`/recruiting/...` is recruiting), `/` is general. */
 export function nicheOfPage(page: string): string {
   let path = page;
-  try { path = new URL(page, 'https://wrenautomation.com').pathname; } catch { /* keep it */ }
+  try {
+    path = new URL(page, 'https://wrenautomation.com').pathname;
+  } catch {
+    /* keep it */
+  }
   return path.split('/').filter(Boolean)[0]?.toLowerCase() || 'general';
 }
 
@@ -41,13 +45,23 @@ export function doorPayload(row: DoorRow) {
     id: `site:${row.table}:${row.rowId}`,
     source: 'site',
     form: row.table === 'leads' ? 'lead' : 'apply',
-    name: row.name, email: row.email, phone: row.phone,
+    name: row.name,
+    email: row.email,
+    phone: row.phone,
     ...(row.smsConsent === undefined ? {} : { sms_consent: row.smsConsent }),
-    note: row.note, niche: row.niche, page: row.page,
+    note: row.note,
+    niche: row.niche,
+    page: row.page,
     ...(row.offer ? { offer: row.offer, fit: !!row.fit } : {}),
-    visitor: row.visitor, first_touch: row.first, last_touch: row.last,
-    utm_source: row.utm.source, utm_medium: row.utm.medium, utm_campaign: row.utm.campaign, utm_content: row.utm.content,
-    ref: row.ref, r: row.r,
+    visitor: row.visitor,
+    first_touch: row.first,
+    last_touch: row.last,
+    utm_source: row.utm.source,
+    utm_medium: row.utm.medium,
+    utm_campaign: row.utm.campaign,
+    utm_content: row.utm.content,
+    ref: row.ref,
+    r: row.r,
   };
 }
 
@@ -55,7 +69,9 @@ export function doorPayload(row: DoorRow) {
 export async function forwardToDoor(env: Env, row: DoorRow): Promise<void> {
   if (!env.WREN_DOOR_URL || !row.rowId) return;
   await fetch(env.WREN_DOOR_URL, {
-    method: 'POST', headers: { 'content-type': 'application/json' },
-    body: JSON.stringify(doorPayload(row)), signal: AbortSignal.timeout(TIMEOUT_MS),
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(doorPayload(row)),
+    signal: AbortSignal.timeout(TIMEOUT_MS),
   }).catch(() => null);
 }

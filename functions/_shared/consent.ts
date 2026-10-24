@@ -9,10 +9,41 @@ export const CHOICE = 'wc';
 const MAX_AGE = 180 * 24 * 60 * 60; // ask again after six months
 
 const ASK = new Set([
-  'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL',
-  'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', // the EU
-  'IS', 'LI', 'NO', 'GB', 'CH', 'BR',
-  'XX', 'T1', // Cloudflare: unknown, Tor
+  'AT',
+  'BE',
+  'BG',
+  'HR',
+  'CY',
+  'CZ',
+  'DK',
+  'EE',
+  'FI',
+  'FR',
+  'DE',
+  'GR',
+  'HU',
+  'IE',
+  'IT',
+  'LV',
+  'LT',
+  'LU',
+  'MT',
+  'NL',
+  'PL',
+  'PT',
+  'RO',
+  'SK',
+  'SI',
+  'ES',
+  'SE', // the EU
+  'IS',
+  'LI',
+  'NO',
+  'GB',
+  'CH',
+  'BR',
+  'XX',
+  'T1', // Cloudflare: unknown, Tor
 ]);
 
 /** The choice on this request's `wc` cookie, if one was made. */
@@ -31,4 +62,5 @@ export function consentOf(request: Request): Consent {
 }
 
 /** The Set-Cookie value that keeps a banner choice. Readable by the page, which never asks twice. */
-export const choiceCookie = (choice: 'yes' | 'no') => `${CHOICE}=${choice}; Max-Age=${MAX_AGE}; Path=/; Secure; SameSite=Lax`;
+export const choiceCookie = (choice: 'yes' | 'no') =>
+  `${CHOICE}=${choice}; Max-Age=${MAX_AGE}; Path=/; Secure; SameSite=Lax`;

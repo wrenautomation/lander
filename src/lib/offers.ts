@@ -5,16 +5,32 @@
 // language is one gate kind (anyOf) on purpose, so the two cannot drift far.
 import snap from '../data/offers.json';
 
-export interface Choice { id: string; label: string }
+export interface Choice {
+  id: string;
+  label: string;
+}
 export type Question =
   | { id: string; ask: string; kind: 'one' | 'many'; choices: Choice[]; required: boolean }
   | { id: string; ask: string; kind: 'text'; placeholder: string; required: boolean };
-export interface Application { questions: Question[]; fit: { question: string; anyOf: string[] }[] }
+export interface Application {
+  questions: Question[];
+  fit: { question: string; anyOf: string[] }[];
+}
 export interface Offer {
-  id: string; name: string; status: 'draft' | 'live' | 'paused' | 'retired';
-  promise: string; slots: number | null; days: number | null;
-  youGet: string[]; youGive: string[]; weGet: string[]; guarantee: string | null;
-  next: string[]; page: string | null; booking: string | null; application: Application | null;
+  id: string;
+  name: string;
+  status: 'draft' | 'live' | 'paused' | 'retired';
+  promise: string;
+  slots: number | null;
+  days: number | null;
+  youGet: string[];
+  youGive: string[];
+  weGet: string[];
+  guarantee: string | null;
+  next: string[];
+  page: string | null;
+  booking: string | null;
+  application: Application | null;
 }
 export type Answers = Record<string, string | string[]>;
 
@@ -42,8 +58,14 @@ export function invalidAnswers(offer: Offer, answers: Answers): string | null {
   for (const q of app.questions) {
     const got = answers[q.id];
     const empty = got === undefined || (typeof got === 'string' ? !got.trim() : got.length === 0);
-    if (empty) { if (q.required) return `'${q.id}' is required`; continue; }
-    if (q.kind === 'text') { if (typeof got !== 'string') return `'${q.id}' takes text`; continue; }
+    if (empty) {
+      if (q.required) return `'${q.id}' is required`;
+      continue;
+    }
+    if (q.kind === 'text') {
+      if (typeof got !== 'string') return `'${q.id}' takes text`;
+      continue;
+    }
     const picked = typeof got === 'string' ? [got] : got;
     if (q.kind === 'one' && picked.length !== 1) return `'${q.id}' takes one choice`;
     const known = new Set(q.choices.map((c) => c.id));
@@ -65,7 +87,8 @@ const takesOther = (q: Question) => q.kind !== 'text' && q.choices.some((c) => c
 export function writeInsFrom(offer: Offer, form: FormData, answers: Answers): Record<string, string> {
   const out: Record<string, string> = {};
   for (const q of offer.application?.questions ?? []) {
-    const got = answers[q.id], text = form.get(otherName(q.id));
+    const got = answers[q.id],
+      text = form.get(otherName(q.id));
     const picked = typeof got === 'string' ? got === OTHER : (got ?? []).includes(OTHER);
     if (takesOther(q) && picked && typeof text === 'string' && text.trim()) out[q.id] = text.trim().slice(0, 200);
   }
@@ -79,8 +102,11 @@ export function answersFrom(offer: Offer, form: FormData): Answers {
   const others = new Set((offer.application?.questions ?? []).filter(takesOther).map((q) => otherName(q.id)));
   for (const key of new Set([...form.keys()].filter((k) => k.startsWith('q.') && !others.has(k)))) {
     const id = key.slice(2);
-    const vals = form.getAll(key).filter((v): v is string => typeof v === 'string').map((v) => v.slice(0, 2000));
-    out[id] = kinds.get(id) === 'many' ? vals : (vals.length === 1 ? vals[0] : vals);
+    const vals = form
+      .getAll(key)
+      .filter((v): v is string => typeof v === 'string')
+      .map((v) => v.slice(0, 2000));
+    out[id] = kinds.get(id) === 'many' ? vals : vals.length === 1 ? vals[0] : vals;
   }
   return out;
 }

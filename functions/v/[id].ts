@@ -30,12 +30,37 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, params, env })
   const shell = await env.ASSETS.fetch(new URL('/v', request.url));
   const page = new URL(request.url);
   const out = new HTMLRewriter()
-    .on('title', { element: (e) => { e.setInnerContent(`${OFFER}, made for ${firm} | Wren Automation`); } })
-    .on('meta[property="og:title"]', { element: (e) => { e.setAttribute('content', `Made for ${firm}`); } })
-    .on('meta[property="og:image"]', { element: (e) => { e.setAttribute('content', poster); } })
-    .on('meta[property="og:url"]', { element: (e) => { e.setAttribute('content', page.origin + page.pathname); } })
-    .on('[data-firm]', { element: (e) => { e.setInnerContent(firm); } })
-    .on('video[data-video]', { element: (e) => { e.setAttribute('src', mp4); e.setAttribute('poster', poster); } })
+    .on('title', {
+      element: (e) => {
+        e.setInnerContent(`${OFFER}, made for ${firm} | Wren Automation`);
+      },
+    })
+    .on('meta[property="og:title"]', {
+      element: (e) => {
+        e.setAttribute('content', `Made for ${firm}`);
+      },
+    })
+    .on('meta[property="og:image"]', {
+      element: (e) => {
+        e.setAttribute('content', poster);
+      },
+    })
+    .on('meta[property="og:url"]', {
+      element: (e) => {
+        e.setAttribute('content', page.origin + page.pathname);
+      },
+    })
+    .on('[data-firm]', {
+      element: (e) => {
+        e.setInnerContent(firm);
+      },
+    })
+    .on('video[data-video]', {
+      element: (e) => {
+        e.setAttribute('src', mp4);
+        e.setAttribute('poster', poster);
+      },
+    })
     .transform(shell);
   const headers = new Headers(out.headers);
   headers.set('cache-control', 'public, max-age=300');

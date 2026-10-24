@@ -9,10 +9,14 @@ const root = document.documentElement;
 const motion = root.classList.contains('js');
 
 /* ---------- the steps: without motion every stop shows lit (with it, pitch-motion.ts lights each as the rule reaches it) ---------- */
-if (!motion) for (const line of $$('[data-timeline]')) {
-  const bars = $$('[data-bar]', line.closest('.sec')!);
-  $$('[data-stop]', line).forEach((li, k) => { li.classList.add('on'); bars[k]?.classList.add('lit'); });
-}
+if (!motion)
+  for (const line of $$('[data-timeline]')) {
+    const bars = $$('[data-bar]', line.closest('.sec')!);
+    $$('[data-stop]', line).forEach((li, k) => {
+      li.classList.add('on');
+      bars[k]?.classList.add('lit');
+    });
+  }
 
 /* ---------- a reload lands where the reader was, not at the top ---------- */
 // Safari restores before fonts and the pinned sections settle, then lands short or at the top. Save the spot on the
@@ -22,20 +26,29 @@ let landY = 0;
 try {
   const key = `scroll:${location.pathname}`;
   history.scrollRestoration = 'manual';
-  addEventListener('pagehide', () => { try { sessionStorage.setItem(key, String(scrollY)); } catch {} });
+  addEventListener('pagehide', () => {
+    try {
+      sessionStorage.setItem(key, String(scrollY));
+    } catch {}
+  });
   const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
   const y = Number(sessionStorage.getItem(key));
   if (nav?.type === 'reload' && !location.hash && y > 0) {
     landY = y;
     const back = () => scrollTo({ top: y, behavior: 'instant' });
     back();
-    (document.fonts?.ready ?? Promise.resolve()).then(() => (document.readyState === 'complete' ? requestAnimationFrame(back) : addEventListener('load', () => requestAnimationFrame(back), { once: true })));
+    (document.fonts?.ready ?? Promise.resolve()).then(() =>
+      document.readyState === 'complete'
+        ? requestAnimationFrame(back)
+        : addEventListener('load', () => requestAnimationFrame(back), { once: true }),
+    );
   }
 } catch {}
 
 // the form's light runs round its edge until the reader starts on it (Loader.astro's wrenShown: the page is up)
 const panel = motion ? $('.hero .panel') : null;
-if (panel) ((window as { wrenShown?: Promise<void> }).wrenShown ?? Promise.resolve()).then(() => panel.classList.add('beam'));
+if (panel)
+  ((window as { wrenShown?: Promise<void> }).wrenShown ?? Promise.resolve()).then(() => panel.classList.add('beam'));
 panel?.addEventListener('focusin', () => panel.classList.remove('beam'), { once: true });
 
 /* ---------- the flows: node diagrams wired in code, one line down the section through all three ---------- */
@@ -44,9 +57,14 @@ export type Box = { x: number; y: number; w: number; h: number };
 export type Wire = { path: SVGPathElement; ends: SVGCircleElement[]; dot: SVGCircleElement };
 // what pitch-motion.ts plays the flows with
 export type Flows = {
-  flows: HTMLElement[]; wires: Map<HTMLElement, Wire[]>; joins: Wire[];
-  edges: (f: HTMLElement) => string[][]; node: (f: HTMLElement, n: string) => HTMLElement;
-  boxIn: (el: HTMLElement, box: HTMLElement) => Box; draw: (w: Wire, t: number) => void; at: (w: Wire, t: number) => void;
+  flows: HTMLElement[];
+  wires: Map<HTMLElement, Wire[]>;
+  joins: Wire[];
+  edges: (f: HTMLElement) => string[][];
+  node: (f: HTMLElement, n: string) => HTMLElement;
+  boxIn: (el: HTMLElement, box: HTMLElement) => Box;
+  draw: (w: Wire, t: number) => void;
+  at: (w: Wire, t: number) => void;
   ghosts: () => void; // set by the motion: puts each node's skeleton where it will land, again on every resize
 };
 let kit: Flows | null = null;
@@ -55,24 +73,39 @@ if (flowsBox) {
   const NS = 'http://www.w3.org/2000/svg';
   // where an element sits inside `box`, ignoring transforms: nodes move in, the wires stay where they'll land
   const boxIn = (el: HTMLElement, box: HTMLElement): Box => {
-    let x = 0, y = 0, n: HTMLElement | null = el;
-    while (n && n !== box) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent as HTMLElement | null; }
+    let x = 0,
+      y = 0,
+      n: HTMLElement | null = el;
+    while (n && n !== box) {
+      x += n.offsetLeft;
+      y += n.offsetTop;
+      n = n.offsetParent as HTMLElement | null;
+    }
     return { x, y, w: el.offsetWidth, h: el.offsetHeight };
   };
   // side by side: out the right, in the left (or mirrored). Stacked: out the bottom, in the top.
   const curve = (a: Box, b: Box) => {
-    const right = b.x >= a.x + a.w - 1, left = b.x + b.w <= a.x + 1;
+    const right = b.x >= a.x + a.w - 1,
+      left = b.x + b.w <= a.x + 1;
     if (right || left) {
-      const x1 = right ? a.x + a.w : a.x, x2 = right ? b.x : b.x + b.w, y1 = a.y + a.h / 2, y2 = b.y + b.h / 2;
+      const x1 = right ? a.x + a.w : a.x,
+        x2 = right ? b.x : b.x + b.w,
+        y1 = a.y + a.h / 2,
+        y2 = b.y + b.h / 2;
       const c = Math.max(20, Math.abs(x2 - x1) / 2) * (right ? 1 : -1);
       return `M${x1} ${y1}C${x1 + c} ${y1} ${x2 - c} ${y2} ${x2} ${y2}`;
     }
-    const x1 = a.x + a.w / 2, y1 = a.y + a.h, x2 = b.x + b.w / 2, y2 = b.y, c = Math.max(16, (y2 - y1) / 2);
+    const x1 = a.x + a.w / 2,
+      y1 = a.y + a.h,
+      x2 = b.x + b.w / 2,
+      y2 = b.y,
+      c = Math.max(16, (y2 - y1) / 2);
     return `M${x1} ${y1}C${x1} ${y1 + c} ${x2} ${y2 - c} ${x2} ${y2}`;
   };
   // between diagrams: down, across the gap between rows on rounded corners, down again
   const elbow = (x1: number, y1: number, x2: number, y2: number, ym: number) => {
-    const s = Math.sign(x2 - x1), r = Math.min(18, Math.abs(x2 - x1) / 2, (y2 - y1) / 4);
+    const s = Math.sign(x2 - x1),
+      r = Math.min(18, Math.abs(x2 - x1) / 2, (y2 - y1) / 4);
     if (!s || r < 2) return `M${x1} ${y1}C${x1} ${ym} ${x2} ${ym} ${x2} ${y2}`;
     return `M${x1} ${y1}V${ym - r}Q${x1} ${ym} ${x1 + s * r} ${ym}H${x2 - s * r}Q${x2} ${ym} ${x2} ${ym + r}V${y2}`;
   };
@@ -83,23 +116,41 @@ if (flowsBox) {
     return `M${x1} ${y1}V${ya - r}Q${x1} ${ya} ${x1 - r} ${ya}H${xg + r}Q${xg} ${ya} ${xg} ${ya + r}V${yb - r}Q${xg} ${yb} ${xg + r} ${yb}H${x2 - r}Q${x2} ${yb} ${x2} ${yb + r}V${y2}`;
   };
   const make = (svg: SVGSVGElement): Wire => {
-    const el = <T extends SVGElement>(tag: string, cls = '') => { const e = document.createElementNS(NS, tag) as T; if (cls) e.setAttribute('class', cls); e.setAttribute('r', '3.5'); svg.append(e); return e; };
+    const el = <T extends SVGElement>(tag: string, cls = '') => {
+      const e = document.createElementNS(NS, tag) as T;
+      if (cls) e.setAttribute('class', cls);
+      e.setAttribute('r', '3.5');
+      svg.append(e);
+      return e;
+    };
     const path = el<SVGPathElement>('path');
     path.removeAttribute('r');
-    return { path, ends: [el<SVGCircleElement>('circle', 'port'), el<SVGCircleElement>('circle', 'port')], dot: el<SVGCircleElement>('circle', 'dot') };
+    return {
+      path,
+      ends: [el<SVGCircleElement>('circle', 'port'), el<SVGCircleElement>('circle', 'port')],
+      dot: el<SVGCircleElement>('circle', 'dot'),
+    };
   };
-  const len = (w: Wire) => { try { return w.path.getAttribute('d') ? w.path.getTotalLength() : 0; } catch { return 0; } };
+  const len = (w: Wire) => {
+    try {
+      return w.path.getAttribute('d') ? w.path.getTotalLength() : 0;
+    } catch {
+      return 0;
+    }
+  };
   const at = (w: Wire, t: number) => {
     const L = len(w);
     if (!L) return;
     const q = w.path.getPointAtLength(L * t);
-    w.dot.setAttribute('cx', `${q.x}`); w.dot.setAttribute('cy', `${q.y}`);
+    w.dot.setAttribute('cx', `${q.x}`);
+    w.dot.setAttribute('cy', `${q.y}`);
   };
   // t = how much of the wire is drawn; the dot rides its head
   const drawn = new WeakMap<Wire, number>();
   const draw = (w: Wire, t: number) => {
     drawn.set(w, t);
-    const L = len(w), p = w.path.style;
+    const L = len(w),
+      p = w.path.style;
     p.strokeDasharray = t >= 1 ? '' : `${L} ${L}`;
     p.strokeDashoffset = t >= 1 ? '' : `${L * (1 - t)}`;
     w.ends[0].style.opacity = t > 0 ? '' : '0';
@@ -111,7 +162,11 @@ if (flowsBox) {
     w.path.setAttribute('d', d);
     const L = len(w);
     if (!L) return;
-    [0, L].forEach((l, k) => { const q = w.path.getPointAtLength(l); w.ends[k].setAttribute('cx', `${q.x}`); w.ends[k].setAttribute('cy', `${q.y}`); });
+    [0, L].forEach((l, k) => {
+      const q = w.path.getPointAtLength(l);
+      w.ends[k].setAttribute('cx', `${q.x}`);
+      w.ends[k].setAttribute('cy', `${q.y}`);
+    });
     if (drawn.has(w)) draw(w, drawn.get(w)!);
   };
 
@@ -134,10 +189,17 @@ if (flowsBox) {
     }
     joinSvg.setAttribute('viewBox', `0 0 ${flowsBox.offsetWidth} ${flowsBox.offsetHeight}`);
     joins.forEach((w, k) => {
-      const A = flows[k], B = flows[k + 1], fa = boxIn(A, flowsBox), fb = boxIn(B, flowsBox);
-      const a = boxIn($('[data-out]', A)!, flowsBox), b = boxIn($('[data-in]', B)!, flowsBox);
+      const A = flows[k],
+        B = flows[k + 1],
+        fa = boxIn(A, flowsBox),
+        fb = boxIn(B, flowsBox);
+      const a = boxIn($('[data-out]', A)!, flowsBox),
+        b = boxIn($('[data-in]', B)!, flowsBox);
       if (phone.matches) {
-        const gap = (B.closest('.bn') as HTMLElement).offsetTop - (A.closest('.bn') as HTMLElement).offsetTop - (A.closest('.bn') as HTMLElement).offsetHeight;
+        const gap =
+          (B.closest('.bn') as HTMLElement).offsetTop -
+          (A.closest('.bn') as HTMLElement).offsetTop -
+          (A.closest('.bn') as HTMLElement).offsetHeight;
         shape(w, rail(a.x + a.w / 2, a.y + a.h, b.x + b.w / 2, b.y, fa.y + fa.h + gap / 3, fb.y - 16, fa.x - 8));
       } else shape(w, elbow(a.x + a.w / 2, a.y + a.h, b.x + b.w / 2, b.y, (fa.y + fa.h + fb.y) / 2));
     });
@@ -145,29 +207,53 @@ if (flowsBox) {
   const k: Flows = { flows, wires, joins, edges, node, boxIn, draw, at, ghosts: () => {} };
   kit = k;
   layout();
-  const ro = new ResizeObserver(() => { layout(); k.ghosts(); });
+  const ro = new ResizeObserver(() => {
+    layout();
+    k.ghosts();
+  });
   for (const el of [flowsBox, ...flows]) ro.observe(el);
   phone.addEventListener('change', layout);
-
 }
 
 /* ---------- a nav menu: hover and focus open it in CSS; a tap toggles it, Escape or a tap outside closes it ---------- */
 for (const m of $$('[data-menu]')) {
   const btn = $<HTMLButtonElement>('button', m)!;
-  const set = (on: boolean) => { m.classList.toggle('open', on); btn.setAttribute('aria-expanded', String(on)); };
+  const set = (on: boolean) => {
+    m.classList.toggle('open', on);
+    btn.setAttribute('aria-expanded', String(on));
+  };
   btn.addEventListener('click', () => set(!m.classList.contains('open')));
-  document.addEventListener('click', (e) => { if (!m.contains(e.target as Node)) set(false); });
-  m.addEventListener('keydown', (e) => { if (e.key === 'Escape') { set(false); btn.focus(); } });
-  for (const a of $$('a', m)) a.addEventListener('click', () => { set(false); (document.activeElement as HTMLElement | null)?.blur(); });
+  document.addEventListener('click', (e) => {
+    if (!m.contains(e.target as Node)) set(false);
+  });
+  m.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      set(false);
+      btn.focus();
+    }
+  });
+  for (const a of $$('a', m))
+    a.addEventListener('click', () => {
+      set(false);
+      (document.activeElement as HTMLElement | null)?.blur();
+    });
 }
 
 /* ---------- the phone menu: one button folds the links into a panel under the bar ---------- */
-const burger = $<HTMLButtonElement>('[data-burger]'), bar = $('[data-nav]');
+const burger = $<HTMLButtonElement>('[data-burger]'),
+  bar = $('[data-nav]');
 if (burger && bar) {
-  const set = (on: boolean) => { bar.classList.toggle('open', on); burger.setAttribute('aria-expanded', String(on)); };
+  const set = (on: boolean) => {
+    bar.classList.toggle('open', on);
+    burger.setAttribute('aria-expanded', String(on));
+  };
   burger.addEventListener('click', () => set(!bar.classList.contains('open')));
-  document.addEventListener('click', (e) => { if (!bar.contains(e.target as Node)) set(false); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+  document.addEventListener('click', (e) => {
+    if (!bar.contains(e.target as Node)) set(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') set(false);
+  });
   for (const a of $$('.links a', bar)) a.addEventListener('click', () => set(false));
 }
 
@@ -176,20 +262,26 @@ const box = $('[data-apply]');
 if (box) {
   const form = $<HTMLFormElement>('form', box)!;
   const steps = $$('.step', form);
-  const next = $<HTMLButtonElement>('[data-next]', form), back = $<HTMLButtonElement>('[data-back]', form);
+  const next = $<HTMLButtonElement>('[data-next]', form),
+    back = $<HTMLButtonElement>('[data-back]', form);
   const submit = $<HTMLButtonElement>('[data-submit]', form)!;
   let cur = 0;
   form.noValidate = true;
 
   const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-  const fieldOk = (input: HTMLInputElement, ok: boolean) => { input.closest('.field')?.classList.toggle('invalid', !ok); return ok; };
-  const email = form.elements.namedItem('email') as HTMLInputElement, firm = form.elements.namedItem('firm') as HTMLInputElement | null;
+  const fieldOk = (input: HTMLInputElement, ok: boolean) => {
+    input.closest('.field')?.classList.toggle('invalid', !ok);
+    return ok;
+  };
+  const email = form.elements.namedItem('email') as HTMLInputElement,
+    firm = form.elements.namedItem('firm') as HTMLInputElement | null;
   const phone = form.elements.namedItem('phone') as HTMLInputElement | null; // required on a page that calls back
-  const contactOk = () => [
-    fieldOk(email, EMAIL.test(email.value.trim())),
-    !firm?.required || fieldOk(firm, !!firm.value.trim()),
-    !phone?.required || fieldOk(phone, phone.value.replace(/\D/g, '').length >= 7),
-  ].every(Boolean);
+  const contactOk = () =>
+    [
+      fieldOk(email, EMAIL.test(email.value.trim())),
+      !firm?.required || fieldOk(firm, !!firm.value.trim()),
+      !phone?.required || fieldOk(phone, phone.value.replace(/\D/g, '').length >= 7),
+    ].every(Boolean);
 
   const answered = (s: HTMLElement) => {
     if ('contact' in s.dataset) return contactOk();
@@ -252,17 +344,37 @@ if (box) {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (cur < steps.length - 1) { advance(); return; } // Enter in a field before the last step moves on
-    if (!contactOk()) { if (steps.length > 1) show(steps.findIndex((s) => 'contact' in s.dataset)); $<HTMLElement>('.field.invalid input', form)?.focus(); return; }
-    const label = $('span', submit)!, was = label.textContent;
-    submit.disabled = true; label.textContent = submit.dataset.sending || was;
-    let state = 'error', booking: string | null = null;
+    if (cur < steps.length - 1) {
+      advance();
+      return;
+    } // Enter in a field before the last step moves on
+    if (!contactOk()) {
+      if (steps.length > 1) show(steps.findIndex((s) => 'contact' in s.dataset));
+      $<HTMLElement>('.field.invalid input', form)?.focus();
+      return;
+    }
+    const label = $('span', submit)!,
+      was = label.textContent;
+    submit.disabled = true;
+    label.textContent = submit.dataset.sending || was;
+    let state = 'error',
+      booking: string | null = null;
     try {
-      const r = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { accept: 'application/json' } });
-      const j = await r.json() as { ok: boolean; fit?: boolean; booking?: string | null };
-      if (j.ok) { state = j.fit ? 'fit' : 'nofit'; booking = j.booking ?? null; }
-    } catch { /* state stays error */ }
-    submit.disabled = false; label.textContent = was;
+      const r = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { accept: 'application/json' },
+      });
+      const j = (await r.json()) as { ok: boolean; fit?: boolean; booking?: string | null };
+      if (j.ok) {
+        state = j.fit ? 'fit' : 'nofit';
+        booking = j.booking ?? null;
+      }
+    } catch {
+      /* state stays error */
+    }
+    submit.disabled = false;
+    label.textContent = was;
     box.dataset.state = state;
     document.dispatchEvent(new CustomEvent('wren:form', { detail: { result: state } })); // hit.ts: form.result
     if (state !== 'error') document.dispatchEvent(new Event('wren:sent')); // survey.ts: a form-moment survey may ask now
@@ -280,12 +392,19 @@ if (box) {
 
 // the money lost on the pain screen underlines itself, one figure after another, when the reader reaches it
 if (motion) {
-  const io = new IntersectionObserver((es) => es.forEach((e) => {
-    if (!e.isIntersecting) return;
-    e.target.classList.add('drawn');
-    io.unobserve(e.target);
-  }), { rootMargin: '0px 0px -25% 0px' });
-  $$('.pain em').forEach((em, i) => { em.style.transitionDelay = `${i * 0.4}s`; io.observe(em); });
+  const io = new IntersectionObserver(
+    (es) =>
+      es.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('drawn');
+        io.unobserve(e.target);
+      }),
+    { rootMargin: '0px 0px -25% 0px' },
+  );
+  $$('.pain em').forEach((em, i) => {
+    em.style.transitionDelay = `${i * 0.4}s`;
+    io.observe(em);
+  });
 }
 
 // read the spot a reload lands on now, before the motion arrives and anything moves

@@ -1,18 +1,20 @@
 // POST /api/booking: the manage page's calls, JSON {token, do, start?, reason?}. `do` is "get" (the call as it
 // stands), "move" (to `start`) or "cancel". The token is the booking's own signed link; wren checks it, so nothing
 // here is trusted but its shape. A move or a cancel pings William in #meetings.
-import { type BookingView, MANAGE_TOKEN, calendar, meetings, when } from '../_shared/calendar';
+import { type BookingView, calendar, MANAGE_TOKEN, meetings, when } from '../_shared/calendar';
 import type { Env } from '../_shared/env';
 import { clip } from '../_shared/form';
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env, waitUntil }) => {
-  const reply = (status: number, body: Record<string, unknown>) => Response.json(body, { status, headers: { 'cache-control': 'no-store' } });
+  const reply = (status: number, body: Record<string, unknown>) =>
+    Response.json(body, { status, headers: { 'cache-control': 'no-store' } });
   const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
   const token = clip(body?.token, 64);
   if (!MANAGE_TOKEN.test(token)) return reply(404, { ok: false, error: 'link' });
   const fail = (status: number) =>
     reply(status === 404 ? 404 : status === 409 ? 409 : status === 400 ? 400 : 502, {
-      ok: false, error: status === 404 ? 'link' : status === 409 ? 'taken' : status === 400 ? 'invalid' : 'down',
+      ok: false,
+      error: status === 404 ? 'link' : status === 409 ? 'taken' : status === 400 ? 'invalid' : 'down',
     });
   switch (body?.do) {
     case 'get': {

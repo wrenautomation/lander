@@ -12,7 +12,11 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, waitUntil
   const hit = await cache.match(key);
   if (hit) return hit;
   const r = await calendar<Slots>(env, 'slots', {});
-  if (!r.data) return Response.json({ error: 'unavailable' }, { status: r.status === 503 ? 503 : 502, headers: { 'cache-control': 'no-store' } });
+  if (!r.data)
+    return Response.json(
+      { error: 'unavailable' },
+      { status: r.status === 503 ? 503 : 502, headers: { 'cache-control': 'no-store' } },
+    );
   const res = Response.json(r.data, { headers: { 'cache-control': 'public, max-age=30' } });
   waitUntil(cache.put(key, res.clone()));
   return res;
