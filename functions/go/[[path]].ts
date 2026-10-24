@@ -7,6 +7,8 @@
 // no time on page. Link previews (crawlers) are not counted. Only a YouTube id goes through: never an open redirect.
 // A hop to one of our pages is logged too: one `clicks` row with the page it went to and the utm, so wren counts
 // each tracked link's clicks (Sites → Links). Crawlers are left out here as well.
+// `?repo=<name>` sends them on to github.com/wrenautomation/<name> (a developer post, wren's funnel.ts), logged as a
+// click on page `github:<name>`. The org is fixed: never an open redirect.
 import links from '../../src/data/links.json';
 import type { Env } from '../_shared/env';
 import { visitorOf, withVisitor } from '../_shared/visitor';
@@ -16,6 +18,7 @@ const CHANNELS = links.channels as Record<string, Channel>;
 const WORD = /^[a-z0-9][a-z0-9._-]{0,79}$/i;
 const PAGE = /^\/(?:[a-z0-9-]+(?:\/[a-z0-9-]+)*)?$/;
 const VIDEO = /^[A-Za-z0-9_-]{11}$/;
+const REPO = /^[a-z0-9][a-z0-9-]{0,39}$/;
 // The fetchers that unfurl a link in a feed or a chat: not a person clicking.
 const BOT = /bot|crawl|spider|preview|facebookexternalhit|embedly|slack|discord|whatsapp|telegram|linkedinbot|twitterbot|redditbot/i;
 
@@ -45,19 +48,26 @@ export const onRequestGet: PagesFunction<Env> = ({ request, params, env, waitUnt
     });
     return withVisitor(out, visitor);
   }
+  const repo = url.searchParams.get('repo') || '';
   const to = url.searchParams.get('to') || '';
   const target = new URL(PAGE.test(to) ? to : channel.to, url.origin);
   const ua = request.headers.get('user-agent') || '';
+  const page = REPO.test(repo) ? `github:${repo}` : target.pathname;
   if (!BOT.test(ua))
     waitUntil(
       env.DB.prepare(
         `insert into clicks (ts, link, source, medium, campaign, content, page, ref, country)
          values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       ).bind(
-        new Date().toISOString(), name, channel.source, channel.medium, campaign, content, target.pathname,
+        new Date().toISOString(), name, channel.source, channel.medium, campaign, content, page,
         (request.headers.get('referer') || '').slice(0, 200), request.headers.get('cf-ipcountry') || '',
       ).run().catch(() => {}),
     );
+  if (REPO.test(repo))
+    return new Response(null, {
+      status: 302,
+      headers: { location: `https://github.com/wrenautomation/${repo}`, 'cache-control': 'no-store' },
+    });
   target.searchParams.set('utm_source', channel.source);
   target.searchParams.set('utm_medium', channel.medium);
   if (campaign) target.searchParams.set('utm_campaign', campaign);
