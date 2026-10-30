@@ -1,0 +1,36 @@
+---
+// /strata/support. App Store support URL for the Strata iOS app.
+import { getEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Mark from '../../components/Mark.astro';
+import Theme from '../../components/Theme.astro';
+import Foot from '../../components/Foot.astro';
+const site = (await getEntry('site', 'site'))!.data;
+---
+<Base title="Strata support | Wren Automation" description="Help with the Strata app." hue="lavender">
+<div class="wrap">
+  <nav class="nav" aria-label="Page">
+    <a href="/" aria-label="Wren Automation, front page"><Mark /></a>
+    <div class="right">
+      <Theme to_dark={site.theme.to_dark} to_light={site.theme.to_light} />
+    </div>
+  </nav>
+</div>
+<main>
+<section class="hero">
+  <div class="wrap">
+    <h1>Strata support</h1>
+    <p class="lede">Strata keeps your guiding questions above your tasks, and keeps every change. Something wrong or missing? Email <a href={`mailto:${site.email}`}>{site.email}</a>. I read every one.</p>
+  </div>
+</section>
+<section class="s">
+  <div class="wrap legal">
+    <h2>Sync</h2>
+    <p>Strata syncs through your own iCloud. Check that you are signed in to the same Apple account on each device, and that iCloud is on for Strata in Settings, your name, iCloud.</p>
+    <h2>Your data</h2>
+    <p>See <a href="/strata/privacy">Strata privacy</a>. "Export history" in the app gives you every change as a file.</p>
+  </div>
+</section>
+</main>
+<Foot site={site} />
+</Base>

@@ -1,0 +1,47 @@
+---
+// /strata/privacy. App Store privacy policy URL for the Strata iOS app.
+// Edit next to strata/ (CloudKitSync.swift, Shared.swift): this says what that code does.
+import { getEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Mark from '../../components/Mark.astro';
+import Theme from '../../components/Theme.astro';
+import Foot from '../../components/Foot.astro';
+const site = (await getEntry('site', 'site'))!.data;
+const updated = 'October 30, 2026';
+---
+<Base title="Strata privacy | Wren Automation" description="What the Strata app collects: nothing. Your notes stay on your devices and in your own iCloud." hue="lavender">
+<div class="wrap">
+  <nav class="nav" aria-label="Page">
+    <a href="/" aria-label="Wren Automation, front page"><Mark /></a>
+    <div class="right">
+      <Theme to_dark={site.theme.to_dark} to_light={site.theme.to_light} />
+    </div>
+  </nav>
+</div>
+<main>
+<section class="hero">
+  <div class="wrap">
+    <h1>Strata privacy</h1>
+    <p class="lede">Strata is an iPhone and iPad app I make, William Jin, in Toronto. It collects nothing about you. Last updated {updated}.</p>
+  </div>
+</section>
+<section class="s">
+  <div class="wrap legal">
+    <h2>Where your notes live</h2>
+    <p>Everything you write in Strata (questions, answers, tasks, ideas and their history) is stored in a database on your device. If iCloud is on, Strata copies it to the private database of your own iCloud account so your other devices get it. Apple holds that copy under its <a href="https://www.apple.com/legal/privacy/">privacy policy</a>. I cannot see it, and no server of mine ever receives it.</p>
+    <p>The home screen and lock screen widgets read the same database on your device. What you say to Siri or Shortcuts with "Add to Strata" goes straight into that database.</p>
+
+    <h2>What I collect</h2>
+    <p>Nothing. Strata has no account, no analytics, no ads, no tracking and no third-party code that phones home. If you choose to share crash reports with developers in your iPhone's settings, Apple may send me anonymous crash logs.</p>
+
+    <h2>Keeping and deleting</h2>
+    <p>Your notes stay until you delete them. "Export history" in the app gives you every change as a file. To delete everything, delete the app, then remove Strata's data in Settings, your name, iCloud, Manage Storage.</p>
+    <p>Questions: email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+
+    <h2>Changes</h2>
+    <p>If this changes, the date at the top changes with it.</p>
+  </div>
+</section>
+</main>
+<Foot site={site} />
+</Base>
